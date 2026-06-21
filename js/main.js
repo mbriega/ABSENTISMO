@@ -1,0 +1,248 @@
+// js/main.js
+// Inicialización — detecta la página por data-page en <body>
+
+document.addEventListener("DOMContentLoaded", function() {
+
+  // Sidebar en todas las páginas
+  if (typeof SidebarComponent !== "undefined") {
+    SidebarComponent.render();
+  }
+
+  var page = document.body.dataset.page;
+  if (page === "patrones")   initPatronesPage();
+  if (page === "pat-detail") initPatDetailPage();
+});
+
+// ══════════════════════════════════════════════════════════════
+// TABLA DE PATRONES
+// ══════════════════════════════════════════════════════════════
+
+var TableComponent = (function() {
+
+  var BADGE = {
+    critico: "badge--critico",
+    alto:    "badge--alto",
+    medio:   "badge--medio",
+    bajo:    "badge--bajo"
+  };
+
+  function render(filtro) {
+    var tbody = document.getElementById("patrones-table-body");
+    if (!tbody) return;
+
+    var items = (filtro === "Todos")
+      ? PATRONES_DATA.patrones
+      : PATRONES_DATA.patrones.filter(function(p) { return p.categoria === filtro; });
+
+    tbody.innerHTML = items.map(function(p) {
+      return '<tr class="patrones-row cursor-pointer" onclick="window.location.href=\'' + p.detalle + '\'">'
+        + '<td class="px-5 py-4">'
+        + '<p class="text-sm font-medium text-surface-900 leading-tight">' + p.nombre + "</p>"
+        + '<p class="text-xs text-surface-400 mt-0.5 leading-relaxed">' + p.definicion + "</p>"
+        + "</td>"
+        + '<td class="px-4 py-4 text-right text-sm font-semibold text-surface-900 tabular-nums">' + p.activaciones.toLocaleString("es-ES") + "</td>"
+        + '<td class="px-4 py-4 text-right text-sm font-semibold text-surface-900 tabular-nums">' + p.empleados + "</td>"
+        + '<td class="px-4 py-4 text-right text-sm font-semibold text-surface-700 tabular-nums">' + p.riesgo60d + "</td>"
+        + '<td class="px-4 py-4 text-right text-sm text-surface-600 tabular-nums">' + p.diasAsoc + "</td>"
+        + '<td class="px-4 py-4 text-right text-sm text-surface-600 tabular-nums">' + p.media + "</td>"
+        + '<td class="px-4 py-4 text-right text-sm font-semibold text-surface-900 tabular-nums">' + p.costeDirecto + "</td>"
+        + '<td class="px-4 py-4 text-center"><span class="badge ' + (BADGE[p.criticidad] || "") + '">' + p.criticidad + "</span></td>"
+        + '<td class="px-4 py-4">'
+        + '<a href="' + p.detalle + '" class="text-primary-600 hover:text-primary-700 transition-colors" onclick="event.stopPropagation()">'
+        + '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">'
+        + '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>'
+        + "</svg></a></td>"
+        + "</tr>";
+    }).join("");
+  }
+
+  return { render: render };
+})();
+
+// ══════════════════════════════════════════════════════════════
+// PÁGINA: PATRONES (listado)
+// ══════════════════════════════════════════════════════════════
+
+function initPatronesPage() {
+  // Análisis IA
+  var aiList = document.getElementById("ai-analysis-list");
+  if (aiList) {
+    aiList.innerHTML = PATRONES_DATA.aiAnalysis.map(function(text) {
+      return '<li class="flex items-start gap-2.5 text-sm text-surface-600">'
+        + '<span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary-400 shrink-0"></span>'
+        + "<span>" + text + "</span>"
+        + "</li>";
+    }).join("");
+  }
+
+  // Filtros + tabla inicial
+  FiltersComponent.render();
+  TableComponent.render("Todos");
+}
+
+// ══════════════════════════════════════════════════════════════
+// PÁGINA: PAT DETAIL (pat-002)
+// ══════════════════════════════════════════════════════════════
+
+function initPatDetailPage() {
+  var d = PAT002_DATA;
+
+  // KPIs
+  setText("kpi-impacto",   d.kpis.impactoEconomicoLabel);
+  setText("kpi-personas",  d.kpis.personas);
+  setText("kpi-variables", d.kpis.variables);
+  setText("kpi-confianza", d.kpis.confianza);
+  setText("pat-resumen",   d.resumen);
+
+  // Impacto desglose (lista derecha)
+  var desgloseEl = document.getElementById("impacto-desglose");
+  if (desgloseEl) {
+    desgloseEl.innerHTML = d.impactoDesglose.map(function(item) {
+      return '<div class="flex items-center justify-between py-2.5 border-b border-surface-100 last:border-0">'
+        + "<div>"
+        + '<p class="text-sm font-medium text-surface-800">' + item.concepto + "</p>"
+        + '<p class="text-xs text-surface-400">' + item.porcentaje + "% del total</p>"
+        + "</div>"
+        + '<p class="text-sm font-semibold text-surface-900 tabular-nums">' + item.importeLabel + "</p>"
+        + "</div>";
+    }).join("");
+  }
+
+  // Localización
+  var loc = d.localizacion;
+  if (!loc.centrosAfectados.length) setText("centros-list", "Sin datos");
+  if (!loc.turnosAfectados.length)  setText("turnos-list",  "Sin datos");
+
+  var perfilesEl = document.getElementById("perfiles-list");
+  if (perfilesEl && loc.perfilesPuesto.length) {
+    perfilesEl.innerHTML = loc.perfilesPuesto.map(function(p) {
+      return '<span class="text-xs bg-surface-100 text-surface-700 px-2.5 py-1 rounded-full font-medium">' + p + "</span>";
+    }).join("");
+  }
+
+  var equiposEl = document.getElementById("equipos-list");
+  if (equiposEl && loc.equiposResponsables.length) {
+    equiposEl.innerHTML = loc.equiposResponsables.map(function(e) {
+      return '<span class="text-sm text-surface-600 flex items-center gap-1.5">'
+        + '<span class="w-1.5 h-1.5 rounded-full bg-primary-400 shrink-0"></span>'
+        + e + "</span>";
+    }).join("");
+  }
+
+  // Gráfica barras (impacto)
+  if (typeof ChartsComponent !== "undefined") {
+    ChartsComponent.renderBarChart("chart-impacto", d.impactoDesglose);
+  }
+
+  // Botones de métrica (timeline)
+  var metricBtns = document.getElementById("metric-buttons");
+  if (metricBtns) {
+    metricBtns.innerHTML = '<button class="metric-btn active" data-metric="0">Tasa (%)</button>';
+  }
+
+  // Gráfica línea (evolución) — índice 6 = julio (intervención)
+  if (typeof ChartsComponent !== "undefined") {
+    ChartsComponent.renderLineChart("chart-timeline", d.evolucionTemporal, 6);
+  }
+
+  // Medición antes/después
+  var med = d.medicion;
+  setText("intervencion-label", "Intervención: " + med.intervencion);
+  setText("pre-label",          med.pre.label);
+  setText("pre-valor",          med.pre.valor);
+  setText("pre-rango",          med.pre.rango);
+  setText("post-label",         med.post.label);
+  setText("post-valor",         med.post.valor);
+  setText("post-rango",         med.post.rango);
+  setText("cambio-valor",       med.cambioImpacto);
+  setText("cambio-estado",      med.estado);
+
+  // Recomendación
+  var rec = d.recomendacion;
+  setText("rec-que",       rec.quePropone);
+  setText("rec-porque",    rec.porQue);
+  setText("rec-impacto",   rec.impactoEsperado);
+  setText("rec-colectivo", rec.colectivoObjetivo);
+
+  // Personas
+  setText("personas-subtitle", d.personas.total + " personas afectadas por este patrón");
+  setText("personas-summary",  d.personas.total + " personas · " + (d.personas.centrosAfectados || "—") + " centros afectados");
+
+  // Consultor — contextos
+  var ctxEl = document.getElementById("consultor-contextos");
+  if (ctxEl) {
+    ctxEl.innerHTML = d.consultorContextos.map(function(c) {
+      return '<button class="filter-btn text-xs">' + c + "</button>";
+    }).join("");
+  }
+
+  // Consultor — preguntas rápidas
+  var qEl = document.getElementById("consultor-preguntas");
+  if (qEl) {
+    qEl.innerHTML = d.consultorPreguntas.map(function(q) {
+      return '<button class="filter-btn text-xs" onclick="setConsultorInput(\'' + q.replace(/'/g, "\\'") + '\')">' + q + "</button>";
+    }).join("");
+  }
+
+  // Accordion
+  var accordionBtn  = document.getElementById("accordion-btn");
+  var accordionBody = document.getElementById("accordion-body");
+  var accordionIcon = document.getElementById("accordion-icon");
+  if (accordionBtn && accordionBody) {
+    accordionBtn.addEventListener("click", function() {
+      accordionBody.classList.toggle("open");
+      if (accordionIcon) {
+        accordionIcon.style.transform = accordionBody.classList.contains("open") ? "rotate(180deg)" : "";
+      }
+    });
+  }
+
+  // Consultor — envío
+  var sendBtn  = document.getElementById("consultor-send");
+  var inputEl  = document.getElementById("consultor-input");
+  var chatArea = document.getElementById("chat-area");
+  if (sendBtn && inputEl && chatArea) {
+    sendBtn.addEventListener("click", function() { sendConsultorMessage(inputEl, chatArea); });
+    inputEl.addEventListener("keypress", function(e) {
+      if (e.key === "Enter") sendConsultorMessage(inputEl, chatArea);
+    });
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════════════════════════════
+
+function setText(id, value) {
+  var el = document.getElementById(id);
+  if (el) el.textContent = value;
+}
+
+function setConsultorInput(text) {
+  var input = document.getElementById("consultor-input");
+  if (input) { input.value = text; input.focus(); }
+}
+
+function sendConsultorMessage(inputEl, chatArea) {
+  var text = inputEl.value.trim();
+  if (!text) return;
+
+  var placeholder = chatArea.querySelector("p.italic");
+  if (placeholder) placeholder.remove();
+
+  var userBubble = document.createElement("div");
+  userBubble.className = "flex justify-end";
+  userBubble.innerHTML = '<div class="chat-bubble-user">' + text + "</div>";
+  chatArea.appendChild(userBubble);
+  inputEl.value = "";
+
+  setTimeout(function() {
+    var aiBubble = document.createElement("div");
+    aiBubble.className = "flex justify-start";
+    aiBubble.innerHTML = '<div class="chat-bubble-ai">Analizando el patrón PAT-002 con los datos disponibles… (integración con Mistral pendiente)</div>';
+    chatArea.appendChild(aiBubble);
+    chatArea.scrollTop = chatArea.scrollHeight;
+  }, 600);
+
+  chatArea.scrollTop = chatArea.scrollHeight;
+}

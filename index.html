@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Absentismo Patrones – ThirdWish Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Inter, system-ui, sans-serif; background: #f8fafc; color: #0f172a; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem; }
+    .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 2.5rem; max-width: 640px; width: 100%; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+    .logo { display: flex; align-items: center; gap: 12px; margin-bottom: 2rem; }
+    .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #2563eb, #1d4ed8); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+    .logo-icon svg { width: 20px; height: 20px; color: #fff; fill: #fff; }
+    .logo-text h1 { font-size: 1rem; font-weight: 600; color: #0f172a; }
+    .logo-text p { font-size: 0.7rem; color: #94a3b8; letter-spacing: 0.1em; text-transform: uppercase; }
+    h2 { font-size: 1.5rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem; }
+    .subtitle { font-size: 0.875rem; color: #64748b; margin-bottom: 2rem; }
+    .section-title { font-size: 0.7rem; font-weight: 600; color: #94a3b8; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .pages { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem; }
+    .page-link { display: flex; align-items: center; justify-content: space-between; padding: 0.875rem 1rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; text-decoration: none; color: #1e293b; transition: all 0.15s; }
+    .page-link:hover { background: #eff6ff; border-color: #93c5fd; }
+    .page-link .info { display: flex; flex-direction: column; gap: 2px; }
+    .page-link .name { font-size: 0.875rem; font-weight: 600; }
+    .page-link .path { font-size: 0.75rem; color: #94a3b8; font-family: monospace; }
+    .page-link svg { width: 16px; height: 16px; color: #2563eb; }
+    .tree { background: #1e293b; border-radius: 10px; padding: 1.25rem 1.5rem; font-family: monospace; font-size: 0.78rem; line-height: 1.8; color: #94a3b8; margin-bottom: 2rem; }
+    .tree .dir  { color: #93c5fd; }
+    .tree .file { color: #e2e8f0; }
+    .tree .comment { color: #475569; }
+    .css-notice { background: #fefce8; border: 1px solid #fde047; border-radius: 10px; padding: 1rem 1.25rem; font-size: 0.8rem; color: #713f12; }
+    .css-notice strong { display: block; margin-bottom: 0.25rem; }
+    .css-notice code { background: #fde047; padding: 1px 5px; border-radius: 4px; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <div class="card">
+
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 9l10 13L22 9 12 2z"/></svg>
+      </div>
+      <div class="logo-text">
+        <h1>ThirdWish Intelligence</h1>
+        <p>AbsenceIQ · Patrones</p>
+      </div>
+    </div>
+
+    <h2>Módulo Patrones</h2>
+    <p class="subtitle">Proyecto HTML/CSS/JS estático — navega por las páginas o consulta la estructura.</p>
+
+    <p class="section-title">Páginas disponibles</p>
+    <div class="pages">
+      <a href="pages/patrones.html" class="page-link">
+        <div class="info">
+          <span class="name">Listado de Patrones</span>
+          <span class="path">pages/patrones.html</span>
+        </div>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </a>
+      <a href="pages/pat-002.html" class="page-link">
+        <div class="info">
+          <span class="name">PAT-002: Reincorporación frágil tras IT larga</span>
+          <span class="path">pages/pat-002.html</span>
+        </div>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+
+    <p class="section-title">Estructura del proyecto</p>
+    <div class="tree">
+      <span class="dir">absentismo-patrones/</span><br>
+      ├── <span class="file">index.html</span>           <span class="comment">← esta página</span><br>
+      ├── <span class="dir">pages/</span><br>
+      │   ├── <span class="file">patrones.html</span>    <span class="comment">← listado 18 patrones</span><br>
+      │   └── <span class="file">pat-002.html</span>     <span class="comment">← detalle PAT-002</span><br>
+      ├── <span class="dir">css/</span><br>
+      │   └── <span class="file">styles.css</span>       <span class="comment">← Tailwind v4 + custom</span><br>
+      ├── <span class="dir">js/</span><br>
+      │   ├── <span class="dir">data/</span><br>
+      │   │   ├── <span class="file">patrones-data.js</span><br>
+      │   │   └── <span class="file">pat-002-data.js</span><br>
+      │   ├── <span class="dir">components/</span><br>
+      │   │   ├── <span class="file">sidebar.js</span><br>
+      │   │   ├── <span class="file">filters.js</span><br>
+      │   │   └── <span class="file">charts.js</span><br>
+      │   └── <span class="file">main.js</span><br>
+      └── <span class="dir">assets/icons/</span>
+    </div>
+
+    <div class="css-notice">
+      <strong>⚠️ CSS pendiente de configurar</strong>
+      Abre <code>css/styles.css</code> y pega al inicio el contenido de
+      <code>index-DUehWDKn.css</code> (el fichero compilado de Tailwind).
+      Las custom styles ya están al final del fichero.
+    </div>
+
+  </div>
+</body>
+</html>

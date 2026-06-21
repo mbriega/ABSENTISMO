@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAT-002: Reincorporación frágil – ThirdWish Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body class="bg-surface-50 text-surface-900 antialiased" data-page="pat-detail">
+
+  <div class="flex min-h-screen">
+
+    <!-- SIDEBAR (montado por sidebar.js) -->
+    <div id="sidebar-mount"></div>
+
+    <!-- ====== MAIN CONTENT ====== -->
+    <div class="flex-1 flex flex-col lg:pl-[260px] min-h-screen">
+
+      <!-- Header -->
+      <header class="sticky top-0 z-30 bg-white border-b border-surface-200/60 px-6 py-4 flex items-center justify-between">
+        <div>
+          <h1 class="text-xl font-semibold text-surface-900">Patrones Detectados</h1>
+          <p class="text-sm text-surface-500 mt-0.5">Análisis de patrones y anomalías</p>
+        </div>
+        <button class="w-9 h-9 rounded-full bg-primary-600 flex items-center justify-center text-white text-sm font-semibold">AD</button>
+      </header>
+
+      <main class="flex-1 px-6 py-6 space-y-5">
+
+        <!-- Back link -->
+        <a href="patrones.html" class="inline-flex items-center gap-2 text-sm text-primary-600 hover:text-primary-700 font-medium transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+          Volver a Patrones
+        </a>
+
+        <!-- ── Header Card ── -->
+        <div class="bg-white rounded-xl border border-critical-200 p-6 shadow-card">
+          <div class="flex items-start justify-between flex-wrap gap-4">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-critical-50 rounded-xl flex items-center justify-center shrink-0">
+                <svg class="w-6 h-6 text-critical-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+                </svg>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold text-surface-900 tracking-tight">Reincorporación frágil tras IT larga</h2>
+                <span class="inline-block mt-1 text-xs text-surface-400 bg-surface-100 px-2 py-0.5 rounded font-medium uppercase tracking-wider">reincorp</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 flex-wrap">
+              <span class="badge badge--critico">
+                <span class="w-1.5 h-1.5 rounded-full bg-critical-500 mr-1.5"></span>Crítico
+              </span>
+              <span class="text-sm text-surface-400 flex items-center gap-1.5">
+                <span class="w-px h-4 bg-surface-200 inline-block"></span>
+                Estable
+              </span>
+              <span class="text-sm font-medium text-surface-700 bg-surface-100 px-3 py-1.5 rounded-full">80% confianza</span>
+            </div>
+          </div>
+
+          <!-- Resumen interpretativo -->
+          <div class="mt-5 p-4 bg-primary-50/50 rounded-lg border border-primary-100">
+            <div class="flex items-center gap-2 mb-2">
+              <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+              <h3 class="text-sm font-semibold text-primary-800">Resumen interpretativo</h3>
+            </div>
+            <p class="text-sm text-primary-700 leading-relaxed" id="pat-resumen"></p>
+          </div>
+        </div>
+
+        <!-- ── KPIs ── -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+
+          <div class="bg-white rounded-xl border border-surface-200 p-5 shadow-card text-center">
+            <svg class="w-5 h-5 text-surface-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <p class="text-2xl font-bold text-surface-900 tracking-tight" id="kpi-impacto">—</p>
+            <p class="text-xs text-surface-500 mt-1 font-medium">Impacto económico</p>
+            <p class="text-[11px] text-surface-400">Estimación anual</p>
+          </div>
+
+          <div class="bg-white rounded-xl border border-surface-200 p-5 shadow-card text-center">
+            <svg class="w-5 h-5 text-surface-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+            <p class="text-2xl font-bold text-surface-900 tracking-tight" id="kpi-personas">—</p>
+            <p class="text-xs text-surface-500 mt-1 font-medium">Personas identificadas</p>
+            <p class="text-[11px] text-surface-400">Afectadas por el patrón</p>
+          </div>
+
+          <div class="bg-white rounded-xl border border-surface-200 p-5 shadow-card text-center">
+            <svg class="w-5 h-5 text-surface-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+            </svg>
+            <p class="text-2xl font-bold text-surface-900 tracking-tight" id="kpi-variables">—</p>
+            <p class="text-xs text-surface-500 mt-1 font-medium">Variables</p>
+            <p class="text-[11px] text-surface-400">Variables del modelo</p>
+          </div>
+
+          <div class="bg-white rounded-xl border border-surface-200 p-5 shadow-card text-center">
+            <svg class="w-5 h-5 text-surface-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+            <p class="text-2xl font-bold text-surface-900 tracking-tight" id="kpi-confianza">—</p>
+            <p class="text-xs text-surface-500 mt-1 font-medium">Confianza</p>
+            <p class="text-[11px] text-surface-400">Nivel de certeza</p>
+          </div>
+
+        </div>
+
+        <!-- ── Cómo lo detectamos ── -->
+        <div class="bg-white rounded-xl border border-surface-200 p-6 shadow-card">
+          <h3 class="text-base font-semibold text-surface-900 mb-1">Cómo lo hemos detectado</h3>
+          <p class="text-sm text-surface-400 mb-4">Variables que componen el patrón y su peso relativo</p>
+          <p class="text-sm text-surface-400 italic" id="variables-placeholder">Sin variables del modelo disponibles.</p>
+        </div>
+
+        <!-- ── Impacto económico ── -->
+        <div class="bg-white rounded-xl border border-surface-200 p-6 shadow-card">
+          <h3 class="text-base font-semibold text-surface-900 mb-1">Impacto económico</h3>
+          <p class="text-sm text-surface-400 mb-5">Total: 1.215.660 €</p>
+          <div class="flex flex-col lg:flex-row gap-6 items-start">
+            <div class="flex-1 min-w-0">
+              <canvas id="chart-impacto"></canvas>
+            </div>
+            <div class="lg:w-72 w-full" id="impacto-desglose">
+              <!-- Poblado por main.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Localización del impacto ── -->
+        <div class="bg-white rounded-xl border border-surface-200 p-6 shadow-card">
+          <h3 class="text-base font-semibold text-surface-900 mb-1">Localización del impacto</h3>
+          <p class="text-sm text-surface-400 mb-5">Centros, turnos, perfiles y equipos afectados</p>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+            <div>
+              <h4 class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-3">Centros afectados</h4>
+              <p class="text-sm text-surface-400 italic" id="centros-list">Sin datos</p>
+            </div>
+
+            <div class="space-y-6">
+              <div>
+                <h4 class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-3">Turnos afectados</h4>
+                <p class="text-sm text-surface-400 italic" id="turnos-list">Sin datos</p>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-3">Perfiles de puesto</h4>
+                <div id="perfiles-list" class="flex flex-wrap gap-2"></div>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-3">Equipos responsables</h4>
+                <div id="equipos-list" class="flex flex-col gap-1.5"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── Evolución temporal ── -->
+        <div class="bg-white rounded-xl border border-surface-200 p-6 shadow-card">
+          <div class="flex items-center justify-between flex-wrap gap-3 mb-5">
+            <div>
+              <h3 class="text-base font-semibold text-surface-900">Evolución temporal</h3>
+              <p class="text-sm text-surface-400 mt-0.5">Tendencia: estable</p>
+            </div>
+            <div class="flex flex-wrap gap-2" id="metric-buttons"></div>
+          </div>
+          <canvas id="chart-timeline"></canvas>
+        </div>
+
+        <!-- ── Medición antes/después ── -->
+        <div class="bg-white rounded-xl border border-surface-200 p-6 shadow-card">
+          <h3 class="text-base font-semibold text-surface-900 mb-1">Medición antes y después</h3>
+          <p class="text-sm text-surface-400 mb-5" id="intervencion-label">Intervención: —</p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+            <div class="bg-surface-50 rounded-lg p-4 border border-surface-100">
+              <p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-2" id="pre-label">Período Pre</p>
+              <p class="text-3xl font-bold text-surface-900 tracking-tight" id="pre-valor">—</p>
+              <p class="text-xs text-surface-400 mt-1" id="pre-rango">—</p>
+            </div>
+
+            <div class="bg-surface-50 rounded-lg p-4 border border-surface-100">
+              <p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-2" id="post-label">Período Post</p>
+              <p class="text-3xl font-bold text-surface-900 tracking-tight" id="post-valor">—</p>
+              <p class="text-xs text-surface-400 mt-1" id="post-rango">—</p>
+            </div>
+
+            <div class="bg-low-50 rounded-lg p-4 border border-low-200">
+              <p class="text-xs font-semibold text-low-600 uppercase tracking-wider mb-2">Cambio de impacto</p>
+              <p class="text-3xl font-bold text-low-700 tracking-tight" id="cambio-valor">—</p>
+              <p class="text-xs text-surface-400 mt-1" id="cambio-estado">—</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── Evidencia técnica (accordion) ── -->
+        <div class="bg-white rounded-xl border border-surface-200 shadow-card overflow-hidden">
+          <button class="accordion-header w-full flex items-center justify-between px-6 py-4 hover:bg-surface-50 transition-colors"
+                  id="accordion-btn">
+            <div>
+              <h3 class="text-base font-semibold text-surface-900 text-left">Evidencia técnica</h3>
+              <p class="text-sm text-surface-400 mt-0.5 text-left">Detalles del modelo, fuentes y trazabilidad</p>
+            </div>
+            <svg class="w-5 h-5 text-surface-400 transition-transform duration-200" id="accordion-icon"
+                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="accordion-body" id="accordion-body">
+            <div class="px-6 pb-6 pt-2 border-t border-surface-100">
+              <p class="text-sm text-surface-500">
+                Modelo basado en reglas deterministas sobre datos de nómina y absentismo.
+                No se aplican algoritmos de ML en esta versión; la detección es 100% basada en
+                umbrales configurables. Fuentes: sistema de nómina (Salario Base, conceptos IT),
+                plantilla (FTE mensual) y registros de absentismo (días de los 90 días previos).
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Recomendación de intervención ── -->
+        <div class="bg-white rounded-xl border border-surface-200 p-6 shadow-card">
+          <div class="flex items-center gap-2 mb-4">
+            <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+            </svg>
+            <h3 class="text-base font-semibold text-surface-900">Recomendación de intervención</h3>
+          </div>
+          <p class="text-xs text-surface-400 mb-4">Acción sugerida por el sistema con evidencia</p>
+          <div class="space-y-4">
+            <div class="bg-primary-50/50 rounded-lg p-4 border border-primary-100">
+              <div class="flex items-start gap-3">
+                <svg class="w-4 h-4 text-primary-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+                <div>
+                  <h4 class="text-sm font-semibold text-primary-800 mb-1">Qué se propone</h4>
+                  <p class="text-sm text-primary-700/90 leading-relaxed" id="rec-que">—</p>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="bg-surface-50 rounded-lg p-4 border border-surface-100">
+                <p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-1.5">Por qué</p>
+                <p class="text-sm text-surface-700" id="rec-porque">—</p>
+              </div>
+              <div class="bg-surface-50 rounded-lg p-4 border border-surface-100">
+                <p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-1.5">Impacto esperado</p>
+                <p class="text-sm font-semibold text-low-700" id="rec-impacto">—</p>
+              </div>
+              <div class="bg-surface-50 rounded-lg p-4 border border-surface-100">
+                <p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-1.5">Colectivo objetivo</p>
+                <p class="text-sm text-surface-700" id="rec-colectivo">—</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Personas identificadas ── -->
+        <div class="bg-white rounded-xl border border-surface-200 shadow-card overflow-hidden">
+          <div class="px-6 py-4 border-b border-surface-100 flex items-center justify-between">
+            <div>
+              <h3 class="text-base font-semibold text-surface-900">Personas identificadas</h3>
+              <p class="text-sm text-surface-400 mt-0.5" id="personas-subtitle">— personas afectadas por este patrón</p>
+            </div>
+            <button class="text-sm text-primary-600 hover:text-primary-700 font-medium border border-primary-200 hover:border-primary-300 px-4 py-2 rounded-lg transition-colors"
+                    id="btn-ver-listado">
+              Ver listado completo
+            </button>
+          </div>
+          <div class="px-6 py-4">
+            <p class="text-sm text-surface-500" id="personas-summary">— personas · — centros afectados</p>
+          </div>
+        </div>
+
+        <!-- ── Consultor de Patrón ── -->
+        <div class="bg-white rounded-xl border border-surface-200 p-6 shadow-card">
+          <h3 class="text-base font-semibold text-surface-900 mb-1">Consultor de Patrón</h3>
+          <p class="text-sm text-surface-400 mb-4">Pregunta al sistema sobre este patrón</p>
+
+          <div class="flex flex-wrap gap-2 mb-4" id="consultor-contextos"></div>
+          <div class="flex flex-wrap gap-2 mb-4" id="consultor-preguntas"></div>
+
+          <div class="flex flex-col gap-3 min-h-[80px] mb-4 p-4 bg-surface-50 rounded-xl border border-surface-100"
+               id="chat-area">
+            <p class="text-sm text-surface-400 italic text-center">Haz una pregunta para comenzar…</p>
+          </div>
+
+          <div class="flex gap-2">
+            <input type="text" id="consultor-input"
+              placeholder="Escribe tu pregunta sobre este patrón..."
+              class="flex-1 text-sm border border-surface-200 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary-400 focus:ring-1 focus:ring-primary-300 placeholder:text-surface-300 transition-colors" />
+            <button id="consultor-send"
+              class="bg-primary-600 hover:bg-primary-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+              </svg>
+              Enviar
+            </button>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Botón flotante IA -->
+  <button class="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-4 py-3 rounded-full shadow-xl transition-colors text-sm font-medium">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+    </svg>
+    Consultor IA
+  </button>
+
+  <script src="../js/data/pat-002-data.js"></script>
+  <script src="../js/components/sidebar.js"></script>
+  <script src="../js/components/charts.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>
