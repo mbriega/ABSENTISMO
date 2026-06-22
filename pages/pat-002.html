@@ -143,15 +143,30 @@
         <!-- ── Qué significa / Qué no significa ── -->
         <div class="bg-white rounded-xl border border-surface-200 p-6 shadow-card">
           <h3 class="text-base font-semibold text-surface-900 mb-4">Qué significa y qué no significa</h3>
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div>
-              <h4 class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-3">Qué significa</h4>
-              <ul class="space-y-3" id="que-significa-list"></ul>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+            <!-- Qué significa -->
+            <div class="rounded-xl border border-primary-200 overflow-hidden">
+              <div class="bg-primary-50 px-4 py-2.5 border-b border-primary-100 flex items-center gap-2">
+                <svg class="w-3.5 h-3.5 text-primary-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M20 6L9 17l-5-5"/>
+                </svg>
+                <span class="text-xs font-semibold text-primary-700">Qué significa</span>
+              </div>
+              <div class="divide-y divide-surface-100" id="que-significa-list"></div>
             </div>
-            <div>
-              <h4 class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-3">Qué NO significa</h4>
-              <ul class="space-y-3" id="que-no-significa-list"></ul>
+
+            <!-- Qué NO significa -->
+            <div class="rounded-xl border border-surface-200 overflow-hidden">
+              <div class="bg-surface-50 px-4 py-2.5 border-b border-surface-100 flex items-center gap-2">
+                <svg class="w-3.5 h-3.5 text-surface-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+                <span class="text-xs font-semibold text-surface-600">Qué NO significa</span>
+              </div>
+              <div class="divide-y divide-surface-100" id="que-no-significa-list"></div>
             </div>
+
           </div>
         </div>
 

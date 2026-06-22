@@ -169,11 +169,11 @@ function initPatDetailPage() {
   // Qué significa
   var qsEl = document.getElementById("que-significa-list");
   if (qsEl && d.queSignifica) {
-    qsEl.innerHTML = d.queSignifica.map(function(item) {
-      return '<li class="flex items-start gap-2.5">'
-        + '<span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary-400 shrink-0"></span>'
+    qsEl.innerHTML = d.queSignifica.map(function(item, i) {
+      return '<div class="px-4 py-3.5 flex items-start gap-3">'
+        + '<span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary-100 text-primary-600 text-[10px] font-bold shrink-0 mt-0.5">' + (i + 1) + "</span>"
         + '<span class="text-sm text-surface-700 leading-relaxed">' + item + "</span>"
-        + "</li>";
+        + "</div>";
     }).join("");
   }
 
@@ -181,10 +181,10 @@ function initPatDetailPage() {
   var qnsEl = document.getElementById("que-no-significa-list");
   if (qnsEl && d.queNoSignifica) {
     qnsEl.innerHTML = d.queNoSignifica.map(function(item) {
-      return '<li class="flex items-start gap-2.5">'
-        + '<span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-surface-300 shrink-0"></span>'
-        + '<span class="text-sm text-surface-600 leading-relaxed">' + item + "</span>"
-        + "</li>";
+      return '<div class="px-4 py-3.5 flex items-start gap-3">'
+        + '<span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-surface-100 text-surface-400 text-xs font-bold shrink-0 mt-0.5">✕</span>'
+        + '<span class="text-sm text-surface-500 leading-relaxed">' + item + "</span>"
+        + "</div>";
     }).join("");
   }
 
