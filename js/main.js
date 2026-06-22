@@ -253,7 +253,7 @@ function initPatDetailPage() {
       var infoIcon = item.tooltip
         ? '<div class="kpi-info-wrap">'
           + '<svg class="kpi-info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">'
-          + '<circle cx="12" cy="12" r="10" stroke-width="1.75"/>'
+          + '<circle cx="12" cy="12" r="9" stroke-width="1.75"/>'
           + '<path d="M12 16v-4M12 8h.01" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'
           + '</svg>'
           + '<div class="kpi-tooltip">' + item.tooltip + '</div>'
@@ -327,7 +327,7 @@ function initPatDetailPage() {
     }
 
     var BRADFORD_INFO = '<div class="kpi-info-wrap" style="display:inline-flex;margin-left:2px;">'
-      + '<svg class="kpi-info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="1.75"/><path d="M12 16v-4M12 8h.01" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+      + '<svg class="kpi-info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="1.75"/><path d="M12 16v-4M12 8h.01" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
       + '<div class="kpi-tooltip">Índice Bradford (B = S² × D): mide el impacto de ausencias frecuentes y cortas. S = número de episodios, D = días totales. Un Bradford alto indica muchas ausencias cortas, más disruptivas que una sola larga.</div>'
       + '</div>';
     metricBtns.innerHTML = evMetricas.map(function(m, i) {
