@@ -285,9 +285,7 @@ function initPatDetailPage() {
   var equiposEl = document.getElementById("equipos-list");
   if (equiposEl && loc.equiposResponsables.length) {
     equiposEl.innerHTML = loc.equiposResponsables.map(function(e) {
-      return '<span class="text-sm text-surface-600 flex items-center gap-1.5">'
-        + '<span class="w-1.5 h-1.5 rounded-full bg-primary-400 shrink-0"></span>'
-        + e + "</span>";
+      return '<span class="text-xs bg-surface-100 text-surface-700 px-2.5 py-1 rounded-full font-medium">' + e + "</span>";
     }).join("");
   }
 
