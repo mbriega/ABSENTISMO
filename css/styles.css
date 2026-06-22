@@ -157,3 +157,13 @@
 .kpi-info-wrap:hover .kpi-tooltip {
   display: block;
 }
+.kpi-tooltip--below {
+  bottom: auto;
+  top: calc(100% + 8px);
+}
+.kpi-tooltip--below::after {
+  top: auto;
+  bottom: 100%;
+  border-top-color: transparent;
+  border-bottom-color: #1e293b;
+}
