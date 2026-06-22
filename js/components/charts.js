@@ -31,7 +31,7 @@ const ChartsComponent = (() => {
     var canvas = document.getElementById(canvasId);
     if (!canvas) return;
 
-    var res    = prepareCanvas(canvas, 200);
+    var res    = prepareCanvas(canvas, 220);
     var ctx    = res.ctx;
     var W      = res.W;
 
