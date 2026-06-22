@@ -93,7 +93,7 @@ const ChartsComponent = (() => {
     var chartW = W - padL - padR;
     var chartH = 300 - padT - padB;
 
-    var values = data.tasa;
+    var values = data.valores;
     var labels = data.meses;
     var maxV   = Math.max.apply(null, values);
 

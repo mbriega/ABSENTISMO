@@ -296,28 +296,56 @@ function initPatDetailPage() {
     ChartsComponent.renderBarChart("chart-impacto", d.impactoDesglose);
   }
 
-  // Botones de métrica (timeline) — tab-pill style
+  // Evolución temporal — chips + narrativa + gráfica por métrica
   var metricBtns = document.getElementById("metric-buttons");
-  if (metricBtns) {
-    var metrics = ["Tasa", "Coste", "Incidencia", "Días", "Duración", "Bradford"];
-    metricBtns.innerHTML = metrics.map(function(m, i) {
+  if (metricBtns && d.evolucionTemporal && d.evolucionTemporal.metricas) {
+    var evMeses    = d.evolucionTemporal.meses;
+    var evMetricas = d.evolucionTemporal.metricas;
+
+    var sentimentColor = { negative: "text-critical-600", positive: "text-low-600", neutral: "text-surface-800" };
+
+    function renderMetrica(m) {
+      // Chips
+      var chipsEl = document.getElementById("evolucion-chips");
+      if (chipsEl) {
+        chipsEl.innerHTML = m.chips.map(function(c) {
+          return '<div class="flex-1 bg-surface-50 border border-surface-100 rounded-lg px-3 py-2.5">'
+            + '<p class="text-[10px] text-surface-400 font-medium uppercase tracking-wider leading-tight mb-1">' + c.label + "</p>"
+            + '<p class="text-sm font-bold ' + (sentimentColor[c.sentiment] || "text-surface-800") + '">' + c.value + "</p>"
+            + "</div>";
+        }).join("");
+      }
+      // Narrativa
+      var narEl  = document.getElementById("evolucion-narrativa");
+      var narTxt = document.getElementById("evolucion-narrativa-texto");
+      if (narEl && narTxt) {
+        narTxt.textContent = m.narrativa;
+        narEl.style.display = "";
+      }
+      // Gráfica
+      if (typeof ChartsComponent !== "undefined") {
+        ChartsComponent.renderLineChart("chart-timeline", { meses: evMeses, valores: m.valores });
+      }
+    }
+
+    metricBtns.innerHTML = evMetricas.map(function(m, i) {
       return '<button class="px-3 py-1.5 text-xs font-medium rounded-md transition-all '
         + (i === 0 ? "bg-white text-surface-800 shadow-sm" : "text-surface-500 hover:text-surface-700")
-        + '" data-metric="' + i + '">' + m + "</button>";
+        + '" data-metric="' + i + '">' + m.label + "</button>";
     }).join("");
+
+    renderMetrica(evMetricas[0]);
+
     metricBtns.addEventListener("click", function(e) {
       var btn = e.target.closest("button[data-metric]");
       if (!btn) return;
+      var idx = parseInt(btn.getAttribute("data-metric"), 10);
       Array.from(metricBtns.querySelectorAll("button")).forEach(function(b) {
         b.className = "px-3 py-1.5 text-xs font-medium rounded-md transition-all text-surface-500 hover:text-surface-700";
       });
       btn.className = "px-3 py-1.5 text-xs font-medium rounded-md transition-all bg-white text-surface-800 shadow-sm";
+      renderMetrica(evMetricas[idx]);
     });
-  }
-
-  // Gráfica línea (evolución)
-  if (typeof ChartsComponent !== "undefined") {
-    ChartsComponent.renderLineChart("chart-timeline", d.evolucionTemporal);
   }
 
   // Medición antes/después

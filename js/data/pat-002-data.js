@@ -44,7 +44,68 @@ const PAT002_DATA = {
       "2025-01","2025-02","2025-03","2025-04","2025-05","2025-06",
       "2025-07","2025-08","2025-09","2025-10","2025-11","2025-12"
     ],
-    tasa: [0.4, 0.6, 0.8, 1.2, 1.6, 2.1, 2.6, 2.3, 2.0, 1.7, 1.4, 1.1]
+    metricas: [
+      {
+        key: "tasa", label: "Tasa",
+        valores: [0.4, 0.6, 0.8, 1.2, 1.6, 2.1, 2.6, 2.3, 2.0, 1.7, 1.4, 1.1],
+        chips: [
+          { label: "Variación período", value: "+175%",        sentiment: "negative" },
+          { label: "Pico máximo",       value: "2,6% · jul",   sentiment: "neutral"  },
+          { label: "Tendencia actual",  value: "Bajista",       sentiment: "positive" }
+        ],
+        narrativa: "La tasa escala de 0,4% en enero hasta un pico de 2,6% en julio — multiplicándose por 6,5 en solo 7 meses. Desde la intervención el descenso es sostenido, pero el nivel actual de 1,1% sigue siendo un 175% superior al inicio del período. Sin acción adicional en la cohorte restante, la estacionalidad apunta a un repunte en el primer trimestre."
+      },
+      {
+        key: "coste", label: "Coste",
+        valores: [48, 72, 96, 144, 192, 253, 312, 276, 241, 204, 168, 132],
+        chips: [
+          { label: "Coste acumulado",   value: "2.138.000 €",  sentiment: "negative" },
+          { label: "Mes más costoso",   value: "312K€ · jul",  sentiment: "neutral"  },
+          { label: "Ahorro vs pico",    value: "−180K€/mes",   sentiment: "positive" }
+        ],
+        narrativa: "El coste mensual del patrón se triplicó entre enero y julio, alcanzando 312.000 € en el peor mes. El ahorro acumulado desde la intervención asciende a 540.000 € teóricos. El ritmo actual de 132.000 €/mes equivale a 1,58M€ anualizados si no se actúa sobre el colectivo restante."
+      },
+      {
+        key: "incidencia", label: "Incidencia",
+        valores: [12, 18, 24, 36, 48, 63, 78, 70, 61, 52, 43, 34],
+        chips: [
+          { label: "Pico de incidencia", value: "78 casos · jul", sentiment: "neutral"  },
+          { label: "Casos actuales",     value: "34 casos",        sentiment: "negative" },
+          { label: "Reducción vs pico",  value: "−56%",            sentiment: "positive" }
+        ],
+        narrativa: "La incidencia pasó de 12 casos en enero a 78 en julio — un incremento del 550% en 7 meses. La intervención ha reducido la incidencia activa un 56% desde el pico. Aun así, 34 personas siguen activas en el patrón — el 44% del máximo histórico — lo que mantiene el riesgo sistémico por encima del umbral de alerta."
+      },
+      {
+        key: "dias", label: "Días",
+        valores: [143, 214, 286, 428, 571, 750, 928, 833, 726, 619, 512, 405],
+        chips: [
+          { label: "Días acum. 2025",    value: "6.415 días",   sentiment: "negative" },
+          { label: "Pico mensual",       value: "928 · jul",    sentiment: "neutral"  },
+          { label: "FTE perdido equiv.", value: "4,1 FTE/año",  sentiment: "negative" }
+        ],
+        narrativa: "El patrón ha generado 6.415 días de ausencia en 2025, equivalentes a perder 4,1 FTE de forma permanente durante un año completo. Julio concentró el 14,5% del total anual. Con un coste estimado de 333 €/día para este perfil, cada mes de inacción suma más de 134.000 € en impacto directo."
+      },
+      {
+        key: "duracion", label: "Duración",
+        valores: [24, 27, 31, 35, 38, 42, 46, 43, 40, 37, 34, 31],
+        chips: [
+          { label: "Duración media actual", value: "31 días",       sentiment: "negative" },
+          { label: "Vs media compañía",     value: "+12 días",       sentiment: "negative" },
+          { label: "Pico máximo",           value: "46 días · jul",  sentiment: "neutral"  }
+        ],
+        narrativa: "La duración media de los episodios es de 31 días — un 63% superior a la media de la compañía (19 días). Los episodios más largos disparan el coste de sustitución y reducen la probabilidad de reincorporación exitosa. La reducción desde el pico de julio es positiva, pero el nivel actual sigue muy por encima del objetivo de 20 días."
+      },
+      {
+        key: "bradford", label: "Bradford",
+        valores: [124, 187, 248, 372, 496, 650, 806, 722, 629, 536, 443, 350],
+        chips: [
+          { label: "Factor Bradford medio", value: "697 puntos",   sentiment: "negative" },
+          { label: "Personas > 900 pts",    value: "23 personas",  sentiment: "negative" },
+          { label: "Vs umbral crítico",     value: "+337 pts",     sentiment: "negative" }
+        ],
+        narrativa: "El Factor Bradford medio del colectivo es de 697 puntos — un 94% por encima del umbral de alerta estándar (360 pts). 23 personas superan los 900 puntos, nivel considerado crítico en la mayoría de marcos de gestión del absentismo. Reducir la frecuencia de episodios cortos en este colectivo podría bajar el indicador por debajo del umbral en menos de 6 meses con intervención focalizada."
+      }
+    ]
   },
 
   // ── Medición antes/después ───────────────────────────────────
