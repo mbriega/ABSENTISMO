@@ -246,16 +246,14 @@ function initPatDetailPage() {
     }).join("");
   }
 
-  // Impacto desglose (lista derecha)
+  // Impacto desglose (fila horizontal bajo la gráfica)
   var desgloseEl = document.getElementById("impacto-desglose");
   if (desgloseEl) {
     desgloseEl.innerHTML = d.impactoDesglose.map(function(item) {
-      return '<div class="flex items-center justify-between py-2.5 border-b border-surface-100 last:border-0">'
-        + "<div>"
-        + '<p class="text-sm font-medium text-surface-800">' + item.concepto + "</p>"
-        + '<p class="text-xs text-surface-400">' + item.porcentaje + "% del total</p>"
-        + "</div>"
+      return '<div class="flex-1 px-4 py-3 border-r border-surface-100 last:border-0">'
+        + '<p class="text-[11px] text-surface-500 leading-tight mb-1">' + item.concepto + "</p>"
         + '<p class="text-sm font-semibold text-surface-900 tabular-nums">' + item.importeLabel + "</p>"
+        + '<p class="text-[10px] text-surface-400 mt-0.5">' + item.porcentaje + "% del total</p>"
         + "</div>";
     }).join("");
   }
