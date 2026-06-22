@@ -361,14 +361,6 @@ function initPatDetailPage() {
   setText("cambio-importe",      med.importeEvitado   || "");
   setText("cambio-estado",       med.estado);
   setText("cambio-descripcion",  med.cambioDescripcion || "");
-  setText("barra-pre-valor",     med.pre.valor);
-  setText("barra-post-valor",    med.post.valor);
-  var barPre  = document.getElementById("barra-pre");
-  var barPost = document.getElementById("barra-post");
-  if (barPre && barPost && med.pre.pct) {
-    barPre.style.width  = "100%";
-    barPost.style.width = ((med.post.pct / med.pre.pct) * 100).toFixed(1) + "%";
-  }
 
   // Recomendación
   var rec = d.recomendacion;
