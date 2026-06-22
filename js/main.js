@@ -250,8 +250,20 @@ function initPatDetailPage() {
   var desgloseEl = document.getElementById("impacto-desglose");
   if (desgloseEl) {
     desgloseEl.innerHTML = d.impactoDesglose.map(function(item) {
+      var infoIcon = item.tooltip
+        ? '<div class="kpi-info-wrap">'
+          + '<svg class="kpi-info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">'
+          + '<circle cx="12" cy="12" r="10" stroke-width="1.75"/>'
+          + '<path d="M12 16v-4M12 8h.01" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'
+          + '</svg>'
+          + '<div class="kpi-tooltip">' + item.tooltip + '</div>'
+          + '</div>'
+        : "";
       return '<div class="flex-1 px-4 py-3 border-r border-surface-100 last:border-0">'
-        + '<p class="text-[11px] text-surface-500 leading-tight mb-1">' + item.concepto + "</p>"
+        + '<div style="display:flex;align-items:center;gap:4px;margin-bottom:4px;">'
+        + '<p class="text-[11px] text-surface-500 leading-tight">' + item.concepto + "</p>"
+        + infoIcon
+        + "</div>"
         + '<p class="text-sm font-semibold text-surface-900 tabular-nums">' + item.importeLabel + "</p>"
         + '<p class="text-[10px] text-surface-400 mt-0.5">' + item.porcentaje + "% del total</p>"
         + "</div>";

@@ -23,11 +23,11 @@ const PAT002_DATA = {
 
   // ── Impacto económico desglose ───────────────────────────────
   impactoDesglose: [
-    { concepto: "Costes directos",   porcentaje: 40.9, importe: 497200, importeLabel: "497.200 €"  },
-    { concepto: "Costes indirectos", porcentaje: 18.0, importe: 218498, importeLabel: "218.498 €"  },
-    { concepto: "Sustituciones",     porcentaje: 16.2, importe: 197510, importeLabel: "197.510 €"  },
-    { concepto: "Overtime",          porcentaje: 11.9, importe: 144278, importeLabel: "144.278 €"  },
-    { concepto: "Pérdida operativa", porcentaje: 13.0, importe: 158173, importeLabel: "158.173 €"  }
+    { concepto: "Costes directos",   porcentaje: 40.9, importe: 497200, importeLabel: "497.200 €",  tooltip: "Salarios, cotizaciones y complementos IT pagados durante la baja. El coste más visible y el primero en impactar la cuenta de resultados." },
+    { concepto: "Costes indirectos", porcentaje: 18.0, importe: 218498, importeLabel: "218.498 €",  tooltip: "Pérdida de productividad y carga administrativa generada por la ausencia. Suelen subestimarse pero acumulan casi 1 de cada 5 euros del impacto total." },
+    { concepto: "Sustituciones",     porcentaje: 16.2, importe: 197510, importeLabel: "197.510 €",  tooltip: "Coste de cubrir el puesto vacante con personal temporal. Incluye selección, onboarding y diferencial salarial del sustituto." },
+    { concepto: "Overtime",          porcentaje: 11.9, importe: 144278, importeLabel: "144.278 €",  tooltip: "Horas extra generadas en el equipo para absorber la carga del ausente. Doble impacto: sobrecoste directo y riesgo de fatiga en el equipo cubridor." },
+    { concepto: "Pérdida operativa", porcentaje: 13.0, importe: 158173, importeLabel: "158.173 €",  tooltip: "Reducción de capacidad productiva no compensable con sustitución. Afecta directamente al nivel de servicio o a la producción del periodo." }
   ],
 
   // ── Localización del impacto ─────────────────────────────────
