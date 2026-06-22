@@ -214,7 +214,7 @@ function initPatDetailPage() {
       { titulo: "Separación de ruido",    texto: d.relevanciaEmpresa.separacionRuido   }
     ];
     relEl.innerHTML = relItems.map(function(item) {
-      return '<div class="bg-surface-50 rounded-lg p-4 border border-surface-100">'
+      return '<div class="bg-primary-50/50 rounded-lg p-4 border border-primary-100">'
         + '<p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-2">' + item.titulo + "</p>"
         + '<p class="text-sm text-surface-700 leading-relaxed">' + item.texto + "</p>"
         + "</div>";
@@ -239,7 +239,7 @@ function initPatDetailPage() {
   var audEl = document.getElementById("audiencia-cards");
   if (audEl && d.audiencia) {
     audEl.innerHTML = d.audiencia.map(function(a) {
-      return '<div class="bg-surface-50 rounded-lg p-4 border border-surface-100">'
+      return '<div class="bg-primary-50/50 rounded-lg p-4 border border-primary-100">'
         + '<p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-2">' + a.perfil + "</p>"
         + '<p class="text-sm text-surface-700 leading-relaxed">' + a.lectura + "</p>"
         + "</div>";
