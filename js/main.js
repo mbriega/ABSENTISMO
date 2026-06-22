@@ -296,15 +296,28 @@ function initPatDetailPage() {
     ChartsComponent.renderBarChart("chart-impacto", d.impactoDesglose);
   }
 
-  // Botones de métrica (timeline)
+  // Botones de métrica (timeline) — tab-pill style
   var metricBtns = document.getElementById("metric-buttons");
   if (metricBtns) {
-    metricBtns.innerHTML = '<button class="metric-btn active" data-metric="0">Tasa (%)</button>';
+    var metrics = ["Tasa", "Coste", "Incidencia", "Días", "Duración", "Bradford"];
+    metricBtns.innerHTML = metrics.map(function(m, i) {
+      return '<button class="px-3 py-1.5 text-xs font-medium rounded-md transition-all '
+        + (i === 0 ? "bg-white text-surface-800 shadow-sm" : "text-surface-500 hover:text-surface-700")
+        + '" data-metric="' + i + '">' + m + "</button>";
+    }).join("");
+    metricBtns.addEventListener("click", function(e) {
+      var btn = e.target.closest("button[data-metric]");
+      if (!btn) return;
+      Array.from(metricBtns.querySelectorAll("button")).forEach(function(b) {
+        b.className = "px-3 py-1.5 text-xs font-medium rounded-md transition-all text-surface-500 hover:text-surface-700";
+      });
+      btn.className = "px-3 py-1.5 text-xs font-medium rounded-md transition-all bg-white text-surface-800 shadow-sm";
+    });
   }
 
-  // Gráfica línea (evolución) — índice 6 = julio (intervención)
+  // Gráfica línea (evolución)
   if (typeof ChartsComponent !== "undefined") {
-    ChartsComponent.renderLineChart("chart-timeline", d.evolucionTemporal, 6);
+    ChartsComponent.renderLineChart("chart-timeline", d.evolucionTemporal);
   }
 
   // Medición antes/después

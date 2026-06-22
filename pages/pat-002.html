@@ -226,15 +226,19 @@
         </div>
 
         <!-- ── Evolución temporal ── -->
-        <div class="bg-white rounded-xl border border-surface-200 p-6 shadow-card">
-          <div class="flex items-center justify-between flex-wrap gap-3 mb-5">
-            <div>
-              <h3 class="text-base font-semibold text-surface-900">Evolución temporal</h3>
-              <p class="text-sm text-surface-400 mt-0.5">Tendencia: estable</p>
+        <div class="bg-white rounded-xl border border-surface-200/60 shadow-card">
+          <div class="flex items-start justify-between px-5 pt-5 pb-0">
+            <div class="min-w-0">
+              <h3 class="text-sm font-semibold text-surface-800">Evolución temporal</h3>
+              <p class="text-xs text-surface-400 mt-0.5">Tendencia: estable</p>
             </div>
-            <div class="flex flex-wrap gap-2" id="metric-buttons"></div>
           </div>
-          <canvas id="chart-timeline"></canvas>
+          <div class="p-5 pt-4">
+            <div class="space-y-4">
+              <div class="flex items-center gap-1 p-1 bg-surface-100 rounded-lg w-fit" id="metric-buttons"></div>
+              <canvas id="chart-timeline"></canvas>
+            </div>
+          </div>
         </div>
 
         <!-- ── Medición antes/después ── -->

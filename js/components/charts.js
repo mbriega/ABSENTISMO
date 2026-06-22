@@ -78,114 +78,99 @@ const ChartsComponent = (() => {
   }
 
   // ── 2. Línea temporal — Evolución ────────────────────────────
-  function renderLineChart(canvasId, data, interventionIndex) {
+  function renderLineChart(canvasId, data) {
     var canvas = document.getElementById(canvasId);
     if (!canvas) return;
 
-    var res    = prepareCanvas(canvas, 220);
+    var res    = prepareCanvas(canvas, 300);
     var ctx    = res.ctx;
     var W      = res.W;
-    var H      = res.H;
 
-    var padL   = 48;
-    var padR   = 20;
-    var padT   = 16;
+    var padL   = 54;
+    var padR   = 16;
+    var padT   = 8;
     var padB   = 38;
     var chartW = W - padL - padR;
-    var chartH = H - padT - padB;
+    var chartH = 300 - padT - padB;
 
     var values = data.tasa;
     var labels = data.meses;
-    var maxV   = Math.max.apply(null, values) * 1.25;
-    var xStep  = chartW / (labels.length - 1);
+    var maxV   = Math.max.apply(null, values);
 
-    function toX(i) { return padL + i * xStep; }
-    function toY(v) { return padT + chartH - (v / maxV) * chartH; }
+    // Nice Y scale: find step yielding 4-6 ticks
+    var steps = [0.25, 0.5, 1, 2, 5, 10];
+    var niceMax = maxV, tickStep = maxV / 4;
+    for (var si = 0; si < steps.length; si++) {
+      var nm = Math.ceil(maxV / steps[si]) * steps[si];
+      var nt = Math.round(nm / steps[si]) + 1;
+      if (nt >= 4 && nt <= 6) { niceMax = nm; tickStep = steps[si]; break; }
+    }
+    var numTicks = Math.round(niceMax / tickStep) + 1;
 
-    // Guías horizontales
-    [0, 0.65, 1.3, 1.95, 2.6].forEach(function(v) {
-      var y = toY(v);
+    function toX(i) { return padL + i * (chartW / (labels.length - 1)); }
+    function toY(v) { return padT + chartH - (v / niceMax) * chartH; }
+
+    // Grid lines + Y-axis labels
+    for (var ti = 0; ti < numTicks; ti++) {
+      var tv = Math.round(ti * tickStep * 1000) / 1000;
+      var ty = toY(tv);
       ctx.strokeStyle = COLORS.surface200;
       ctx.lineWidth   = 1;
-      ctx.setLineDash([3, 4]);
+      ctx.setLineDash([3, 3]);
       ctx.beginPath();
-      ctx.moveTo(padL, y);
-      ctx.lineTo(padL + chartW, y);
+      ctx.moveTo(padL, ty);
+      ctx.lineTo(padL + chartW, ty);
       ctx.stroke();
       ctx.setLineDash([]);
-
       ctx.fillStyle    = COLORS.surface400;
       ctx.font         = "11px Inter, system-ui, sans-serif";
       ctx.textAlign    = "right";
       ctx.textBaseline = "middle";
-      ctx.fillText(v.toFixed(2) + "%", padL - 5, y);
-    });
-
-    // Área relleno
-    var grad = ctx.createLinearGradient(0, padT, 0, padT + chartH);
-    grad.addColorStop(0, COLORS.primary15);
-    grad.addColorStop(1, COLORS.primary01);
-
-    ctx.beginPath();
-    values.forEach(function(v, i) {
-      i === 0 ? ctx.moveTo(toX(i), toY(v)) : ctx.lineTo(toX(i), toY(v));
-    });
-    ctx.lineTo(toX(values.length - 1), padT + chartH);
-    ctx.lineTo(toX(0), padT + chartH);
-    ctx.closePath();
-    ctx.fillStyle = grad;
-    ctx.fill();
-
-    // Línea principal
-    ctx.beginPath();
-    ctx.strokeStyle = COLORS.primary;
-    ctx.lineWidth   = 2.5;
-    ctx.lineJoin    = "round";
-    ctx.lineCap     = "round";
-    values.forEach(function(v, i) {
-      i === 0 ? ctx.moveTo(toX(i), toY(v)) : ctx.lineTo(toX(i), toY(v));
-    });
-    ctx.stroke();
-
-    // Puntos
-    values.forEach(function(v, i) {
-      ctx.beginPath();
-      ctx.arc(toX(i), toY(v), 4, 0, Math.PI * 2);
-      ctx.fillStyle   = "#ffffff";
-      ctx.strokeStyle = COLORS.primary;
-      ctx.lineWidth   = 2;
-      ctx.fill();
-      ctx.stroke();
-    });
-
-    // Línea de intervención
-    if (interventionIndex !== undefined) {
-      var ix = toX(interventionIndex);
-      ctx.strokeStyle = COLORS.intervention;
-      ctx.lineWidth   = 1.5;
-      ctx.setLineDash([5, 4]);
-      ctx.beginPath();
-      ctx.moveTo(ix, padT);
-      ctx.lineTo(ix, padT + chartH);
-      ctx.stroke();
-      ctx.setLineDash([]);
-
-      ctx.fillStyle    = COLORS.intervention;
-      ctx.font         = "10px Inter, system-ui, sans-serif";
-      ctx.textAlign    = "center";
-      ctx.textBaseline = "bottom";
-      ctx.fillText("Intervención", ix, padT - 2);
+      ctx.fillText((+tv.toFixed(2)) + "%", padL - 5, ty);
     }
 
-    // Etiquetas eje X
-    var monthNames = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+    // X-axis baseline
+    ctx.strokeStyle = COLORS.surface200;
+    ctx.lineWidth   = 1;
+    ctx.beginPath();
+    ctx.moveTo(padL, padT + chartH);
+    ctx.lineTo(padL + chartW, padT + chartH);
+    ctx.stroke();
+
+    // X-axis labels
     ctx.fillStyle    = COLORS.surface400;
-    ctx.font         = "10px Inter, system-ui, sans-serif";
+    ctx.font         = "11px Inter, system-ui, sans-serif";
     ctx.textAlign    = "center";
     ctx.textBaseline = "top";
     labels.forEach(function(lbl, i) {
-      var monthIdx = parseInt(lbl.slice(5), 10) - 1;
-      ctx.fillText(monthNames[monthIdx], toX(i), padT + chartH + 6);
+      ctx.fillText(lbl, toX(i), padT + chartH + 6);
+    });
+
+    // Smooth line — quadratic bezier midpoint
+    var pts = values.map(function(v, i) { return { x: toX(i), y: toY(v) }; });
+    ctx.beginPath();
+    ctx.strokeStyle = "#0891b2";
+    ctx.lineWidth   = 2.5;
+    ctx.lineJoin    = "round";
+    ctx.lineCap     = "round";
+    ctx.moveTo(pts[0].x, pts[0].y);
+    for (var pi = 0; pi < pts.length - 1; pi++) {
+      var xc = (pts[pi].x + pts[pi + 1].x) / 2;
+      var yc = (pts[pi].y + pts[pi + 1].y) / 2;
+      ctx.quadraticCurveTo(pts[pi].x, pts[pi].y, xc, yc);
+    }
+    ctx.quadraticCurveTo(pts[pts.length - 2].x, pts[pts.length - 2].y, pts[pts.length - 1].x, pts[pts.length - 1].y);
+    ctx.stroke();
+
+    // Dots
+    pts.forEach(function(p) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
+      ctx.fillStyle   = "#ffffff";
+      ctx.strokeStyle = "#0891b2";
+      ctx.lineWidth   = 2;
+      ctx.fill();
+      ctx.stroke();
     });
   }
 
