@@ -26,6 +26,17 @@ var TableComponent = (function() {
     bajo:    "badge--bajo"
   };
 
+  function getRiskClass(riesgo) {
+    var pct = parseFloat(riesgo);
+    if (isNaN(pct)) return "badge--bajo";
+    if (pct >= 70)  return "badge--critico";
+    if (pct >= 50)  return "badge--alto";
+    if (pct >= 30)  return "badge--medio";
+    return "badge--bajo";
+  }
+
+  var ARROW = '<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>';
+
   function render(filtro) {
     var tbody = document.getElementById("patrones-table-body");
     if (!tbody) return;
@@ -35,21 +46,26 @@ var TableComponent = (function() {
       : PATRONES_DATA.patrones.filter(function(p) { return p.categoria === filtro; });
 
     tbody.innerHTML = items.map(function(p) {
-      var desc = p.descripcionHumana || p.definicion;
-      return '<tr class="patrones-row cursor-pointer" onclick="window.location.href=\'' + p.detalle + '\'">'
-        + '<td class="px-5 py-4">'
-        + '<p class="text-sm font-medium text-surface-900 leading-tight">' + p.nombre + "</p>"
-        + '<p class="text-xs text-surface-400 mt-1 leading-relaxed">' + desc + "</p>"
+      var isCritico = p.criticidad === "critico";
+      var rowClass  = "patrones-row cursor-pointer" + (isCritico ? " patrones-row--critico" : "");
+      var rowStyle  = isCritico ? ' style="border-left: 2px solid #ef4444;"' : "";
+      var nameClass = isCritico
+        ? "text-xs font-semibold text-critical-700 leading-tight"
+        : "text-xs font-semibold text-surface-800 leading-tight";
+
+      return '<tr class="' + rowClass + '"' + rowStyle + ' onclick="window.location.href=\'' + p.detalle + '\'">'
+        + '<td class="py-2.5 px-5">'
+        + '<p class="' + nameClass + '">' + p.nombre + "</p>"
         + "</td>"
-        + '<td class="px-4 py-4 text-right text-sm font-semibold text-surface-900 tabular-nums">' + p.activaciones.toLocaleString("es-ES") + "</td>"
-        + '<td class="px-4 py-4 text-right text-sm font-semibold text-surface-900 tabular-nums">' + p.empleados + "</td>"
-        + '<td class="px-4 py-4 text-right text-sm font-semibold text-surface-700 tabular-nums">' + p.riesgo60d + "</td>"
-        + '<td class="px-4 py-4 text-right text-sm text-surface-600 tabular-nums">' + p.diasAsoc + "</td>"
-        + '<td class="px-4 py-4 text-right text-sm text-surface-600 tabular-nums">' + p.media + "</td>"
-        + '<td class="px-4 py-4 text-right text-sm font-semibold text-surface-900 tabular-nums">' + p.costeDirecto + "</td>"
-        + '<td class="px-4 py-4 text-center"><span class="badge ' + (BADGE[p.criticidad] || "") + '">' + p.criticidad + "</span></td>"
-        + '<td class="px-4 py-4">'
-        + '<a href="' + p.detalle + '" class="text-xs font-semibold text-primary-600 hover:text-primary-700 whitespace-nowrap transition-colors" onclick="event.stopPropagation()">Ver patrón →</a>'
+        + '<td class="py-2.5 px-3 text-right text-xs font-semibold text-surface-700 tabular-nums">' + p.activaciones.toLocaleString("es-ES") + "</td>"
+        + '<td class="py-2.5 px-3 text-right text-xs text-surface-600 tabular-nums">' + p.empleados + "</td>"
+        + '<td class="py-2.5 px-3 text-right tabular-nums"><span class="badge ' + getRiskClass(p.riesgo60d) + '">' + p.riesgo60d + "</span></td>"
+        + '<td class="py-2.5 px-3 text-right text-xs text-surface-600 tabular-nums">' + p.diasAsoc + "</td>"
+        + '<td class="py-2.5 px-3 text-right text-xs text-surface-600 tabular-nums">' + p.media + "</td>"
+        + '<td class="py-2.5 px-3 text-right text-xs font-semibold text-high-600 tabular-nums">' + p.costeDirecto + "</td>"
+        + '<td class="py-2.5 px-3 text-center"><span class="badge ' + (BADGE[p.criticidad] || "") + '">' + p.criticidad + "</span></td>"
+        + '<td class="py-2.5 px-3 text-right">'
+        + '<a href="' + p.detalle + '" class="text-xs text-primary-600 hover:text-primary-800 font-medium whitespace-nowrap inline-flex items-center gap-1 transition-colors" onclick="event.stopPropagation()">Detalle ' + ARROW + "</a>"
         + "</td>"
         + "</tr>";
     }).join("");

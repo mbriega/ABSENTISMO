@@ -34,7 +34,9 @@
 .badge--bajo    { background: #dcfce7; color: #15803d; }
 
 .patrones-row { animation: fadeIn 0.3s ease; }
-.patrones-row:hover td { background-color: #f8fafc; }
+.patrones-row:hover td { background-color: rgba(239, 246, 255, 0.5); }
+.patrones-row--critico td { background-color: #fef2f2; }
+.patrones-row--critico:hover td { background-color: #fee2e2; }
 
 .filter-btn {
   padding: 5px 14px;
