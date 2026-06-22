@@ -374,7 +374,7 @@ function initPatDetailPage() {
   if (pasosEl && rec.pasos) {
     pasosEl.innerHTML = rec.pasos.map(function(p, i) {
       return '<div class="flex items-start gap-3">'
-        + '<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-100 text-primary-600 text-xs font-bold shrink-0 mt-0.5">' + (i + 1) + "</span>"
+        + '<div class="w-6 h-6 rounded-md bg-surface-100 flex items-center justify-center shrink-0 mt-0.5"><span class="text-xs font-bold text-surface-500">' + (i + 1) + "</span></div>"
         + '<div>'
         + '<p class="text-sm font-semibold text-surface-800">' + p.titulo + "</p>"
         + '<p class="text-xs text-surface-500 mt-0.5 leading-snug">' + p.descripcion + "</p>"
