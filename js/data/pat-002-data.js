@@ -133,10 +133,26 @@ const PAT002_DATA = {
 
   // ── Recomendación de intervención ───────────────────────────
   recomendacion: {
-    quePropone:        "Seguimiento individualizado de las activaciones y verificación con la mutua/RRHH.",
-    porQue:            "Este patrón afecta a 85 personas con un impacto de 1,215,660 EUR y riesgo operativo muy alto. La tendencia es estable.",
-    impactoEsperado:   "292.077 EUR en 12 meses",
-    colectivoObjetivo: "85 personas en Transversal"
+    quePropone:        "Seguimiento individualizado de las activaciones activas y verificación del estado real con la mutua y RRHH, priorizando por nivel de riesgo.",
+    porQue:            "85 personas con señal activa, impacto de 1.215.660 € y riesgo de nueva baja del 84,7%. Cada reincorporación no gestionada cuesta de media 14.300 €.",
+    impactoEsperado:   "≈ 292.077 € evitados en 12 meses",
+    colectivoObjetivo: "85 personas · Colectivo transversal",
+    responsable:       "RRHH + Manager directo",
+    plazo:             "Primeras 2 semanas tras activación",
+    pasos: [
+      {
+        titulo:      "Identificar y priorizar activaciones",
+        descripcion: "Revisar el listado de personas con señal activa y ordenarlas por riesgo. Priorizar las que combinan IT reciente con nómina incompleta en los últimos 30 días."
+      },
+      {
+        titulo:      "Contactar con la mutua y verificar situación",
+        descripcion: "Solicitar informe de situación clínica y previsión de alta. Verificar que el parte médico y los datos de nómina son coherentes entre sí."
+      },
+      {
+        titulo:      "Programar entrevista de reincorporación",
+        descripcion: "Coordinar con el manager directo una reunión de acogida antes del regreso. Acordar adaptaciones temporales si procede y fijar seguimiento a los 30 días."
+      }
+    ]
   },
 
   // ── Evidencia técnica ───────────────────────────────────────

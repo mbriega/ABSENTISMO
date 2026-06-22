@@ -364,10 +364,23 @@ function initPatDetailPage() {
 
   // Recomendación
   var rec = d.recomendacion;
-  setText("rec-que",       rec.quePropone);
-  setText("rec-porque",    rec.porQue);
-  setText("rec-impacto",   rec.impactoEsperado);
-  setText("rec-colectivo", rec.colectivoObjetivo);
+  setText("rec-que",         rec.quePropone);
+  setText("rec-porque",      rec.porQue);
+  setText("rec-impacto",     rec.impactoEsperado);
+  setText("rec-colectivo",   rec.colectivoObjetivo);
+  setText("rec-responsable", rec.responsable || "—");
+  setText("rec-plazo",       rec.plazo       || "—");
+  var pasosEl = document.getElementById("rec-pasos");
+  if (pasosEl && rec.pasos) {
+    pasosEl.innerHTML = rec.pasos.map(function(p, i) {
+      return '<div class="flex items-start gap-3">'
+        + '<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-100 text-primary-600 text-xs font-bold shrink-0 mt-0.5">' + (i + 1) + "</span>"
+        + '<div>'
+        + '<p class="text-sm font-semibold text-surface-800">' + p.titulo + "</p>"
+        + '<p class="text-xs text-surface-500 mt-0.5 leading-snug">' + p.descripcion + "</p>"
+        + "</div></div>";
+    }).join("");
+  }
 
   // Personas
   setText("personas-subtitle", d.personas.total + " personas afectadas por este patrón");
