@@ -55,9 +55,9 @@ var TableComponent = (function() {
 
       var desc = p.descripcionHumana || p.definicion;
       return '<tr class="' + rowClass + '"' + rowStyle + ' onclick="window.location.href=\'' + p.detalle + '\'">'
-        + '<td class="py-2.5 px-5 max-w-xs">'
+        + '<td class="py-2.5 px-5">'
         + '<p class="' + nameClass + '">' + p.nombre + "</p>"
-        + (desc ? '<p class="text-[11px] text-surface-400 mt-0.5 truncate leading-tight">' + desc + "</p>" : "")
+        + (desc ? '<p class="text-[11px] text-surface-400 mt-0.5 leading-snug">' + desc + "</p>" : "")
         + "</td>"
         + '<td class="py-2.5 px-3 text-right text-xs font-semibold text-surface-700 tabular-nums">' + p.activaciones.toLocaleString("es-ES") + "</td>"
         + '<td class="py-2.5 px-3 text-right text-xs text-surface-600 tabular-nums">' + p.empleados + "</td>"
