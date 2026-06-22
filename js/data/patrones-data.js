@@ -5,13 +5,42 @@ const PATRONES_DATA = {
 
   // ── Análisis IA ──────────────────────────────────────────────
   aiAnalysis: [
-    "El patrón más crítico es la 'Reincorporación frágil tras IT larga' con un riesgo del 84.7% en 60 días y 85 empleados afectados, generando 1.2M€ en costes directos.",
-    "La 'IT activa con salario base muy reducido' impacta a 102 empleados, con riesgo del 52.9% y coste de 1.16M€, siendo el segundo patrón más costoso.",
-    "El 'Retén/disponibilidad en persona con IT activa' afecta a 251 empleados, con 796 activaciones y coste de 1.42M€, pero riesgo moderado (24.7%).",
-    "Las provincias con mayor riesgo en nómina incompleta son Valencia (63.6%) y Lugo (44.4%), con costes de 174K€ y 176K€ respectivamente.",
-    "Los centros con mayor riesgo en absentismo actual son Torviscal (46.2%) y Bonus Pontevedra (25%), aunque con costes menores (76K€ y 116K€).",
-    "Las categorías W96-OFICIAL GC8 y W97-OFICIAL GC9 concentran 189 empleados con IT activa, pero riesgo bajo (29.4% y 15.7%) y costes moderados (675K€ y 295K€).",
-    "Priorizar la gestión de reincorporaciones tras IT larga y salarios reducidos en IT, por su alto riesgo y coste, antes que patrones con menor impacto."
+    {
+      tipo: "critico",
+      titulo: "Patrón más crítico del catálogo",
+      texto: "Reincorporación frágil tras IT larga con el riesgo más alto detectado: 84,7% de nueva ausencia en 60 días, 85 empleados afectados y 1.215.660 € de coste directo observado.",
+      metricas: ["84,7% riesgo", "85 personas", "1,2M€ coste"]
+    },
+    {
+      tipo: "dato",
+      titulo: "Segundo patrón por coste",
+      texto: "IT activa con salario base muy reducido: 102 empleados afectados, riesgo del 52,9% y 1.159.840 € de coste directo."
+    },
+    {
+      tipo: "dato",
+      titulo: "Mayor volumen de activaciones",
+      texto: "Retén/disponibilidad con IT activa: 251 empleados, 796 activaciones y 1.420.660 € de coste con riesgo moderado del 24,7%."
+    },
+    {
+      tipo: "dato",
+      titulo: "Focos provinciales",
+      texto: "Valencia (63,6% riesgo, 174K€) y Lugo (44,4% riesgo, 176K€) concentran el absentismo por IT con nómina incompleta."
+    },
+    {
+      tipo: "dato",
+      titulo: "Focos por centro",
+      texto: "Torviscal (46,2% riesgo) y Bonus Pontevedra (25%) son los centros con mayor riesgo de absentismo activo combinado con IT."
+    },
+    {
+      tipo: "dato",
+      titulo: "Categorías profesionales",
+      texto: "W96-OFICIAL GC8 y W97-OFICIAL GC9 concentran 189 empleados con IT activa y costes de 675K€ y 295K€ respectivamente."
+    },
+    {
+      tipo: "accion",
+      titulo: "Acción recomendada",
+      texto: "Priorizar la gestión de reincorporaciones tras IT larga y salarios reducidos en IT activa, por su alto riesgo y coste, antes que patrones con menor impacto económico."
+    }
   ],
 
   // ── KPIs resumen ─────────────────────────────────────────────

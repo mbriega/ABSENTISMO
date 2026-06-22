@@ -63,15 +63,59 @@ var TableComponent = (function() {
 // ══════════════════════════════════════════════════════════════
 
 function initPatronesPage() {
-  // Análisis IA
+  // Análisis IA — card grid con jerarquía visual
   var aiList = document.getElementById("ai-analysis-list");
   if (aiList) {
-    aiList.innerHTML = PATRONES_DATA.aiAnalysis.map(function(text) {
-      return '<li class="flex items-start gap-2.5 text-sm text-surface-600">'
-        + '<span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary-400 shrink-0"></span>'
-        + "<span>" + text + "</span>"
-        + "</li>";
-    }).join("");
+    var items   = PATRONES_DATA.aiAnalysis;
+    var critico = items.find(function(i) { return i.tipo === "critico"; });
+    var datos   = items.filter(function(i) { return i.tipo === "dato"; });
+    var accion  = items.find(function(i) { return i.tipo === "accion"; });
+    var html    = "";
+
+    // Card crítico
+    if (critico) {
+      html += '<div class="bg-white rounded-lg p-4 border border-critical-200 mb-3">'
+        + '<div class="flex items-start justify-between gap-4 flex-wrap">'
+        + '<div class="flex-1 min-w-0">'
+        + '<p class="text-xs font-semibold text-critical-600 uppercase tracking-wider mb-1.5">' + critico.titulo + "</p>"
+        + '<p class="text-sm text-surface-700 leading-relaxed">' + critico.texto + "</p>"
+        + "</div>";
+      if (critico.metricas) {
+        html += '<div class="flex flex-wrap gap-1.5 shrink-0">';
+        critico.metricas.forEach(function(m) {
+          html += '<span class="text-xs font-semibold text-critical-600 bg-critical-50 px-2.5 py-1 rounded-full whitespace-nowrap">' + m + "</span>";
+        });
+        html += "</div>";
+      }
+      html += "</div></div>";
+    }
+
+    // Grid de datos
+    if (datos.length) {
+      html += '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-3">';
+      datos.forEach(function(item) {
+        html += '<div class="bg-surface-50 rounded-lg p-4 border border-surface-100">'
+          + '<p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-1.5">' + item.titulo + "</p>"
+          + '<p class="text-sm text-surface-600 leading-relaxed">' + item.texto + "</p>"
+          + "</div>";
+      });
+      html += "</div>";
+    }
+
+    // Card de acción
+    if (accion) {
+      html += '<div class="bg-primary-50/50 rounded-lg p-4 border border-primary-100">'
+        + '<div class="flex items-start gap-3">'
+        + '<svg class="w-4 h-4 text-primary-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">'
+        + '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>'
+        + "</svg>"
+        + '<div>'
+        + '<p class="text-xs font-semibold text-primary-700 uppercase tracking-wider mb-1.5">' + accion.titulo + "</p>"
+        + '<p class="text-sm text-primary-700/90 leading-relaxed">' + accion.texto + "</p>"
+        + "</div></div></div>";
+    }
+
+    aiList.innerHTML = html;
   }
 
   // Filtros + tabla inicial
