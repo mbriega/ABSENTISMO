@@ -31,6 +31,7 @@ const PATRONES_DATA = {
     {
       id: "pat-002",
       nombre: "Reincorporación frágil tras IT larga",
+      descripcionHumana: "La persona viene de una IT larga y su nómina de ese mes no está completa. La combinación indica una reincorporación frágil con el riesgo más alto del catálogo: 84,7% de nueva ausencia en 60 días.",
       categoria: "reincorp",
       definicion: "FTE ≥ 0,95 + salario base del mes < 66,7% del habitual + IT/accidente ≥ 15 días en los 90 días previos.",
       fuente: "Nómina: 'Salario Base' e IT; Absentismo: días de los 90 días previos.",
@@ -46,6 +47,7 @@ const PATRONES_DATA = {
     {
       id: "pat-003",
       nombre: "IT activa con salario base muy reducido",
+      descripcionHumana: "La persona está de baja médica activa y su nómina ese mes refleja un salario muy por debajo de su nivel habitual. El dato de nómina da visibilidad real al estado prolongado de la baja.",
       categoria: "it",
       definicion: "FTE ≥ 0,95 + salario base del mes < 50% del habitual de la persona + concepto IT > 0 €.",
       fuente: "Nómina: 'Salario Base' y conceptos 'Prestaciones/Complementos IT'; Plantilla: FTE mensual.",
@@ -61,6 +63,7 @@ const PATRONES_DATA = {
     {
       id: "pat-010",
       nombre: "Bolsa Valencia con IT y nómina incompleta",
+      descripcionHumana: "Personas en Valencia con IT activa y nómina incompleta ese mes. La geolocalización del patrón identifica una bolsa de absentismo concentrada con el riesgo provincial más alto del catálogo.",
       categoria: "prov",
       definicion: "Provincia = Valencia + salario base del mes < 66,7% del habitual + concepto IT > 0 €.",
       fuente: "Plantilla: 'Provincia'; Nómina: 'Salario Base' e IT.",
@@ -76,6 +79,7 @@ const PATRONES_DATA = {
     {
       id: "pat-006",
       nombre: "Bolsa Navarra con IT y nómina incompleta",
+      descripcionHumana: "Personas en Navarra con IT activa y nómina incompleta. La combinación de localización geográfica, baja médica y nómina rota identifica el foco provincial de absentismo.",
       categoria: "prov",
       definicion: "Provincia = Navarra + salario base del mes < 66,7% del habitual + concepto IT > 0 €.",
       fuente: "Plantilla: 'Provincia'; Nómina: 'Salario Base' e IT.",
@@ -91,6 +95,7 @@ const PATRONES_DATA = {
     {
       id: "pat-009",
       nombre: "Bolsa Lugo con IT y nómina incompleta",
+      descripcionHumana: "Personas en Lugo con IT activa y nómina incompleta. El patrón localiza una concentración de bajas con nómina rota y un riesgo del 44,4% de nueva ausencia en 60 días.",
       categoria: "prov",
       definicion: "Provincia = Lugo + salario base del mes < 66,7% del habitual + concepto IT > 0 €.",
       fuente: "Plantilla: 'Provincia'; Nómina: 'Salario Base' e IT.",
@@ -106,6 +111,7 @@ const PATRONES_DATA = {
     {
       id: "pat-004",
       nombre: "W96-OFICIAL GC8 con jornada completa e IT activa",
+      descripcionHumana: "La categoría profesional W96-OFICIAL GC8 actúa como segmentador: identifica que este colectivo específico concentra 119 personas con baja activa a jornada completa.",
       categoria: "cat",
       definicion: "Categoría = W96-OFICIAL GC8 + FTE ≥ 0,95 + concepto IT > 0 €.",
       fuente: "Plantilla: 'Categoría' y FTE; Nómina: IT.",
@@ -121,6 +127,7 @@ const PATRONES_DATA = {
     {
       id: "pat-001",
       nombre: "Retén/disponibilidad en persona con IT activa",
+      descripcionHumana: "Persona con IT activa que cobra retén, guardia o disponibilidad en ese mismo mes. La coexistencia de baja médica y conceptos de disponibilidad en nómina es la señal que activa el patrón.",
       categoria: "reten",
       definicion: "FTE ≥ 0,95 + retén/guardia/disponibilidad en nómina > 0 € + concepto IT > 0 €.",
       fuente: "Nómina: 'Plus Disponibilidad/Guardia' e IT; Plantilla: FTE.",
@@ -136,6 +143,7 @@ const PATRONES_DATA = {
     {
       id: "pat-005",
       nombre: "Dietas/comida con IT activa",
+      descripcionHumana: "Persona con IT activa y dietas o manutención cobradas ese mismo mes. La coexistencia de baja médica con conceptos de desplazamiento laboral activo es la señal que detecta el patrón.",
       categoria: "dietas",
       definicion: "FTE ≥ 0,95 + dietas/comida en nómina > 0 € + concepto IT > 0 €.",
       fuente: "Nómina: 'Dietas/Comida' e IT; Plantilla: FTE.",
@@ -151,6 +159,7 @@ const PATRONES_DATA = {
     {
       id: "pat-008",
       nombre: "W95-OFICIAL GC5 con jornada completa e IT activa",
+      descripcionHumana: "La categoría W95-OFICIAL GC5 con jornada completa e IT activa localiza el absentismo por baja en este colectivo específico con 44 personas afectadas.",
       categoria: "cat",
       definicion: "Categoría = W95-OFICIAL GC5 + FTE ≥ 0,95 + concepto IT > 0 €.",
       fuente: "Plantilla: 'Categoría' y FTE; Nómina: IT.",
@@ -166,6 +175,7 @@ const PATRONES_DATA = {
     {
       id: "pat-007",
       nombre: "W97-OFICIAL GC9 con jornada completa e IT activa",
+      descripcionHumana: "La categoría GC9 concentra 70 personas con baja activa a jornada completa. Riesgo moderado (15,7%) pero con 208 activaciones que generan 2.771 días de ausencia asociados.",
       categoria: "cat",
       definicion: "Categoría = W97-OFICIAL GC9 + FTE ≥ 0,95 + concepto IT > 0 €.",
       fuente: "Plantilla: 'Categoría' y FTE; Nómina: IT.",
@@ -181,6 +191,7 @@ const PATRONES_DATA = {
     {
       id: "pat-011",
       nombre: "Desplazamientos/kilometraje con IT activa",
+      descripcionHumana: "Persona con IT activa y kilómetros o desplazamientos cobrados ese mes. La señal detecta una posible anomalía entre la baja declarada y la actividad de desplazamiento registrada en nómina.",
       categoria: "km",
       definicion: "FTE ≥ 0,95 + desplazamientos/kilometraje en nómina > 0 € + concepto IT > 0 €.",
       fuente: "Nómina: 'Kilometraje/Desplazamientos' e IT; Plantilla: FTE.",
@@ -196,6 +207,7 @@ const PATRONES_DATA = {
     {
       id: "pat-012",
       nombre: "Horas extra en mes con IT activa",
+      descripcionHumana: "Persona con IT activa que genera horas extra o complementarias ese mismo mes. La coexistencia de baja médica y horas extra en nómina es la señal de anomalía que detecta el patrón.",
       categoria: "he",
       definicion: "FTE ≥ 0,95 + horas extra/complementarias en nómina > 0 € + concepto IT > 0 €.",
       fuente: "Nómina: 'Horas Extra/Complementarias' e IT; Plantilla: FTE.",
@@ -211,6 +223,7 @@ const PATRONES_DATA = {
     {
       id: "pat-014",
       nombre: "Responsabilidad/jefatura con IT activa",
+      descripcionHumana: "Persona con plus de responsabilidad o jefatura que entra en IT activa. Los mandos intermedios en baja generan un impacto adicional por la dependencia del equipo de su gestión directa.",
       categoria: "resp",
       definicion: "FTE ≥ 0,95 + responsabilidad/mando en nómina > 0 € + concepto IT > 0 €.",
       fuente: "Nómina: 'Plus Responsabilidad/Mando' e IT; Plantilla: FTE.",
@@ -226,6 +239,7 @@ const PATRONES_DATA = {
     {
       id: "pat-015",
       nombre: "Centro Torviscal con absentismo actual e IT activa",
+      descripcionHumana: "El centro Torviscal concentra personas con absentismo activo e IT en el mismo mes. La localización por centro detecta focos geográficos de absentismo con el riesgo más alto entre los centros analizados.",
       categoria: "centro",
       definicion: "Centro = S135800013-Torviscal + absentismo del mes > 0 días + concepto IT > 0 €.",
       fuente: "Plantilla: 'Centro'; Absentismo: días del mes; Nómina: IT.",
@@ -241,6 +255,7 @@ const PATRONES_DATA = {
     {
       id: "pat-013",
       nombre: "Centro Bonus Pontevedra con absentismo actual e IT activa",
+      descripcionHumana: "El centro Bonus Pontevedra muestra absentismo e IT activa combinados. El patrón identifica un foco local de absentismo dentro de ese centro específico con 16 personas afectadas.",
       categoria: "centro",
       definicion: "Centro = S135800033-Bonus Pontevedra + absentismo del mes > 0 días + concepto IT > 0 €.",
       fuente: "Plantilla: 'Centro'; Absentismo: días del mes; Nómina: IT.",
@@ -256,6 +271,7 @@ const PATRONES_DATA = {
     {
       id: "pat-016",
       nombre: "WD1-TECNICO/A GC4 con jornada completa e IT activa",
+      descripcionHumana: "Perfil técnico WD1-GC4 con jornada completa e IT activa. Colectivo pequeño (5 personas) pero con perfil especializado donde una ausencia prolongada tiene impacto operativo relevante.",
       categoria: "cat",
       definicion: "Categoría = WD1-TECNICO/A GC4 + FTE ≥ 0,95 + concepto IT > 0 €.",
       fuente: "Plantilla: 'Categoría' y FTE; Nómina: IT.",
@@ -271,6 +287,7 @@ const PATRONES_DATA = {
     {
       id: "pat-017",
       nombre: "Bolsa Castellón con IT y nómina incompleta",
+      descripcionHumana: "Personas en Castellón con IT activa y nómina incompleta. La bolsa es pequeña (8 personas) pero con señal de nómina rota que conviene monitorizar para evitar que crezca.",
       categoria: "prov",
       definicion: "Provincia = Castellón + salario base del mes < 66,7% del habitual + concepto IT > 0 €.",
       fuente: "Plantilla: 'Provincia'; Nómina: 'Salario Base' e IT.",
@@ -286,6 +303,7 @@ const PATRONES_DATA = {
     {
       id: "pat-018",
       nombre: "Centro Zona 3 con absentismo actual e IT activa",
+      descripcionHumana: "El centro Zona 3 muestra absentismo activo e IT combinados en el mismo mes. Patrón de seguimiento: colectivo pequeño (9 personas) con señal de foco local que merece monitorización.",
       categoria: "centro",
       definicion: "Centro = S135800035-Zona 3 + absentismo del mes > 0 días + concepto IT > 0 €.",
       fuente: "Plantilla: 'Centro'; Absentismo: días del mes; Nómina: IT.",

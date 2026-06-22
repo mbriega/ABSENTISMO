@@ -76,6 +76,13 @@
           </div>
         </div>
 
+        <!-- ── Señal clave ── -->
+        <div class="bg-white rounded-xl border border-surface-200 p-6 shadow-card">
+          <h3 class="text-base font-semibold text-surface-900 mb-1">Señal clave</h3>
+          <p class="text-sm text-surface-400 mb-4">Combinación de variables que activa el patrón — deben cumplirse simultáneamente</p>
+          <div class="flex flex-wrap items-center gap-2" id="senal-chips"></div>
+        </div>
+
         <!-- ── KPIs ── -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
 
@@ -105,8 +112,8 @@
                 d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
             </svg>
             <p class="text-2xl font-bold text-surface-900 tracking-tight" id="kpi-variables">—</p>
-            <p class="text-xs text-surface-500 mt-1 font-medium">Variables</p>
-            <p class="text-[11px] text-surface-400">Variables del modelo</p>
+            <p class="text-xs text-surface-500 mt-1 font-medium">Condiciones</p>
+            <p class="text-[11px] text-surface-400">Condiciones del patrón</p>
           </div>
 
           <div class="bg-white rounded-xl border border-surface-200 p-5 shadow-card text-center">
@@ -121,11 +128,29 @@
 
         </div>
 
-        <!-- ── Cómo lo detectamos ── -->
+        <!-- ── Qué significa / Qué no significa ── -->
         <div class="bg-white rounded-xl border border-surface-200 p-6 shadow-card">
-          <h3 class="text-base font-semibold text-surface-900 mb-1">Cómo lo hemos detectado</h3>
-          <p class="text-sm text-surface-400 mb-4">Variables que componen el patrón y su peso relativo</p>
-          <p class="text-sm text-surface-400 italic" id="variables-placeholder">Sin variables del modelo disponibles.</p>
+          <h3 class="text-base font-semibold text-surface-900 mb-4">Qué significa y qué no significa</h3>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div>
+              <h4 class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-3">Qué significa</h4>
+              <ul class="space-y-3" id="que-significa-list"></ul>
+            </div>
+            <div>
+              <h4 class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-3">Qué NO significa</h4>
+              <ul class="space-y-3" id="que-no-significa-list"></ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Condiciones exactas ── -->
+        <div class="bg-white rounded-xl border border-surface-200 p-6 shadow-card">
+          <h3 class="text-base font-semibold text-surface-900 mb-1">Condiciones exactas</h3>
+          <p class="text-sm text-surface-400 mb-4">Variables que deben cumplirse simultáneamente para activar el patrón</p>
+          <div id="condiciones-lista" class="divide-y divide-surface-100"></div>
+          <div class="mt-4 pt-3 border-t border-surface-100">
+            <p class="text-xs text-surface-400">Fuente: Nómina (Salario Base, conceptos IT), Plantilla (FTE mensual), Absentismo (días de los 90 d previos).</p>
+          </div>
         </div>
 
         <!-- ── Impacto económico ── -->
@@ -140,6 +165,13 @@
               <!-- Poblado por main.js -->
             </div>
           </div>
+        </div>
+
+        <!-- ── Por qué importa en tu operación ── -->
+        <div class="bg-white rounded-xl border border-surface-200 p-6 shadow-card">
+          <h3 class="text-base font-semibold text-surface-900 mb-1">Por qué importa en tu operación real</h3>
+          <p class="text-sm text-surface-400 mb-4">Contexto de empresa que da relevancia al patrón más allá del dato estadístico</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="relevancia-cards"></div>
         </div>
 
         <!-- ── Localización del impacto ── -->
@@ -233,6 +265,23 @@
               </p>
             </div>
           </div>
+        </div>
+
+        <!-- ── Solapamiento ── -->
+        <div class="bg-white rounded-xl border border-surface-200 p-6 shadow-card">
+          <h3 class="text-base font-semibold text-surface-900 mb-1">Solapamiento con otros patrones</h3>
+          <p class="text-sm text-surface-400 mb-4">Una persona puede activar varios patrones. Los costes no deben sumarse sin revisar solapamientos.</p>
+          <div id="solapamiento-lista" class="divide-y divide-surface-100"></div>
+          <div class="mt-4 p-3 bg-surface-50 rounded-lg border border-surface-100">
+            <p class="text-xs text-surface-500 leading-relaxed">Advertencia: revisar los solapamientos antes de sumar costes entre patrones para evitar duplicar el impacto económico.</p>
+          </div>
+        </div>
+
+        <!-- ── Cómo debe leerlo cada perfil ── -->
+        <div class="bg-white rounded-xl border border-surface-200 p-6 shadow-card">
+          <h3 class="text-base font-semibold text-surface-900 mb-1">Cómo debe leerlo cada perfil</h3>
+          <p class="text-sm text-surface-400 mb-4">Traducción del patrón según la perspectiva de cada área</p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="audiencia-cards"></div>
         </div>
 
         <!-- ── Recomendación de intervención ── -->

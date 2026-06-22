@@ -35,10 +35,11 @@ var TableComponent = (function() {
       : PATRONES_DATA.patrones.filter(function(p) { return p.categoria === filtro; });
 
     tbody.innerHTML = items.map(function(p) {
+      var desc = p.descripcionHumana || p.definicion;
       return '<tr class="patrones-row cursor-pointer" onclick="window.location.href=\'' + p.detalle + '\'">'
         + '<td class="px-5 py-4">'
         + '<p class="text-sm font-medium text-surface-900 leading-tight">' + p.nombre + "</p>"
-        + '<p class="text-xs text-surface-400 mt-0.5 leading-relaxed">' + p.definicion + "</p>"
+        + '<p class="text-xs text-surface-400 mt-1 leading-relaxed">' + desc + "</p>"
         + "</td>"
         + '<td class="px-4 py-4 text-right text-sm font-semibold text-surface-900 tabular-nums">' + p.activaciones.toLocaleString("es-ES") + "</td>"
         + '<td class="px-4 py-4 text-right text-sm font-semibold text-surface-900 tabular-nums">' + p.empleados + "</td>"
@@ -48,10 +49,8 @@ var TableComponent = (function() {
         + '<td class="px-4 py-4 text-right text-sm font-semibold text-surface-900 tabular-nums">' + p.costeDirecto + "</td>"
         + '<td class="px-4 py-4 text-center"><span class="badge ' + (BADGE[p.criticidad] || "") + '">' + p.criticidad + "</span></td>"
         + '<td class="px-4 py-4">'
-        + '<a href="' + p.detalle + '" class="text-primary-600 hover:text-primary-700 transition-colors" onclick="event.stopPropagation()">'
-        + '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">'
-        + '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>'
-        + "</svg></a></td>"
+        + '<a href="' + p.detalle + '" class="text-xs font-semibold text-primary-600 hover:text-primary-700 whitespace-nowrap transition-colors" onclick="event.stopPropagation()">Ver patrón →</a>'
+        + "</td>"
         + "</tr>";
     }).join("");
   }
@@ -93,6 +92,97 @@ function initPatDetailPage() {
   setText("kpi-variables", d.kpis.variables);
   setText("kpi-confianza", d.kpis.confianza);
   setText("pat-resumen",   d.resumen);
+
+  // Señal clave — chips
+  var senalEl = document.getElementById("senal-chips");
+  if (senalEl && d.senalClave) {
+    var chipHtml = d.senalClave.chips.map(function(c) {
+      return '<span class="text-xs bg-white border border-surface-200 rounded-full px-3 py-1.5 font-semibold text-surface-700">' + c + "</span>";
+    }).join('<span class="text-sm font-bold text-surface-400 px-1">+</span>');
+    chipHtml += '<span class="text-sm font-bold text-surface-400 px-1">=</span>';
+    chipHtml += '<span class="text-xs bg-primary-50/50 border border-primary-200 rounded-full px-3 py-1.5 font-semibold text-primary-700">' + d.senalClave.resultado + "</span>";
+    senalEl.innerHTML = chipHtml;
+  }
+
+  // Qué significa
+  var qsEl = document.getElementById("que-significa-list");
+  if (qsEl && d.queSignifica) {
+    qsEl.innerHTML = d.queSignifica.map(function(item) {
+      return '<li class="flex items-start gap-2.5">'
+        + '<span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary-400 shrink-0"></span>'
+        + '<span class="text-sm text-surface-700 leading-relaxed">' + item + "</span>"
+        + "</li>";
+    }).join("");
+  }
+
+  // Qué no significa
+  var qnsEl = document.getElementById("que-no-significa-list");
+  if (qnsEl && d.queNoSignifica) {
+    qnsEl.innerHTML = d.queNoSignifica.map(function(item) {
+      return '<li class="flex items-start gap-2.5">'
+        + '<span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-surface-300 shrink-0"></span>'
+        + '<span class="text-sm text-surface-600 leading-relaxed">' + item + "</span>"
+        + "</li>";
+    }).join("");
+  }
+
+  // Condiciones exactas
+  var condEl = document.getElementById("condiciones-lista");
+  if (condEl && d.condicionesExactas) {
+    condEl.innerHTML = d.condicionesExactas.map(function(c, i) {
+      return '<div class="py-3.5 flex items-start gap-4">'
+        + '<div class="w-6 h-6 rounded-md bg-surface-100 flex items-center justify-center shrink-0 mt-0.5">'
+        + '<span class="text-xs font-bold text-surface-500">' + (i + 1) + "</span>"
+        + "</div>"
+        + '<div class="flex-1">'
+        + '<p class="text-sm font-semibold text-surface-900">' + c.condicion + "</p>"
+        + '<p class="text-sm text-surface-500 mt-0.5 leading-relaxed">' + c.descripcion + "</p>"
+        + "</div>"
+        + "</div>";
+    }).join("");
+  }
+
+  // Por qué importa
+  var relEl = document.getElementById("relevancia-cards");
+  if (relEl && d.relevanciaEmpresa) {
+    var relItems = [
+      { titulo: "Impacto operativo",      texto: d.relevanciaEmpresa.impactoOperativo  },
+      { titulo: "Materialidad económica", texto: d.relevanciaEmpresa.materialidad      },
+      { titulo: "Lectura contextual",     texto: d.relevanciaEmpresa.lecturaContextual },
+      { titulo: "Separación de ruido",    texto: d.relevanciaEmpresa.separacionRuido   }
+    ];
+    relEl.innerHTML = relItems.map(function(item) {
+      return '<div class="bg-surface-50 rounded-lg p-4 border border-surface-100">'
+        + '<p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-2">' + item.titulo + "</p>"
+        + '<p class="text-sm text-surface-700 leading-relaxed">' + item.texto + "</p>"
+        + "</div>";
+    }).join("");
+  }
+
+  // Solapamiento
+  var solapEl = document.getElementById("solapamiento-lista");
+  if (solapEl && d.solapamiento) {
+    solapEl.innerHTML = d.solapamiento.map(function(s) {
+      return '<div class="py-3.5">'
+        + '<div class="flex items-center justify-between mb-1.5">'
+        + '<p class="text-sm font-medium text-surface-800">' + s.patron + "</p>"
+        + '<span class="text-xs font-bold text-surface-500 bg-surface-100 px-2.5 py-1 rounded-full shrink-0 ml-3">' + s.porcentaje + "% solape</span>"
+        + "</div>"
+        + '<p class="text-sm text-surface-500 leading-relaxed">' + s.descripcion + "</p>"
+        + "</div>";
+    }).join("");
+  }
+
+  // Audiencia — cómo debe leerlo cada perfil
+  var audEl = document.getElementById("audiencia-cards");
+  if (audEl && d.audiencia) {
+    audEl.innerHTML = d.audiencia.map(function(a) {
+      return '<div class="bg-surface-50 rounded-lg p-4 border border-surface-100">'
+        + '<p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-2">' + a.perfil + "</p>"
+        + '<p class="text-sm text-surface-700 leading-relaxed">' + a.lectura + "</p>"
+        + "</div>";
+    }).join("");
+  }
 
   // Impacto desglose (lista derecha)
   var desgloseEl = document.getElementById("impacto-desglose");
