@@ -139,6 +139,31 @@ const PAT002_DATA = {
     colectivoObjetivo: "85 personas en Transversal"
   },
 
+  // ── Evidencia técnica ───────────────────────────────────────
+  evidenciaTecnica: {
+    poblacion:    "317 empleados en perímetro de análisis",
+    periodo:      "Enero 2025 – Diciembre 2025 (12 meses)",
+    consistencia: "El patrón se replica en 4 de 6 períodos analizados",
+    confianza:    "Confianza del 80% — se recomienda contrastar con experto de dominio antes de tomar decisiones individuales",
+    trazabilidad: "Cada activación es trazable a su fuente original. Los umbrales y fuentes son auditados mensualmente para garantizar la calidad del dato.",
+    variables: [
+      "Salario base del mes",
+      "FTE mensual",
+      "Días de IT (90d previos)",
+      "Conceptos IT en nómina",
+      "Días de absentismo (90d previos)"
+    ],
+    fuentes: [
+      "Sistema de nómina",
+      "Plantilla (FTE mensual)",
+      "Registros de absentismo"
+    ],
+    advertencias: [
+      "Los valores observados pueden variar con la incorporación de nuevos datos al sistema.",
+      "Una activación indica una señal estadística, no una certeza — no debe usarse como único criterio de decisión sobre una persona concreta."
+    ]
+  },
+
   // ── Personas identificadas ───────────────────────────────────
   personas: {
     total:            85,

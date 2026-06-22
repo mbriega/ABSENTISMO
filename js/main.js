@@ -402,6 +402,54 @@ function initPatDetailPage() {
     });
   }
 
+  // Evidencia técnica — 4 tarjetas en lenguaje de negocio
+  var evContent = document.getElementById("ev-content");
+  if (evContent && d.evidenciaTecnica) {
+    var ev = d.evidenciaTecnica;
+    var pill = function(t) {
+      return '<span class="text-xs bg-surface-100 text-surface-700 px-2.5 py-1 rounded-full font-medium">' + t + "</span>";
+    };
+    var warnIcon = '<svg class="w-3.5 h-3.5 text-medium-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">'
+      + '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/>'
+      + '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v4M12 17h.01"/></svg>';
+
+    evContent.innerHTML =
+      // Fila 1: universo + fiabilidad
+      '<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">'
+      + '<div class="bg-primary-50 border border-primary-100 rounded-xl p-4">'
+      + '<p class="text-xs font-semibold text-primary-600 uppercase tracking-wider mb-3">¿Sobre qué universo trabaja?</p>'
+      + '<p class="text-sm font-semibold text-surface-900">' + ev.poblacion + "</p>"
+      + '<p class="text-xs text-surface-500 mt-1">' + ev.periodo + "</p>"
+      + "</div>"
+      + '<div class="bg-low-50 border border-low-200 rounded-xl p-4">'
+      + '<p class="text-xs font-semibold text-low-600 uppercase tracking-wider mb-3">¿Cuánto podemos fiarnos?</p>'
+      + '<p class="text-sm font-semibold text-surface-900">' + ev.consistencia + "</p>"
+      + '<p class="text-xs text-surface-600 mt-1.5 leading-snug">' + ev.confianza + "</p>"
+      + "</div>"
+      + "</div>"
+      // Fila 2: variables + fuentes
+      + '<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">'
+      + '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4">'
+      + '<p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-3">Variables que analiza el modelo</p>'
+      + '<div class="flex flex-wrap gap-1.5">' + ev.variables.map(pill).join("") + "</div>"
+      + "</div>"
+      + '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4">'
+      + '<p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-3">Fuentes de datos</p>'
+      + '<div class="flex flex-wrap gap-1.5">' + ev.fuentes.map(pill).join("") + "</div>"
+      + '<p class="text-xs text-surface-500 mt-3 leading-snug">' + ev.trazabilidad + "</p>"
+      + "</div>"
+      + "</div>"
+      // Fila 3: advertencias
+      + '<div class="bg-medium-50 border border-medium-200 rounded-xl p-4">'
+      + '<p class="text-xs font-semibold text-medium-700 uppercase tracking-wider mb-3">Antes de actuar, ten en cuenta</p>'
+      + '<ul class="space-y-2">'
+      + ev.advertencias.map(function(w) {
+          return '<li class="flex items-start gap-2 text-sm text-medium-700">' + warnIcon + "<span>" + w + "</span></li>";
+        }).join("")
+      + "</ul>"
+      + "</div>";
+  }
+
   // Consultor — envío
   var sendBtn  = document.getElementById("consultor-send");
   var inputEl  = document.getElementById("consultor-input");
