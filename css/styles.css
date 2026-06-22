@@ -32,6 +32,7 @@
 .badge--alto    { background: #ffedd5; color: #c2410c; }
 .badge--medio   { background: #fef9c3; color: #a16207; }
 .badge--bajo    { background: #dcfce7; color: #15803d; }
+.badge--xs      { padding: 1px 7px; font-size: 0.65rem; }
 
 .patrones-row { animation: fadeIn 0.3s ease; }
 .patrones-row:hover td { background-color: rgba(239, 246, 255, 0.5); }
