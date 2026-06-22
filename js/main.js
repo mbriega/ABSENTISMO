@@ -326,10 +326,15 @@ function initPatDetailPage() {
       }
     }
 
+    var BRADFORD_INFO = '<div class="kpi-info-wrap" style="display:inline-flex;margin-left:2px;">'
+      + '<svg class="kpi-info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="1.75"/><path d="M12 16v-4M12 8h.01" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+      + '<div class="kpi-tooltip">Índice Bradford (B = S² × D): mide el impacto de ausencias frecuentes y cortas. S = número de episodios, D = días totales. Un Bradford alto indica muchas ausencias cortas, más disruptivas que una sola larga.</div>'
+      + '</div>';
     metricBtns.innerHTML = evMetricas.map(function(m, i) {
-      return '<button class="px-3 py-1.5 text-xs font-medium rounded-md transition-all '
+      var suffix = m.key === "bradford" ? BRADFORD_INFO : "";
+      return '<button class="px-3 py-1.5 text-xs font-medium rounded-md transition-all inline-flex items-center '
         + (i === 0 ? "bg-white text-surface-800 shadow-sm" : "text-surface-500 hover:text-surface-700")
-        + '" data-metric="' + i + '">' + m.label + "</button>";
+        + '" data-metric="' + i + '">' + m.label + suffix + "</button>";
     }).join("");
 
     renderMetrica(evMetricas[0]);
@@ -339,9 +344,9 @@ function initPatDetailPage() {
       if (!btn) return;
       var idx = parseInt(btn.getAttribute("data-metric"), 10);
       Array.from(metricBtns.querySelectorAll("button")).forEach(function(b) {
-        b.className = "px-3 py-1.5 text-xs font-medium rounded-md transition-all text-surface-500 hover:text-surface-700";
+        b.className = "px-3 py-1.5 text-xs font-medium rounded-md transition-all inline-flex items-center text-surface-500 hover:text-surface-700";
       });
-      btn.className = "px-3 py-1.5 text-xs font-medium rounded-md transition-all bg-white text-surface-800 shadow-sm";
+      btn.className = "px-3 py-1.5 text-xs font-medium rounded-md transition-all inline-flex items-center bg-white text-surface-800 shadow-sm";
       renderMetrica(evMetricas[idx]);
     });
   }
