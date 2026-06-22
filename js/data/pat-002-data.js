@@ -112,17 +112,23 @@ const PAT002_DATA = {
   medicion: {
     intervencion: "2025-07-02",
     pre: {
-      label: "Período Pre",
-      valor: "8%",
-      rango: "2025-01-01 – 2025-07-01"
+      label:       "Período Pre",
+      valor:       "8%",
+      pct:         8,
+      rango:       "2025-01-01 – 2025-07-01",
+      descripcion: "1 de cada 12 reincorporaciones derivó en nueva baja — nivel de alerta que activó la revisión del protocolo de vuelta al trabajo"
     },
     post: {
-      label: "Período Post",
-      valor: "4.4%",
-      rango: "2025-07-02 – 2025-12-31"
+      label:       "Período Post",
+      valor:       "4,4%",
+      pct:         4.4,
+      rango:       "2025-07-02 – 2025-12-31",
+      descripcion: "Reducción sostenida tras intervención — nivel más bajo registrado en los 12 meses analizados"
     },
-    cambioImpacto: "-24.4%",
-    estado:        "Estabilización"
+    cambioImpacto:      "−24,4%",
+    estado:             "Estabilización",
+    importeEvitado:     "≈ 292.077 € evitados",
+    cambioDescripcion:  "Reducir la tasa del 8% al 4,4% equivale a evitar 36 nuevas bajas en el período. Con un coste medio de 14.300 € por episodio no gestionado, el ahorro estimado en 12 meses es de 292.077 € — sin contar el impacto en productividad ni sustituciones."
   },
 
   // ── Recomendación de intervención ───────────────────────────

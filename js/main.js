@@ -348,15 +348,27 @@ function initPatDetailPage() {
 
   // Medición antes/después
   var med = d.medicion;
-  setText("intervencion-label", "Intervención: " + med.intervencion);
-  setText("pre-label",          med.pre.label);
-  setText("pre-valor",          med.pre.valor);
-  setText("pre-rango",          med.pre.rango);
-  setText("post-label",         med.post.label);
-  setText("post-valor",         med.post.valor);
-  setText("post-rango",         med.post.rango);
-  setText("cambio-valor",       med.cambioImpacto);
-  setText("cambio-estado",      med.estado);
+  setText("intervencion-label",  "Intervención: " + med.intervencion);
+  setText("pre-label",           med.pre.label);
+  setText("pre-valor",           med.pre.valor);
+  setText("pre-descripcion",     med.pre.descripcion  || "");
+  setText("pre-rango",           med.pre.rango);
+  setText("post-label",          med.post.label);
+  setText("post-valor",          med.post.valor);
+  setText("post-descripcion",    med.post.descripcion || "");
+  setText("post-rango",          med.post.rango);
+  setText("cambio-valor",        med.cambioImpacto);
+  setText("cambio-importe",      med.importeEvitado   || "");
+  setText("cambio-estado",       med.estado);
+  setText("cambio-descripcion",  med.cambioDescripcion || "");
+  setText("barra-pre-valor",     med.pre.valor);
+  setText("barra-post-valor",    med.post.valor);
+  var barPre  = document.getElementById("barra-pre");
+  var barPost = document.getElementById("barra-post");
+  if (barPre && barPost && med.pre.pct) {
+    barPre.style.width  = "100%";
+    barPost.style.width = ((med.post.pct / med.pre.pct) * 100).toFixed(1) + "%";
+  }
 
   // Recomendación
   var rec = d.recomendacion;
