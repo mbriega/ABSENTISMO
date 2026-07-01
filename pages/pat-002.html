@@ -204,9 +204,6 @@
           <div id="pat-formula-card" class="bg-white rounded-xl border border-surface-200 shadow-card p-5"></div>
         </div>
 
-        <!-- ══ POR QUÉ IMPORTA ══ -->
-        <div id="pat-impacto-row" class="grid grid-cols-4 gap-4 mb-5"></div>
-
         <!-- ══ CENTROS DONDE APARECE MÁS ══ -->
         <div class="bg-white rounded-xl border border-surface-200 shadow-card mb-5 p-5">
           <p class="text-[10px] font-medium text-surface-400 uppercase tracking-wider mb-4">Centros donde aparece más</p>
@@ -268,30 +265,7 @@
               </div>
               <svg class="disc-chev w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
             </summary>
-            <div class="disc-body-inner" id="coste-detalle-body">
-              <!-- Desglose de costes por categoría -->
-              <div class="grid grid-cols-2 gap-3 mb-3">
-                <div class="bg-primary-50 rounded-xl p-4 border border-primary-100">
-                  <p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-2">De dónde sale el coste histórico</p>
-                  <p class="text-sm text-surface-600 leading-relaxed">Este importe agrupa los costes observados en las apariciones históricas del patrón. No mide una predicción futura ni un ahorro garantizado: mide el coste que la compañía ya ha soportado cuando esta secuencia se ha repetido.</p>
-                </div>
-                <div class="bg-primary-50 rounded-xl p-4 border border-primary-100">
-                  <p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-2">Métricas derivadas</p>
-                  <div class="space-y-2">
-                    <div class="distrib-row"><span>Coste medio por aparición</span><strong>5.172 €</strong></div>
-                    <div class="distrib-row"><span>Coste medio por persona única</span><strong>10.084 €</strong></div>
-                    <div class="distrib-row"><span>Casos con nueva ausencia</span><strong>≈ 196</strong></div>
-                    <div class="distrib-row"><span>Coste por caso confirmado</span><strong>6.122 €</strong></div>
-                  </div>
-                </div>
-              </div>
-              <div class="grid grid-cols-3 gap-3 mb-3" id="coste-categorias"></div>
-              <div class="bg-medium-50 border border-medium-200 rounded-xl p-3">
-                <p class="text-xs font-medium text-medium-700 leading-relaxed">
-                  <strong>Lectura prudente:</strong> el coste está asociado al patrón y puede solaparse con otros fenómenos. Sirve para dimensionar el impacto histórico y priorizar su peso dentro del modelo predictivo, pero no debe interpretarse como ahorro directo garantizado.
-                </p>
-              </div>
-            </div>
+            <div class="disc-body-inner" id="coste-detalle-body"></div>
           </details>
 
           <!-- Personas afectadas -->
@@ -385,7 +359,7 @@
           <span id="rec-responsable"></span><span id="rec-impacto"></span><span id="rec-plazo"></span><span id="rec-porque"></span>
           <div id="consultor-contextos"></div><div id="consultor-preguntas"></div>
           <div id="chat-area"></div><input id="consultor-input"/><button id="consultor-send"></button>
-          <div id="condiciones-lista"></div><div id="solapamiento-lista"></div>
+          <div id="condiciones-lista"></div><div id="solapamiento-lista"></div><div id="pat-impacto-row"></div><div id="coste-categorias"></div>
           <button id="accordion-btn"></button><div id="accordion-body"></div>
           <div id="relevancia-cards"></div><span id="pat-resumen"></span><span id="senal-chips"></span><span id="kpi-variables"></span>
           <span id="kpi-impacto"></span><span id="kpi-personas"></span><span id="kpi-confianza"></span>

@@ -420,53 +420,49 @@ function initPatDetailPage() {
     });
   }
 
-  // ── Cómo se ha detectado (rediseño) ─────────────────────────
+  // ── Cómo se ha detectado — 4 recuadros + advertencias ───────
   var evContent = document.getElementById("ev-content");
   if (evContent && d.evidenciaTecnica) {
     var ev = d.evidenciaTecnica;
     var pill = function(t) {
-      return '<span class="text-xs bg-primary-100 text-primary-700 px-2.5 py-1 rounded-full font-medium">' + t + "</span>";
+      return '<span class="text-xs bg-primary-100 text-primary-700 px-2.5 py-1 rounded-full font-medium">' + t + '</span>';
     };
     var warnIcon = '<svg class="w-3.5 h-3.5 text-medium-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">'
       + '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/>'
       + '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v4M12 17h.01"/></svg>';
 
     evContent.innerHTML =
-      // Fila 1: 3 chips de contexto horizontal
-      '<div class="grid grid-cols-3 gap-3 mb-4">'
-      + '<div class="bg-primary-50 border border-primary-100 rounded-xl p-3">'
-      + '<p class="text-[10px] font-medium text-primary-400 uppercase tracking-wider mb-1">Universo</p>'
-      + '<p class="text-sm font-semibold text-primary-900 leading-snug">' + ev.poblacion + '</p>'
-      + '</div>'
-      + '<div class="bg-primary-50 border border-primary-100 rounded-xl p-3">'
-      + '<p class="text-[10px] font-medium text-primary-400 uppercase tracking-wider mb-1">Período</p>'
-      + '<p class="text-sm font-semibold text-primary-900 leading-snug">' + ev.periodo + '</p>'
-      + '</div>'
-      + '<div class="bg-low-50 border border-low-200 rounded-xl p-3">'
-      + '<p class="text-[10px] font-medium text-low-600 uppercase tracking-wider mb-1">Fiabilidad</p>'
-      + '<p class="text-sm font-semibold text-low-800 leading-snug">' + ev.consistencia + '</p>'
-      + '<p class="text-xs text-low-600 mt-1 leading-snug">' + ev.confianza + '</p>'
-      + '</div>'
-      + '</div>'
-      // Fila 2: variables + fuentes side by side
-      + '<div class="grid grid-cols-2 gap-3 mb-4">'
+      '<div class="grid grid-cols-2 gap-3 mb-4">'
+      // Card 1: Universo
       + '<div class="bg-primary-50 border border-primary-100 rounded-xl p-4">'
-      + '<p class="text-[10px] font-medium text-primary-500 uppercase tracking-wider mb-3">Variables del modelo</p>'
-      + '<div class="flex flex-wrap gap-1.5">' + ev.variables.map(pill).join("") + '</div>'
+      + '<p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider mb-2">¿Sobre qué universo trabaja?</p>'
+      + '<p class="text-sm font-semibold text-surface-900 leading-snug mb-1">' + ev.poblacion + '</p>'
+      + '<p class="text-xs text-surface-500">' + ev.periodo + '</p>'
       + '</div>'
+      // Card 2: Fiabilidad
+      + '<div class="bg-low-50 border border-low-200 rounded-xl p-4">'
+      + '<p class="text-[10px] font-medium text-low-600 uppercase tracking-wider mb-2">¿Cuánto podemos fiarnos?</p>'
+      + '<p class="text-sm font-semibold text-surface-900 leading-snug mb-1">' + ev.consistencia + '</p>'
+      + '<p class="text-xs text-low-700 leading-snug">' + ev.confianza + '</p>'
+      + '</div>'
+      // Card 3: Variables
       + '<div class="bg-primary-50 border border-primary-100 rounded-xl p-4">'
-      + '<p class="text-[10px] font-medium text-primary-500 uppercase tracking-wider mb-3">Fuentes de datos</p>'
-      + '<div class="flex flex-wrap gap-1.5 mb-3">' + ev.fuentes.map(pill).join("") + '</div>'
-      + '<p class="text-xs text-primary-700 leading-snug">' + ev.trazabilidad + '</p>'
+      + '<p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider mb-3">Variables que analiza el modelo</p>'
+      + '<div class="flex flex-wrap gap-1.5">' + ev.variables.map(pill).join('') + '</div>'
+      + '</div>'
+      // Card 4: Fuentes
+      + '<div class="bg-primary-50 border border-primary-100 rounded-xl p-4">'
+      + '<p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider mb-3">Fuentes de datos</p>'
+      + '<div class="flex flex-wrap gap-1.5 mb-3">' + ev.fuentes.map(pill).join('') + '</div>'
+      + '<p class="text-xs text-surface-600 leading-snug">' + ev.trazabilidad + '</p>'
       + '</div>'
       + '</div>'
-      // Fila 3: advertencias
       + '<div class="bg-medium-50 border border-medium-200 rounded-xl p-4">'
-      + '<p class="text-[10px] font-medium text-medium-600 uppercase tracking-wider mb-3">Antes de actuar</p>'
+      + '<p class="text-[10px] font-medium text-medium-600 uppercase tracking-wider mb-3">Antes de actuar, ten en cuenta</p>'
       + '<ul class="space-y-2">'
       + ev.advertencias.map(function(w) {
           return '<li class="flex items-start gap-2 text-sm text-medium-700">' + warnIcon + '<span>' + w + '</span></li>';
-        }).join("")
+        }).join('')
       + '</ul>'
       + '</div>';
   }
@@ -564,17 +560,6 @@ function initPatDetailPage() {
       + '</div></div>';
   }
 
-  // ── Por qué importa (4 tarjetas, tinte azul) ────────────────
-  var impactoRow = document.getElementById("pat-impacto-row");
-  if (impactoRow && d.impactoEmpresa) {
-    impactoRow.innerHTML = d.impactoEmpresa.map(function(item) {
-      return '<div class="bg-primary-50 rounded-xl border border-primary-100 p-4">'
-        + '<p class="text-xs font-semibold text-primary-900 mb-2">' + item.titulo + '</p>'
-        + '<p class="text-xs text-primary-700 leading-relaxed">' + item.cuerpo + '</p>'
-        + '</div>';
-    }).join("");
-  }
-
   // ── Centros donde aparece más ────────────────────────────────
   var centersEl = document.getElementById("pat-centers-section");
   if (centersEl && d.centrosDistribucion) {
@@ -606,26 +591,30 @@ function initPatDetailPage() {
     var evhEl = document.getElementById("ev-historica-body");
     if (evhEl) {
       evhEl.innerHTML =
-        '<div class="grid gap-4" style="grid-template-columns:1fr 200px;">'
-        + '<div class="bg-primary-50 border border-primary-100 rounded-xl overflow-hidden">'
-        + '<div class="px-4 pt-3 pb-1 flex items-center gap-2 border-b border-primary-100">'
-        + '<span class="text-[10px] font-medium text-primary-500 uppercase tracking-wider">Riesgo de nueva baja a 60 días</span>'
-        + '</div>'
-        + '<div class="px-4 py-3"><canvas id="chart-evidencia" height="160"></canvas></div>'
+        '<div class="grid gap-5" style="grid-template-columns:1fr 210px;">'
+        + '<div>'
+        + '<p class="text-[10px] font-medium text-surface-400 uppercase tracking-wider mb-3">% riesgo nueva baja a 60 días por mes</p>'
+        + '<canvas id="chart-evidencia" height="190"></canvas>'
         + '</div>'
         + '<div class="space-y-3">'
         + '<div class="bg-primary-50 border border-primary-100 rounded-xl p-4">'
-        + '<p class="text-[10px] font-medium text-primary-500 uppercase tracking-wider mb-1">Media histórica</p>'
+        + '<p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider mb-1">Media histórica</p>'
         + '<p class="text-2xl font-bold tabular-nums text-primary-700 leading-none">' + evh.mediaRiesgo + '</p>'
-        + '<p class="text-xs text-primary-600 mt-1">riesgo a 60 días</p>'
+        + '<p class="text-xs text-surface-500 mt-1">riesgo a 60 días</p>'
         + '</div>'
         + '<div class="bg-low-50 border border-low-200 rounded-xl p-4">'
         + '<p class="text-[10px] font-medium text-low-600 uppercase tracking-wider mb-1">Diferencial</p>'
         + '<p class="text-lg font-bold text-low-700 leading-none">+31,2 pp</p>'
         + '<p class="text-xs text-low-600 mt-1">sobre media general (53,5%)</p>'
         + '</div>'
-        + '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4">'
-        + '<p class="text-xs text-surface-600 leading-relaxed">' + evh.resumen + '</p>'
+        + '<div class="bg-primary-50 border border-primary-100 rounded-xl p-4">'
+        + '<p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider mb-2">Consistencia</p>'
+        + '<p class="text-sm font-bold text-surface-900 leading-snug">4 de los últimos 6 meses mostraron el patrón activo</p>'
+        + '<p class="text-xs text-surface-500 leading-relaxed mt-2">' + evh.resumen + '</p>'
+        + '</div>'
+        + '<div class="bg-primary-50 border border-primary-100 rounded-xl p-3">'
+        + '<p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider mb-1">Solidez</p>'
+        + '<p class="text-xs text-surface-700 leading-relaxed">Los picos de riesgo coinciden con los meses de mayor volumen de reincorporaciones. La correlación es estable y replicable.</p>'
         + '</div>'
         + '</div>'
         + '</div>';
@@ -652,17 +641,76 @@ function initPatDetailPage() {
       + '</div>';
   }
 
-  // ── Coste — categorías ───────────────────────────────────────
-  var costeCatEl = document.getElementById("coste-categorias");
-  if (costeCatEl && d.impactoDesglose) {
-    costeCatEl.innerHTML = d.impactoDesglose.slice(0, 3).map(function(item, i) {
-      return '<div class="bg-primary-50 border border-primary-100 rounded-xl p-4">'
-        + '<p class="text-xs font-semibold text-primary-900 mb-1.5">' + (i + 1) + '. ' + item.concepto + '</p>'
-        + '<p class="text-xs text-primary-700 leading-relaxed mb-3">' + item.tooltip + '</p>'
-        + '<div class="distrib-row"><span>Peso en el patrón</span><strong>' + item.porcentaje + '%</strong></div>'
-        + '<div class="distrib-row"><span>Importe observado</span><strong>' + item.importeLabel + '</strong></div>'
-        + '</div>';
-    }).join("");
+  // ── Análisis del coste — donut + cards ───────────────────────
+  var costeEl = document.getElementById("coste-detalle-body");
+  if (costeEl && d.impactoDesglose) {
+    var cItems = d.impactoDesglose;
+    var cTotal = cItems.reduce(function(s, it) { return s + it.porcentaje; }, 0);
+    var cColors = ['#1d4ed8','#2563eb','#3b82f6','#60a5fa','#93c5fd'];
+    var r = 66, cx = 90, cy = 90, sw = 26;
+    var circ = 2 * Math.PI * r;
+    var cOffset = 0;
+    var segs = cItems.map(function(it, i) {
+      var dd = (it.porcentaje / cTotal) * circ;
+      var s = '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none"'
+        + ' stroke="'+cColors[i]+'" stroke-width="'+sw+'"'
+        + ' stroke-dasharray="'+dd.toFixed(2)+' '+(circ-dd).toFixed(2)+'"'
+        + ' stroke-dashoffset="'+(-cOffset).toFixed(2)+'"'
+        + ' transform="rotate(-90 '+cx+' '+cy+')" stroke-linecap="butt"/>';
+      cOffset += dd;
+      return s;
+    }).join('');
+    var donutSvg = '<svg viewBox="0 0 180 180" style="width:180px;height:180px;display:block;">'
+      + segs
+      + '<text x="'+cx+'" y="'+(cy-8)+'" text-anchor="middle" font-size="17" font-weight="800" fill="#1d4ed8" font-family="Inter,system-ui,sans-serif">1,20 M€</text>'
+      + '<text x="'+cx+'" y="'+(cy+12)+'" text-anchor="middle" font-size="10" fill="#94a3b8" font-family="Inter,system-ui,sans-serif">coste histórico</text>'
+      + '</svg>';
+
+    var legend = '<div class="space-y-2 flex-1">'
+      + cItems.map(function(it, i) {
+          return '<div class="flex items-center gap-2.5">'
+            + '<div style="width:10px;height:10px;border-radius:3px;background:'+cColors[i]+';flex-shrink:0;"></div>'
+            + '<span class="text-xs text-surface-700 flex-1">' + it.concepto + '</span>'
+            + '<span class="text-xs font-bold text-surface-900 tabular-nums">' + it.porcentaje.toFixed(1) + '%</span>'
+            + '</div>';
+        }).join('')
+      + '</div>';
+
+    var metricas = '<div class="bg-primary-50 border border-primary-100 rounded-xl p-4 ml-4" style="min-width:168px;">'
+      + '<p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider mb-3">Métricas derivadas</p>'
+      + '<div class="distrib-row"><span>Coste medio/aparición</span><strong>5.172 €</strong></div>'
+      + '<div class="distrib-row"><span>Coste medio/persona</span><strong>10.084 €</strong></div>'
+      + '<div class="distrib-row"><span>Casos con baja posterior</span><strong>≈ 196</strong></div>'
+      + '<div class="distrib-row"><span>Coste por caso confirmado</span><strong>6.122 €</strong></div>'
+      + '</div>';
+
+    var row1 = '<div class="flex items-center gap-4 mb-4">'
+      + '<div class="flex-shrink-0">' + donutSvg + '</div>'
+      + legend
+      + metricas
+      + '</div>';
+
+    var row2 = '<div class="grid grid-cols-2 gap-3 mb-4">'
+      + cItems.map(function(it, i) {
+          return '<div class="bg-primary-50 border border-primary-100 rounded-xl p-4">'
+            + '<div class="flex items-center justify-between mb-2">'
+            + '<div class="flex items-center gap-2">'
+            + '<div style="width:8px;height:8px;border-radius:2px;background:'+cColors[i]+';flex-shrink:0;"></div>'
+            + '<p class="text-xs font-semibold text-surface-900">' + it.concepto + '</p>'
+            + '</div>'
+            + '<span class="text-sm font-bold text-primary-700 tabular-nums shrink-0 ml-2">' + it.porcentaje.toFixed(1) + '%</span>'
+            + '</div>'
+            + '<p class="text-base font-bold text-surface-900 tabular-nums mb-1.5">' + it.importeLabel + '</p>'
+            + '<p class="text-xs text-surface-600 leading-relaxed">' + it.tooltip + '</p>'
+            + '</div>';
+        }).join("")
+      + '</div>';
+
+    var row3 = '<div class="bg-medium-50 border border-medium-200 rounded-xl p-3">'
+      + '<p class="text-xs font-medium text-medium-700 leading-relaxed"><strong>Lectura prudente:</strong> el coste está asociado al patrón y puede solaparse con otros fenómenos. Sirve para dimensionar el impacto histórico y priorizar su peso dentro del modelo predictivo, pero no debe interpretarse como ahorro directo garantizado.</p>'
+      + '</div>';
+
+    costeEl.innerHTML = row1 + row2 + row3;
   }
 
   // ── Qué datos mejorarían la lectura ─────────────────────────
