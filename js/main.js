@@ -512,7 +512,7 @@ function initPatDetailPage() {
         tip: "Agrupa salarios, sustituciones, horas extra y reorganización. No sumes directamente con otros patrones."
       },
       {
-        val: d.solidezEvidencia, valCls: "text-critical-600",
+        val: d.solidezEvidencia, valCls: "text-low-700",
         lbl: "Solidez de la evidencia",
         desc: "El patrón se repite con consistencia.",
         tip: "Se replicó en 4 de los últimos 6 meses analizados con resultados consistentes."
@@ -593,7 +593,7 @@ function initPatDetailPage() {
     var barsSvg = evh.apariciones.map(function(v, i) {
       var bH = Math.round(v / maxAp * 120);
       var bY = 138 - bH;
-      return '<rect x="' + (xPos[i] - 26) + '" y="' + bY + '" width="52" height="' + bH + '" fill="#c4b5fd" rx="3"/>'
+      return '<rect x="' + (xPos[i] - 26) + '" y="' + bY + '" width="52" height="' + bH + '" fill="#bfdbfe" rx="3"/>'
         + '<text x="' + xPos[i] + '" y="' + (bY - 4) + '" text-anchor="middle" font-size="10" font-weight="600" fill="#475569">' + v + '</text>'
         + '<text x="' + xPos[i] + '" y="158" text-anchor="middle" font-size="10" fill="#94a3b8">' + evh.meses[i] + '</text>';
     }).join("");
@@ -604,7 +604,7 @@ function initPatDetailPage() {
 
     var dotsSvg = evh.riesgo60d.map(function(v, i) {
       var y = Math.round(8 + (maxR - v) / rangeR * 112);
-      return '<circle cx="' + xPos[i] + '" cy="' + y + '" r="5" fill="#fff" stroke="#4f46e5" stroke-width="2.5"/>';
+      return '<circle cx="' + xPos[i] + '" cy="' + y + '" r="5" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>';
     }).join("");
 
     evHistEl.innerHTML =
@@ -624,7 +624,7 @@ function initPatDetailPage() {
       + '<div class="bg-surface-50 border border-surface-100 rounded-xl overflow-hidden">'
       + '<svg viewBox="0 0 600 170" style="width:100%;height:190px;display:block;" preserveAspectRatio="xMidYMid meet">'
       + barsSvg
-      + '<polyline points="' + linePts + '" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>'
+      + '<polyline points="' + linePts + '" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>'
       + dotsSvg
       + '</svg>'
       + '</div>'

@@ -231,13 +231,13 @@
       text-align: center; color: #1e293b; font-size: 12.5px; font-weight: 700; line-height: 1.3;
     }
     .formula-chip-new span { display: block; color: #94a3b8; font-size: 11px; font-weight: 400; margin-top: 2px; }
-    .formula-chip-new.final { background: #eef2ff; color: #4338ca; border-color: #c7d2fe; font-size: 13px; }
+    .formula-chip-new.final { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; font-size: 13px; }
     .formula-op { color: #cbd5e1; font-size: 20px; font-weight: 600; flex-shrink: 0; }
 
     /* ── Historical evidence chart layout ── */
     .ev-hist-layout { display: grid; grid-template-columns: 200px 1fr 190px; gap: 12px; align-items: stretch; }
-    .ev-legend-dot  { width: 10px; height: 10px; border-radius: 999px; background: #4f46e5; flex-shrink: 0; }
-    .ev-legend-bar  { width: 16px; height: 10px; border-radius: 3px; background: #c4b5fd; flex-shrink: 0; }
+    .ev-legend-dot  { width: 10px; height: 10px; border-radius: 999px; background: #2563eb; flex-shrink: 0; }
+    .ev-legend-bar  { width: 16px; height: 10px; border-radius: 3px; background: #bfdbfe; flex-shrink: 0; }
 
     /* ── Distribution table rows ── */
     .distrib-row {
@@ -542,186 +542,26 @@
 
         </div>
 
-        <!-- ══ SECCIÓN 5: EVOLUCIÓN TEMPORAL ══ -->
-        <div class="bg-white rounded-xl border border-surface-200 shadow-card mb-5">
-          <div class="px-5 pt-5 pb-5">
-            <div class="flex items-center justify-between flex-wrap gap-3 mb-4">
-              <div class="flex items-center gap-2">
-                <h2 class="text-sm font-semibold text-surface-900">Evolución 2025</h2>
-                <div class="kpi-info-wrap">
-                  <svg class="kpi-info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="1.75"/><path d="M12 16v-4M12 8h.01" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <div class="kpi-tooltip kpi-tooltip--below">Serie mensual enero–diciembre 2025. La línea vertical indica la intervención (julio 2025). Selecciona una métrica para cambiar la vista.</div>
-                </div>
-              </div>
-              <div id="metric-buttons" class="flex flex-wrap gap-1 bg-surface-50 rounded-lg p-1 border border-surface-100"></div>
-            </div>
-            <div class="flex gap-2 mb-4" id="evolucion-chips"></div>
-            <canvas id="chart-timeline" height="180"></canvas>
-            <div id="evolucion-narrativa" style="display:none;">
-              <p id="evolucion-narrativa-texto" class="text-xs text-surface-500 leading-relaxed"></p>
-            </div>
-          </div>
+        <!-- hidden fallbacks for JS compatibility -->
+        <div style="display:none">
+          <div id="metric-buttons"></div><div id="evolucion-chips"></div>
+          <div id="evolucion-narrativa"><p id="evolucion-narrativa-texto"></p></div>
+          <canvas id="chart-timeline"></canvas>
+          <span id="intervencion-label"></span>
+          <span id="pre-label"></span><span id="pre-valor"></span><span id="pre-descripcion"></span><span id="pre-rango"></span>
+          <span id="post-label"></span><span id="post-valor"></span><span id="post-descripcion"></span><span id="post-rango"></span>
+          <span id="cambio-valor"></span><span id="cambio-importe"></span><span id="cambio-estado"></span><span id="cambio-descripcion"></span>
+          <div id="audiencia-cards"></div>
+          <div id="impacto-desglose"></div><canvas id="chart-impacto"></canvas>
+          <span id="rec-que"></span><div id="rec-pasos"></div><span id="rec-colectivo"></span>
+          <span id="rec-responsable"></span><span id="rec-impacto"></span><span id="rec-plazo"></span><span id="rec-porque"></span>
+          <div id="consultor-contextos"></div><div id="consultor-preguntas"></div>
+          <div id="chat-area"></div><input id="consultor-input"/><button id="consultor-send"></button>
+          <div id="relevancia-cards"></div><span id="pat-resumen"></span><span id="senal-chips"></span><span id="kpi-variables"></span>
+          <span id="kpi-impacto"></span><span id="kpi-personas"></span><span id="kpi-confianza"></span>
+          <div id="que-significa-list"></div><div id="que-no-significa-list"></div>
+          <p id="centros-list"></p><p id="turnos-list"></p><div id="perfiles-list"></div><div id="equipos-list"></div>
         </div>
-
-        <!-- ══ BEAT 3: BEFORE/AFTER + AUDIENCE (unified card) ══ -->
-        <div class="unified-row bg-white rounded-xl border border-surface-200 shadow-card overflow-hidden mb-5">
-
-          <!-- Left: before/after (3fr) -->
-          <div class="border-r border-surface-100">
-            <div class="px-5 py-4 border-b border-surface-100">
-              <h2 class="text-sm font-semibold text-surface-900">Antes y después de la intervención</h2>
-              <p id="intervencion-label" class="text-xs text-surface-400 mt-0.5"></p>
-            </div>
-            <div class="grid grid-cols-3 gap-3 p-4">
-              <div class="bg-surface-50 rounded-xl p-4 border border-surface-200">
-                <div class="flex items-center gap-1.5 mb-2">
-                  <span class="w-1.5 h-1.5 rounded-full bg-critical-400 shrink-0"></span>
-                  <p id="pre-label" class="text-[10px] font-semibold text-surface-500 uppercase tracking-wider"></p>
-                </div>
-                <p id="pre-valor" class="text-2xl font-bold text-critical-600 tabular-nums mb-1"></p>
-                <p id="pre-descripcion" class="text-sm text-surface-600 leading-relaxed mb-2"></p>
-                <p id="pre-rango" class="text-[10px] text-surface-400"></p>
-              </div>
-              <div class="bg-surface-50 rounded-xl p-4 border border-surface-200">
-                <div class="flex items-center gap-1.5 mb-2">
-                  <span class="w-1.5 h-1.5 rounded-full bg-low-500 shrink-0"></span>
-                  <p id="post-label" class="text-[10px] font-semibold text-surface-500 uppercase tracking-wider"></p>
-                </div>
-                <p id="post-valor" class="text-2xl font-bold text-low-700 tabular-nums mb-1"></p>
-                <p id="post-descripcion" class="text-sm text-surface-600 leading-relaxed mb-2"></p>
-                <p id="post-rango" class="text-[10px] text-surface-400"></p>
-              </div>
-              <div class="bg-low-50 rounded-xl p-4 border border-low-200">
-                <div class="flex items-center gap-1.5 mb-2">
-                  <span class="w-1.5 h-1.5 rounded-full bg-low-500 shrink-0"></span>
-                  <p class="text-[10px] font-semibold text-low-700 uppercase tracking-wider">Cambio de impacto</p>
-                </div>
-                <p id="cambio-valor" class="text-2xl font-bold text-low-700 tabular-nums mb-1"></p>
-                <p id="cambio-importe" class="text-sm font-semibold text-low-600 mb-1"></p>
-                <p id="cambio-estado" class="text-[10px] text-low-600 uppercase tracking-wider"></p>
-              </div>
-            </div>
-            <!-- descripción de impacto a ancho completo -->
-            <div class="px-4 pb-4">
-              <p id="cambio-descripcion" class="text-xs text-surface-500 leading-relaxed bg-surface-50 rounded-lg px-4 py-3 border border-surface-100"></p>
-            </div>
-          </div>
-
-          <!-- Right: audience (2fr) -->
-          <div>
-            <div class="px-5 py-4 border-b border-surface-100">
-              <h2 class="text-sm font-semibold text-surface-900">Cómo leerlo por perfil</h2>
-              <p class="text-xs text-surface-400 mt-0.5">Implicaciones según rol</p>
-            </div>
-            <div id="audiencia-cards"></div>
-          </div>
-
-        </div>
-
-        <!-- ══ ECONOMICS: bar chart ══ -->
-        <div class="bg-white rounded-xl border border-surface-200 shadow-card mb-5">
-          <div class="px-5 py-4 border-b border-surface-100 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <h2 class="text-sm font-semibold text-surface-900">Desglose del impacto económico</h2>
-              <div class="kpi-info-wrap">
-                <svg class="kpi-info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="1.75"/><path d="M12 16v-4M12 8h.01" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <div class="kpi-tooltip kpi-tooltip--below">Desglose del coste total en 5 categorías. No sumes directamente con otros patrones sin revisar solapamientos: un mismo empleado puede activar varios patrones.</div>
-              </div>
-            </div>
-            <span class="text-xl font-bold text-surface-900 tabular-nums">1.215.660 €</span>
-          </div>
-          <div class="px-5 py-4">
-            <canvas id="chart-impacto" height="120"></canvas>
-          </div>
-          <div class="flex border-t border-surface-100" id="impacto-desglose"></div>
-        </div>
-
-        <!-- ══ ACCIÓN RECOMENDADA ══ -->
-        <div class="action-block bg-white rounded-xl border border-surface-200 p-5 mb-5 shadow-card">
-          <p class="text-[10px] font-semibold text-surface-400 uppercase tracking-wider mb-2">Acción recomendada</p>
-          <p id="rec-que" class="text-base font-semibold text-surface-900 leading-snug mb-4"></p>
-          <div class="action-grid">
-            <div id="rec-pasos" class="space-y-3"></div>
-            <div class="flex flex-col gap-4 border-l border-surface-100 pl-5">
-              <div>
-                <p class="text-[10px] text-surface-400 font-semibold uppercase tracking-wider mb-1">Responsable</p>
-                <div class="flex items-center gap-2">
-                  <svg class="w-3.5 h-3.5 text-primary-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                  <span id="rec-responsable" class="text-sm font-semibold text-surface-800"></span>
-                </div>
-              </div>
-              <div>
-                <p class="text-[10px] text-surface-400 font-semibold uppercase tracking-wider mb-1">Colectivo objetivo</p>
-                <span id="rec-colectivo" class="text-sm font-semibold text-surface-800"></span>
-              </div>
-              <div>
-                <p class="text-[10px] text-surface-400 font-semibold uppercase tracking-wider mb-1">Impacto esperado</p>
-                <div class="flex items-center gap-2">
-                  <span id="rec-impacto" class="text-sm font-bold text-low-700"></span>
-                  <div class="kpi-info-wrap">
-                    <svg class="kpi-info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="1.75"/><path d="M12 16v-4M12 8h.01" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <div class="kpi-tooltip kpi-tooltip--below">Estimación basada en la reducción de tasa observada tras la intervención (8% → 4,4%). Equivale a evitar 36 nuevas bajas con un coste medio de 14.300 € cada una.</div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <p class="text-[10px] text-surface-400 font-semibold uppercase tracking-wider mb-1">Plazo de acción</p>
-                <div class="flex items-center gap-1.5">
-                  <svg class="w-3.5 h-3.5 text-surface-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke-width="1.75"/><line x1="16" y1="2" x2="16" y2="6" stroke-width="1.75"/><line x1="8" y1="2" x2="8" y2="6" stroke-width="1.75"/><line x1="3" y1="10" x2="21" y2="10" stroke-width="1.75"/></svg>
-                  <span id="rec-plazo" class="text-sm font-semibold text-surface-800"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <span id="rec-porque" style="display:none;"></span>
-        </div>
-
-        <!-- ══ CONSULTOR DE PATRÓN ══ -->
-        <div class="bg-white rounded-xl border border-surface-200 shadow-card overflow-hidden">
-          <div class="px-5 py-4 border-b border-surface-100 flex items-center justify-between">
-            <div>
-              <h2 class="text-sm font-semibold text-surface-900">Consultor de Patrón</h2>
-              <p class="text-xs text-surface-400 mt-0.5">Pregunta sobre este patrón específico</p>
-            </div>
-            <span class="inline-flex items-center gap-1.5 text-xs text-purple-600 bg-purple-500/10 px-2.5 py-1 rounded-full font-medium">
-              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/></svg>
-              Mistral
-            </span>
-          </div>
-          <div class="px-5 py-4">
-            <div class="mb-4">
-              <p class="text-xs text-surface-400 font-medium mb-2">Contexto de consulta</p>
-              <div id="consultor-contextos" class="flex flex-wrap gap-1.5"></div>
-            </div>
-            <div class="mb-4">
-              <p class="text-xs text-surface-400 font-medium mb-2">Preguntas rápidas</p>
-              <div id="consultor-preguntas" class="flex flex-wrap gap-1.5"></div>
-            </div>
-            <div id="chat-area" class="min-h-[80px] max-h-[280px] overflow-y-auto flex flex-col gap-2 mb-3"></div>
-            <div class="flex gap-2">
-              <input id="consultor-input" type="text" placeholder="Pregunta sobre este patrón…"
-                class="flex-1 text-sm border border-surface-200 rounded-lg px-3.5 py-2.5 text-surface-800 placeholder-surface-400 focus:outline-none focus:ring-2 focus:ring-primary-200 focus:border-primary-400 transition-shadow" />
-              <button id="consultor-send" class="px-4 py-2.5 bg-primary-600 hover:bg-primary-700 text-white text-sm font-medium rounded-lg transition-colors">
-                Enviar
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- preserved IDs for JS setText() silent calls -->
-        <div id="relevancia-cards" style="display:none;"></div>
-        <span id="pat-resumen" style="display:none;"></span>
-        <span id="senal-chips" style="display:none;"></span>
-        <span id="kpi-variables" style="display:none;"></span>
-        <span id="kpi-impacto" style="display:none;"></span>
-        <span id="kpi-personas" style="display:none;"></span>
-        <span id="kpi-confianza" style="display:none;"></span>
-        <div id="que-significa-list" style="display:none;"></div>
-        <div id="que-no-significa-list" style="display:none;"></div>
-        <p id="centros-list" style="display:none;"></p>
-        <p id="turnos-list" style="display:none;"></p>
-        <div id="perfiles-list" style="display:none;"></div>
-        <div id="equipos-list" style="display:none;"></div>
 
       </main>
     </div>
