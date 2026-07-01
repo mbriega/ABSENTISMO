@@ -243,6 +243,86 @@ const PAT002_DATA = {
     separacionRuido:   "No toda IT larga activa el patrón. Solo cuando la reincorporación coincide con nómina incompleta se dispara la señal, lo que reduce los falsos positivos."
   },
 
+  // ── Identificación del patrón ────────────────────────────────
+  deteccion:        "12 ene 2024",
+  ultimaAparicion:  "mayo 2025",
+  apariciones:      232,
+  personasUnicas:   119,
+  solidezEvidencia: "Alta",
+
+  // ── Descripción narrativa ─────────────────────────────────────
+  descripcionPatron: {
+    lead:   "La baja larga no es el patrón. El patrón aparece cuando la vuelta al puesto no termina de estabilizarse.",
+    cuerpo: "Este patrón se detecta cuando una persona vuelve de una IT larga y, en los días o semanas posteriores, registra una nueva ausencia relevante. La plataforma lo llama «reincorporación frágil» porque en el histórico de la compañía esta secuencia se ha repetido más de lo esperado y se ha asociado a más absentismo posterior."
+  },
+
+  // ── Impacto en la empresa (4 tarjetas) ────────────────────────
+  impactoEmpresa: [
+    { titulo: "Cobertura difícil",   cuerpo: "Afecta a equipos ajustados donde sustituir lleva tiempo." },
+    { titulo: "Puestos críticos",    cuerpo: "Puestos con curva de aprendizaje alta o difícil sustitución." },
+    { titulo: "Impacto inmediato",   cuerpo: "Una nueva ausencia obliga a reorganizar turnos o carga el mismo día." },
+    { titulo: "Efecto en el equipo", cuerpo: "Aumenta la carga y el riesgo de nuevas incidencias en el resto del equipo." }
+  ],
+
+  // ── Distribución por centros ──────────────────────────────────
+  centrosDistribucion: [
+    { nombre: "Madrid Chamartín",         pct: 28 },
+    { nombre: "Barcelona Sants",          pct: 21 },
+    { nombre: "Sevilla Santa Justa",      pct: 16 },
+    { nombre: "Valencia Joaquín Sorolla", pct: 12 },
+    { nombre: "Otros centros",            pct: 23 }
+  ],
+
+  // ── Fórmula visual ────────────────────────────────────────────
+  formulaSenal: {
+    condiciones: [
+      { titulo: "IT larga previa",          subtitulo: "Baja ≥ 30 días" },
+      { titulo: "Reincorporación reciente", subtitulo: "Últimos 15 días" },
+      { titulo: "Nueva ausencia posterior", subtitulo: "≤ 60 días después" }
+    ],
+    resultado: "Reincorporación frágil"
+  },
+
+  // ── Evidencia histórica (6 meses) ─────────────────────────────
+  evidenciaHistorica: {
+    meses:       ["dic 24", "ene 25", "feb 25", "mar 25", "abr 25", "may 25"],
+    apariciones: [18, 32, 21, 41, 17, 36],
+    riesgo60d:   [60, 72, 56, 84, 44, 86],
+    resumen:     "4 de los últimos 6 meses mostraron el patrón.",
+    mediaRiesgo: "84,7%",
+    diferencial: "+31,2 pp por encima de la media general (53,5%)"
+  },
+
+  // ── Distribución por colectivo / turno / antigüedad ───────────
+  distribucionPor: {
+    colectivo: [
+      { nombre: "Operación a bordo", pct: 38 },
+      { nombre: "Talleres",          pct: 27 },
+      { nombre: "Estaciones",        pct: 18 },
+      { nombre: "Otros",             pct: 17 }
+    ],
+    turno: [
+      { nombre: "Nocturno", pct: 42 },
+      { nombre: "Rotativo", pct: 36 },
+      { nombre: "Mañana",   pct: 14 },
+      { nombre: "Tarde",    pct:  8 }
+    ],
+    antiguedad: [
+      { nombre: "0–2 años",  pct: 34 },
+      { nombre: "2–5 años",  pct: 29 },
+      { nombre: "5–10 años", pct: 20 },
+      { nombre: "+10 años",  pct: 17 }
+    ]
+  },
+
+  // ── Datos que mejorarían la lectura ───────────────────────────
+  datosQueMejorarian: [
+    { fuente: "Mutua",       descripcion: "Permitiría distinguir recaídas, duración prevista, motivos repetidos y posibles cronificaciones." },
+    { fuente: "Turnos",      descripcion: "Ayudaría a ver si la reincorporación coincide con noches, descansos insuficientes o cambios exigentes." },
+    { fuente: "Organigrama", descripcion: "Mostraría concentración por equipo, mando, dependencia operativa o tamaño de grupo." },
+    { fuente: "Operaciones", descripcion: "Conectaría el patrón con carga real de trabajo, picos de actividad, incidencias o falta de cobertura." }
+  ],
+
   // ── Solapamiento con otros patrones ─────────────────────────
   solapamiento: [
     {
