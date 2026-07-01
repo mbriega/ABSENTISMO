@@ -468,7 +468,7 @@ function initPatDetailPage() {
       + "</div>";
   }
 
-  // ── NUEVO: Cabecera del patrón — fechas ──────────────────────
+  // ── NUEVO: Cabecera — fechas ─────────────────────────────────
   var metaDates = document.getElementById("pat-meta-dates");
   if (metaDates && d.deteccion) {
     metaDates.innerHTML =
@@ -477,65 +477,55 @@ function initPatDetailPage() {
       + '<span>Última aparición: ' + d.ultimaAparicion + '</span>';
   }
 
-  // ── NUEVO: KPI strip (5 métricas en cabecera) ─────────────────
+  // ── NUEVO: KPI strip ──────────────────────────────────────────
   var kpiStrip = document.getElementById("pat-kpi-strip");
   if (kpiStrip) {
-    var INFO_ICON = function(tip, below) {
-      return '<div class="kpi-info-wrap" style="display:inline-flex;margin-left:3px;">'
+    var KPI_TIP = function(tip) {
+      return '<div class="kpi-info-wrap">'
         + '<svg class="kpi-info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="1.75"/><path d="M12 16v-4M12 8h.01" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-        + '<div class="kpi-tooltip' + (below ? ' kpi-tooltip--below' : '') + '">' + tip + '</div>'
+        + '<div class="kpi-tooltip">' + tip + '</div>'
         + '</div>';
     };
     var kpiDefs = [
       {
-        val: "84,7%", cls: "purple",
-        lbl: "Riesgo histórico<br>a 60 días",
-        desc: "De cada 100 veces que apareció este patrón, 85 terminaron en nueva ausencia posterior.",
-        tip: "Riesgo histórico sobre 232 apariciones registradas entre ene 2024 y may 2025. Es el resultado más alto del catálogo.",
-        ico: null, icoCls: ""
+        val: "84,7%", valCls: "text-primary-700",
+        lbl: "Riesgo histórico a 60 días",
+        desc: "De cada 100 activaciones del patrón, 85 terminaron en nueva ausencia.",
+        tip: "Riesgo histórico sobre 232 apariciones registradas (ene 2024 – may 2025). El más alto del catálogo."
       },
       {
-        val: d.apariciones, cls: "",
-        lbl: "Apariciones<br>del patrón",
+        val: d.apariciones, valCls: "text-surface-900",
+        lbl: "Apariciones del patrón",
         desc: "Entre ene 2024 y mayo 2025.",
-        tip: "Número de veces que el patrón se activó simultáneamente en las tres condiciones.",
-        ico: "◉", icoCls: ""
+        tip: "Número de veces que las tres condiciones se activaron simultáneamente."
       },
       {
-        val: d.personasUnicas, cls: "",
-        lbl: "Personas<br>únicas",
+        val: d.personasUnicas, valCls: "text-surface-900",
+        lbl: "Personas únicas",
         desc: "Activaron el patrón al menos una vez.",
-        tip: "Empleados diferentes que activaron el patrón en el período analizado. Una persona puede haber generado varias apariciones.",
-        ico: "👥", icoCls: ""
+        tip: "Empleados distintos que activaron el patrón. Una misma persona puede sumar varias apariciones."
       },
       {
-        val: "1,20 M€", cls: "purple",
-        lbl: "Coste histórico<br>asociado",
+        val: "1,20 M€", valCls: "text-primary-700",
+        lbl: "Coste histórico asociado",
         desc: "Puede solaparse con otros fenómenos.",
-        tip: "Coste asociado al patrón: salarios, sustituciones, horas extra y reorganización operativa. No sumes directamente con otros patrones.",
-        ico: "€", icoCls: ""
+        tip: "Agrupa salarios, sustituciones, horas extra y reorganización. No sumes directamente con otros patrones."
       },
       {
-        val: d.solidezEvidencia, cls: "red",
-        lbl: "Solidez de<br>la evidencia",
-        desc: "El patrón se repite y muestra consistencia.",
-        tip: "El patrón se replicó en 4 de los 6 últimos meses analizados con resultados consistentes.",
-        ico: "🔴", icoCls: "red"
+        val: d.solidezEvidencia, valCls: "text-critical-600",
+        lbl: "Solidez de la evidencia",
+        desc: "El patrón se repite con consistencia.",
+        tip: "Se replicó en 4 de los últimos 6 meses analizados con resultados consistentes."
       }
     ];
     kpiStrip.innerHTML = kpiDefs.map(function(k) {
       return '<div class="pat-kpi-cell">'
-        + '<div class="pat-kpi-head">'
-        + '<div>'
-        + '<div style="display:flex;align-items:center;gap:2px;">'
-        + '<strong class="pat-kpi-val ' + k.cls + '">' + k.val + '</strong>'
-        + INFO_ICON(k.tip, false)
+        + '<div class="flex items-center gap-1.5">'
+        + '<span class="text-2xl font-bold tabular-nums leading-none ' + k.valCls + '">' + k.val + '</span>'
+        + KPI_TIP(k.tip)
         + '</div>'
-        + '<label class="pat-kpi-lbl">' + k.lbl + '</label>'
-        + '</div>'
-        + (k.ico ? '<div class="pat-kpi-ico ' + k.icoCls + '">' + k.ico + '</div>' : '')
-        + '</div>'
-        + '<p class="pat-kpi-desc">' + k.desc + '</p>'
+        + '<p class="text-[10px] font-semibold text-surface-400 uppercase tracking-wider leading-tight mt-0.5">' + k.lbl + '</p>'
+        + '<p class="text-xs text-surface-500 leading-relaxed mt-1">' + k.desc + '</p>'
         + '</div>';
     }).join("");
   }
@@ -545,19 +535,19 @@ function initPatDetailPage() {
   if (descCard && d.descripcionPatron) {
     var impactCards = "";
     if (d.impactoEmpresa && d.impactoEmpresa.length) {
-      impactCards = '<div class="impact-grid-2x2">'
+      impactCards = '<div class="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-surface-100">'
         + d.impactoEmpresa.map(function(item) {
-            return '<div class="impact-card">'
-              + '<strong>' + item.titulo + '</strong>'
-              + '<p>' + item.cuerpo + '</p>'
+            return '<div class="bg-surface-50 border border-surface-100 rounded-xl p-3">'
+              + '<p class="text-xs font-semibold text-surface-900 mb-1">' + item.titulo + '</p>'
+              + '<p class="text-xs text-surface-500 leading-relaxed">' + item.cuerpo + '</p>'
               + '</div>';
           }).join("")
         + '</div>';
     }
     descCard.innerHTML =
-      '<h2 class="text-sm font-semibold text-surface-900 mb-3">Descripción del patrón</h2>'
-      + '<p><span class="desc-lead-text">' + d.descripcionPatron.lead + '</span>'
-      + d.descripcionPatron.cuerpo + '</p>'
+      '<p class="text-[10px] font-semibold text-surface-400 uppercase tracking-wider mb-3">Descripción del patrón</p>'
+      + '<p class="text-sm font-bold text-surface-900 leading-snug mb-2">' + d.descripcionPatron.lead + '</p>'
+      + '<p class="text-sm text-surface-600 leading-relaxed">' + d.descripcionPatron.cuerpo + '</p>'
       + impactCards;
   }
 
@@ -565,17 +555,17 @@ function initPatDetailPage() {
   var centrosCard = document.getElementById("pat-centers-card");
   if (centrosCard && d.centrosDistribucion) {
     centrosCard.innerHTML =
-      '<h2 class="text-sm font-semibold text-surface-900 mb-4">Centros donde más aparece</h2>'
+      '<p class="text-[10px] font-semibold text-surface-400 uppercase tracking-wider mb-3">Centros donde más aparece</p>'
       + d.centrosDistribucion.map(function(c) {
           return '<div class="center-row-item">'
             + '<div>'
-            + '<div>' + c.nombre + '</div>'
+            + '<span class="text-sm text-surface-700">' + c.nombre + '</span>'
             + '<div class="center-track"><div class="center-fill" style="width:' + c.pct + '%"></div></div>'
             + '</div>'
             + '<strong>' + c.pct + '%</strong>'
             + '</div>';
         }).join("")
-      + '<p class="text-xs text-surface-400 mt-2">% sobre apariciones totales del patrón</p>';
+      + '<p class="text-xs text-surface-400 mt-1">% sobre apariciones totales</p>';
   }
 
   // ── NUEVO: Fórmula visual ─────────────────────────────────────
@@ -590,80 +580,74 @@ function initPatDetailPage() {
       + '<div class="formula-chip-new final">' + d.formulaSenal.resultado + '</div>';
   }
 
-  // ── NUEVO: Evidencia histórica (cuerpo del acordeón) ──────────
+  // ── NUEVO: Evidencia histórica ────────────────────────────────
   var evHistEl = document.getElementById("ev-historica-body");
   if (evHistEl && d.evidenciaHistorica) {
-    var ev = d.evidenciaHistorica;
-    var maxAp = Math.max.apply(null, ev.apariciones);
-    var minR  = Math.min.apply(null, ev.riesgo60d);
-    var maxR  = Math.max.apply(null, ev.riesgo60d);
+    var evh = d.evidenciaHistorica;
+    var maxAp  = Math.max.apply(null, evh.apariciones);
+    var maxR   = Math.max.apply(null, evh.riesgo60d);
+    var minR   = Math.min.apply(null, evh.riesgo60d);
     var rangeR = maxR - minR || 1;
+    var xPos   = [75, 165, 255, 345, 435, 525];
 
-    var xPos = [75, 165, 255, 345, 435, 525];
-
-    var barsSvg = ev.apariciones.map(function(v, i) {
-      var bH = Math.round(v / maxAp * 140);
-      var bY = 150 - bH;
-      var bX = xPos[i] - 30;
-      return '<rect x="' + bX + '" y="' + bY + '" width="60" height="' + bH + '" fill="#c4b5fd" rx="4"/>'
-        + '<text x="' + xPos[i] + '" y="' + (bY - 5) + '" text-anchor="middle" font-size="11" font-weight="700" fill="#1e293b">' + v + '</text>'
-        + '<text x="' + xPos[i] + '" y="172" text-anchor="middle" font-size="11" fill="#64748b">' + ev.meses[i] + '</text>';
+    var barsSvg = evh.apariciones.map(function(v, i) {
+      var bH = Math.round(v / maxAp * 120);
+      var bY = 138 - bH;
+      return '<rect x="' + (xPos[i] - 26) + '" y="' + bY + '" width="52" height="' + bH + '" fill="#c4b5fd" rx="3"/>'
+        + '<text x="' + xPos[i] + '" y="' + (bY - 4) + '" text-anchor="middle" font-size="10" font-weight="600" fill="#475569">' + v + '</text>'
+        + '<text x="' + xPos[i] + '" y="158" text-anchor="middle" font-size="10" fill="#94a3b8">' + evh.meses[i] + '</text>';
     }).join("");
 
-    var linePts = ev.riesgo60d.map(function(v, i) {
-      var y = Math.round(10 + (maxR - v) / rangeR * 130);
-      return xPos[i] + "," + y;
-    }).join(" ");
+    var linePts = evh.riesgo60d.map(function(v, i) {
+      return xPos[i] + ',' + Math.round(8 + (maxR - v) / rangeR * 112);
+    }).join(' ');
 
-    var dotsSvg = ev.riesgo60d.map(function(v, i) {
-      var y = Math.round(10 + (maxR - v) / rangeR * 130);
-      return '<circle cx="' + xPos[i] + '" cy="' + y + '" r="7" fill="#4f46e5"/>';
+    var dotsSvg = evh.riesgo60d.map(function(v, i) {
+      var y = Math.round(8 + (maxR - v) / rangeR * 112);
+      return '<circle cx="' + xPos[i] + '" cy="' + y + '" r="5" fill="#fff" stroke="#4f46e5" stroke-width="2.5"/>';
     }).join("");
 
     evHistEl.innerHTML =
       '<div class="ev-hist-layout">'
 
-      // Columna izquierda
-      + '<div class="bg-white border border-surface-100 rounded-xl p-4">'
-      + '<p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-2">Lectura rápida</p>'
-      + '<p class="text-sm text-surface-600 leading-relaxed">El patrón se repite con regularidad y vuelve a activarse en períodos recientes.</p>'
-      + '<span class="block text-2xl font-bold text-primary-700 my-3">4 de los últimos 6 meses</span>'
-      + '<p class="text-sm text-surface-600">mostraron el patrón.</p>'
-      + '<div class="mt-4 space-y-2">'
-      + '<div class="flex items-center gap-2 text-xs text-surface-500"><div class="ev-legend-dot"></div>Riesgo histórico a 60 días (%)</div>'
+      + '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4">'
+      + '<p class="text-[10px] font-semibold text-surface-400 uppercase tracking-wider mb-2">Lectura rápida</p>'
+      + '<p class="text-xs text-surface-600 leading-relaxed mb-3">El patrón se repite con regularidad y vuelve a activarse en períodos recientes.</p>'
+      + '<p class="text-xl font-bold text-primary-700 tabular-nums leading-tight">4 de los últimos 6 meses</p>'
+      + '<p class="text-xs text-surface-500 mt-1 mb-4">mostraron el patrón activo.</p>'
+      + '<div class="space-y-1.5">'
+      + '<div class="flex items-center gap-2 text-xs text-surface-500"><div class="ev-legend-dot"></div>Riesgo a 60 días (%)</div>'
       + '<div class="flex items-center gap-2 text-xs text-surface-500"><div class="ev-legend-bar"></div>Apariciones (nº)</div>'
       + '</div>'
       + '</div>'
 
-      // Gráfica SVG
-      + '<div class="bg-white border border-surface-100 rounded-xl" style="min-height:220px;">'
-      + '<svg viewBox="0 0 600 190" style="width:100%;height:220px;display:block;" preserveAspectRatio="xMidYMid meet">'
+      + '<div class="bg-surface-50 border border-surface-100 rounded-xl overflow-hidden">'
+      + '<svg viewBox="0 0 600 170" style="width:100%;height:190px;display:block;" preserveAspectRatio="xMidYMid meet">'
       + barsSvg
-      + '<polyline points="' + linePts + '" fill="none" stroke="#4f46e5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>'
+      + '<polyline points="' + linePts + '" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>'
       + dotsSvg
       + '</svg>'
       + '</div>'
 
-      // Resultado
-      + '<div class="bg-white border border-surface-100 rounded-xl p-4">'
-      + '<p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-1">Resultado histórico a 60 días</p>'
-      + '<strong class="block text-[36px] font-bold leading-none tracking-tight text-primary-700 my-3">' + ev.mediaRiesgo + '</strong>'
-      + '<p class="text-sm text-surface-600">Media de los meses donde apareció el patrón.</p>'
-      + '<div class="mt-4 bg-low-50 border border-low-200 rounded-xl p-3">'
-      + '<strong class="block text-xl font-bold text-low-700 mb-1">+31,2 pp</strong>'
-      + '<p class="text-xs text-low-600">por encima de la media general (53,5%)</p>'
+      + '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4">'
+      + '<p class="text-[10px] font-semibold text-surface-400 uppercase tracking-wider mb-3">Resultado histórico a 60 días</p>'
+      + '<p class="text-3xl font-bold tabular-nums text-primary-700 leading-none">' + evh.mediaRiesgo + '</p>'
+      + '<p class="text-xs text-surface-500 mt-1.5 leading-relaxed">Media de los meses con el patrón activo.</p>'
+      + '<div class="mt-3 bg-low-50 border border-low-200 rounded-xl p-3">'
+      + '<p class="text-sm font-bold text-low-700">+31,2 pp</p>'
+      + '<p class="text-xs text-low-600 mt-0.5">sobre la media general (53,5%)</p>'
       + '</div>'
       + '</div>'
 
       + '</div>';
   }
 
-  // ── NUEVO: Dónde aparece más (distribución) ───────────────────
+  // ── NUEVO: Dónde aparece más ──────────────────────────────────
   var distribEl = document.getElementById("distrib-body");
   if (distribEl && d.distribucionPor) {
     var dist = d.distribucionPor;
-    var mkTable = function(items, nota) {
-      return '<div class="space-y-0.5 mt-2">'
+    var mkDistTable = function(items, nota) {
+      return '<div class="mt-2">'
         + items.map(function(it) {
             return '<div class="distrib-row"><span>' + it.nombre + '</span><strong>' + it.pct + '%</strong></div>';
           }).join("")
@@ -672,24 +656,21 @@ function initPatDetailPage() {
     };
     distribEl.innerHTML =
       '<div class="grid grid-cols-3 gap-3">'
-      + '<div class="bg-white border border-surface-100 rounded-xl p-4"><h3 class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-1">Por colectivo</h3>' + mkTable(dist.colectivo, "% sobre apariciones") + '</div>'
-      + '<div class="bg-white border border-surface-100 rounded-xl p-4"><h3 class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-1">Por turno</h3>' + mkTable(dist.turno, "% sobre apariciones") + '</div>'
-      + '<div class="bg-white border border-surface-100 rounded-xl p-4"><h3 class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-1">Por antigüedad</h3>' + mkTable(dist.antiguedad, "% sobre personas únicas") + '</div>'
+      + '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4"><p class="text-[10px] font-semibold text-surface-400 uppercase tracking-wider">Por colectivo</p>' + mkDistTable(dist.colectivo, "% sobre apariciones") + '</div>'
+      + '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4"><p class="text-[10px] font-semibold text-surface-400 uppercase tracking-wider">Por turno</p>'     + mkDistTable(dist.turno,     "% sobre apariciones") + '</div>'
+      + '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4"><p class="text-[10px] font-semibold text-surface-400 uppercase tracking-wider">Por antigüedad</p>' + mkDistTable(dist.antiguedad, "% sobre personas únicas") + '</div>'
       + '</div>';
   }
 
-  // ── NUEVO: Coste — categorías detalladas ─────────────────────
+  // ── NUEVO: Coste — categorías ─────────────────────────────────
   var costeCatEl = document.getElementById("coste-categorias");
   if (costeCatEl && d.impactoDesglose) {
-    var shown = d.impactoDesglose.slice(0, 3);
-    costeCatEl.innerHTML = shown.map(function(item, i) {
-      return '<div class="bg-white border border-surface-100 rounded-xl p-4">'
-        + '<h3 class="text-xs font-semibold text-surface-900 mb-2">' + (i + 1) + '. ' + item.concepto + '</h3>'
+    costeCatEl.innerHTML = d.impactoDesglose.slice(0, 3).map(function(item, i) {
+      return '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4">'
+        + '<p class="text-xs font-semibold text-surface-900 mb-1.5">' + (i + 1) + '. ' + item.concepto + '</p>'
         + '<p class="text-xs text-surface-500 leading-relaxed mb-3">' + item.tooltip + '</p>'
-        + '<div class="space-y-1">'
         + '<div class="distrib-row"><span>Peso en el patrón</span><strong>' + item.porcentaje + '%</strong></div>'
         + '<div class="distrib-row"><span>Importe observado</span><strong>' + item.importeLabel + '</strong></div>'
-        + '</div>'
         + '</div>';
     }).join("");
   }
@@ -700,9 +681,9 @@ function initPatDetailPage() {
     datosMejEl.innerHTML =
       '<div class="grid grid-cols-2 gap-3">'
       + d.datosQueMejorarian.map(function(item) {
-          return '<div class="bg-white border border-surface-100 rounded-xl p-4">'
-            + '<strong class="text-sm font-semibold text-surface-900 block mb-1">' + item.fuente + '</strong>'
-            + '<p class="text-sm text-surface-500 leading-relaxed">' + item.descripcion + '</p>'
+          return '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4">'
+            + '<p class="text-[10px] font-semibold text-surface-400 uppercase tracking-wider mb-2">' + item.fuente + '</p>'
+            + '<p class="text-sm text-surface-700 leading-relaxed">' + item.descripcion + '</p>'
             + '</div>';
         }).join("")
       + '</div>';

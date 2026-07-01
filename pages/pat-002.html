@@ -207,73 +207,46 @@
       border-top: 1px solid #f1f5f9;
     }
     .pat-kpi-cell {
-      min-height: 110px;
-      padding: 18px 20px;
+      padding: 16px 20px;
       border-right: 1px solid #f1f5f9;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
-      gap: 6px;
+      gap: 3px;
     }
     .pat-kpi-cell:last-child { border-right: none; }
-    .pat-kpi-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
-    .pat-kpi-val { display: block; font-size: 26px; line-height: 1; font-weight: 700; letter-spacing: -0.04em; color: #0f172a; }
-    .pat-kpi-val.purple { color: #4f46e5; }
-    .pat-kpi-val.red    { color: #dc2626; }
-    .pat-kpi-lbl { display: block; font-size: 12.5px; font-weight: 700; color: #0f172a; line-height: 1.25; margin-top: 5px; }
-    .pat-kpi-desc { margin: 0; font-size: 11.5px; color: #64748b; line-height: 1.4; }
-    .pat-kpi-ico {
-      width: 32px; height: 32px; border-radius: 999px;
-      background: #f5f3ff; color: #4f46e5;
-      display: grid; place-items: center; font-size: 14px; flex-shrink: 0;
-    }
-    .pat-kpi-ico.red { background: #fff1f2; color: #dc2626; }
 
-    /* ── Description card ── */
-    .desc-lead-text {
-      display: block; color: #07152a;
-      font-size: 14.5px; line-height: 1.45; font-weight: 700; margin-bottom: 8px;
-    }
-    .impact-grid-2x2 {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-      margin-top: 14px; padding-top: 14px; border-top: 1px solid #f1f5f9;
-    }
-    .impact-card { background: #fbfcff; border: 1px solid #f1f5f9; border-radius: 10px; padding: 12px; }
-    .impact-card strong { display: block; font-size: 12.5px; font-weight: 700; color: #07152a; margin-bottom: 4px; }
-    .impact-card p { font-size: 12px; color: #64748b; line-height: 1.4; margin: 0; }
-
-    /* ── Centers card ── */
+    /* ── Centers progress bar ── */
     .center-row-item {
-      display: grid; grid-template-columns: 1fr 44px; gap: 10px;
-      align-items: center; font-size: 13px; color: #64748b; margin-bottom: 10px;
+      display: grid; grid-template-columns: 1fr 40px; gap: 8px;
+      align-items: center; margin-bottom: 10px;
     }
-    .center-row-item strong { color: #07152a; font-size: 13px; font-weight: 700; text-align: right; }
-    .center-track { height: 5px; background: #edf2f7; border-radius: 999px; overflow: hidden; margin-top: 4px; }
+    .center-row-item strong { font-size: 12px; font-weight: 700; color: #334155; text-align: right; }
+    .center-track { height: 4px; background: #e2e8f0; border-radius: 999px; overflow: hidden; margin-top: 3px; }
     .center-fill  { height: 100%; background: #60a5fa; border-radius: 999px; }
 
     /* ── Formula / Signal ── */
     .formula-chip-new {
-      min-width: 132px; min-height: 58px; border: 1px solid #e2e8f0; border-radius: 10px; background: #fff;
-      display: grid; place-items: center; text-align: center;
-      color: #0f172a; font-size: 12.5px; font-weight: 700; line-height: 1.25; padding: 10px;
+      min-width: 128px; padding: 10px 14px; border: 1px solid #e2e8f0; border-radius: 10px;
+      background: #f8fafc; display: flex; flex-direction: column; align-items: center;
+      text-align: center; color: #1e293b; font-size: 12.5px; font-weight: 700; line-height: 1.3;
     }
-    .formula-chip-new span { display: block; color: #64748b; font-size: 11px; font-weight: 500; margin-top: 3px; }
-    .formula-chip-new.final { background: linear-gradient(135deg,#f5f3ff,#ede9fe); color: #4f46e5; border-color: #ddd6fe; min-width: 148px; }
-    .formula-op { color: #312e81; font-size: 22px; font-weight: 700; flex-shrink: 0; }
+    .formula-chip-new span { display: block; color: #94a3b8; font-size: 11px; font-weight: 400; margin-top: 2px; }
+    .formula-chip-new.final { background: #eef2ff; color: #4338ca; border-color: #c7d2fe; font-size: 13px; }
+    .formula-op { color: #cbd5e1; font-size: 20px; font-weight: 600; flex-shrink: 0; }
 
-    /* ── Historical evidence chart ── */
-    .ev-hist-layout { display: grid; grid-template-columns: 230px 1fr 210px; gap: 14px; align-items: stretch; }
-    .ev-legend-dot  { width: 12px; height: 12px; border-radius: 999px; background: #4f46e5; flex-shrink: 0; }
-    .ev-legend-bar  { width: 18px; height: 12px; border-radius: 3px; background: #c4b5fd; flex-shrink: 0; }
+    /* ── Historical evidence chart layout ── */
+    .ev-hist-layout { display: grid; grid-template-columns: 200px 1fr 190px; gap: 12px; align-items: stretch; }
+    .ev-legend-dot  { width: 10px; height: 10px; border-radius: 999px; background: #4f46e5; flex-shrink: 0; }
+    .ev-legend-bar  { width: 16px; height: 10px; border-radius: 3px; background: #c4b5fd; flex-shrink: 0; }
 
     /* ── Distribution table rows ── */
     .distrib-row {
-      display: grid; grid-template-columns: 1fr auto; gap: 14px;
-      align-items: center; font-size: 13px; color: #64748b;
-      padding: 5px 0; border-bottom: 1px solid #f8fafc;
+      display: grid; grid-template-columns: 1fr auto; gap: 12px;
+      align-items: center; font-size: 12.5px; color: #64748b;
+      padding: 5px 0; border-bottom: 1px solid #f1f5f9;
     }
     .distrib-row:last-child { border-bottom: none; }
-    .distrib-row strong { font-size: 13px; font-weight: 700; color: #07152a; }
+    .distrib-row strong { font-size: 12.5px; font-weight: 700; color: #1e293b; }
 
     /* ── Accordion body: expand limit ── */
     .accordion-body.open { max-height: 3000px !important; }
