@@ -530,119 +530,77 @@ function initPatDetailPage() {
     }).join("");
   }
 
-  // ── NUEVO: Descripción del patrón ─────────────────────────────
+  // ── Descripción del patrón ───────────────────────────────────
   var descCard = document.getElementById("pat-description-card");
   if (descCard && d.descripcionPatron) {
-    var impactCards = "";
-    if (d.impactoEmpresa && d.impactoEmpresa.length) {
-      impactCards = '<div class="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-surface-100">'
-        + d.impactoEmpresa.map(function(item) {
-            return '<div class="bg-surface-50 border border-surface-100 rounded-xl p-3">'
-              + '<p class="text-xs font-semibold text-surface-900 mb-1">' + item.titulo + '</p>'
-              + '<p class="text-xs text-surface-500 leading-relaxed">' + item.cuerpo + '</p>'
-              + '</div>';
-          }).join("")
-        + '</div>';
-    }
     descCard.innerHTML =
-      '<p class="text-[10px] font-semibold text-surface-400 uppercase tracking-wider mb-3">Descripción del patrón</p>'
-      + '<p class="text-sm font-bold text-surface-900 leading-snug mb-2">' + d.descripcionPatron.lead + '</p>'
-      + '<p class="text-sm text-surface-600 leading-relaxed">' + d.descripcionPatron.cuerpo + '</p>'
-      + impactCards;
+      '<p class="text-[10px] font-medium text-surface-400 uppercase tracking-wider mb-3">Qué está pasando</p>'
+      + '<p class="text-sm font-bold text-surface-900 leading-snug mb-3">' + d.descripcionPatron.lead + '</p>'
+      + '<p class="text-sm text-surface-600 leading-relaxed">' + d.descripcionPatron.cuerpo + '</p>';
   }
 
-  // ── NUEVO: Centros distribución ───────────────────────────────
-  var centrosCard = document.getElementById("pat-centers-card");
-  if (centrosCard && d.centrosDistribucion) {
-    centrosCard.innerHTML =
-      '<p class="text-[10px] font-semibold text-surface-400 uppercase tracking-wider mb-3">Centros donde más aparece</p>'
-      + d.centrosDistribucion.map(function(c) {
-          return '<div class="center-row-item">'
-            + '<div>'
-            + '<span class="text-sm text-surface-700">' + c.nombre + '</span>'
-            + '<div class="center-track"><div class="center-fill" style="width:' + c.pct + '%"></div></div>'
-            + '</div>'
-            + '<strong>' + c.pct + '%</strong>'
+  // ── Señal detectada ──────────────────────────────────────────
+  var formulaCard = document.getElementById("pat-formula-card");
+  if (formulaCard && d.formulaSenal) {
+    formulaCard.innerHTML =
+      '<p class="text-[10px] font-medium text-surface-400 uppercase tracking-wider mb-3">Señal detectada</p>'
+      + '<p class="text-xs text-surface-400 mb-4">Las tres condiciones deben darse simultáneamente.</p>'
+      + '<div class="space-y-3">'
+      + d.formulaSenal.condiciones.map(function(c, i) {
+          return '<div class="flex items-start gap-3">'
+            + '<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-100 text-primary-700 text-xs font-bold shrink-0 mt-0.5">' + (i + 1) + '</span>'
+            + '<div><p class="text-sm font-semibold text-surface-900">' + c.titulo + '</p>'
+            + '<p class="text-xs text-surface-500 mt-0.5">' + c.subtitulo + '</p></div>'
             + '</div>';
         }).join("")
-      + '<p class="text-xs text-surface-400 mt-1">% sobre apariciones totales</p>';
+      + '</div>'
+      + '<div class="mt-4 pt-4 border-t border-surface-100">'
+      + '<div class="bg-primary-50 border border-primary-100 rounded-lg px-3 py-2.5 flex items-center gap-2">'
+      + '<span class="text-xs font-bold text-primary-600">→</span>'
+      + '<p class="text-sm font-semibold text-primary-800">' + d.formulaSenal.resultado + '</p>'
+      + '</div></div>';
   }
 
-  // ── NUEVO: Fórmula visual ─────────────────────────────────────
-  var formulaEl = document.getElementById("pat-formula");
-  if (formulaEl && d.formulaSenal) {
-    formulaEl.innerHTML =
-      d.formulaSenal.condiciones.map(function(c, i) {
-        return (i > 0 ? '<div class="formula-op">+</div>' : '')
-          + '<div class="formula-chip-new">' + c.titulo + '<span>' + c.subtitulo + '</span></div>';
-      }).join("")
-      + '<div class="formula-op">=</div>'
-      + '<div class="formula-chip-new final">' + d.formulaSenal.resultado + '</div>';
+  // ── Por qué importa (4 tarjetas) ────────────────────────────
+  var impactoRow = document.getElementById("pat-impacto-row");
+  if (impactoRow && d.impactoEmpresa) {
+    impactoRow.innerHTML = d.impactoEmpresa.map(function(item) {
+      return '<div class="bg-white rounded-xl border border-surface-200 shadow-card p-4">'
+        + '<p class="text-xs font-semibold text-surface-900 mb-2">' + item.titulo + '</p>'
+        + '<p class="text-xs text-surface-500 leading-relaxed">' + item.cuerpo + '</p>'
+        + '</div>';
+    }).join("");
   }
 
-  // ── NUEVO: Evidencia histórica ────────────────────────────────
-  var evHistEl = document.getElementById("ev-historica-body");
-  if (evHistEl && d.evidenciaHistorica) {
+  // ── Evidencia histórica — gráfica + panel ────────────────────
+  if (typeof ChartsComponent !== "undefined" && d.evidenciaHistorica) {
+    ChartsComponent.renderLineChart("chart-evidencia", {
+      valores: d.evidenciaHistorica.riesgo60d,
+      meses:   d.evidenciaHistorica.meses
+    });
+  }
+  var evComoLeer = document.getElementById("ev-como-leer");
+  if (evComoLeer && d.evidenciaHistorica) {
     var evh = d.evidenciaHistorica;
-    var maxAp  = Math.max.apply(null, evh.apariciones);
-    var maxR   = Math.max.apply(null, evh.riesgo60d);
-    var minR   = Math.min.apply(null, evh.riesgo60d);
-    var rangeR = maxR - minR || 1;
-    var xPos   = [75, 165, 255, 345, 435, 525];
-
-    var barsSvg = evh.apariciones.map(function(v, i) {
-      var bH = Math.round(v / maxAp * 120);
-      var bY = 138 - bH;
-      return '<rect x="' + (xPos[i] - 26) + '" y="' + bY + '" width="52" height="' + bH + '" fill="#bfdbfe" rx="3"/>'
-        + '<text x="' + xPos[i] + '" y="' + (bY - 4) + '" text-anchor="middle" font-size="10" font-weight="600" fill="#475569">' + v + '</text>'
-        + '<text x="' + xPos[i] + '" y="158" text-anchor="middle" font-size="10" fill="#94a3b8">' + evh.meses[i] + '</text>';
-    }).join("");
-
-    var linePts = evh.riesgo60d.map(function(v, i) {
-      return xPos[i] + ',' + Math.round(8 + (maxR - v) / rangeR * 112);
-    }).join(' ');
-
-    var dotsSvg = evh.riesgo60d.map(function(v, i) {
-      var y = Math.round(8 + (maxR - v) / rangeR * 112);
-      return '<circle cx="' + xPos[i] + '" cy="' + y + '" r="5" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>';
-    }).join("");
-
-    evHistEl.innerHTML =
-      '<div class="ev-hist-layout">'
-
-      + '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4">'
-      + '<p class="text-[10px] font-semibold text-surface-400 uppercase tracking-wider mb-2">Lectura rápida</p>'
-      + '<p class="text-xs text-surface-600 leading-relaxed mb-3">El patrón se repite con regularidad y vuelve a activarse en períodos recientes.</p>'
-      + '<p class="text-xl font-bold text-primary-700 tabular-nums leading-tight">4 de los últimos 6 meses</p>'
-      + '<p class="text-xs text-surface-500 mt-1 mb-4">mostraron el patrón activo.</p>'
-      + '<div class="space-y-1.5">'
-      + '<div class="flex items-center gap-2 text-xs text-surface-500"><div class="ev-legend-dot"></div>Riesgo a 60 días (%)</div>'
-      + '<div class="flex items-center gap-2 text-xs text-surface-500"><div class="ev-legend-bar"></div>Apariciones (nº)</div>'
+    evComoLeer.innerHTML =
+      '<p class="text-[10px] font-medium text-surface-400 uppercase tracking-wider mb-4">Cómo leer esta evidencia</p>'
+      + '<div class="space-y-4">'
+      + '<div>'
+      + '<p class="text-[10px] font-medium text-surface-400 uppercase tracking-wider">Riesgo histórico a 60 días</p>'
+      + '<p class="text-3xl font-bold tabular-nums text-primary-700 leading-none mt-1">' + evh.mediaRiesgo + '</p>'
+      + '<p class="text-xs text-surface-500 mt-1">Media de meses con patrón activo</p>'
       + '</div>'
-      + '</div>'
-
-      + '<div class="bg-surface-50 border border-surface-100 rounded-xl overflow-hidden">'
-      + '<svg viewBox="0 0 600 170" style="width:100%;height:190px;display:block;" preserveAspectRatio="xMidYMid meet">'
-      + barsSvg
-      + '<polyline points="' + linePts + '" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>'
-      + dotsSvg
-      + '</svg>'
-      + '</div>'
-
-      + '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4">'
-      + '<p class="text-[10px] font-semibold text-surface-400 uppercase tracking-wider mb-3">Resultado histórico a 60 días</p>'
-      + '<p class="text-3xl font-bold tabular-nums text-primary-700 leading-none">' + evh.mediaRiesgo + '</p>'
-      + '<p class="text-xs text-surface-500 mt-1.5 leading-relaxed">Media de los meses con el patrón activo.</p>'
-      + '<div class="mt-3 bg-low-50 border border-low-200 rounded-xl p-3">'
+      + '<div class="bg-low-50 border border-low-200 rounded-xl p-3">'
       + '<p class="text-sm font-bold text-low-700">+31,2 pp</p>'
-      + '<p class="text-xs text-low-600 mt-0.5">sobre la media general (53,5%)</p>'
+      + '<p class="text-xs text-low-600 mt-0.5">por encima de la media general (53,5%)</p>'
       + '</div>'
+      + '<div class="bg-surface-50 border border-surface-100 rounded-xl p-3">'
+      + '<p class="text-xs text-surface-600 leading-relaxed">' + evh.resumen + '</p>'
       + '</div>'
-
       + '</div>';
   }
 
-  // ── NUEVO: Dónde aparece más ──────────────────────────────────
+  // ── Dónde aparece más ────────────────────────────────────────
   var distribEl = document.getElementById("distrib-body");
   if (distribEl && d.distribucionPor) {
     var dist = d.distribucionPor;
