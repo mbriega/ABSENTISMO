@@ -420,41 +420,34 @@ function initPatDetailPage() {
     });
   }
 
-  // ── Cómo se ha detectado — 4 recuadros + advertencias ───────
+  // ── Cómo se ha detectado — 4 cards 2×2 gris ─────────────────
   var evContent = document.getElementById("ev-content");
   if (evContent && d.evidenciaTecnica) {
     var ev = d.evidenciaTecnica;
-    var pill = function(t) {
-      return '<span class="text-xs bg-primary-100 text-primary-700 px-2.5 py-1 rounded-full font-medium">' + t + '</span>';
-    };
     var warnIcon = '<svg class="w-3.5 h-3.5 text-medium-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">'
       + '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/>'
       + '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v4M12 17h.01"/></svg>';
+    var reglaTxt = d.formulaSenal
+      ? d.formulaSenal.condiciones.map(function(c) { return c.titulo + ' (' + c.subtitulo + ')'; }).join(' + ')
+      : ev.trazabilidad;
 
     evContent.innerHTML =
       '<div class="grid grid-cols-2 gap-3 mb-4">'
-      // Card 1: Universo
-      + '<div class="bg-primary-50 border border-primary-100 rounded-xl p-4">'
-      + '<p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider mb-2">¿Sobre qué universo trabaja?</p>'
-      + '<p class="text-sm font-semibold text-surface-900 leading-snug mb-1">' + ev.poblacion + '</p>'
-      + '<p class="text-xs text-surface-500">' + ev.periodo + '</p>'
+      + '<div class="border border-surface-200 rounded-xl p-4">'
+      + '<p class="text-sm font-semibold text-surface-900 mb-1.5">Fuentes utilizadas</p>'
+      + '<p class="text-sm text-surface-500 leading-relaxed">' + ev.fuentes.join(', ') + '.</p>'
       + '</div>'
-      // Card 2: Fiabilidad
-      + '<div class="bg-low-50 border border-low-200 rounded-xl p-4">'
-      + '<p class="text-[10px] font-medium text-low-600 uppercase tracking-wider mb-2">¿Cuánto podemos fiarnos?</p>'
-      + '<p class="text-sm font-semibold text-surface-900 leading-snug mb-1">' + ev.consistencia + '</p>'
-      + '<p class="text-xs text-low-700 leading-snug">' + ev.confianza + '</p>'
+      + '<div class="border border-surface-200 rounded-xl p-4">'
+      + '<p class="text-sm font-semibold text-surface-900 mb-1.5">Regla de activación</p>'
+      + '<p class="text-sm text-surface-500 leading-relaxed">' + reglaTxt + '.</p>'
       + '</div>'
-      // Card 3: Variables
-      + '<div class="bg-primary-50 border border-primary-100 rounded-xl p-4">'
-      + '<p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider mb-3">Variables que analiza el modelo</p>'
-      + '<div class="flex flex-wrap gap-1.5">' + ev.variables.map(pill).join('') + '</div>'
+      + '<div class="border border-surface-200 rounded-xl p-4">'
+      + '<p class="text-sm font-semibold text-surface-900 mb-1.5">Ventana analizada</p>'
+      + '<p class="text-sm text-surface-500 leading-relaxed">' + ev.periodo + ' para apariciones recientes y contraste histórico ampliado.</p>'
       + '</div>'
-      // Card 4: Fuentes
-      + '<div class="bg-primary-50 border border-primary-100 rounded-xl p-4">'
-      + '<p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider mb-3">Fuentes de datos</p>'
-      + '<div class="flex flex-wrap gap-1.5 mb-3">' + ev.fuentes.map(pill).join('') + '</div>'
-      + '<p class="text-xs text-surface-600 leading-snug">' + ev.trazabilidad + '</p>'
+      + '<div class="border border-surface-200 rounded-xl p-4">'
+      + '<p class="text-sm font-semibold text-surface-900 mb-1.5">Lectura técnica</p>'
+      + '<p class="text-sm text-surface-500 leading-relaxed">Asociación histórica repetida y medible. No implica causalidad ni decisión automática sobre personas.</p>'
       + '</div>'
       + '</div>'
       + '<div class="bg-medium-50 border border-medium-200 rounded-xl p-4">'
@@ -591,12 +584,9 @@ function initPatDetailPage() {
     var evhEl = document.getElementById("ev-historica-body");
     if (evhEl) {
       evhEl.innerHTML =
-        '<div class="grid gap-5" style="grid-template-columns:1fr 210px;">'
-        + '<div>'
-        + '<p class="text-[10px] font-medium text-surface-400 uppercase tracking-wider mb-3">% riesgo nueva baja a 60 días por mes</p>'
-        + '<canvas id="chart-evidencia" height="190"></canvas>'
-        + '</div>'
-        + '<div class="space-y-3">'
+        '<p class="text-[10px] font-medium text-surface-400 uppercase tracking-wider mb-3">% riesgo de nueva baja a 60 días por mes</p>'
+        + '<canvas id="chart-evidencia" height="200"></canvas>'
+        + '<div class="grid grid-cols-4 gap-3 mt-4">'
         + '<div class="bg-primary-50 border border-primary-100 rounded-xl p-4">'
         + '<p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider mb-1">Media histórica</p>'
         + '<p class="text-2xl font-bold tabular-nums text-primary-700 leading-none">' + evh.mediaRiesgo + '</p>'
@@ -604,18 +594,17 @@ function initPatDetailPage() {
         + '</div>'
         + '<div class="bg-low-50 border border-low-200 rounded-xl p-4">'
         + '<p class="text-[10px] font-medium text-low-600 uppercase tracking-wider mb-1">Diferencial</p>'
-        + '<p class="text-lg font-bold text-low-700 leading-none">+31,2 pp</p>'
+        + '<p class="text-xl font-bold text-low-700 leading-none">+31,2 pp</p>'
         + '<p class="text-xs text-low-600 mt-1">sobre media general (53,5%)</p>'
         + '</div>'
-        + '<div class="bg-primary-50 border border-primary-100 rounded-xl p-4">'
-        + '<p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider mb-2">Consistencia</p>'
-        + '<p class="text-sm font-bold text-surface-900 leading-snug">4 de los últimos 6 meses mostraron el patrón activo</p>'
-        + '<p class="text-xs text-surface-500 leading-relaxed mt-2">' + evh.resumen + '</p>'
+        + '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4">'
+        + '<p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider mb-1">Consistencia</p>'
+        + '<p class="text-sm font-bold text-surface-900 leading-snug">4 de los últimos 6 meses</p>'
+        + '<p class="text-xs text-surface-500 mt-1 leading-relaxed">' + evh.resumen + '</p>'
         + '</div>'
-        + '<div class="bg-primary-50 border border-primary-100 rounded-xl p-3">'
+        + '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4">'
         + '<p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider mb-1">Solidez</p>'
-        + '<p class="text-xs text-surface-700 leading-relaxed">Los picos de riesgo coinciden con los meses de mayor volumen de reincorporaciones. La correlación es estable y replicable.</p>'
-        + '</div>'
+        + '<p class="text-xs text-surface-700 leading-relaxed">Los picos de riesgo coinciden con los meses de mayor volumen de reincorporaciones. Correlación estable y replicable.</p>'
         + '</div>'
         + '</div>';
     }
@@ -635,9 +624,9 @@ function initPatDetailPage() {
     };
     distribEl.innerHTML =
       '<div class="grid grid-cols-3 gap-3">'
-      + '<div class="bg-primary-50 border border-primary-100 rounded-xl p-4"><p class="text-[10px] font-semibold text-primary-500 uppercase tracking-wider">Por colectivo</p>' + mkDistTable(dist.colectivo, "% sobre apariciones") + '</div>'
-      + '<div class="bg-primary-50 border border-primary-100 rounded-xl p-4"><p class="text-[10px] font-semibold text-primary-500 uppercase tracking-wider">Por turno</p>'     + mkDistTable(dist.turno,     "% sobre apariciones") + '</div>'
-      + '<div class="bg-primary-50 border border-primary-100 rounded-xl p-4"><p class="text-[10px] font-semibold text-primary-500 uppercase tracking-wider">Por antigüedad</p>' + mkDistTable(dist.antiguedad, "% sobre personas únicas") + '</div>'
+      + '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4"><p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider">Por colectivo</p>' + mkDistTable(dist.colectivo, "% sobre apariciones") + '</div>'
+      + '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4"><p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider">Por turno</p>'     + mkDistTable(dist.turno,     "% sobre apariciones") + '</div>'
+      + '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4"><p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider">Por antigüedad</p>' + mkDistTable(dist.antiguedad, "% sobre personas únicas") + '</div>'
       + '</div>';
   }
 
@@ -666,17 +655,17 @@ function initPatDetailPage() {
       + '<text x="'+cx+'" y="'+(cy+12)+'" text-anchor="middle" font-size="10" fill="#94a3b8" font-family="Inter,system-ui,sans-serif">coste histórico</text>'
       + '</svg>';
 
-    var legend = '<div class="space-y-2 flex-1">'
+    var legend = '<div class="flex-1">'
       + cItems.map(function(it, i) {
-          return '<div class="flex items-center gap-2.5">'
-            + '<div style="width:10px;height:10px;border-radius:3px;background:'+cColors[i]+';flex-shrink:0;"></div>'
-            + '<span class="text-xs text-surface-700 flex-1">' + it.concepto + '</span>'
+          return '<div class="flex items-center py-1.5 border-b border-surface-100 last:border-0">'
+            + '<div style="width:9px;height:9px;border-radius:2px;background:'+cColors[i]+';flex-shrink:0;margin-right:8px;"></div>'
+            + '<span class="text-xs text-surface-700" style="flex:1;min-width:0;">' + it.concepto + '</span>'
             + '<span class="text-xs font-bold text-surface-900 tabular-nums">' + it.porcentaje.toFixed(1) + '%</span>'
             + '</div>';
         }).join('')
       + '</div>';
 
-    var metricas = '<div class="bg-primary-50 border border-primary-100 rounded-xl p-4 ml-4" style="min-width:168px;">'
+    var metricas = '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4 ml-4" style="min-width:210px;">'
       + '<p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider mb-3">Métricas derivadas</p>'
       + '<div class="distrib-row"><span>Coste medio/aparición</span><strong>5.172 €</strong></div>'
       + '<div class="distrib-row"><span>Coste medio/persona</span><strong>10.084 €</strong></div>'
@@ -692,15 +681,15 @@ function initPatDetailPage() {
 
     var row2 = '<div class="grid grid-cols-2 gap-3 mb-4">'
       + cItems.map(function(it, i) {
-          return '<div class="bg-primary-50 border border-primary-100 rounded-xl p-4">'
+          return '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4">'
             + '<div class="flex items-center justify-between mb-2">'
             + '<div class="flex items-center gap-2">'
             + '<div style="width:8px;height:8px;border-radius:2px;background:'+cColors[i]+';flex-shrink:0;"></div>'
             + '<p class="text-xs font-semibold text-surface-900">' + it.concepto + '</p>'
             + '</div>'
-            + '<span class="text-sm font-bold text-primary-700 tabular-nums shrink-0 ml-2">' + it.porcentaje.toFixed(1) + '%</span>'
+            + '<span class="text-sm font-bold text-surface-700 tabular-nums shrink-0 ml-2">' + it.porcentaje.toFixed(1) + '%</span>'
             + '</div>'
-            + '<p class="text-base font-bold text-surface-900 tabular-nums mb-1.5">' + it.importeLabel + '</p>'
+            + '<p class="text-sm font-bold text-surface-900 tabular-nums mb-1.5">' + it.importeLabel + '</p>'
             + '<p class="text-xs text-surface-600 leading-relaxed">' + it.tooltip + '</p>'
             + '</div>';
         }).join("")
@@ -719,9 +708,9 @@ function initPatDetailPage() {
     datosMejEl.innerHTML =
       '<div class="grid grid-cols-2 gap-3">'
       + d.datosQueMejorarian.map(function(item) {
-          return '<div class="bg-primary-50 border border-primary-100 rounded-xl p-4">'
-            + '<p class="text-[10px] font-semibold text-primary-500 uppercase tracking-wider mb-2">' + item.fuente + '</p>'
-            + '<p class="text-sm text-primary-800 leading-relaxed">' + item.descripcion + '</p>'
+          return '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4">'
+            + '<p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider mb-2">' + item.fuente + '</p>'
+            + '<p class="text-sm text-surface-700 leading-relaxed">' + item.descripcion + '</p>'
             + '</div>';
         }).join("")
       + '</div>';
