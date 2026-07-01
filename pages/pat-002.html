@@ -120,6 +120,13 @@
     }
     .pat-kpi-cell:last-child { border-right: none; }
 
+    /* ── Centers progress bar ── */
+    .center-row-item { display: grid; grid-template-columns: 1fr 40px; gap: 8px; align-items: center; }
+    .center-name     { font-size: 12.5px; color: #475569; }
+    .center-track    { height: 5px; background: #dbeafe; border-radius: 999px; overflow: hidden; margin-top: 3px; }
+    .center-fill     { height: 100%; background: #2563eb; border-radius: 999px; }
+    .center-pct      { font-size: 12px; font-weight: 700; color: #1d4ed8; text-align: right; }
+
     /* ── Distribution table rows ── */
     .distrib-row {
       display: grid; grid-template-columns: 1fr auto; gap: 12px;
@@ -200,30 +207,35 @@
         <!-- ══ POR QUÉ IMPORTA ══ -->
         <div id="pat-impacto-row" class="grid grid-cols-4 gap-4 mb-5"></div>
 
-        <!-- ══ EVIDENCIA HISTÓRICA ══ -->
-        <div class="grid gap-5 mb-5" style="grid-template-columns:3fr 2fr;">
-          <div class="bg-white rounded-xl border border-surface-200 shadow-card overflow-hidden">
-            <div class="px-5 py-4 border-b border-surface-100 flex items-center gap-2">
-              <h2 class="text-sm font-semibold text-surface-900">Evidencia histórica</h2>
-              <div class="kpi-info-wrap">
-                <svg class="kpi-info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="1.75"/><path d="M12 16v-4M12 8h.01" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <div class="kpi-tooltip kpi-tooltip--below">Activaciones mensuales del patrón entre dic 2024 y may 2025. Eje Y: riesgo de nueva ausencia en los 60 días siguientes.</div>
-              </div>
-              <p class="text-xs text-surface-400">· Activaciones mensuales del patrón (total 232)</p>
-            </div>
-            <div class="px-5 pt-4 pb-3">
-              <canvas id="chart-evidencia" height="180"></canvas>
-            </div>
-          </div>
-          <div id="ev-como-leer" class="bg-white rounded-xl border border-surface-200 shadow-card p-5"></div>
+        <!-- ══ CENTROS DONDE APARECE MÁS ══ -->
+        <div class="bg-white rounded-xl border border-surface-200 shadow-card mb-5 p-5">
+          <p class="text-[10px] font-medium text-surface-400 uppercase tracking-wider mb-4">Centros donde aparece más</p>
+          <div id="pat-centers-section" class="space-y-2.5"></div>
         </div>
 
-        <!-- ══ ANÁLISIS COMPLETO ══ -->
+        <!-- ══ ANÁLISIS Y AUDITORÍA ══ -->
         <div class="bg-white rounded-xl border border-surface-200 shadow-card overflow-hidden mb-5">
           <div class="px-5 py-4 border-b border-surface-100">
             <h2 class="text-sm font-semibold text-surface-900">Análisis y auditoría</h2>
             <p class="text-xs text-surface-400 mt-0.5">Distribución, coste, personas y trazabilidad del dato.</p>
           </div>
+
+          <!-- Evidencia histórica -->
+          <details class="pat-disc" id="ev-historica-disc">
+            <summary>
+              <div class="disc-sum-left">
+                <div class="disc-icon-wrap">
+                  <svg class="w-3.5 h-3.5 text-surface-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-surface-800">Evidencia histórica</p>
+                  <p class="text-xs text-surface-400">Repetición del patrón en los últimos 6 meses</p>
+                </div>
+              </div>
+              <svg class="disc-chev w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="disc-body-inner" id="ev-historica-body"></div>
+          </details>
 
           <!-- Dónde aparece más -->
           <details class="pat-disc">
@@ -259,11 +271,11 @@
             <div class="disc-body-inner" id="coste-detalle-body">
               <!-- Desglose de costes por categoría -->
               <div class="grid grid-cols-2 gap-3 mb-3">
-                <div class="bg-surface-50 rounded-xl p-4 border border-surface-100">
+                <div class="bg-primary-50 rounded-xl p-4 border border-primary-100">
                   <p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-2">De dónde sale el coste histórico</p>
                   <p class="text-sm text-surface-600 leading-relaxed">Este importe agrupa los costes observados en las apariciones históricas del patrón. No mide una predicción futura ni un ahorro garantizado: mide el coste que la compañía ya ha soportado cuando esta secuencia se ha repetido.</p>
                 </div>
-                <div class="bg-surface-50 rounded-xl p-4 border border-surface-100">
+                <div class="bg-primary-50 rounded-xl p-4 border border-primary-100">
                   <p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-2">Métricas derivadas</p>
                   <div class="space-y-2">
                     <div class="distrib-row"><span>Coste medio por aparición</span><strong>5.172 €</strong></div>
@@ -298,19 +310,19 @@
             </summary>
             <div class="disc-body-inner">
               <div class="grid grid-cols-2 gap-3 mb-3">
-                <div class="bg-surface-50 rounded-xl p-4 border border-surface-100">
+                <div class="bg-primary-50 rounded-xl p-4 border border-primary-100">
                   <p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-1">Personas únicas</p>
                   <p class="text-sm text-surface-700">119 personas activaron el patrón al menos una vez en el período analizado.</p>
                 </div>
-                <div class="bg-surface-50 rounded-xl p-4 border border-surface-100">
+                <div class="bg-primary-50 rounded-xl p-4 border border-primary-100">
                   <p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-1">Apariciones media por persona</p>
                   <p class="text-sm text-surface-700">1,9 apariciones por persona — algunas reincorporaciones generaron el patrón más de una vez.</p>
                 </div>
-                <div class="bg-surface-50 rounded-xl p-4 border border-surface-100">
+                <div class="bg-primary-50 rounded-xl p-4 border border-primary-100">
                   <p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-1">% con nueva ausencia posterior</p>
                   <p class="text-sm text-surface-700">84,7% en la ventana de 60 días posteriores a la reincorporación.</p>
                 </div>
-                <div class="bg-surface-50 rounded-xl p-4 border border-surface-100">
+                <div class="bg-primary-50 rounded-xl p-4 border border-primary-100">
                   <p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-1">Listado anonimizado</p>
                   <p class="text-sm text-surface-700">Disponible para auditoría interna respetando privacidad y permisos.</p>
                 </div>
@@ -322,64 +334,22 @@
             </div>
           </details>
 
-          <!-- Condiciones exactas -->
+          <!-- Cómo se ha detectado -->
           <details class="pat-disc">
             <summary>
-              <div class="disc-sum-left">
-                <div class="disc-icon-wrap">
-                  <svg class="w-3.5 h-3.5 text-surface-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                </div>
-                <div>
-                  <p class="text-sm font-semibold text-surface-800">Condiciones exactas de activación</p>
-                  <p class="text-xs text-surface-400">Las 3 variables que deben coincidir simultáneamente</p>
-                </div>
-              </div>
-              <svg class="disc-chev w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="disc-body-inner">
-              <div id="condiciones-lista" class="divide-y divide-surface-50"></div>
-            </div>
-          </details>
-
-          <!-- Solapamiento -->
-          <details class="pat-disc">
-            <summary>
-              <div class="disc-sum-left">
-                <div class="disc-icon-wrap">
-                  <svg class="w-3.5 h-3.5 text-surface-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="9" cy="12" r="5" stroke-width="1.75"/><circle cx="15" cy="12" r="5" stroke-width="1.75"/></svg>
-                </div>
-                <div>
-                  <p class="text-sm font-semibold text-surface-800">Solapamiento con otros patrones</p>
-                  <p class="text-xs text-surface-400">Personas que activan más de un patrón a la vez</p>
-                </div>
-              </div>
-              <svg class="disc-chev w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="disc-body-inner">
-              <div id="solapamiento-lista" class="divide-y divide-surface-50"></div>
-            </div>
-          </details>
-
-          <!-- Cómo se ha detectado (ex Evidencia técnica) -->
-          <div>
-            <button id="accordion-btn" class="disc-accordion-btn">
               <div class="disc-sum-left">
                 <div class="disc-icon-wrap">
                   <svg class="w-3.5 h-3.5 text-surface-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                 </div>
                 <div>
                   <p class="text-sm font-semibold text-surface-800">Cómo se ha detectado</p>
-                  <p class="text-xs text-surface-400">Fuentes, metodología y advertencias del modelo</p>
+                  <p class="text-xs text-surface-400">Metodología, fuentes y advertencias del modelo</p>
                 </div>
               </div>
-              <svg id="accordion-icon" class="w-4 h-4 text-surface-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </button>
-            <div id="accordion-body" class="accordion-body">
-              <div class="p-5" id="ev-content"></div>
-            </div>
-          </div>
+              <svg class="disc-chev w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="disc-body-inner" id="ev-content"></div>
+          </details>
 
           <!-- Qué datos mejorarían la lectura -->
           <details class="pat-disc">
@@ -415,6 +385,8 @@
           <span id="rec-responsable"></span><span id="rec-impacto"></span><span id="rec-plazo"></span><span id="rec-porque"></span>
           <div id="consultor-contextos"></div><div id="consultor-preguntas"></div>
           <div id="chat-area"></div><input id="consultor-input"/><button id="consultor-send"></button>
+          <div id="condiciones-lista"></div><div id="solapamiento-lista"></div>
+          <button id="accordion-btn"></button><div id="accordion-body"></div>
           <div id="relevancia-cards"></div><span id="pat-resumen"></span><span id="senal-chips"></span><span id="kpi-variables"></span>
           <span id="kpi-impacto"></span><span id="kpi-personas"></span><span id="kpi-confianza"></span>
           <div id="que-significa-list"></div><div id="que-no-significa-list"></div>
