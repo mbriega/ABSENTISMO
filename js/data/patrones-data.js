@@ -53,7 +53,19 @@ const PATRONES_DATA = {
   },
 
   // ── Filtros disponibles ───────────────────────────────────────
-  filtros: ["Todos", "reincorp", "it", "prov", "cat", "reten", "dietas", "km", "he", "resp", "centro"],
+  filtros: [
+    { key: "Todos",    label: "Todos" },
+    { key: "reincorp", label: "Reincorporaciones" },
+    { key: "it",       label: "Baja médica IT" },
+    { key: "prov",     label: "Por provincia" },
+    { key: "cat",      label: "Por categoría" },
+    { key: "reten",    label: "Retén/disponibilidad" },
+    { key: "dietas",   label: "Dietas/comida" },
+    { key: "km",       label: "Kilometraje" },
+    { key: "he",       label: "Horas extra" },
+    { key: "resp",     label: "Mandos/jefatura" },
+    { key: "centro",   label: "Por centro" }
+  ],
 
   // ── Tabla de 18 patrones ──────────────────────────────────────
   patrones: [

@@ -109,6 +109,27 @@
 
         </div>
 
+        <!-- ── Desglose del coste ── -->
+        <div class="bg-white rounded-xl border border-surface-200 shadow-card px-5 py-4 mb-6 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-primary-50 flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-surface-900">Desglose del coste por patrón</p>
+              <p class="text-xs text-surface-400 mt-0.5">7.143.297 € distribuidos entre 18 patrones · ordenado por impacto económico</p>
+            </div>
+          </div>
+          <button id="btn-desglose-costes" class="inline-flex items-center gap-2 text-sm font-medium text-primary-600 bg-primary-50 hover:bg-primary-100 px-4 py-2 rounded-lg transition-colors whitespace-nowrap">
+            Ver gráfico
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+
         <!-- ── Análisis IA ── -->
         <div class="bg-white rounded-xl border border-primary-100 p-5 mb-6 shadow-card">
           <div class="flex items-center justify-between mb-3">
@@ -139,6 +160,7 @@
             <table class="w-full text-sm">
               <thead>
                 <tr class="border-b border-surface-100 bg-surface-50/50">
+                  <th class="text-left px-4 py-3 text-xs font-medium text-surface-400 w-10">#</th>
                   <th class="text-left px-5 py-3 text-xs font-medium text-surface-500 min-w-[200px]">Patrón</th>
                   <th class="text-right px-4 py-3 text-xs font-medium text-surface-500 min-w-[80px]">
                     <div class="flex items-center justify-end gap-1">Activaciones
@@ -187,7 +209,50 @@
           </div>
         </div>
 
+        <!-- ── Qué nuevos patrones podríamos descubrir ── -->
+        <div class="mt-6">
+          <div class="mb-4">
+            <h2 class="text-base font-semibold text-surface-900">Qué nuevos patrones podríamos descubrir</h2>
+            <p class="text-xs text-surface-400 mt-0.5">Estas fuentes de datos no están en el fichero actual pero ampliarían significativamente la capacidad de detección</p>
+          </div>
+          <div class="grid grid-cols-2 lg:grid-cols-3 gap-4" id="nuevas-fuentes-grid"></div>
+        </div>
+
       </main>
+    </div>
+  </div>
+
+  <!-- Modal: desglose del coste por patrón -->
+  <div id="modal-desglose" class="fixed inset-0 z-50 flex items-center justify-center hidden" style="background: rgba(15,23,42,0.55);">
+    <div class="bg-white rounded-xl w-full flex flex-col mx-4" style="max-width:920px;max-height:90vh;">
+      <div class="px-6 py-4 border-b border-surface-100 flex items-center justify-between shrink-0">
+        <div>
+          <h3 class="text-base font-semibold text-surface-900">Desglose del coste por patrón</h3>
+          <p class="text-xs text-surface-400 mt-0.5">Ordenado de mayor a menor coste directo · 7.143.297 € en total</p>
+        </div>
+        <button id="modal-close" class="w-8 h-8 rounded-lg hover:bg-surface-100 flex items-center justify-center transition-colors text-surface-400 hover:text-surface-600">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="p-6 overflow-y-auto">
+        <div id="chart-costes-barra-container"></div>
+        <div class="flex flex-wrap gap-5 mt-4 pt-4 border-t border-surface-100">
+          <span class="flex items-center gap-2 text-xs text-surface-600">
+            <span style="width:12px;height:12px;border-radius:3px;background:#ef4444;display:inline-block;flex-shrink:0;"></span>Crítico
+          </span>
+          <span class="flex items-center gap-2 text-xs text-surface-600">
+            <span style="width:12px;height:12px;border-radius:3px;background:#f97316;display:inline-block;flex-shrink:0;"></span>Alto
+          </span>
+          <span class="flex items-center gap-2 text-xs text-surface-600">
+            <span style="width:12px;height:12px;border-radius:3px;background:#f59e0b;display:inline-block;flex-shrink:0;"></span>Medio
+          </span>
+          <span class="flex items-center gap-2 text-xs text-surface-600">
+            <span style="width:12px;height:12px;border-radius:3px;background:#3b82f6;display:inline-block;flex-shrink:0;"></span>Bajo
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 

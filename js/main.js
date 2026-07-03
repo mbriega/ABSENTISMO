@@ -19,6 +19,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var TableComponent = (function() {
 
+  var CAT_LABELS = {
+    reincorp: "Reincorporación",
+    it:       "Baja médica IT",
+    prov:     "Por provincia",
+    cat:      "Por categoría",
+    reten:    "Retén/disponibilidad",
+    dietas:   "Dietas/comida",
+    km:       "Kilometraje",
+    he:       "Horas extra",
+    resp:     "Mandos/jefatura",
+    centro:   "Por centro"
+  };
+
   var BADGE = {
     critico: "badge--critico",
     alto:    "badge--alto",
@@ -45,7 +58,9 @@ var TableComponent = (function() {
       ? PATRONES_DATA.patrones
       : PATRONES_DATA.patrones.filter(function(p) { return p.categoria === filtro; });
 
-    tbody.innerHTML = items.map(function(p) {
+    tbody.innerHTML = items.map(function(p, idx) {
+      var rank      = String(idx + 1).padStart(2, "0");
+      var catLabel  = CAT_LABELS[p.categoria] || p.categoria;
       var isCritico = p.criticidad === "critico";
       var rowClass  = "patrones-row cursor-pointer" + (isCritico ? " patrones-row--critico" : "");
       var rowStyle  = isCritico ? ' style="border-left: 2px solid #ef4444;"' : "";
@@ -55,8 +70,10 @@ var TableComponent = (function() {
 
       var desc = p.descripcionHumana || p.definicion;
       return '<tr class="' + rowClass + '"' + rowStyle + ' onclick="window.location.href=\'' + p.detalle + '\'">'
+        + '<td class="py-2.5 px-4 text-xs font-medium text-surface-400 tabular-nums whitespace-nowrap">#' + rank + '</td>'
         + '<td class="py-2.5 px-5">'
         + '<p class="' + nameClass + '">' + p.nombre + "</p>"
+        + '<span style="display:inline-block;margin-top:3px;font-size:10px;font-weight:500;background:#f1f5f9;color:#64748b;padding:1px 8px;border-radius:999px;">' + catLabel + '</span>'
         + (desc ? '<p class="text-[11px] text-surface-400 mt-0.5 leading-snug">' + desc + "</p>" : "")
         + "</td>"
         + '<td class="py-2.5 px-3 text-right text-xs font-semibold text-surface-700 tabular-nums">' + p.activaciones.toLocaleString("es-ES") + "</td>"
@@ -139,6 +156,123 @@ function initPatronesPage() {
   // Filtros + tabla inicial
   FiltersComponent.render();
   TableComponent.render("Todos");
+
+  // ── Qué nuevos patrones podríamos descubrir ─────────────────
+  var nuevasEl = document.getElementById("nuevas-fuentes-grid");
+  if (nuevasEl) {
+    var FUENTES = [
+      {
+        svgPath: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v8m0 0H5m4 0h10m-10 0v8a2 2 0 002 2h4a2 2 0 002-2v-8m-8 0h8"/>',
+        titulo: "Historial médico laboral",
+        descripcion: "Identificaría bajas recurrentes por la misma patología, estacionalidad médica y empleados con reincidencia por diagnóstico.",
+        estimacion: "3–5 nuevos patrones estimados"
+      },
+      {
+        svgPath: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>',
+        titulo: "Datos de productividad",
+        descripcion: "Revelaría correlaciones entre caída de rendimiento previo y aparición de bajas. Detecta señales tempranas antes de la baja formal.",
+        estimacion: "2–4 nuevos patrones estimados"
+      },
+      {
+        svgPath: '<circle cx="12" cy="12" r="9" stroke-width="1.75"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M12 7v5l3 3"/>',
+        titulo: "Registro de turnos y guardias",
+        descripcion: "Detectaría fatiga por turnos nocturnos consecutivos, acumulación de guardias y riesgo por rotación excesiva de horarios.",
+        estimacion: "4–6 nuevos patrones estimados"
+      },
+      {
+        svgPath: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>',
+        titulo: "Encuestas de clima laboral",
+        descripcion: "Cruzaría satisfacción del equipo con frecuencia de bajas para identificar centros con bajo clima y mayor absentismo.",
+        estimacion: "2–3 nuevos patrones estimados"
+      },
+      {
+        svgPath: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>',
+        titulo: "Historial de formación",
+        descripcion: "Identificaría si empleados sin formación reciente o en puestos no ajustados a su perfil presentan mayor frecuencia de bajas.",
+        estimacion: "1–2 nuevos patrones estimados"
+      },
+      {
+        svgPath: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>',
+        titulo: "Datos de rotación y retención",
+        descripcion: "Cruzaría probabilidad de abandono con bajas médicas previas, detectando patrones de desvinculación paulatina antes de la salida.",
+        estimacion: "2–3 nuevos patrones estimados"
+      }
+    ];
+    nuevasEl.innerHTML = FUENTES.map(function(f) {
+      return '<div class="bg-white rounded-xl border border-surface-200 shadow-card p-5">'
+        + '<div class="w-9 h-9 rounded-lg bg-surface-100 flex items-center justify-center mb-3">'
+        + '<svg class="w-4 h-4 text-surface-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' + f.svgPath + '</svg>'
+        + '</div>'
+        + '<p class="text-sm font-semibold text-surface-900 mb-2">' + f.titulo + '</p>'
+        + '<p class="text-xs text-surface-500 leading-relaxed mb-3">' + f.descripcion + '</p>'
+        + '<span class="text-[10px] font-medium text-primary-700 bg-primary-50 border border-primary-100 px-2.5 py-1 rounded-full">' + f.estimacion + '</span>'
+        + '</div>';
+    }).join('');
+  }
+
+  // ── Modal: desglose del coste ────────────────────────────────
+  (function() {
+    var btn   = document.getElementById("btn-desglose-costes");
+    var modal = document.getElementById("modal-desglose");
+    var close = document.getElementById("modal-close");
+    if (!btn || !modal) return;
+
+    var charted = false;
+
+    function parseCost(str) {
+      return parseInt((str || "").replace(/[^\d]/g, ""), 10) || 0;
+    }
+
+    function buildChart() {
+      var container = document.getElementById("chart-costes-barra-container");
+      if (!container) return;
+      var sorted = PATRONES_DATA.patrones.slice().sort(function(a, b) {
+        return parseCost(b.costeDirecto) - parseCost(a.costeDirecto);
+      });
+      var maxCost = parseCost(sorted[0].costeDirecto);
+      var COLORS  = { critico: "#ef4444", alto: "#f97316", medio: "#f59e0b", bajo: "#3b82f6" };
+      var L = 240, B = 400, rowH = 30, topPad = 10, W = 820;
+      var totalH = topPad + sorted.length * rowH + 10;
+
+      var rows = sorted.map(function(p, i) {
+        var cost  = parseCost(p.costeDirecto);
+        var bw    = Math.max(4, Math.round((cost / maxCost) * B * 0.96));
+        var y     = topPad + i * rowH;
+        var cy    = y + rowH / 2;
+        var color = COLORS[p.criticidad] || "#3b82f6";
+        var label = p.nombre.length > 36 ? p.nombre.substring(0, 34) + "…" : p.nombre;
+        var bg    = (i % 2 === 0) ? '<rect x="0" y="' + y + '" width="' + W + '" height="' + rowH + '" fill="#f8fafc"/>' : "";
+        return bg
+          + '<text x="' + (L - 8) + '" y="' + cy + '" dominant-baseline="middle" text-anchor="end"'
+          + ' font-size="11.5" fill="#64748b" font-family="Inter,system-ui,sans-serif">' + label + '</text>'
+          + '<rect x="' + L + '" y="' + (y + 8) + '" width="' + bw + '" height="' + (rowH - 16) + '" rx="2" fill="' + color + '"/>'
+          + '<text x="' + (L + bw + 8) + '" y="' + cy + '" dominant-baseline="middle"'
+          + ' font-size="11" font-weight="600" fill="#0f172a" font-family="Inter,system-ui,sans-serif">' + p.costeDirecto + '</text>';
+      }).join("");
+
+      var axisLine = '<line x1="' + L + '" y1="' + topPad + '" x2="' + L + '" y2="' + (totalH - 10) + '" stroke="#e2e8f0" stroke-width="1"/>';
+      container.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + totalH + '" width="100%" style="display:block;">'
+        + rows + axisLine + '</svg>';
+    }
+
+    function openModal() {
+      modal.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+      if (!charted) { charted = true; buildChart(); }
+    }
+
+    function closeModal() {
+      modal.classList.add("hidden");
+      document.body.style.overflow = "";
+    }
+
+    btn.addEventListener("click", openModal);
+    if (close) close.addEventListener("click", closeModal);
+    modal.addEventListener("click", function(e) { if (e.target === modal) closeModal(); });
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape" && !modal.classList.contains("hidden")) closeModal();
+    });
+  })();
 }
 
 // ══════════════════════════════════════════════════════════════

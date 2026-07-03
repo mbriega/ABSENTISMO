@@ -10,8 +10,10 @@ const FiltersComponent = (() => {
     if (!container) return;
 
     container.innerHTML = PATRONES_DATA.filtros.map(function(filtro) {
-      return '<button class="filter-btn ' + (filtro === activeFilter ? "active" : "")
-        + '" data-filter="' + filtro + '">' + filtro + "</button>";
+      var key   = typeof filtro === "object" ? filtro.key   : filtro;
+      var label = typeof filtro === "object" ? filtro.label : filtro;
+      return '<button class="filter-btn ' + (key === activeFilter ? "active" : "")
+        + '" data-filter="' + key + '">' + label + "</button>";
     }).join("");
 
     container.querySelectorAll(".filter-btn").forEach(function(btn) {
