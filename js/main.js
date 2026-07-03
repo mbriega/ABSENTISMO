@@ -32,6 +32,10 @@ var TableComponent = (function() {
     centro:   "Por centro"
   };
 
+  var TOTAL_COST = PATRONES_DATA.patrones.reduce(function(s, p) {
+    return s + (parseInt((p.costeDirecto || "").replace(/[^\d]/g, ""), 10) || 0);
+  }, 0);
+
   var BADGE = {
     critico: "badge--critico",
     alto:    "badge--alto",
@@ -58,8 +62,7 @@ var TableComponent = (function() {
       ? PATRONES_DATA.patrones
       : PATRONES_DATA.patrones.filter(function(p) { return p.categoria === filtro; });
 
-    tbody.innerHTML = items.map(function(p, idx) {
-      var rank      = String(idx + 1).padStart(2, "0");
+    tbody.innerHTML = items.map(function(p) {
       var catLabel  = CAT_LABELS[p.categoria] || p.categoria;
       var isCritico = p.criticidad === "critico";
       var rowClass  = "patrones-row cursor-pointer" + (isCritico ? " patrones-row--critico" : "");
@@ -68,25 +71,47 @@ var TableComponent = (function() {
         ? "text-xs font-semibold text-critical-700 leading-tight"
         : "text-xs font-semibold text-surface-800 leading-tight";
 
-      var desc = p.descripcionHumana || p.definicion;
+      var patNum  = p.id.replace("pat-", "");
+      var costInt = parseInt((p.costeDirecto || "").replace(/[^\d]/g, ""), 10) || 0;
+      var pct     = TOTAL_COST > 0 ? (costInt / TOTAL_COST * 100).toFixed(1) + "%" : "—";
+      var desc    = p.descripcionHumana || p.definicion;
+
+      var numBox = '<div style="width:42px;height:42px;background:#eff6ff;border:1px solid #bfdbfe;'
+        + 'border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">'
+        + '<span style="font-size:11px;font-weight:700;color:#1d4ed8;line-height:1;">' + patNum + '</span>'
+        + '</div>';
+
+      var catBadge = '<span style="display:inline-block;margin-top:3px;font-size:10px;font-weight:500;'
+        + 'background:#f1f5f9;color:#64748b;padding:1px 8px;border-radius:999px;">' + catLabel + '</span>';
+
+      var metaRow = '<div style="display:flex;align-items:center;gap:6px;margin-top:5px;flex-wrap:wrap;">'
+        + '<span style="font-size:11px;color:#94a3b8;">' + p.activaciones.toLocaleString("es-ES") + ' activaciones</span>'
+        + '<span style="font-size:11px;color:#cbd5e1;">&middot;</span>'
+        + '<span style="font-size:11px;color:#94a3b8;">Ene 2024–May 2025</span>'
+        + '<span style="font-size:11px;color:#cbd5e1;">&middot;</span>'
+        + '<span style="font-size:10px;font-weight:500;background:#dcfce7;color:#16a34a;padding:1px 7px;border-radius:999px;">Activo</span>'
+        + '</div>';
+
       return '<tr class="' + rowClass + '"' + rowStyle + ' onclick="window.location.href=\'' + p.detalle + '\'">'
-        + '<td class="py-2.5 px-4 text-xs font-medium text-surface-400 tabular-nums whitespace-nowrap">#' + rank + '</td>'
-        + '<td class="py-2.5 px-5">'
-        + '<p class="' + nameClass + '">' + p.nombre + "</p>"
-        + '<span style="display:inline-block;margin-top:3px;font-size:10px;font-weight:500;background:#f1f5f9;color:#64748b;padding:1px 8px;border-radius:999px;">' + catLabel + '</span>'
-        + (desc ? '<p class="text-[11px] text-surface-400 mt-0.5 leading-snug">' + desc + "</p>" : "")
-        + "</td>"
-        + '<td class="py-2.5 px-3 text-right text-xs font-semibold text-surface-700 tabular-nums">' + p.activaciones.toLocaleString("es-ES") + "</td>"
-        + '<td class="py-2.5 px-3 text-right text-xs text-surface-600 tabular-nums">' + p.empleados + "</td>"
-        + '<td class="py-2.5 px-3 text-right tabular-nums"><span class="badge ' + getRiskClass(p.riesgo60d) + '">' + p.riesgo60d + "</span></td>"
-        + '<td class="py-2.5 px-3 text-right text-xs text-surface-600 tabular-nums">' + p.diasAsoc + "</td>"
-        + '<td class="py-2.5 px-3 text-right text-xs text-surface-600 tabular-nums">' + p.media + "</td>"
-        + '<td class="py-2.5 px-3 text-right text-xs font-semibold text-high-600 tabular-nums">' + p.costeDirecto + "</td>"
-        + '<td class="py-2.5 px-3 text-center"><span class="badge ' + (BADGE[p.criticidad] || "") + '">' + p.criticidad + "</span></td>"
-        + '<td class="py-2.5 px-3 text-right">'
-        + '<a href="' + p.detalle + '" class="text-xs text-primary-600 hover:text-primary-800 font-medium whitespace-nowrap inline-flex items-center gap-1 transition-colors" onclick="event.stopPropagation()">Detalle ' + ARROW + "</a>"
-        + "</td>"
-        + "</tr>";
+        + '<td class="py-3 px-5" style="min-width:300px;">'
+        + '<div style="display:flex;align-items:flex-start;gap:12px;">'
+        + numBox
+        + '<div style="flex:1;min-width:0;">'
+        + '<p class="' + nameClass + '">' + p.nombre + '</p>'
+        + catBadge
+        + (desc ? '<p class="text-[11px] text-surface-400 mt-1 leading-snug">' + desc + '</p>' : '')
+        + metaRow
+        + '</div></div>'
+        + '</td>'
+        + '<td class="py-3 px-3 text-right tabular-nums whitespace-nowrap"><span class="badge ' + getRiskClass(p.riesgo60d) + '">' + p.riesgo60d + '</span></td>'
+        + '<td class="py-3 px-3 text-right text-xs text-surface-600 tabular-nums">' + p.empleados + '</td>'
+        + '<td class="py-3 px-3 text-right text-xs font-semibold text-high-600 tabular-nums whitespace-nowrap">' + p.costeDirecto + '</td>'
+        + '<td class="py-3 px-3 text-right text-xs font-medium text-surface-500 tabular-nums">' + pct + '</td>'
+        + '<td class="py-3 px-3 text-center"><span class="badge ' + (BADGE[p.criticidad] || "") + '">' + p.criticidad + '</span></td>'
+        + '<td class="py-3 px-3 text-right">'
+        + '<a href="' + p.detalle + '" class="text-xs text-primary-600 hover:text-primary-800 font-medium whitespace-nowrap inline-flex items-center gap-1 transition-colors" onclick="event.stopPropagation()">Detalle ' + ARROW + '</a>'
+        + '</td>'
+        + '</tr>';
     }).join("");
   }
 
@@ -125,16 +150,22 @@ function initPatronesPage() {
       html += "</div></div>";
     }
 
-    // Grid de datos
+    // Datos colapsables
     if (datos.length) {
-      html += '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-3">';
+      var CHEV = '<svg class="ai-disc-chevron" style="width:14px;height:14px;flex-shrink:0;color:#94a3b8;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>';
+      html += '<div class="flex flex-col gap-1.5 mb-3">';
       datos.forEach(function(item) {
-        html += '<div class="bg-surface-50 rounded-lg p-4 border border-surface-100">'
-          + '<p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-1.5">' + item.titulo + "</p>"
-          + '<p class="text-sm text-surface-600 leading-relaxed">' + item.texto + "</p>"
-          + "</div>";
+        html += '<details class="ai-disc-item bg-surface-50 rounded-lg border border-surface-100 overflow-hidden">'
+          + '<summary style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;">'
+          + '<span class="text-xs font-semibold text-surface-600 uppercase tracking-wider">' + item.titulo + '</span>'
+          + CHEV
+          + '</summary>'
+          + '<div style="padding:0 14px 12px 14px;">'
+          + '<p class="text-sm text-surface-600 leading-relaxed">' + item.texto + '</p>'
+          + '</div>'
+          + '</details>';
       });
-      html += "</div>";
+      html += '</div>';
     }
 
     // Card de acción

@@ -7,6 +7,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    .ai-disc-item > summary { list-style: none; }
+    .ai-disc-item > summary::-webkit-details-marker { display: none; }
+    .ai-disc-chevron { transition: transform 0.2s; }
+    .ai-disc-item[open] .ai-disc-chevron { transform: rotate(180deg); }
+  </style>
 </head>
 <body class="bg-surface-50 text-surface-900 antialiased" data-page="patrones">
 
@@ -160,16 +166,7 @@
             <table class="w-full text-sm">
               <thead>
                 <tr class="border-b border-surface-100 bg-surface-50/50">
-                  <th class="text-left px-4 py-3 text-xs font-medium text-surface-400 w-10">#</th>
-                  <th class="text-left px-5 py-3 text-xs font-medium text-surface-500 min-w-[200px]">Patrón</th>
-                  <th class="text-right px-4 py-3 text-xs font-medium text-surface-500 min-w-[80px]">
-                    <div class="flex items-center justify-end gap-1">Activaciones
-                      <span class="kpi-info-wrap" data-th-tooltip="Número de eventos mes-empleado en los que se cumplen simultáneamente todas las condiciones del patrón. Un mismo empleado puede activar el patrón en distintos meses.">
-                        <svg class="kpi-info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="1.75"/><path d="M12 16v-4M12 8h.01" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                      </span>
-                    </div>
-                  </th>
-                  <th class="text-right px-4 py-3 text-xs font-medium text-surface-500 min-w-[80px]">Empleados</th>
+                  <th class="text-left px-5 py-3 text-xs font-medium text-surface-500">Patrón</th>
                   <th class="text-right px-4 py-3 text-xs font-medium text-surface-500 min-w-[96px]">
                     <div class="flex items-center justify-end gap-1">Riesgo 60d
                       <span class="kpi-info-wrap" data-th-tooltip="Probabilidad de que el empleado registre una nueva baja en los próximos 60 días, basada en el historial del patrón. Una tasa alta indica alta recurrencia.">
@@ -178,15 +175,8 @@
                     </div>
                   </th>
                   <th class="text-right px-4 py-3 text-xs font-medium text-surface-500 min-w-[80px]">
-                    <div class="flex items-center justify-end gap-1">Días asoc.
-                      <span class="kpi-info-wrap" data-th-tooltip="Total de días de ausencia acumulados por todas las activaciones del patrón durante el período analizado.">
-                        <svg class="kpi-info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="1.75"/><path d="M12 16v-4M12 8h.01" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                      </span>
-                    </div>
-                  </th>
-                  <th class="text-right px-4 py-3 text-xs font-medium text-surface-500 min-w-[72px]">
-                    <div class="flex items-center justify-end gap-1">Media
-                      <span class="kpi-info-wrap" data-th-tooltip="Promedio de días de ausencia por activación. Permite comparar la intensidad del patrón independientemente de su volumen total.">
+                    <div class="flex items-center justify-end gap-1">Personas
+                      <span class="kpi-info-wrap" data-th-tooltip="Número de empleados únicos que han activado el patrón al menos una vez en el período analizado.">
                         <svg class="kpi-info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="1.75"/><path d="M12 16v-4M12 8h.01" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                       </span>
                     </div>
@@ -194,6 +184,13 @@
                   <th class="text-right px-4 py-3 text-xs font-medium text-surface-500 min-w-[120px]">
                     <div class="flex items-center justify-end gap-1">Coste directo
                       <span class="kpi-info-wrap" data-th-tooltip="Estimación del coste laboral: salario base + complementos + coste de sustitución. No incluye impacto en productividad ni costes indirectos.">
+                        <svg class="kpi-info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="1.75"/><path d="M12 16v-4M12 8h.01" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      </span>
+                    </div>
+                  </th>
+                  <th class="text-right px-4 py-3 text-xs font-medium text-surface-500 min-w-[80px]">
+                    <div class="flex items-center justify-end gap-1">% total
+                      <span class="kpi-info-wrap" data-th-tooltip="Peso del patrón sobre el coste total detectado (7.143.297 €). Útil para priorizar por impacto relativo entre patrones.">
                         <svg class="kpi-info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="1.75"/><path d="M12 16v-4M12 8h.01" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                       </span>
                     </div>
