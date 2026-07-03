@@ -12,6 +12,8 @@
     .ai-disc-item > summary::-webkit-details-marker { display: none; }
     .ai-disc-chevron { transition: transform 0.2s; }
     .ai-disc-item[open] .ai-disc-chevron { transform: rotate(180deg); }
+    #filter-buttons { scrollbar-width: none; -ms-overflow-style: none; }
+    #filter-buttons::-webkit-scrollbar { display: none; }
   </style>
 </head>
 <body class="bg-surface-50 text-surface-900 antialiased" data-page="patrones">
@@ -152,8 +154,14 @@
         </div>
 
         <!-- ── Filtros ── -->
-        <div class="flex flex-wrap gap-2 mb-5" id="filter-buttons">
+        <div class="flex flex-nowrap gap-2 mb-3 overflow-x-auto" id="filter-buttons">
           <!-- Poblado por filters.js -->
+        </div>
+
+        <!-- ── Filtro de estado ── -->
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-xs font-medium text-surface-400 shrink-0">Estado:</span>
+          <div id="estado-filter-buttons" class="flex gap-1"></div>
         </div>
 
         <!-- ── Tabla de patrones ── -->
@@ -195,7 +203,7 @@
                       </span>
                     </div>
                   </th>
-                  <th class="text-center px-4 py-3 text-xs font-medium text-surface-500 min-w-[80px]">Criticidad</th>
+                  <th class="text-center px-4 py-3 text-xs font-medium text-surface-500 min-w-[100px]">Acciones</th>
                   <th class="px-4 py-3"></th>
                 </tr>
               </thead>
@@ -207,7 +215,7 @@
         </div>
 
         <!-- ── Qué nuevos patrones podríamos descubrir ── -->
-        <div class="mt-6">
+        <div class="mt-10">
           <div class="mb-4">
             <h2 class="text-base font-semibold text-surface-900">Qué nuevos patrones podríamos descubrir</h2>
             <p class="text-xs text-surface-400 mt-0.5">Estas fuentes de datos no están en el fichero actual pero ampliarían significativamente la capacidad de detección</p>

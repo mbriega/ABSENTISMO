@@ -68,6 +68,12 @@ var TableComponent = (function() {
       ? PATRONES_DATA.patrones
       : PATRONES_DATA.patrones.filter(function(p) { return p.categoria === filtro; });
 
+    if (typeof estadoFilter !== "undefined" && estadoFilter !== "todos") {
+      items = items.filter(function(p) {
+        return (ESTADO[p.id] || "activo") === estadoFilter;
+      });
+    }
+
     tbody.innerHTML = items.map(function(p, idx) {
       var catLabel  = CAT_LABELS[p.categoria] || p.categoria;
       var isCritico = p.criticidad === "critico";
@@ -77,11 +83,12 @@ var TableComponent = (function() {
         ? "text-xs font-semibold text-critical-700 leading-tight"
         : "text-xs font-semibold text-surface-800 leading-tight";
 
-      var rank    = idx + 1;
-      var diasInt = parseInt((p.diasAsoc || "").replace(/[^\d]/g, ""), 10) || 0;
-      var pct     = TOTAL_DIAS > 0 ? (diasInt / TOTAL_DIAS * 100).toFixed(1) + "%" : "—";
-      var desc    = p.descripcionHumana || p.definicion;
-      var boxBg   = BOX_BG[p.criticidad] || "#64748b";
+      var rank     = idx + 1;
+      var diasInt  = parseInt((p.diasAsoc || "").replace(/[^\d]/g, ""), 10) || 0;
+      var pct      = TOTAL_DIAS > 0 ? (diasInt / TOTAL_DIAS * 100).toFixed(1) + "%" : "—";
+      var desc     = p.descripcionHumana || p.definicion;
+      var boxBg    = BOX_BG[p.criticidad] || "#64748b";
+      var isActivo = (ESTADO[p.id] || "activo") === "activo";
 
       var numBox = '<div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;width:52px;">'
         + '<div style="width:44px;height:44px;background:' + boxBg + ';border-radius:12px;'
@@ -91,6 +98,12 @@ var TableComponent = (function() {
         + '<span class="badge ' + (BADGE[p.criticidad] || "") + '" style="font-size:9px;padding:1px 6px;">' + p.criticidad + '</span>'
         + '</div>';
 
+      var toggleBtn = '<button data-toggle-id="' + p.id + '" onclick="event.stopPropagation();"'
+        + ' style="font-size:11px;font-weight:500;padding:4px 12px;border-radius:999px;cursor:pointer;white-space:nowrap;'
+        + 'border:1px solid;transition:background 0.15s,color 0.15s;'
+        + (isActivo ? 'background:#f0fdf4;color:#15803d;border-color:#bbf7d0;' : 'background:#f8fafc;color:#94a3b8;border-color:#e2e8f0;')
+        + '">' + (isActivo ? '✓ Activo' : '○ Inactivo') + '</button>';
+
       var catBadge = '<span style="display:inline-block;margin-top:3px;font-size:10px;font-weight:500;'
         + 'background:#f1f5f9;color:#64748b;padding:1px 8px;border-radius:999px;">' + catLabel + '</span>';
 
@@ -99,7 +112,9 @@ var TableComponent = (function() {
         + '<span style="font-size:11px;color:#cbd5e1;">&middot;</span>'
         + '<span style="font-size:11px;color:#94a3b8;">Ene 2024–May 2025</span>'
         + '<span style="font-size:11px;color:#cbd5e1;">&middot;</span>'
-        + '<span style="font-size:10px;font-weight:500;background:#dcfce7;color:#16a34a;padding:1px 7px;border-radius:999px;">Activo</span>'
+        + '<span style="font-size:10px;font-weight:500;padding:1px 7px;border-radius:999px;'
+        + (isActivo ? 'background:#dcfce7;color:#16a34a;' : 'background:#f1f5f9;color:#94a3b8;') + '">'
+        + (isActivo ? 'Activo' : 'Inactivo') + '</span>'
         + '</div>';
 
       return '<tr class="' + rowClass + '"' + rowStyle + ' onclick="window.location.href=\'' + p.detalle + '\'">'
@@ -117,7 +132,7 @@ var TableComponent = (function() {
         + '<td class="py-3 px-3 text-right text-xs text-surface-600 tabular-nums">' + p.empleados + '</td>'
         + '<td class="py-3 px-3 text-right text-xs font-semibold text-high-600 tabular-nums whitespace-nowrap">' + p.costeDirecto + '</td>'
         + '<td class="py-3 px-3 text-right text-xs font-medium text-surface-500 tabular-nums">' + pct + '</td>'
-        + '<td class="py-3 px-3 text-center"><span class="badge ' + (BADGE[p.criticidad] || "") + '">' + p.criticidad + '</span></td>'
+        + '<td class="py-3 px-3 text-center">' + toggleBtn + '</td>'
         + '<td class="py-3 px-3 text-right">'
         + '<a href="' + p.detalle + '" class="text-xs text-primary-600 hover:text-primary-800 font-medium whitespace-nowrap inline-flex items-center gap-1 transition-colors" onclick="event.stopPropagation()">Detalle ' + ARROW + '</a>'
         + '</td>'
@@ -127,6 +142,10 @@ var TableComponent = (function() {
 
   return { render: render };
 })();
+
+// Estado por patrón (activo/inactivo) — en memoria, se reinicia al recargar
+var ESTADO = {};
+var estadoFilter = "todos";
 
 // ══════════════════════════════════════════════════════════════
 // PÁGINA: PATRONES (listado)
@@ -197,6 +216,45 @@ function initPatronesPage() {
   // Filtros + tabla inicial
   FiltersComponent.render();
   TableComponent.render("Todos");
+
+  // ── Filtro de estado ─────────────────────────────────────────
+  var estadoContainer = document.getElementById("estado-filter-buttons");
+
+  function renderEstadoFilters() {
+    if (!estadoContainer) return;
+    var opts = [
+      { key: "todos",    label: "Todos" },
+      { key: "activo",   label: "Solo activos" },
+      { key: "inactivo", label: "Solo inactivos" }
+    ];
+    estadoContainer.innerHTML = opts.map(function(o) {
+      return '<button class="filter-btn ' + (estadoFilter === o.key ? "active" : "") + '"'
+        + ' data-estado="' + o.key + '">' + o.label + '</button>';
+    }).join("");
+    estadoContainer.querySelectorAll("[data-estado]").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        estadoFilter = btn.getAttribute("data-estado");
+        renderEstadoFilters();
+        TableComponent.render(FiltersComponent.getActive());
+      });
+    });
+  }
+
+  renderEstadoFilters();
+
+  // Toggle activo/inactivo desde columna Acciones
+  var patTbody = document.getElementById("patrones-table-body");
+  if (patTbody) {
+    patTbody.addEventListener("click", function(e) {
+      var btn = e.target.closest("[data-toggle-id]");
+      if (!btn) return;
+      e.stopPropagation();
+      var id = btn.getAttribute("data-toggle-id");
+      ESTADO[id] = (ESTADO[id] || "activo") === "activo" ? "inactivo" : "activo";
+      TableComponent.render(FiltersComponent.getActive());
+      renderEstadoFilters();
+    });
+  }
 
   // ── Qué nuevos patrones podríamos descubrir ─────────────────
   var nuevasEl = document.getElementById("nuevas-fuentes-grid");
