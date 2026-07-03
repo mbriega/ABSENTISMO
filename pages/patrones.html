@@ -14,6 +14,14 @@
     .ai-disc-item[open] .ai-disc-chevron { transform: rotate(180deg); }
     #filter-buttons { scrollbar-width: none; -ms-overflow-style: none; }
     #filter-buttons::-webkit-scrollbar { display: none; }
+    #filter-buttons .filter-btn,
+    #estado-filter-buttons .filter-btn { font-size: 11px; padding: 3px 10px; }
+    #patrones-table th { white-space: nowrap; }
+    .toggle-switch { display: inline-flex; align-items: center; cursor: pointer; }
+    .toggle-track { display: block; width: 32px; height: 18px; border-radius: 999px; background: #cbd5e1; transition: background 0.18s; position: relative; }
+    .toggle-switch input:checked + .toggle-track { background: #16a34a; }
+    .toggle-thumb { position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; transition: transform 0.18s; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+    .toggle-switch input:checked + .toggle-track .toggle-thumb { transform: translateX(14px); }
   </style>
 </head>
 <body class="bg-surface-50 text-surface-900 antialiased" data-page="patrones">
@@ -171,7 +179,7 @@
             <p class="text-xs text-surface-400 mt-0.5">Cada patrón cita su definición matemática y la fuente del dato</p>
           </div>
           <div class="overflow-x-auto">
-            <table class="w-full text-sm">
+            <table class="w-full text-sm" id="patrones-table">
               <thead>
                 <tr class="border-b border-surface-100 bg-surface-50/50">
                   <th class="text-left px-5 py-3 text-xs font-medium text-surface-500">Patrón</th>
@@ -197,7 +205,7 @@
                     </div>
                   </th>
                   <th class="text-right px-4 py-3 text-xs font-medium text-surface-500 min-w-[80px]">
-                    <div class="flex items-center justify-end gap-1">% total
+                    <div class="flex items-center justify-end gap-1">% absent. total
                       <span class="kpi-info-wrap" data-th-tooltip="Indica qué parte de los días de baja de la empresa recae en las personas de cada patrón. Los patrones se solapan (una misma persona puede aparecer en varios), por eso no suman 100%.">
                         <svg class="kpi-info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="1.75"/><path d="M12 16v-4M12 8h.01" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                       </span>
@@ -215,7 +223,7 @@
         </div>
 
         <!-- ── Qué nuevos patrones podríamos descubrir ── -->
-        <div class="mt-10">
+        <div style="margin-top: 64px;">
           <div class="mb-4">
             <h2 class="text-base font-semibold text-surface-900">Qué nuevos patrones podríamos descubrir</h2>
             <p class="text-xs text-surface-400 mt-0.5">Estas fuentes de datos no están en el fichero actual pero ampliarían significativamente la capacidad de detección</p>

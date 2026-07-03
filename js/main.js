@@ -98,11 +98,10 @@ var TableComponent = (function() {
         + '<span class="badge ' + (BADGE[p.criticidad] || "") + '" style="font-size:9px;padding:1px 6px;">' + p.criticidad + '</span>'
         + '</div>';
 
-      var toggleBtn = '<button data-toggle-id="' + p.id + '" onclick="event.stopPropagation();"'
-        + ' style="font-size:11px;font-weight:500;padding:4px 12px;border-radius:999px;cursor:pointer;white-space:nowrap;'
-        + 'border:1px solid;transition:background 0.15s,color 0.15s;'
-        + (isActivo ? 'background:#f0fdf4;color:#15803d;border-color:#bbf7d0;' : 'background:#f8fafc;color:#94a3b8;border-color:#e2e8f0;')
-        + '">' + (isActivo ? '✓ Activo' : '○ Inactivo') + '</button>';
+      var toggleBtn = '<label class="toggle-switch" onclick="event.stopPropagation();">'
+        + '<input type="checkbox" style="display:none;" data-toggle-id="' + p.id + '"' + (isActivo ? ' checked' : '') + '>'
+        + '<span class="toggle-track"><span class="toggle-thumb"></span></span>'
+        + '</label>';
 
       var catBadge = '<span style="display:inline-block;margin-top:3px;font-size:10px;font-weight:500;'
         + 'background:#f1f5f9;color:#64748b;padding:1px 8px;border-radius:999px;">' + catLabel + '</span>';
@@ -245,12 +244,11 @@ function initPatronesPage() {
   // Toggle activo/inactivo desde columna Acciones
   var patTbody = document.getElementById("patrones-table-body");
   if (patTbody) {
-    patTbody.addEventListener("click", function(e) {
-      var btn = e.target.closest("[data-toggle-id]");
-      if (!btn) return;
-      e.stopPropagation();
-      var id = btn.getAttribute("data-toggle-id");
-      ESTADO[id] = (ESTADO[id] || "activo") === "activo" ? "inactivo" : "activo";
+    patTbody.addEventListener("change", function(e) {
+      var cb = e.target.closest("input[data-toggle-id]");
+      if (!cb) return;
+      var id = cb.getAttribute("data-toggle-id");
+      ESTADO[id] = cb.checked ? "activo" : "inactivo";
       TableComponent.render(FiltersComponent.getActive());
       renderEstadoFilters();
     });
