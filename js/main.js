@@ -36,6 +36,12 @@ var TableComponent = (function() {
     return s + (parseInt((p.costeDirecto || "").replace(/[^\d]/g, ""), 10) || 0);
   }, 0);
 
+  var TOTAL_DIAS = PATRONES_DATA.patrones.reduce(function(s, p) {
+    return s + (parseInt((p.diasAsoc || "").replace(/[^\d]/g, ""), 10) || 0);
+  }, 0);
+
+  var BOX_BG = { critico: "#ef4444", alto: "#f97316", medio: "#eab308", bajo: "#3b82f6" };
+
   var BADGE = {
     critico: "badge--critico",
     alto:    "badge--alto",
@@ -62,7 +68,7 @@ var TableComponent = (function() {
       ? PATRONES_DATA.patrones
       : PATRONES_DATA.patrones.filter(function(p) { return p.categoria === filtro; });
 
-    tbody.innerHTML = items.map(function(p) {
+    tbody.innerHTML = items.map(function(p, idx) {
       var catLabel  = CAT_LABELS[p.categoria] || p.categoria;
       var isCritico = p.criticidad === "critico";
       var rowClass  = "patrones-row cursor-pointer" + (isCritico ? " patrones-row--critico" : "");
@@ -71,14 +77,18 @@ var TableComponent = (function() {
         ? "text-xs font-semibold text-critical-700 leading-tight"
         : "text-xs font-semibold text-surface-800 leading-tight";
 
-      var patNum  = p.id.replace("pat-", "");
-      var costInt = parseInt((p.costeDirecto || "").replace(/[^\d]/g, ""), 10) || 0;
-      var pct     = TOTAL_COST > 0 ? (costInt / TOTAL_COST * 100).toFixed(1) + "%" : "—";
+      var rank    = idx + 1;
+      var diasInt = parseInt((p.diasAsoc || "").replace(/[^\d]/g, ""), 10) || 0;
+      var pct     = TOTAL_DIAS > 0 ? (diasInt / TOTAL_DIAS * 100).toFixed(1) + "%" : "—";
       var desc    = p.descripcionHumana || p.definicion;
+      var boxBg   = BOX_BG[p.criticidad] || "#64748b";
 
-      var numBox = '<div style="width:42px;height:42px;background:#eff6ff;border:1px solid #bfdbfe;'
-        + 'border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">'
-        + '<span style="font-size:11px;font-weight:700;color:#1d4ed8;line-height:1;">' + patNum + '</span>'
+      var numBox = '<div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;width:52px;">'
+        + '<div style="width:44px;height:44px;background:' + boxBg + ';border-radius:12px;'
+        + 'display:flex;align-items:center;justify-content:center;">'
+        + '<span style="font-size:18px;font-weight:700;color:#fff;line-height:1;">' + rank + '</span>'
+        + '</div>'
+        + '<span class="badge ' + (BADGE[p.criticidad] || "") + '" style="font-size:9px;padding:1px 6px;">' + p.criticidad + '</span>'
         + '</div>';
 
       var catBadge = '<span style="display:inline-block;margin-top:3px;font-size:10px;font-weight:500;'
