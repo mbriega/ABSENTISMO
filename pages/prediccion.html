@@ -233,7 +233,7 @@
       el.innerHTML=kpis.map(function(k){
         return "<div class=\"kpi-card\">"
           +"<p style=\"font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin:0 0 8px;\">"+k.label+"</p>"
-          +"<p style=\"font-size:26px;font-weight:800;color:"+k.color+";line-height:1;margin:0 0 4px;\">"+k.valor+"</p>"
+          +"<p style=\"font-size:26px;font-weight:800;color:#0f172a;line-height:1;margin:0 0 4px;\">"+k.valor+"</p>"
           +"<p style=\"font-size:11px;color:#94a3b8;margin:0;\">"+k.sub+"</p>"
           +"</div>";
       }).join("");
@@ -255,6 +255,7 @@
         +'<th style="width:105px;text-align:center;">Probabilidad</th>'
         +'<th style="width:100px;text-align:center;">Criticidad &#8595;</th>'
         +'<th style="width:160px;">Impacto estimado</th>'
+        +'<th style="width:70px;"></th>'
         +'</tr></thead><tbody>';
       var rows=PREDS.map(function(p,i){
         var bc=badgeColor(p.riesgo);
@@ -264,14 +265,13 @@
         var nCls="nivel-"+crit;
         var personas=extractPersonas(p.impacto);
         var detailHref=i===0?'prediccion-detalle.html':null;
-        var centroEl=detailHref
-          ?'<a href="'+detailHref+'" style="font-size:13px;font-weight:700;color:#2563eb;text-decoration:none;">'+p.centro+'</a>'
-          :'<span style="font-size:13px;font-weight:700;color:#0f172a;">'+p.centro+'</span>';
-        return '<tr>'
+        var trStyle=detailHref?'cursor:pointer;':'';
+        var trClick=detailHref?'onclick="location.href=\''+detailHref+'\'"':'';
+        return '<tr style="'+trStyle+'" '+trClick+'>'
           +'<td style="text-align:center;"><div class="rank-badge" style="background:'+bc+';">'+(i+1)+'</div></td>'
           +'<td>'
             +'<div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:4px;">'
-              +centroEl
+              +'<span style="font-size:13px;font-weight:700;color:#0f172a;">'+p.centro+'</span>'
               +'<span class="tag-riesgo" style="'+rts+'">'+p.tipoRiesgo+'</span>'
               +'<span class="tag-conf '+confCls+'">Confianza '+p.confianza+'</span>'
             +'</div>'
@@ -282,6 +282,9 @@
           +'<td style="text-align:center;font-size:15px;font-weight:800;color:'+bc+';">'+p.riesgo+'%</td>'
           +'<td style="text-align:center;"><span class="nivel-badge '+nCls+'">'+crit+'</span></td>'
           +'<td>'+personas+'</td>'
+          +'<td style="text-align:right;padding-right:16px;">'
+            +(detailHref?'<a href="'+detailHref+'" onclick="event.stopPropagation();" style="font-size:11px;font-weight:600;color:#2563eb;background:#eff6ff;border:1px solid #bfdbfe;padding:4px 11px;border-radius:7px;text-decoration:none;white-space:nowrap;">Ver &rarr;</a>':'')
+          +'</td>'
           +'</tr>';
       }).join('');
       el.innerHTML=hdr+rows+'</tbody></table>';
