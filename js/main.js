@@ -963,39 +963,45 @@ function initPatDetailPage() {
     var evh = d.evidenciaHistorica;
     var evhEl = document.getElementById("ev-historica-body");
     if (evhEl) {
-      var vals = evh.riesgo60d, mos = evh.meses, n = vals.length;
-      var maxV = Math.max.apply(null, vals), minV = Math.min.apply(null, vals);
-      var W = 560, H = 78, padT = 13, padB = 17, padLr = 5, chartH = H - padT - padB;
-      var vRange = maxV - minV || 1;
-      function xpL(i) { return padLr + i * (W - padLr * 2) / (n - 1); }
-      function ypL(v) { return padT + chartH * (1 - (v - minV) / vRange); }
-      var pts = vals.map(function(v, i) { return [xpL(i), ypL(v)]; });
+      var allVals = evh.riesgo60d, allMos = evh.meses;
 
-      var lp = "M " + pts[0][0].toFixed(1) + " " + pts[0][1].toFixed(1);
-      for (var li = 1; li < pts.length; li++) {
-        var cpx = ((pts[li-1][0] + pts[li][0]) / 2).toFixed(1);
-        lp += " C " + cpx + " " + pts[li-1][1].toFixed(1) + " " + cpx + " " + pts[li][1].toFixed(1) + " " + pts[li][0].toFixed(1) + " " + pts[li][1].toFixed(1);
+      function evhAvg(arr) { return Math.round(arr.reduce(function(s,v){return s+v;},0)/arr.length); }
+      var trimData = [evhAvg(allVals.slice(0,3)),evhAvg(allVals.slice(3,6)),evhAvg(allVals.slice(6,9)),evhAvg(allVals.slice(9,12))];
+      var trimMos  = ['Q3 24','Q4 24','Q1 25','Q2 25'];
+      var anioData = [evhAvg(allVals.slice(0,7)),evhAvg(allVals.slice(7,12))];
+      var anioMos  = ['2024','2025'];
+
+      var btnOn  = 'font-size:11px;font-weight:600;cursor:pointer;padding:2px 10px;border-radius:6px;border:1px solid #2563eb;background:#eff6ff;color:#2563eb;';
+      var btnOff = 'font-size:11px;font-weight:500;cursor:pointer;padding:2px 10px;border-radius:6px;border:1px solid #e2e8f0;background:white;color:#64748b;';
+
+      function buildEvhSvg(vals, mos) {
+        var n   = vals.length;
+        var mxV = Math.max.apply(null, vals), mnV = Math.min.apply(null, vals);
+        var W = 560, H = 80, padT = 14, padB = 18, padLr = 26;
+        var cH = H - padT - padB, vR = (mxV - mnV) || 10;
+        function xv(i){ return padLr + i * (W - padLr*2) / (n > 1 ? n-1 : 1); }
+        function yv(v){ return padT + cH * (1 - (v - mnV + 4) / (vR + 8)); }
+
+        var lp = 'M '+xv(0).toFixed(1)+' '+yv(vals[0]).toFixed(1);
+        for (var si=1; si<n; si++) {
+          var cx = ((xv(si-1)+xv(si))/2).toFixed(1);
+          lp += ' C '+cx+' '+yv(vals[si-1]).toFixed(1)+' '+cx+' '+yv(vals[si]).toFixed(1)+' '+xv(si).toFixed(1)+' '+yv(vals[si]).toFixed(1);
+        }
+        var ov = vals.map(function(v,i){
+          var isHi = v===mxV, isLo = v===mnV;
+          var clr  = isHi ? '#2563eb' : isLo ? '#94a3b8' : '#93c5fd';
+          var lbl  = (isHi||isLo) ? '<text x="'+xv(i).toFixed(1)+'" y="'+(yv(v)-5).toFixed(1)+'" text-anchor="middle" font-size="8" font-weight="700" fill="'+(isHi?'#2563eb':'#64748b')+'">'+v+'%</text>' : '';
+          return lbl+'<circle cx="'+xv(i).toFixed(1)+'" cy="'+yv(v).toFixed(1)+'" r="'+(isHi||isLo?2.5:1.5)+'" fill="'+clr+'"/>';
+        }).join('');
+        var lb = vals.map(function(v,i){
+          return '<text x="'+xv(i).toFixed(1)+'" y="'+(H-2)+'" text-anchor="middle" font-size="'+(n>6?'7.5':'9')+'" fill="#cbd5e1">'+mos[i]+'</text>';
+        }).join('');
+        return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto;display:block;">'
+          +'<path d="'+lp+'" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'
+          +ov+lb+'</svg>';
       }
 
-      var overlayHtml = pts.map(function(pt, i) {
-        var v = vals[i], isMax = v === maxV, isMin = v === minV;
-        var dotClr = isMax ? "#2563eb" : isMin ? "#94a3b8" : "#93c5fd";
-        var lbl = (isMax || isMin) ? '<text x="' + pt[0].toFixed(1) + '" y="' + (pt[1] - 5).toFixed(1) + '" text-anchor="middle" font-size="8" font-weight="700" fill="' + (isMax ? "#2563eb" : "#64748b") + '">' + v + '%</text>' : '';
-        return lbl + '<circle cx="' + pt[0].toFixed(1) + '" cy="' + pt[1].toFixed(1) + '" r="' + (isMax || isMin ? 2.5 : 1.5) + '" fill="' + dotClr + '"/>';
-      }).join("");
-
-      var monthHtml = pts.map(function(pt, i) {
-        return '<text x="' + pt[0].toFixed(1) + '" y="' + (H - 2) + '" text-anchor="middle" font-size="7.5" fill="#cbd5e1">' + mos[i] + '</text>';
-      }).join("");
-
-      var svgHtml = '<div style="margin-bottom:14px;">'
-        + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;">% riesgo nueva baja a 60 días · 12 meses</p>'
-        + '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;height:auto;">'
-        + '<path d="' + lp + '" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'
-        + overlayHtml + monthHtml
-        + '</svg></div>';
-
-      var kpiHtml = '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">'
+      var kpiHtml = '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px;">'
         + '<div style="border:1px solid #e2e8f0;border-radius:10px;padding:12px;background:white;">'
         + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Media histórica</p>'
         + '<p style="font-size:22px;font-weight:800;color:#2563eb;line-height:1;">' + evh.mediaRiesgo + '</p>'
@@ -1017,7 +1023,29 @@ function initPatDetailPage() {
         + '</div>'
         + '</div>';
 
-      evhEl.innerHTML = svgHtml + kpiHtml;
+      evhEl.innerHTML =
+        '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">'
+        + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">% riesgo nueva baja a 60 días</p>'
+        + '<div id="evh-filter" style="display:flex;gap:4px;">'
+        + '<button data-evhm="mes" style="' + btnOn + '">Mes</button>'
+        + '<button data-evhm="trim" style="' + btnOff + '">Trim.</button>'
+        + '<button data-evhm="anio" style="' + btnOff + '">Año</button>'
+        + '</div>'
+        + '</div>'
+        + '<div id="evh-chart">' + buildEvhSvg(allVals, allMos) + '</div>'
+        + kpiHtml;
+
+      document.getElementById('evh-filter').addEventListener('click', function(e) {
+        var btn = e.target.closest('button[data-evhm]');
+        if (!btn) return;
+        var mode = btn.getAttribute('data-evhm');
+        var vd = mode === 'mes' ? allVals : mode === 'trim' ? trimData : anioData;
+        var md = mode === 'mes' ? allMos  : mode === 'trim' ? trimMos  : anioMos;
+        document.getElementById('evh-chart').innerHTML = buildEvhSvg(vd, md);
+        document.querySelectorAll('#evh-filter button').forEach(function(b) {
+          b.style.cssText = b === btn ? btnOn : btnOff;
+        });
+      });
     }
   }
 
@@ -1038,7 +1066,7 @@ function initPatDetailPage() {
               + '</div>';
           }
           if (item.tipo === "metrica-par") {
-            var subCard = "border:1px solid #e2e8f0;border-radius:10px;padding:12px;background:white;";
+            var subCard = "border:1px solid #e2e8f0;border-radius:10px;padding:16px;background:white;";
             return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;' + span + '">'
               + item.items.map(function(sub) {
                   return '<div style="' + subCard + '">'
