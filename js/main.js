@@ -60,6 +60,15 @@ var TableComponent = (function() {
 
   var ARROW = '<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>';
 
+  function mkMetric(value, label) {
+    return '<td class="py-4 px-4 text-right">'
+      + '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;">'
+      + '<span style="font-size:13px;font-weight:700;color:#0f172a;white-space:nowrap;">' + value + '</span>'
+      + '<span style="font-size:10px;color:#94a3b8;white-space:nowrap;">' + label + '</span>'
+      + '</div>'
+      + '</td>';
+  }
+
   function render(filtro) {
     var tbody = document.getElementById("patrones-table-body");
     if (!tbody) return;
@@ -137,10 +146,10 @@ var TableComponent = (function() {
         + metaRow
         + '</div></div>'
         + '</td>'
-        + '<td class="py-3 px-4 text-right text-xs font-semibold text-surface-700 tabular-nums whitespace-nowrap">' + (p.diasAsoc || '—') + '</td>'
-        + '<td class="py-3 px-4 text-right text-xs text-surface-600 tabular-nums">' + p.empleados + '</td>'
-        + '<td class="py-3 px-4 text-right text-xs font-semibold text-high-600 tabular-nums whitespace-nowrap">' + p.costeDirecto + '</td>'
-        + '<td class="py-3 px-4 text-right text-xs text-surface-600 tabular-nums">' + (p.activaciones ? p.activaciones.toLocaleString('es-ES') : '—') + '</td>'
+        + mkMetric(p.diasAsoc || '—', 'Días de baja')
+        + mkMetric(p.empleados, 'Personas')
+        + mkMetric(p.costeDirecto, 'Coste')
+        + mkMetric(p.activaciones ? p.activaciones.toLocaleString('es-ES') : '—', 'Ocurrencias')
         + '<td class="py-3 px-4 text-right">'
         + '<a href="' + p.detalle + '" style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:500;background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe;padding:5px 12px;border-radius:8px;white-space:nowrap;text-decoration:none;" onclick="event.stopPropagation()">Ver detalle ' + ARROW + '</a>'
         + '</td>'
