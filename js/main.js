@@ -803,43 +803,28 @@ function initPatDetailPage() {
     });
   }
 
-  // ── Cómo se ha detectado — 4 cards 2×2 gris ─────────────────
+  // ── Cómo se ha detectado ─────────────────────────────────────
   var evContent = document.getElementById("ev-content");
-  if (evContent && d.evidenciaTecnica) {
-    var ev = d.evidenciaTecnica;
-    var warnIcon = '<svg class="w-3.5 h-3.5 text-medium-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">'
-      + '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/>'
-      + '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v4M12 17h.01"/></svg>';
-    var reglaTxt = d.formulaSenal
-      ? d.formulaSenal.condiciones.map(function(c) { return c.titulo + ' (' + c.subtitulo + ')'; }).join(' + ')
-      : ev.trazabilidad;
-
+  if (evContent && d.comoDetectado) {
+    var cd = d.comoDetectado;
     evContent.innerHTML =
-      '<div class="grid grid-cols-2 gap-3 mb-4">'
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">'
       + '<div class="border border-surface-200 rounded-xl p-4">'
-      + '<p class="text-sm font-semibold text-surface-900 mb-1.5">Fuentes utilizadas</p>'
-      + '<p class="text-sm text-surface-500 leading-relaxed">' + ev.fuentes.join(', ') + '.</p>'
-      + '</div>'
-      + '<div class="border border-surface-200 rounded-xl p-4">'
-      + '<p class="text-sm font-semibold text-surface-900 mb-1.5">Regla de activación</p>'
-      + '<p class="text-sm text-surface-500 leading-relaxed">' + reglaTxt + '.</p>'
+      + '<p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-1.5">Fuente del dato</p>'
+      + '<p class="text-sm text-surface-600 leading-relaxed">' + cd.fuente + '</p>'
       + '</div>'
       + '<div class="border border-surface-200 rounded-xl p-4">'
-      + '<p class="text-sm font-semibold text-surface-900 mb-1.5">Ventana analizada</p>'
-      + '<p class="text-sm text-surface-500 leading-relaxed">' + ev.periodo + ' para apariciones recientes y contraste histórico ampliado.</p>'
-      + '</div>'
-      + '<div class="border border-surface-200 rounded-xl p-4">'
-      + '<p class="text-sm font-semibold text-surface-900 mb-1.5">Lectura técnica</p>'
-      + '<p class="text-sm text-surface-500 leading-relaxed">Asociación histórica repetida y medible. No implica causalidad ni decisión automática sobre personas.</p>'
+      + '<p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-1.5">Periodo analizado</p>'
+      + '<p class="text-sm text-surface-600 leading-relaxed">' + cd.periodo + '</p>'
       + '</div>'
       + '</div>'
-      + '<div class="bg-medium-50 border border-medium-200 rounded-xl p-4">'
-      + '<p class="text-[10px] font-medium text-medium-600 uppercase tracking-wider mb-3">Antes de actuar, ten en cuenta</p>'
-      + '<ul class="space-y-2">'
-      + ev.advertencias.map(function(w) {
-          return '<li class="flex items-start gap-2 text-sm text-medium-700">' + warnIcon + '<span>' + w + '</span></li>';
-        }).join('')
-      + '</ul>'
+      + '<div class="border border-surface-200 rounded-xl p-4" style="margin-bottom:12px;">'
+      + '<p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-1.5">Solapamiento principal</p>'
+      + '<p class="text-sm text-surface-600 leading-relaxed">' + cd.solapamiento + '</p>'
+      + '</div>'
+      + '<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:16px;">'
+      + '<p class="text-xs font-semibold uppercase tracking-wider mb-1.5" style="color:#92400e;">Lectura prudente</p>'
+      + '<p class="text-sm leading-relaxed" style="color:#78350f;">' + cd.lecturaP + '</p>'
       + '</div>';
   }
 

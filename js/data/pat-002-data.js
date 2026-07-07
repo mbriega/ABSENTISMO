@@ -292,6 +292,14 @@ const PAT002_DATA = {
     }
   ],
 
+  // ── Cómo se ha detectado ────────────────────────────────────
+  comoDetectado: {
+    fuente:       "Nómina: 'Salario Base' e IT; Absentismo: días de los 90 días previos.",
+    periodo:      "Ejercicio 2025 (último año natural completo)",
+    solapamiento: "Retén/disponibilidad en persona con IT activa (71 empleados en común) · 14 solo en este patrón",
+    lecturaP:     "Es una señal sobre el dato real (correlación), no una causa probada. Conviene validarla con RRHH/mutua antes de actuar."
+  },
+
   // ── Listado de personas afectadas ───────────────────────────
   personasListado: [
     { id: "90061366", centro: "Guerinda",                         turno: "Retén/Guardia", categoria: "Operario de Planta", edad: 43, antiguedad: 19.5, episodios: 7, diasBaja: 267, riesgo: "critico" },
