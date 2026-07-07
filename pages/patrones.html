@@ -22,6 +22,14 @@
     .toggle-switch input:checked + .toggle-track { background: #16a34a; }
     .toggle-thumb { position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; transition: transform 0.18s; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
     .toggle-switch input:checked + .toggle-track .toggle-thumb { transform: translateX(14px); }
+    .filter-select {
+      font-size: 12px; color: #374151; font-weight: 500;
+      border: 1px solid #e5e7eb; border-radius: 8px;
+      padding: 5px 28px 5px 10px;
+      background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%239ca3af' viewBox='0 0 24 24'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E") no-repeat right 8px center;
+      background-size: 14px; cursor: pointer; appearance: none; -webkit-appearance: none; outline: none;
+    }
+    .filter-select:focus { border-color: #93c5fd; box-shadow: 0 0 0 2px rgba(147,197,253,0.25); }
   </style>
 </head>
 <body class="bg-surface-50 text-surface-900 antialiased" data-page="patrones">
@@ -166,10 +174,25 @@
           <!-- Poblado por filters.js -->
         </div>
 
-        <!-- ── Filtro de estado ── -->
-        <div class="flex items-center gap-2 mb-4">
-          <span class="text-xs font-medium text-surface-400 shrink-0">Estado:</span>
-          <div id="estado-filter-buttons" class="flex gap-1"></div>
+        <!-- ── Filtros secundarios ── -->
+        <div class="flex items-center justify-end gap-4 mb-4">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-medium text-surface-400">Tendencia</span>
+            <select id="tendencia-select" class="filter-select">
+              <option value="todas">Todas</option>
+              <option value="creciente">Creciente</option>
+              <option value="decreciente">Decreciente</option>
+            </select>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-medium text-surface-400">Ordenar por</span>
+            <select id="sort-select" class="filter-select">
+              <option value="importancia">Importancia</option>
+              <option value="coste">Coste</option>
+              <option value="riesgo">Riesgo 60d</option>
+              <option value="empleados">Empleados</option>
+            </select>
+          </div>
         </div>
 
         <!-- ── Tabla de patrones ── -->

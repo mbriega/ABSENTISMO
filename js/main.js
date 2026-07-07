@@ -68,10 +68,25 @@ var TableComponent = (function() {
       ? PATRONES_DATA.patrones
       : PATRONES_DATA.patrones.filter(function(p) { return p.categoria === filtro; });
 
-    if (typeof estadoFilter !== "undefined" && estadoFilter !== "todos") {
-      items = items.filter(function(p) {
-        return (ESTADO[p.id] || "activo") === estadoFilter;
-      });
+    if (typeof sortBy !== "undefined" && sortBy !== "importancia") {
+      items = items.slice();
+      if (sortBy === "coste") {
+        items.sort(function(a, b) {
+          var cA = parseInt((a.costeDirecto || "").replace(/[^\d]/g, ""), 10) || 0;
+          var cB = parseInt((b.costeDirecto || "").replace(/[^\d]/g, ""), 10) || 0;
+          return cB - cA;
+        });
+      } else if (sortBy === "riesgo") {
+        items.sort(function(a, b) {
+          var rA = parseFloat((a.riesgo60d || "").replace(",", ".").replace(/[^0-9.]/g, "")) || 0;
+          var rB = parseFloat((b.riesgo60d || "").replace(",", ".").replace(/[^0-9.]/g, "")) || 0;
+          return rB - rA;
+        });
+      } else if (sortBy === "empleados") {
+        items.sort(function(a, b) {
+          return (parseInt(b.empleados) || 0) - (parseInt(a.empleados) || 0);
+        });
+      }
     }
 
     tbody.innerHTML = items.map(function(p, idx) {
@@ -144,7 +159,7 @@ var TableComponent = (function() {
 
 // Estado por patrón (activo/inactivo) — en memoria, se reinicia al recargar
 var ESTADO = {};
-var estadoFilter = "todos";
+var sortBy = "importancia";
 
 // ══════════════════════════════════════════════════════════════
 // PÁGINA: PATRONES (listado)
@@ -195,30 +210,14 @@ function initPatronesPage() {
   FiltersComponent.render();
   TableComponent.render("Todos");
 
-  // ── Filtro de estado ─────────────────────────────────────────
-  var estadoContainer = document.getElementById("estado-filter-buttons");
-
-  function renderEstadoFilters() {
-    if (!estadoContainer) return;
-    var opts = [
-      { key: "todos",    label: "Todos" },
-      { key: "activo",   label: "Solo activos" },
-      { key: "inactivo", label: "Solo inactivos" }
-    ];
-    estadoContainer.innerHTML = opts.map(function(o) {
-      return '<button class="filter-btn ' + (estadoFilter === o.key ? "active" : "") + '"'
-        + ' data-estado="' + o.key + '">' + o.label + '</button>';
-    }).join("");
-    estadoContainer.querySelectorAll("[data-estado]").forEach(function(btn) {
-      btn.addEventListener("click", function() {
-        estadoFilter = btn.getAttribute("data-estado");
-        renderEstadoFilters();
-        TableComponent.render(FiltersComponent.getActive());
-      });
+  // Ordenar por
+  var sortSel = document.getElementById("sort-select");
+  if (sortSel) {
+    sortSel.addEventListener("change", function() {
+      sortBy = sortSel.value;
+      TableComponent.render(FiltersComponent.getActive());
     });
   }
-
-  renderEstadoFilters();
 
   // Toggle activo/inactivo desde columna Acciones
   var patTbody = document.getElementById("patrones-table-body");
@@ -229,7 +228,6 @@ function initPatronesPage() {
       var id = cb.getAttribute("data-toggle-id");
       ESTADO[id] = cb.checked ? "activo" : "inactivo";
       TableComponent.render(FiltersComponent.getActive());
-      renderEstadoFilters();
     });
   }
 
