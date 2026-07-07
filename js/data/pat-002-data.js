@@ -273,6 +273,25 @@ const PAT002_DATA = {
     { nombre: "Otros centros",            pct: 23, tendencia: "bajada",  variacion: "-4%"  }
   ],
 
+  // ── Por qué importa ──────────────────────────────────────────
+  porQueImporta: [
+    {
+      titulo:      "Riesgo de reincidencia en baja",
+      descripcion: "La reincorporación frágil aumenta un 84,7% las probabilidades de volver a baja en los próximos dos meses.",
+      tipo:        "riesgo"
+    },
+    {
+      titulo:      "Presión en el equipo",
+      descripcion: "La baja productividad por salario reducido afecta al rendimiento del área.",
+      tipo:        "equipo"
+    },
+    {
+      titulo:      "Coste oculto de reincorporación",
+      descripcion: "Se pagan salarios reducidos por debajo del 66,7% sin justificación clara de productividad.",
+      tipo:        "coste"
+    }
+  ],
+
   // ── Fórmula visual ────────────────────────────────────────────
   formulaSenal: {
     condiciones: [

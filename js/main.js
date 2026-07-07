@@ -850,26 +850,40 @@ function initPatDetailPage() {
       + '<p class="text-sm text-surface-600 leading-relaxed">' + d.descripcionPatron.cuerpo + '</p>';
   }
 
-  // ── Señal detectada ──────────────────────────────────────────
+  // ── Por qué importa a tu operación ──────────────────────────
   var formulaCard = document.getElementById("pat-formula-card");
-  if (formulaCard && d.formulaSenal) {
+  if (formulaCard && d.porQueImporta) {
+    var TIPO_ICONS = {
+      riesgo: {
+        bg: '#fef2f2', clr: '#ef4444',
+        svg: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v4M12 17h.01"/>'
+      },
+      equipo: {
+        bg: '#fffbeb', clr: '#d97706',
+        svg: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>'
+      },
+      coste: {
+        bg: '#eff6ff', clr: '#2563eb',
+        svg: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>'
+      }
+    };
     formulaCard.innerHTML =
-      '<p class="text-[10px] font-medium text-surface-400 uppercase tracking-wider mb-3">Señal detectada</p>'
-      + '<p class="text-xs text-surface-400 mb-4">Las tres condiciones deben darse simultáneamente.</p>'
-      + '<div class="space-y-3">'
-      + d.formulaSenal.condiciones.map(function(c, i) {
-          return '<div class="flex items-start gap-3">'
-            + '<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-100 text-primary-700 text-xs font-bold shrink-0 mt-0.5">' + (i + 1) + '</span>'
-            + '<div><p class="text-sm font-semibold text-surface-900">' + c.titulo + '</p>'
-            + '<p class="text-xs text-surface-500 mt-0.5">' + c.subtitulo + '</p></div>'
+      '<p class="text-[10px] font-medium text-surface-400 uppercase tracking-wider mb-1">Por qué importa a tu operación</p>'
+      + '<p style="font-size:11px;color:#64748b;margin-bottom:16px;line-height:1.5;">Interpretación de la IA sobre las implicaciones del patrón</p>'
+      + d.porQueImporta.map(function(item, idx) {
+          var ti     = TIPO_ICONS[item.tipo] || TIPO_ICONS.riesgo;
+          var isLast = idx === d.porQueImporta.length - 1;
+          return '<div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;'
+            + (isLast ? '' : 'border-bottom:1px solid #f1f5f9;') + '">'
+            + '<div style="width:30px;height:30px;border-radius:8px;background:' + ti.bg + ';display:flex;align-items:center;justify-content:center;flex-shrink:0;">'
+            + '<svg style="width:14px;height:14px;color:' + ti.clr + ';" fill="none" stroke="currentColor" viewBox="0 0 24 24">' + ti.svg + '</svg>'
+            + '</div>'
+            + '<div>'
+            + '<p style="font-size:13px;font-weight:600;color:#1e293b;line-height:1.3;">' + item.titulo + '</p>'
+            + '<p style="font-size:12px;color:#64748b;margin-top:3px;line-height:1.5;">' + item.descripcion + '</p>'
+            + '</div>'
             + '</div>';
-        }).join("")
-      + '</div>'
-      + '<div class="mt-4 pt-4 border-t border-surface-100">'
-      + '<div class="bg-primary-50 border border-primary-100 rounded-lg px-3 py-2.5 flex items-center gap-2">'
-      + '<span class="text-xs font-bold text-primary-600">→</span>'
-      + '<p class="text-sm font-semibold text-primary-800">' + d.formulaSenal.resultado + '</p>'
-      + '</div></div>';
+        }).join('');
   }
 
   // ── Centros donde aparece más ────────────────────────────────
