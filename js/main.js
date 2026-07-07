@@ -151,62 +151,41 @@ var estadoFilter = "todos";
 // ══════════════════════════════════════════════════════════════
 
 function initPatronesPage() {
-  // Análisis IA — card grid con jerarquía visual
+  // Análisis IA — lista numerada con highlights automáticos
   var aiList = document.getElementById("ai-analysis-list");
   if (aiList) {
-    var items   = PATRONES_DATA.aiAnalysis;
-    var critico = items.find(function(i) { return i.tipo === "critico"; });
-    var datos   = items.filter(function(i) { return i.tipo === "dato"; });
-    var accion  = items.find(function(i) { return i.tipo === "accion"; });
-    var html    = "";
+    var items    = PATRONES_DATA.aiAnalysis;
+    var findings = items.filter(function(i) { return i.tipo !== "accion"; });
+    var accion   = items.find(function(i)   { return i.tipo === "accion"; });
 
-    // Card crítico
-    if (critico) {
-      html += '<div class="bg-white rounded-lg p-4 border border-critical-200 mb-3">'
-        + '<div class="flex items-start justify-between gap-4 flex-wrap">'
-        + '<div class="flex-1 min-w-0">'
-        + '<p class="text-xs font-semibold text-critical-600 uppercase tracking-wider mb-1.5">' + critico.titulo + "</p>"
-        + '<p class="text-sm text-surface-700 leading-relaxed">' + critico.texto + "</p>"
-        + "</div>";
-      if (critico.metricas) {
-        html += '<div class="flex flex-wrap gap-1.5 shrink-0">';
-        critico.metricas.forEach(function(m) {
-          html += '<span class="text-xs font-semibold text-critical-600 bg-critical-50 px-2.5 py-1 rounded-full whitespace-nowrap">' + m + "</span>";
-        });
-        html += "</div>";
-      }
-      html += "</div></div>";
+    function hlValues(text) {
+      return text.replace(/([\d.,]+\s*(?:M€|K€|€|pp|%))/g,
+        '<strong style="color:#1e40af;font-weight:600;">$1</strong>');
     }
 
-    // Datos colapsables
-    if (datos.length) {
-      var CHEV = '<svg class="ai-disc-chevron" style="width:14px;height:14px;flex-shrink:0;color:#94a3b8;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>';
-      html += '<div class="flex flex-col gap-1.5 mb-3">';
-      datos.forEach(function(item) {
-        html += '<details class="ai-disc-item bg-surface-50 rounded-lg border border-surface-100 overflow-hidden">'
-          + '<summary style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;">'
-          + '<span class="text-xs font-semibold text-surface-600 uppercase tracking-wider">' + item.titulo + '</span>'
-          + CHEV
-          + '</summary>'
-          + '<div style="padding:0 14px 12px 14px;">'
-          + '<p class="text-sm text-surface-600 leading-relaxed">' + item.texto + '</p>'
-          + '</div>'
-          + '</details>';
-      });
-      html += '</div>';
-    }
+    var html = '<div style="padding:4px 0;">';
+    findings.forEach(function(item, idx) {
+      var isCrit   = item.tipo === "critico";
+      var numBg    = isCrit ? "#fef2f2" : "#eff6ff";
+      var numColor = isCrit ? "#dc2626"  : "#2563eb";
+      var border   = idx < findings.length - 1 ? "border-bottom:1px solid #f1f5f9;" : "";
+      html += '<div style="display:flex;align-items:flex-start;gap:14px;padding:11px 0;' + border + '">'
+        + '<span style="min-width:22px;height:22px;border-radius:50%;background:' + numBg + ';color:' + numColor
+        + ';font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">'
+        + (idx + 1) + '</span>'
+        + '<p style="font-size:13px;color:#475569;line-height:1.65;margin:0;">' + hlValues(item.texto) + '</p>'
+        + '</div>';
+    });
+    html += '</div>';
 
-    // Card de acción
     if (accion) {
-      html += '<div class="bg-primary-50/50 rounded-lg p-4 border border-primary-100">'
-        + '<div class="flex items-start gap-3">'
-        + '<svg class="w-4 h-4 text-primary-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">'
+      html += '<div style="margin-top:14px;background:#eff6ff;border-radius:8px;padding:14px 16px;border:1px solid #bfdbfe;">'
+        + '<div style="display:flex;align-items:flex-start;gap:10px;">'
+        + '<svg style="width:15px;height:15px;color:#2563eb;flex-shrink:0;margin-top:2px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">'
         + '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>'
-        + "</svg>"
-        + '<div>'
-        + '<p class="text-xs font-semibold text-primary-700 uppercase tracking-wider mb-1.5">' + accion.titulo + "</p>"
-        + '<p class="text-sm text-primary-700/90 leading-relaxed">' + accion.texto + "</p>"
-        + "</div></div></div>";
+        + '</svg>'
+        + '<p style="font-size:13px;color:#1e40af;line-height:1.65;margin:0;">' + hlValues(accion.texto) + '</p>'
+        + '</div></div>';
     }
 
     aiList.innerHTML = html;
