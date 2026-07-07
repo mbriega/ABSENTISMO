@@ -3,30 +3,65 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Predicciones — ThirdWish Intelligence</title>
+  <title>Predicciones &mdash; ThirdWish Intelligence</title>
   <link rel="stylesheet" href="../css/styles.css"/>
   <style>
     *{box-sizing:border-box;}
-    .pred-card{background:white;border:1px solid #e2e8f0;border-radius:14px;padding:20px 24px;display:flex;align-items:flex-start;gap:0;margin-bottom:12px;}
+    /* --- Accordions --- */
+    .pred-disc{border:1px solid #e2e8f0;border-radius:12px;background:white;margin-bottom:12px;overflow:hidden;}
+    .pred-disc>summary{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;cursor:pointer;list-style:none;-webkit-user-select:none;user-select:none;gap:12px;}
+    .pred-disc>summary::-webkit-details-marker{display:none;}
+    .pred-disc[open]>summary{border-bottom:1px solid #f1f5f9;}
+    .disc-chev{width:16px;height:16px;flex-shrink:0;color:#94a3b8;transition:transform .2s;}
+    .pred-disc[open] .disc-chev{transform:rotate(90deg);}
+    .disc-inner{padding:20px;}
+    /* --- Prediction cards --- */
+    .pred-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:18px 20px;display:flex;align-items:flex-start;gap:0;margin-bottom:10px;}
     .pred-card:last-child{margin-bottom:0;}
-    .pred-left{display:flex;flex-direction:column;align-items:center;width:76px;flex-shrink:0;padding-right:20px;}
-    .rank-badge{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;color:white;margin-bottom:6px;}
-    .pred-riesgo-num{font-size:22px;font-weight:800;line-height:1;}
-    .pred-riesgo-lbl{font-size:10px;color:#94a3b8;margin-top:2px;}
-    .pred-mid{flex:1;min-width:0;padding-right:24px;}
-    .pred-title-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:4px;}
-    .pred-centro-name{font-size:15px;font-weight:700;color:#0f172a;}
-    .tag-riesgo{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;white-space:nowrap;}
-    .tag-conf{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap;}
+    .pred-left{display:flex;flex-direction:column;align-items:center;width:74px;flex-shrink:0;padding-right:18px;}
+    .rank-badge{width:42px;height:42px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:white;margin-bottom:5px;}
+    .pred-pct{font-size:21px;font-weight:800;line-height:1;}
+    .pred-pct-lbl{font-size:10px;color:#94a3b8;margin-top:2px;}
+    .pred-mid{flex:1;min-width:0;padding-right:20px;}
+    .pred-title-row{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-bottom:4px;}
+    .pred-centro{font-size:14px;font-weight:700;color:#0f172a;}
+    .tag-riesgo{font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px;white-space:nowrap;}
+    .tag-conf{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;white-space:nowrap;}
     .conf-alta{background:#dcfce7;color:#166534;}
     .conf-media{background:#fef9c3;color:#854d0e;}
     .conf-baja{background:#fff1f2;color:#be123c;}
-    .pred-meta{font-size:11px;color:#94a3b8;margin-bottom:6px;}
+    .pred-meta{font-size:11px;color:#94a3b8;margin-bottom:5px;}
     .pred-desc{font-size:12px;color:#475569;line-height:1.5;}
-    .pred-right{flex-shrink:0;width:220px;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:12px;}
+    .pred-right{flex-shrink:0;width:210px;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:10px;}
     .pred-impacto{font-size:12px;color:#475569;text-align:right;line-height:1.5;}
-    .btn-entrar{background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;}
-    .btn-entrar:hover{background:#dbeafe;}
+    .btn-entrar{background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe;border-radius:8px;padding:6px 13px;font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px;white-space:nowrap;}
+    /* --- Centros table --- */
+    .centros-tbl{width:100%;border-collapse:collapse;}
+    .centros-tbl th{font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;padding:8px 12px;border-bottom:2px solid #f1f5f9;text-align:left;white-space:nowrap;}
+    .centros-tbl th:not(:first-child){text-align:right;}
+    .centros-tbl td{font-size:12px;color:#0f172a;padding:10px 12px;border-bottom:1px solid #f8fafc;vertical-align:middle;}
+    .centros-tbl td:not(:first-child){text-align:right;}
+    .centros-tbl tr:last-child td{border-bottom:none;}
+    .centros-tbl tr:hover td{background:#fafbfc;}
+    .nivel-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap;}
+    .nivel-critico{background:#fef2f2;color:#dc2626;}
+    .nivel-alto{background:#fff7ed;color:#ea580c;}
+    .nivel-medio{background:#fefce8;color:#ca8a04;}
+    .riesgo-bar-wrap{display:flex;align-items:center;gap:7px;justify-content:flex-end;}
+    .riesgo-bar-bg{width:72px;height:5px;background:#f1f5f9;border-radius:3px;overflow:hidden;flex-shrink:0;}
+    .riesgo-bar-fill{height:5px;border-radius:3px;}
+    /* --- XGBoost bars --- */
+    .xg-row{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+    .xg-row:last-child{margin-bottom:0;}
+    .xg-label{font-size:11px;color:#475569;width:180px;flex-shrink:0;font-family:monospace;}
+    .xg-bar-bg{flex:1;height:6px;background:#f1f5f9;border-radius:3px;overflow:hidden;}
+    .xg-bar-fill{height:6px;background:#2563eb;border-radius:3px;}
+    .xg-pct{font-size:11px;color:#64748b;font-weight:600;width:32px;text-align:right;flex-shrink:0;}
+    /* --- Week tiles --- */
+    .week-tiles{display:flex;gap:6px;margin-bottom:8px;}
+    .week-tile{flex:1;height:80px;border-radius:8px;min-width:0;}
+    .week-labels{display:flex;gap:6px;}
+    .week-lbl{flex:1;text-align:center;font-size:9px;color:#94a3b8;font-weight:500;min-width:0;}
     .kpi-card{background:white;border-radius:12px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:18px 20px;}
   </style>
 </head>
@@ -37,11 +72,11 @@
   <div style="margin-left:260px;min-height:100vh;background:#f8fafc;max-width:calc(100vw - 260px);overflow-x:hidden;">
 
     <!-- Header -->
-    <div style="background:white;border-bottom:1px solid #e2e8f0;padding:16px 24px;position:sticky;top:0;z-index:10;">
+    <div style="background:white;border-bottom:1px solid #e2e8f0;padding:15px 24px;position:sticky;top:0;z-index:10;">
       <div style="display:flex;align-items:center;justify-content:space-between;">
         <div>
           <h1 style="font-size:15px;font-weight:700;color:#0f172a;margin:0;">Modelos Predictivos</h1>
-          <p style="font-size:11px;color:#94a3b8;margin:3px 0 0;">Prediccion de riesgo de absentismo &middot; Actualizado jun 2025</p>
+          <p style="font-size:11px;color:#94a3b8;margin:2px 0 0;">Prediccion de riesgo de absentismo &middot; Actualizado jun 2025</p>
         </div>
         <div style="display:flex;gap:8px;">
           <button style="font-size:12px;color:#64748b;border:1px solid #e2e8f0;background:white;padding:6px 14px;border-radius:8px;cursor:pointer;">Exportar</button>
@@ -53,173 +88,283 @@
     <main style="padding:24px;">
 
       <!-- KPI strip -->
-      <div id="pred-kpis" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:28px;"></div>
+      <div id="pred-kpis" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px;"></div>
 
-      <!-- Radar predictivo -->
-      <div style="margin-bottom:24px;">
-        <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;">
-          <svg style="width:18px;height:18px;color:#2563eb;flex-shrink:0;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6.343 6.343a8 8 0 000 11.314M17.657 6.343a8 8 0 010 11.314M3.515 3.515a13 13 0 000 16.97M20.485 3.515a13 13 0 010 16.97"/></svg>
-          <div>
-            <p style="font-size:14px;font-weight:700;color:#0f172a;margin:0;">Radar predictivo &middot; 18 centros</p>
-            <p style="font-size:11px;color:#64748b;margin:4px 0 0;line-height:1.5;max-width:760px;">Capacidades fiables con nomina + plantilla + absentismo: riesgo de ausencia, recurrencia, cronificacion, concentracion y foco emergente.</p>
-          </div>
+      <!-- Radar header -->
+      <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:16px;">
+        <svg style="width:17px;height:17px;color:#2563eb;flex-shrink:0;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="3" stroke-width="2"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6.343 6.343a8 8 0 000 11.314M17.657 6.343a8 8 0 010 11.314M3.515 3.515a13 13 0 000 16.97M20.485 3.515a13 13 0 010 16.97"/>
+        </svg>
+        <div>
+          <p style="font-size:14px;font-weight:700;color:#0f172a;margin:0;">Radar predictivo &middot; 18 centros</p>
+          <p style="font-size:11px;color:#64748b;margin:3px 0 0;line-height:1.5;">Capacidades fiables con nomina + plantilla + absentismo: riesgo de ausencia, recurrencia, cronificacion, concentracion y foco emergente.</p>
         </div>
       </div>
 
-      <!-- Prediction list -->
-      <div id="pred-list"></div>
+      <!-- ACCORDION 1: Predicciones activas (open) -->
+      <details class="pred-disc" open>
+        <summary>
+          <div style="display:flex;align-items:center;gap:10px;min-width:0;">
+            <svg style="width:15px;height:15px;color:#2563eb;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            <span style="font-size:13px;font-weight:600;color:#0f172a;">Predicciones activas</span>
+            <span style="font-size:11px;font-weight:700;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;padding:1px 8px;border-radius:20px;">18</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-size:11px;color:#94a3b8;">Ordenado por riesgo descendente</span>
+            <svg class="disc-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </div>
+        </summary>
+        <div class="disc-inner">
+          <div id="pred-list"></div>
+        </div>
+      </details>
+
+      <!-- ACCORDION 2: Proyeccion temporal -->
+      <details class="pred-disc">
+        <summary>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <svg style="width:15px;height:15px;color:#f59e0b;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            <span style="font-size:13px;font-weight:600;color:#0f172a;">Proyeccion temporal de riesgo</span>
+            <span style="font-size:11px;color:#94a3b8;">Horizonte 12 semanas &middot; estimacion</span>
+          </div>
+          <svg class="disc-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </summary>
+        <div class="disc-inner">
+          <div id="proj-temporal"></div>
+        </div>
+      </details>
+
+      <!-- ACCORDION 3: Centros prioritarios -->
+      <details class="pred-disc">
+        <summary>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <svg style="width:15px;height:15px;color:#ef4444;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span style="font-size:13px;font-weight:600;color:#0f172a;">Centros prioritarios</span>
+            <span style="font-size:11px;color:#94a3b8;">Riesgo agregado del modelo &middot; 12 centros</span>
+          </div>
+          <svg class="disc-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </summary>
+        <div class="disc-inner" style="padding:0;">
+          <div id="centros-table"></div>
+        </div>
+      </details>
+
+      <!-- ACCORDION 4: Senales del modelo -->
+      <details class="pred-disc">
+        <summary>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <svg style="width:15px;height:15px;color:#8b5cf6;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+            <span style="font-size:13px;font-weight:600;color:#0f172a;">Senales del modelo (XGBoost)</span>
+            <span style="font-size:11px;color:#94a3b8;">Importancia &middot; ganancia</span>
+          </div>
+          <svg class="disc-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </summary>
+        <div class="disc-inner">
+          <div id="senales-modelo"></div>
+        </div>
+      </details>
 
     </main>
   </div>
 
   <script>
+    /* ======= DATA ======= */
     var PREDS = [
-      { centro:"Perdon",               region:"Navarra",          riesgo:82, timeframe:"proximo trimestre",
-        tipoRiesgo:"Riesgo de cronificacion (bajas que se alargan)", confianza:"media",
-        desc:"4 episodios superan los 60 dias: bajas que se cronifican.",
-        impacto:"Si se materializa: podrian faltar <strong>3-5 personas</strong>." },
-      { centro:"Bonus Pontevedra",      region:"Pontevedra",       riesgo:67, timeframe:"proximo trimestre",
-        tipoRiesgo:"Riesgo de cronificacion (bajas que se alargan)", confianza:"alta",
-        desc:"5 episodios superan los 60 dias: bajas que se cronifican.",
-        impacto:"Si se materializa: podrian faltar <strong>3-6 personas</strong>." },
-      { centro:"Murcia",               region:"Murcia",           riesgo:65, timeframe:"proximo trimestre",
-        tipoRiesgo:"Reincidencia alta (patron activo)", confianza:"alta",
-        desc:"Patron de reincidencia activo con 6 bajas en los ultimos 12 meses.",
-        impacto:"Si se materializa: podrian faltar <strong>2-4 personas</strong>." },
-      { centro:"Zona N8",              region:"Andalucia",        riesgo:63, timeframe:"proximos 6 meses",
-        tipoRiesgo:"Foco emergente (concentracion de bajas)", confianza:"media",
-        desc:"Concentracion de 7 bajas en el mismo turno durante 3 meses consecutivos.",
-        impacto:"Si se materializa: podrian faltar <strong>1-3 personas</strong>." },
-      { centro:"Terminal",             region:"Galicia",          riesgo:61, timeframe:"proximo trimestre",
-        tipoRiesgo:"Riesgo de cronificacion (bajas que se alargan)", confianza:"baja",
-        desc:"3 episodios superan los 45 dias. Tendencia creciente este trimestre.",
-        impacto:"Si se materializa: podrian faltar <strong>2-4 personas</strong>." },
-      { centro:"Falces",               region:"Navarra",          riesgo:58, timeframe:"proximo trimestre",
-        tipoRiesgo:"Reincidencia alta (patron activo)", confianza:"alta",
-        desc:"Recurrencia corta: 4 bajas de menos de 15 dias en 6 meses.",
-        impacto:"Si se materializa: podrian faltar <strong>2-3 personas</strong>." },
-      { centro:"Ingenieria Opt&Control",region:"Madrid",          riesgo:57, timeframe:"proximos 6 meses",
-        tipoRiesgo:"Foco emergente (concentracion de bajas)", confianza:"media",
-        desc:"Tendencia al alza en el segundo semestre. Requiere seguimiento.",
-        impacto:"Si se materializa: podrian faltar <strong>1-2 personas</strong>." },
-      { centro:"Codes",                region:"Aragon",           riesgo:55, timeframe:"proximo trimestre",
-        tipoRiesgo:"Riesgo de cronificacion (bajas que se alargan)", confianza:"media",
-        desc:"Duracion media de 38 dias por episodio. Historial de reincidencia.",
-        impacto:"Si se materializa: podrian faltar <strong>2-5 personas</strong>." },
-      { centro:"Made Centro",          region:"Madrid",           riesgo:53, timeframe:"proximos 6 meses",
-        tipoRiesgo:"Reincidencia alta (patron activo)", confianza:"alta",
-        desc:"Alta frecuencia de episodios breves: media de 2,3 dias por baja.",
-        impacto:"Si se materializa: podrian faltar <strong>1-3 personas</strong>." },
-      { centro:"Burgos",               region:"Castilla y Leon",  riesgo:51, timeframe:"proximos 6 meses",
-        tipoRiesgo:"Foco emergente (concentracion de bajas)", confianza:"baja",
-        desc:"Senal activa con baja intensidad. Vigilancia preventiva recomendada.",
-        impacto:"Si se materializa: podrian faltar <strong>1-2 personas</strong>." },
-      { centro:"Made Este",            region:"Cataluna",         riesgo:49, timeframe:"proximos 6 meses",
-        tipoRiesgo:"Riesgo de cronificacion (bajas que se alargan)", confianza:"media",
-        desc:"2 episodios proximos al umbral de 60 dias. Seguimiento mensual.",
-        impacto:"Si se materializa: podrian faltar <strong>2-4 personas</strong>." },
-      { centro:"Alta Tension Norte",   region:"Asturias",         riesgo:47, timeframe:"proximos 6 meses",
-        tipoRiesgo:"Reincidencia alta (patron activo)", confianza:"alta",
-        desc:"Episodios recurrentes sin patron claro. Supervision estandar.",
-        impacto:"Si se materializa: podrian faltar <strong>1-2 personas</strong>." },
-      { centro:"Sos",                  region:"Aragon",           riesgo:45, timeframe:"proximos 6 meses",
-        tipoRiesgo:"Foco emergente (concentracion de bajas)", confianza:"media",
-        desc:"Actividad baja. Monitorizacion activa sin intervencion inmediata.",
-        impacto:"Si se materializa: podrian faltar <strong>1-3 personas</strong>." },
-      { centro:"Torviscal",            region:"Extremadura",      riesgo:43, timeframe:"proximo ano",
-        tipoRiesgo:"Reincidencia alta (patron activo)", confianza:"alta",
-        desc:"Baja actividad del patron. Riesgo contenido bajo supervision.",
-        impacto:"Si se materializa: podrian faltar <strong>1-2 personas</strong>." },
-      { centro:"Guerinda",             region:"Navarra",          riesgo:41, timeframe:"proximo ano",
-        tipoRiesgo:"Riesgo de cronificacion (bajas que se alargan)", confianza:"baja",
-        desc:"Duracion reducida respecto al historico. Evolucion favorable.",
-        impacto:"Si se materializa: podrian faltar <strong>1-3 personas</strong>." },
-      { centro:"Alaiz",                region:"Navarra",          riesgo:39, timeframe:"proximo ano",
-        tipoRiesgo:"Reincidencia alta (patron activo)", confianza:"media",
-        desc:"Activacion marginal. Umbral de observacion preventiva.",
-        impacto:"Si se materializa: podrian faltar <strong>1-2 personas</strong>." },
-      { centro:"Made Oeste",           region:"Madrid",           riesgo:37, timeframe:"proximo ano",
-        tipoRiesgo:"Foco emergente (concentracion de bajas)", confianza:"alta",
-        desc:"Sin evidencia reciente de nueva activacion. Riesgo residual.",
-        impacto:"Si se materializa: podrian faltar <strong>0-1 personas</strong>." },
-      { centro:"Ingenieria Global",    region:"Madrid",           riesgo:35, timeframe:"proximo ano",
-        tipoRiesgo:"Riesgo de cronificacion (bajas que se alargan)", confianza:"baja",
-        desc:"Cierre de episodio previsto. Pronostico favorable para el proximo mes.",
-        impacto:"Si se materializa: podrian faltar <strong>1-2 personas</strong>." }
+      { centro:"Perdon",                region:"Navarra",         riesgo:82, timeframe:"proximo trimestre",  tipoRiesgo:"Riesgo de cronificacion (bajas que se alargan)", confianza:"media", desc:"4 episodios superan los 60 dias: bajas que se cronifican.",               impacto:"Si se materializa: podrian faltar <strong>3&ndash;5 personas</strong>." },
+      { centro:"Bonus Pontevedra",       region:"Pontevedra",      riesgo:67, timeframe:"proximo trimestre",  tipoRiesgo:"Riesgo de cronificacion (bajas que se alargan)", confianza:"alta",  desc:"5 episodios superan los 60 dias: bajas que se cronifican.",               impacto:"Si se materializa: podrian faltar <strong>3&ndash;6 personas</strong>." },
+      { centro:"Villobi Tallat",         region:"Lerida",          riesgo:74, timeframe:"proximo trimestre",  tipoRiesgo:"Riesgo de cronificacion (bajas que se alargan)", confianza:"alta",  desc:"Patron activo con IT confirmada. Duracion media de 48 dias.",             impacto:"Si se materializa: podrian faltar <strong>2&ndash;4 personas</strong>." },
+      { centro:"Zona 8",                 region:"Valencia",        riesgo:62, timeframe:"proximos 6 meses",   tipoRiesgo:"Foco emergente (concentracion de bajas)",        confianza:"media", desc:"Concentracion de 7 bajas en el mismo turno durante 3 meses.",            impacto:"Si se materializa: podrian faltar <strong>1&ndash;3 personas</strong>." },
+      { centro:"Made Este",              region:"Lugo",            riesgo:77, timeframe:"proximo trimestre",  tipoRiesgo:"Reincidencia alta (patron activo)",              confianza:"alta",  desc:"6 episodios breves en los ultimos 12 meses. Tendencia creciente.",        impacto:"Si se materializa: podrian faltar <strong>2&ndash;4 personas</strong>." },
+      { centro:"Izco",                   region:"Navarra",         riesgo:72, timeframe:"proximo trimestre",  tipoRiesgo:"Riesgo de cronificacion (bajas que se alargan)", confianza:"alta",  desc:"Disponibilidad en reten con IT activa confirmada en nomina.",            impacto:"Si se materializa: podrian faltar <strong>2&ndash;3 personas</strong>." },
+      { centro:"Torviscal",              region:"Albacete",        riesgo:66, timeframe:"proximos 6 meses",   tipoRiesgo:"Foco emergente (concentracion de bajas)",        confianza:"media", desc:"Tendencia al alza en el segundo semestre. Requiere seguimiento.",         impacto:"Si se materializa: podrian faltar <strong>1&ndash;2 personas</strong>." },
+      { centro:"Sos",                    region:"Navarra",         riesgo:77, timeframe:"proximo trimestre",  tipoRiesgo:"Reincidencia alta (patron activo)",              confianza:"alta",  desc:"Alta frecuencia de episodios breves: media de 2,3 dias por baja.",        impacto:"Si se materializa: podrian faltar <strong>2&ndash;5 personas</strong>." },
+      { centro:"Zona 10-12",             region:"Valencia",        riesgo:65, timeframe:"proximos 6 meses",   tipoRiesgo:"Foco emergente (concentracion de bajas)",        confianza:"baja",  desc:"Senal activa con baja intensidad. Vigilancia preventiva recomendada.",    impacto:"Si se materializa: podrian faltar <strong>1&ndash;2 personas</strong>." },
+      { centro:"Guerinda",               region:"Navarra",         riesgo:64, timeframe:"proximos 6 meses",   tipoRiesgo:"Riesgo de cronificacion (bajas que se alargan)", confianza:"media", desc:"2 episodios proximos al umbral de 60 dias. Seguimiento mensual.",         impacto:"Si se materializa: podrian faltar <strong>2&ndash;4 personas</strong>." },
+      { centro:"Burgos",                 region:"Burgos",          riesgo:50, timeframe:"proximos 6 meses",   tipoRiesgo:"Reincidencia alta (patron activo)",              confianza:"alta",  desc:"Episodios recurrentes sin patron claro. Supervision estandar.",           impacto:"Si se materializa: podrian faltar <strong>1&ndash;2 personas</strong>." },
+      { centro:"Made Centro",            region:"Lugo",            riesgo:66, timeframe:"proximos 6 meses",   tipoRiesgo:"Foco emergente (concentracion de bajas)",        confianza:"media", desc:"Actividad baja. Monitorizacion activa sin intervencion inmediata.",       impacto:"Si se materializa: podrian faltar <strong>1&ndash;3 personas</strong>." },
+      { centro:"Falces",                 region:"Navarra",         riesgo:58, timeframe:"proximo trimestre",  tipoRiesgo:"Reincidencia alta (patron activo)",              confianza:"alta",  desc:"Recurrencia corta: 4 bajas de menos de 15 dias en 6 meses.",             impacto:"Si se materializa: podrian faltar <strong>2&ndash;3 personas</strong>." },
+      { centro:"Alta Tension Norte",     region:"Asturias",        riesgo:47, timeframe:"proximos 6 meses",   tipoRiesgo:"Riesgo de cronificacion (bajas que se alargan)", confianza:"media", desc:"Duracion reducida respecto al historico. Evolucion favorable.",           impacto:"Si se materializa: podrian faltar <strong>1&ndash;3 personas</strong>." },
+      { centro:"Ingenieria Opt&amp;Control",region:"Madrid",       riesgo:57, timeframe:"proximos 6 meses",   tipoRiesgo:"Foco emergente (concentracion de bajas)",        confianza:"media", desc:"Tendencia moderada. Sin necesidad de intervencion inmediata.",            impacto:"Si se materializa: podrian faltar <strong>1&ndash;2 personas</strong>." },
+      { centro:"Alaiz",                  region:"Navarra",         riesgo:39, timeframe:"proximo ano",        tipoRiesgo:"Reincidencia alta (patron activo)",              confianza:"media", desc:"Activacion marginal. Se mantiene en umbral de observacion preventiva.",   impacto:"Si se materializa: podrian faltar <strong>1&ndash;2 personas</strong>." },
+      { centro:"Made Oeste",             region:"Madrid",          riesgo:37, timeframe:"proximo ano",        tipoRiesgo:"Foco emergente (concentracion de bajas)",        confianza:"alta",  desc:"Sin evidencia reciente de nueva activacion. Riesgo residual.",           impacto:"Si se materializa: podrian faltar <strong>0&ndash;1 personas</strong>." },
+      { centro:"Ingenieria Global",      region:"Madrid",          riesgo:35, timeframe:"proximo ano",        tipoRiesgo:"Riesgo de cronificacion (bajas que se alargan)", confianza:"baja",  desc:"Cierre de episodio previsto. Pronostico favorable para el proximo mes.",  impacto:"Si se materializa: podrian faltar <strong>1&ndash;2 personas</strong>." }
     ];
 
-    function badgeColor(r){
-      if(r>=70) return '#f97316';
-      if(r>=55) return '#f59e0b';
-      if(r>=40) return '#84cc16';
-      return '#22c55e';
-    }
+    var CENTROS = [
+      { centro:"Bonus Pontevedra", planta:"Pontevedra", riesgo:67.2, tasaProy:29.22, coste:64518, nivel:"alto"    },
+      { centro:"Perdon",           planta:"Navarra",    riesgo:82.0, tasaProy:26.89, coste:70107, nivel:"critico" },
+      { centro:"Villobi Tallat",   planta:"Lerida",     riesgo:74.3, tasaProy:37.47, coste:34427, nivel:"critico" },
+      { centro:"Torviscal",        planta:"Albacete",   riesgo:66.2, tasaProy:30.47, coste:39555, nivel:"alto"    },
+      { centro:"Zona 8",           planta:"Valencia",   riesgo:62.1, tasaProy:61.84, coste:34483, nivel:"alto"    },
+      { centro:"Made Este",        planta:"Lugo",       riesgo:76.7, tasaProy:32.63, coste:34595, nivel:"critico" },
+      { centro:"Izco",             planta:"Navarra",    riesgo:72.1, tasaProy:17.99, coste:37834, nivel:"critico" },
+      { centro:"Zona 10-12",       planta:"Valencia",   riesgo:64.7, tasaProy:14.86, coste:49365, nivel:"alto"    },
+      { centro:"Guerinda",         planta:"Navarra",    riesgo:63.7, tasaProy:25.28, coste:29471, nivel:"alto"    },
+      { centro:"Sos",              planta:"Navarra",    riesgo:77.2, tasaProy:17.26, coste:25614, nivel:"critico" },
+      { centro:"Burgos",           planta:"Burgos",     riesgo:49.5, tasaProy:16.68, coste:24697, nivel:"medio"   },
+      { centro:"Made Centro",      planta:"Lugo",       riesgo:66.3, tasaProy:40.21, coste:11988, nivel:"alto"    }
+    ];
 
+    var SEMANAS = [
+      {s:"S1",v:78},{s:"S2",v:76},{s:"S3",v:80},{s:"S4",v:79},
+      {s:"S5",v:74},{s:"S6",v:73},{s:"S7",v:75},{s:"S8",v:72},
+      {s:"S9",v:71},{s:"S10",v:69},{s:"S11",v:68},{s:"S12",v:66}
+    ];
+
+    var SENALES = [
+      {label:"dias_baja_historicos",   pct:27},
+      {label:"tasa_absentismo_centro", pct:18},
+      {label:"episodios_historicos",   pct:18},
+      {label:"responsabilidad_mando",  pct:8 },
+      {label:"tipo_contrato",          pct:7 }
+    ];
+
+    /* ======= HELPERS ======= */
+    function badgeColor(r){return r>=70?"#f97316":r>=55?"#f59e0b":r>=40?"#84cc16":"#22c55e";}
     function riesgoTagStyle(t){
-      if(t.indexOf('cronificacion')!==-1)
-        return 'border:1px solid #fda4af;color:#be123c;background:#fff1f2;';
-      if(t.indexOf('Reincidencia')!==-1)
-        return 'border:1px solid #fdba74;color:#c2410c;background:#fff7ed;';
-      return 'border:1px solid #d8b4fe;color:#7c3aed;background:#faf5ff;';
+      if(t.indexOf("cronificacion")!==-1) return "border:1px solid #fda4af;color:#be123c;background:#fff1f2;";
+      if(t.indexOf("Reincidencia")!==-1)  return "border:1px solid #fdba74;color:#c2410c;background:#fff7ed;";
+      return "border:1px solid #d8b4fe;color:#7c3aed;background:#faf5ff;";
     }
+    function barColor(r){return r>=75?"#ef4444":r>=65?"#f97316":r>=55?"#f59e0b":"#eab308";}
+    function fmtCoste(n){return n.toLocaleString("es-ES")+" €";}
 
+    /* ======= RENDER KPIS ======= */
     function renderKpis(){
-      var el=document.getElementById('pred-kpis');
+      var el=document.getElementById("pred-kpis");
       var kpis=[
-        {valor:'12,8%',  label:'Absentismo pendiente',        sub:'Tasa general jun 2025',    color:'#ef4444'},
-        {valor:'793.158 &#8364;', label:'Costes asociados',  sub:'Proyeccion anual',          color:'#f59e0b'},
-        {valor:'7',      label:'Empleados en riesgo alto',    sub:'Score superior al 80%',    color:'#2563eb'},
-        {valor:'2',      label:'Acciones criticas',           sub:'Requieren intervencion',   color:'#8b5cf6'}
+        {valor:"12,8%",   label:"Absentismo pendiente",        sub:"Tasa general jun 2025",   color:"#ef4444"},
+        {valor:"793.158 €",label:"Costes asociados",      sub:"Proyeccion anual",         color:"#f59e0b"},
+        {valor:"7",       label:"Empleados en riesgo alto",    sub:"Score superior al 80%",   color:"#2563eb"},
+        {valor:"2",       label:"Acciones criticas",           sub:"Requieren intervencion",  color:"#8b5cf6"}
       ];
       el.innerHTML=kpis.map(function(k){
-        return '<div class="kpi-card">'
-          +'<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin:0 0 8px;">'+k.label+'</p>'
-          +'<p style="font-size:26px;font-weight:800;color:'+k.color+';line-height:1;margin:0 0 4px;">'+k.valor+'</p>'
-          +'<p style="font-size:11px;color:#94a3b8;margin:0;">'+k.sub+'</p>'
-          +'</div>';
-      }).join('');
+        return "<div class=\"kpi-card\">"
+          +"<p style=\"font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin:0 0 8px;\">"+k.label+"</p>"
+          +"<p style=\"font-size:26px;font-weight:800;color:"+k.color+";line-height:1;margin:0 0 4px;\">"+k.valor+"</p>"
+          +"<p style=\"font-size:11px;color:#94a3b8;margin:0;\">"+k.sub+"</p>"
+          +"</div>";
+      }).join("");
     }
 
+    /* ======= RENDER PRED LIST ======= */
     function renderPredList(){
-      var el=document.getElementById('pred-list');
+      var el=document.getElementById("pred-list");
       el.innerHTML=PREDS.map(function(p,i){
         var bc=badgeColor(p.riesgo);
         var rts=riesgoTagStyle(p.tipoRiesgo);
-        var confCls='conf-'+p.confianza;
-        var confLbl='Confianza '+(p.confianza==='alta'?'alta':p.confianza==='media'?'media':'baja');
-        return '<div class="pred-card">'
-          +'<div class="pred-left">'
-          +'<div class="rank-badge" style="background:'+bc+';">'+(i+1)+'</div>'
-          +'<div class="pred-riesgo-num" style="color:'+bc+';">'+p.riesgo+'%</div>'
-          +'<div class="pred-riesgo-lbl">probabilidad</div>'
-          +'</div>'
-          +'<div class="pred-mid">'
-          +'<div class="pred-title-row">'
-          +'<svg style="width:14px;height:14px;flex-shrink:0;color:#64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2"/></svg>'
-          +'<span class="pred-centro-name">'+p.centro+'</span>'
-          +'<span class="tag-riesgo" style="'+rts+'">'+p.tipoRiesgo+'</span>'
-          +'<span class="tag-conf '+confCls+'">'+confLbl+'</span>'
-          +'</div>'
-          +'<div class="pred-meta">'+p.region+' &middot; '+p.timeframe+'</div>'
-          +'<div class="pred-desc">'+p.desc+'</div>'
-          +'</div>'
-          +'<div class="pred-right">'
-          +'<div class="pred-impacto">'+p.impacto+'</div>'
-          +'<button class="btn-entrar">Entrar en prediccion'
-          +'<svg style="width:13px;height:13px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>'
-          +'</button>'
-          +'</div>'
-          +'</div>';
-      }).join('');
+        var confCls="conf-"+p.confianza;
+        var confLbl="Confianza "+(p.confianza==="alta"?"alta":p.confianza==="media"?"media":"baja");
+        return "<div class=\"pred-card\">"
+          +"<div class=\"pred-left\">"
+          +"<div class=\"rank-badge\" style=\"background:"+bc+";\">"+(i+1)+"</div>"
+          +"<div class=\"pred-pct\" style=\"color:"+bc+";\">"+p.riesgo+"%</div>"
+          +"<div class=\"pred-pct-lbl\">probabilidad</div>"
+          +"</div>"
+          +"<div class=\"pred-mid\">"
+          +"<div class=\"pred-title-row\">"
+          +"<svg style=\"width:13px;height:13px;flex-shrink:0;color:#64748b;\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"10\" stroke-width=\"2\"/><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 6v6l4 2\"/></svg>"
+          +"<span class=\"pred-centro\">"+p.centro+"</span>"
+          +"<span class=\"tag-riesgo\" style=\""+rts+"\">"+p.tipoRiesgo+"</span>"
+          +"<span class=\"tag-conf "+confCls+"\">"+confLbl+"</span>"
+          +"</div>"
+          +"<div class=\"pred-meta\">"+p.region+" &middot; "+p.timeframe+"</div>"
+          +"<div class=\"pred-desc\">"+p.desc+"</div>"
+          +"</div>"
+          +"<div class=\"pred-right\">"
+          +"<div class=\"pred-impacto\">"+p.impacto+"</div>"
+          +"<button class=\"btn-entrar\">Entrar en prediccion"
+          +"<svg style=\"width:12px;height:12px;\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M9 5l7 7-7 7\"/></svg>"
+          +"</button>"
+          +"</div>"
+          +"</div>";
+      }).join("");
     }
 
+    /* ======= RENDER PROYECCION TEMPORAL ======= */
+    function renderProjTemporal(){
+      var el=document.getElementById("proj-temporal");
+      function tc(v){
+        var ratio=(v-55)/30; ratio=Math.max(0,Math.min(1,ratio));
+        var r=Math.round(204+ratio*14);
+        var g=Math.round(130-ratio*30);
+        var b=Math.round(125-ratio*20);
+        return "rgb("+r+","+g+","+b+")";
+      }
+      var tiles=SEMANAS.map(function(s){
+        return "<div class=\"week-tile\" style=\"background:"+tc(s.v)+";\"></div>";
+      }).join("");
+      var labels=SEMANAS.map(function(s){
+        return "<div class=\"week-lbl\">"+s.s+"</div>";
+      }).join("");
+      el.innerHTML="<div class=\"week-tiles\">"+tiles+"</div><div class=\"week-labels\">"+labels+"</div>"
+        +"<div style=\"display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:12px;border-top:1px solid #f1f5f9;\">"
+        +"<span style=\"font-size:10px;color:#64748b;font-weight:500;\">Escala:</span>"
+        +"<div style=\"display:flex;align-items:center;gap:3px;\"><div style=\"width:12px;height:12px;border-radius:3px;background:#84cc16;\"></div><span style=\"font-size:9px;color:#94a3b8;\">&lt; 55%</span></div>"
+        +"<div style=\"display:flex;align-items:center;gap:3px;\"><div style=\"width:12px;height:12px;border-radius:3px;background:#f59e0b;\"></div><span style=\"font-size:9px;color:#94a3b8;\">55-65%</span></div>"
+        +"<div style=\"display:flex;align-items:center;gap:3px;\"><div style=\"width:12px;height:12px;border-radius:3px;background:#f97316;\"></div><span style=\"font-size:9px;color:#94a3b8;\">65-75%</span></div>"
+        +"<div style=\"display:flex;align-items:center;gap:3px;\"><div style=\"width:12px;height:12px;border-radius:3px;background:#ef4444;\"></div><span style=\"font-size:9px;color:#94a3b8;\">&gt; 75%</span></div>"
+        +"</div>";
+    }
+
+    /* ======= RENDER CENTROS TABLE ======= */
+    function renderCentros(){
+      var el=document.getElementById("centros-table");
+      var hdr="<table class=\"centros-tbl\"><thead><tr>"
+        +"<th style=\"width:200px;\">Centro</th>"
+        +"<th style=\"width:130px;\">Planta</th>"
+        +"<th>Riesgo</th>"
+        +"<th>Tasa proy.</th>"
+        +"<th>Coste prev.</th>"
+        +"<th>Nivel</th>"
+        +"</tr></thead><tbody>";
+      var rows=CENTROS.map(function(c){
+        var bc=barColor(c.riesgo);
+        var barW=Math.round(c.riesgo*0.72)+"px";
+        var nCls="nivel-"+(c.nivel==="critico"?"critico":c.nivel==="alto"?"alto":"medio");
+        var nLbl=c.nivel==="critico"?"critico":c.nivel==="alto"?"alto":"medio";
+        return "<tr>"
+          +"<td style=\"font-weight:600;\">"+c.centro+"</td>"
+          +"<td style=\"color:#2563eb;font-weight:400;\">"+c.planta+"</td>"
+          +"<td><div class=\"riesgo-bar-wrap\">"
+          +"<div class=\"riesgo-bar-bg\"><div class=\"riesgo-bar-fill\" style=\"width:"+barW+";background:"+bc+";\"></div></div>"
+          +"<span style=\"font-size:12px;font-weight:600;color:#0f172a;min-width:38px;\">"+c.riesgo+"%</span>"
+          +"</div></td>"
+          +"<td style=\"color:#475569;\">"+c.tasaProy+"%</td>"
+          +"<td style=\"color:#ea580c;font-weight:600;\">"+fmtCoste(c.coste)+"</td>"
+          +"<td><span class=\"nivel-badge "+nCls+"\">"+nLbl+"</span></td>"
+          +"</tr>";
+      }).join("");
+      el.innerHTML=hdr+rows+"</tbody></table>";
+    }
+
+    /* ======= RENDER SENALES XGBOOST ======= */
+    function renderSenales(){
+      var el=document.getElementById("senales-modelo");
+      var maxPct=27;
+      el.innerHTML="<p style=\"font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin:0 0 16px;\">Importancia de variables &middot; Ganancia relativa</p>"
+        +SENALES.map(function(s){
+          var w=Math.round((s.pct/maxPct)*100)+"%";
+          return "<div class=\"xg-row\">"
+            +"<span class=\"xg-label\">"+s.label+"</span>"
+            +"<div class=\"xg-bar-bg\"><div class=\"xg-bar-fill\" style=\"width:"+w+";\"></div></div>"
+            +"<span class=\"xg-pct\">"+s.pct+"%</span>"
+            +"</div>";
+        }).join("");
+    }
+
+    /* ======= INIT ======= */
     renderKpis();
     renderPredList();
+    renderProjTemporal();
+    renderCentros();
+    renderSenales();
   </script>
 
   <script src="../js/components/sidebar.js"></script>
   <script>
-    if(typeof SidebarComponent!=='undefined') SidebarComponent.render();
+    if(typeof SidebarComponent!=="undefined") SidebarComponent.render();
   </script>
 </body>
 </html>
