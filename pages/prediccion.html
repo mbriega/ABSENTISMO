@@ -102,23 +102,8 @@
         </div>
       </div>
 
-      <!-- ACCORDION 1: Predicciones activas (open) -->
-      <details class="pred-disc" open>
-        <summary>
-          <div style="display:flex;align-items:center;gap:10px;min-width:0;">
-            <svg style="width:15px;height:15px;color:#2563eb;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-            <span style="font-size:13px;font-weight:600;color:#0f172a;">Predicciones activas</span>
-            <span style="font-size:11px;font-weight:700;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;padding:1px 8px;border-radius:20px;">18</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px;">
-            <span style="font-size:11px;color:#94a3b8;">Ordenado por riesgo descendente</span>
-            <svg class="disc-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-          </div>
-        </summary>
-        <div class="disc-inner">
-          <div id="pred-list"></div>
-        </div>
-      </details>
+      <!-- Predicciones activas (lista directa) -->
+      <div id="pred-list" style="margin-bottom:20px;"></div>
 
       <!-- ACCORDION 2: Proyeccion temporal -->
       <details class="pred-disc">
