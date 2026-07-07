@@ -313,14 +313,11 @@ const PAT002_DATA = {
         tipo:        "metrica"
       },
       {
-        label: "Media por activación",
-        valor: "43,5 días",
-        tipo:  "metrica-simple"
-      },
-      {
-        label: "Última activación",
-        valor: "dic 2025",
-        tipo:  "metrica-simple"
+        tipo:  "metrica-par",
+        items: [
+          { label: "Media por activación", valor: "43,5 días" },
+          { label: "Última activación",    valor: "dic 2025"  }
+        ]
       },
       {
         label: "Lectura",

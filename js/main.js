@@ -959,6 +959,16 @@ function initPatDetailPage() {
           + '<p style="font-size:12px;color:#64748b;line-height:1.65;margin-top:20px;">' + item.descripcion + '</p>'
           + '</div>';
       }
+      if (item.tipo === 'metrica-par') {
+        return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:10px 0;' + sep + '">'
+          + item.items.map(function(sub) {
+              return '<div>'
+                + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">' + sub.label + '</p>'
+                + '<p style="font-size:16px;font-weight:700;color:#0f172a;margin-top:3px;">' + sub.valor + '</p>'
+                + '</div>';
+            }).join('')
+          + '</div>';
+      }
       if (item.tipo === 'metrica-simple') {
         return '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;' + sep + '">'
           + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">' + item.label + '</p>'
