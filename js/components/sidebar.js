@@ -6,7 +6,7 @@ const SidebarComponent = (() => {
   const NAV_ITEMS = [
     { href: "/diagnostico",        label: "Diagnóstico",           icon: "chart-bar",   indent: false },
     { href: "/diagnostico/costes", label: "Costes",                icon: "currency",    indent: true  },
-    { href: "/patrones",           label: "Patrones",              icon: "search",      indent: false, badge: true },
+    { href: "/patrones", link: "patrones.html", label: "Patrones", icon: "search", indent: false, badge: true },
     { href: "/prediccion",         label: "Predicción",            icon: "trending-up", indent: false },
     { href: "/impacto-liderazgo",  label: "Impacto del Liderazgo", icon: "users",       indent: false },
     { href: "/red-organizativa",   label: "Red Organizativa",      icon: "lightning",   indent: false },
@@ -46,7 +46,7 @@ const SidebarComponent = (() => {
       ? "text-white bg-white/20"
       : "text-surface-300 hover:text-[#e2e8f0] hover:bg-white/20";
 
-    return '<a href="' + item.href + '" class="nav-link'
+    return '<a href="' + (item.link || item.href) + '" class="nav-link'
       + (isActive ? " nav-link--active" : "")
       + " flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm "
       + stateClass + " transition-colors" + mlClass + '">'
