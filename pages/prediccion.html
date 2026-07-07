@@ -13,7 +13,7 @@
     .pred-disc>summary::-webkit-details-marker{display:none;}
     .pred-disc[open]>summary{border-bottom:1px solid #f1f5f9;}
     .disc-chev{width:16px;height:16px;flex-shrink:0;color:#94a3b8;transition:transform .2s;}
-    .pred-disc[open] .disc-chev{transform:rotate(90deg);}
+    .pred-disc[open] .disc-chev{transform:rotate(180deg);}
     .disc-inner{padding:20px;}
     /* --- Prediction cards --- */
     .pred-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:18px 20px;display:flex;align-items:flex-start;gap:0;margin-bottom:10px;}
@@ -63,6 +63,8 @@
     .week-labels{display:flex;gap:6px;}
     .week-lbl{flex:1;text-align:center;font-size:9px;color:#94a3b8;font-weight:500;min-width:0;}
     .kpi-card{background:white;border-radius:12px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:18px 20px;}
+    .disc-sum-left{display:flex;align-items:center;gap:12px;}
+    .disc-icon-wrap{width:30px;height:30px;border-radius:7px;background:#f8fafc;border:1px solid #e2e8f0;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   </style>
 </head>
 <body data-page="prediccion" class="bg-surface-50 text-surface-900 antialiased">
@@ -108,12 +110,16 @@
       <!-- ACCORDION 2: Proyeccion temporal -->
       <details class="pred-disc">
         <summary>
-          <div style="display:flex;align-items:center;gap:10px;">
-            <svg style="width:15px;height:15px;color:#f59e0b;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
-            <span style="font-size:13px;font-weight:600;color:#0f172a;">Proyeccion temporal de riesgo</span>
-            <span style="font-size:11px;color:#94a3b8;">Horizonte 12 semanas &middot; estimacion</span>
+          <div class="disc-sum-left">
+            <div class="disc-icon-wrap">
+              <svg style="width:14px;height:14px;" fill="none" stroke="#64748b" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-surface-800">Proyeccion temporal de riesgo</p>
+              <p class="text-xs text-surface-400">Horizonte 12 semanas &middot; estimacion</p>
+            </div>
           </div>
-          <svg class="disc-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          <svg class="disc-chev" style="width:16px;height:16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
         </summary>
         <div class="disc-inner">
           <div id="proj-temporal"></div>
@@ -123,12 +129,16 @@
       <!-- ACCORDION 3: Centros prioritarios -->
       <details class="pred-disc">
         <summary>
-          <div style="display:flex;align-items:center;gap:10px;">
-            <svg style="width:15px;height:15px;color:#ef4444;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-            <span style="font-size:13px;font-weight:600;color:#0f172a;">Centros prioritarios</span>
-            <span style="font-size:11px;color:#94a3b8;">Riesgo agregado del modelo &middot; 12 centros</span>
+          <div class="disc-sum-left">
+            <div class="disc-icon-wrap">
+              <svg style="width:14px;height:14px;" fill="none" stroke="#64748b" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-surface-800">Centros prioritarios</p>
+              <p class="text-xs text-surface-400">Riesgo agregado del modelo &middot; 12 centros</p>
+            </div>
           </div>
-          <svg class="disc-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          <svg class="disc-chev" style="width:16px;height:16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
         </summary>
         <div class="disc-inner" style="padding:0;">
           <div id="centros-table"></div>
@@ -138,12 +148,16 @@
       <!-- ACCORDION 4: Senales del modelo -->
       <details class="pred-disc">
         <summary>
-          <div style="display:flex;align-items:center;gap:10px;">
-            <svg style="width:15px;height:15px;color:#8b5cf6;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
-            <span style="font-size:13px;font-weight:600;color:#0f172a;">Senales del modelo (XGBoost)</span>
-            <span style="font-size:11px;color:#94a3b8;">Importancia &middot; ganancia</span>
+          <div class="disc-sum-left">
+            <div class="disc-icon-wrap">
+              <svg style="width:14px;height:14px;" fill="none" stroke="#64748b" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-surface-800">Senales del modelo (XGBoost)</p>
+              <p class="text-xs text-surface-400">Importancia de variables &middot; ganancia</p>
+            </div>
           </div>
-          <svg class="disc-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          <svg class="disc-chev" style="width:16px;height:16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
         </summary>
         <div class="disc-inner">
           <div id="senales-modelo"></div>
