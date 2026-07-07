@@ -246,7 +246,7 @@ const PAT002_DATA = {
   // ── Identificación del patrón ────────────────────────────────
   deteccion:        "12 ene 2024",
   ultimaAparicion:  "mayo 2025",
-  apariciones:      232,
+  apariciones:      255,
   personasUnicas:   119,
   solidezEvidencia: "Alta",
 
