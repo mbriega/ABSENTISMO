@@ -965,86 +965,141 @@ function initPatDetailPage() {
     if (evhEl) {
       var allVals = evh.riesgo60d, allMos = evh.meses;
 
-      function evhAvg(arr) { return Math.round(arr.reduce(function(s,v){return s+v;},0)/arr.length); }
-      var trimData = [evhAvg(allVals.slice(0,3)),evhAvg(allVals.slice(3,6)),evhAvg(allVals.slice(6,9)),evhAvg(allVals.slice(9,12))];
-      var trimMos  = ['Q3 24','Q4 24','Q1 25','Q2 25'];
-      var anioData = [evhAvg(allVals.slice(0,7)),evhAvg(allVals.slice(7,12))];
-      var anioMos  = ['2024','2025'];
+      function evhAvg(arr){ return Math.round(arr.reduce(function(s,v){return s+v;},0)/arr.length); }
+      var trimData=[evhAvg(allVals.slice(0,3)),evhAvg(allVals.slice(3,6)),evhAvg(allVals.slice(6,9)),evhAvg(allVals.slice(9,12))];
+      var trimMos=['Q3 24','Q4 24','Q1 25','Q2 25'];
+      var anioData=[evhAvg(allVals.slice(0,7)),evhAvg(allVals.slice(7,12))];
+      var anioMos=['2024','2025'];
 
-      var btnOn  = 'font-size:11px;font-weight:600;cursor:pointer;padding:2px 10px;border-radius:6px;border:1px solid #2563eb;background:#eff6ff;color:#2563eb;';
-      var btnOff = 'font-size:11px;font-weight:500;cursor:pointer;padding:2px 10px;border-radius:6px;border:1px solid #e2e8f0;background:white;color:#64748b;';
+      var btnOn ='font-size:11px;font-weight:600;cursor:pointer;padding:2px 10px;border-radius:6px;border:1px solid #2563eb;background:#eff6ff;color:#2563eb;';
+      var btnOff='font-size:11px;font-weight:500;cursor:pointer;padding:2px 10px;border-radius:6px;border:1px solid #e2e8f0;background:white;color:#64748b;';
 
       function buildEvhSvg(vals, mos) {
-        var n   = vals.length;
-        var mxV = Math.max.apply(null, vals), mnV = Math.min.apply(null, vals);
-        var W = 560, H = 80, padT = 14, padB = 18, padLr = 26;
-        var cH = H - padT - padB, vR = (mxV - mnV) || 10;
-        function xv(i){ return padLr + i * (W - padLr*2) / (n > 1 ? n-1 : 1); }
-        function yv(v){ return padT + cH * (1 - (v - mnV + 4) / (vR + 8)); }
+        var n=vals.length;
+        var mxV=Math.max.apply(null,vals), mnV=Math.min.apply(null,vals);
+        var step=n<=2?10:20, tMin=Math.floor(mnV/step)*step, tMax=Math.ceil(mxV/step)*step;
+        if(tMax===tMin) tMax=tMin+step;
+        var ticks=[]; for(var t=tMin;t<=tMax;t+=step) ticks.push(t);
+        var vMin=ticks[0], vMax=ticks[ticks.length-1], vRange=vMax-vMin||1;
+        var W=560, H=190, padL=40, padR=16, padT=16, padB=28;
+        var cW=W-padL-padR, cH=H-padT-padB;
+        function xv(i){ return padL+i*cW/(n>1?n-1:1); }
+        function yv(v){ return padT+cH*(1-(v-vMin)/vRange); }
 
-        var lp = 'M '+xv(0).toFixed(1)+' '+yv(vals[0]).toFixed(1);
-        for (var si=1; si<n; si++) {
-          var cx = ((xv(si-1)+xv(si))/2).toFixed(1);
-          lp += ' C '+cx+' '+yv(vals[si-1]).toFixed(1)+' '+cx+' '+yv(vals[si]).toFixed(1)+' '+xv(si).toFixed(1)+' '+yv(vals[si]).toFixed(1);
+        var grids=ticks.map(function(t){
+          var gy=yv(t).toFixed(1);
+          return '<line x1="'+padL+'" y1="'+gy+'" x2="'+(W-padR)+'" y2="'+gy+'" stroke="#edf0f3" stroke-width="1" stroke-dasharray="4,4"/>'
+            +'<text x="'+(padL-8)+'" y="'+(parseFloat(gy)+3.5)+'" text-anchor="end" font-size="9.5" fill="#94a3b8">'+t+'%</text>';
+        }).join('');
+
+        var lp='M '+xv(0).toFixed(1)+' '+yv(vals[0]).toFixed(1);
+        for(var si=1;si<n;si++){
+          var cx2=((xv(si-1)+xv(si))/2).toFixed(1);
+          lp+=' C '+cx2+' '+yv(vals[si-1]).toFixed(1)+' '+cx2+' '+yv(vals[si]).toFixed(1)+' '+xv(si).toFixed(1)+' '+yv(vals[si]).toFixed(1);
         }
-        var ov = vals.map(function(v,i){
-          var isHi = v===mxV, isLo = v===mnV;
-          var clr  = isHi ? '#2563eb' : isLo ? '#94a3b8' : '#93c5fd';
-          var lbl  = (isHi||isLo) ? '<text x="'+xv(i).toFixed(1)+'" y="'+(yv(v)-5).toFixed(1)+'" text-anchor="middle" font-size="8" font-weight="700" fill="'+(isHi?'#2563eb':'#64748b')+'">'+v+'%</text>' : '';
-          return lbl+'<circle cx="'+xv(i).toFixed(1)+'" cy="'+yv(v).toFixed(1)+'" r="'+(isHi||isLo?2.5:1.5)+'" fill="'+clr+'"/>';
+
+        var dots=vals.map(function(v,i){
+          return '<circle class="evh-dot" data-idx="'+i+'" cx="'+xv(i).toFixed(1)+'" cy="'+yv(v).toFixed(1)+'" r="3.5" fill="white" stroke="#3b82f6" stroke-width="2" style="pointer-events:none;"/>';
         }).join('');
-        var lb = vals.map(function(v,i){
-          return '<text x="'+xv(i).toFixed(1)+'" y="'+(H-2)+'" text-anchor="middle" font-size="'+(n>6?'7.5':'9')+'" fill="#cbd5e1">'+mos[i]+'</text>';
+
+        var xlabs=vals.map(function(v,i){
+          return '<text x="'+xv(i).toFixed(1)+'" y="'+(H-5)+'" text-anchor="middle" font-size="'+(n>6?'9':'10')+'" fill="#94a3b8">'+mos[i]+'</text>';
         }).join('');
-        return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto;display:block;">'
-          +'<path d="'+lp+'" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'
-          +ov+lb+'</svg>';
+
+        return '<svg id="evhSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto;display:block;overflow:visible;">'
+          +grids
+          +'<line id="evhCursor" x1="-99" y1="'+padT+'" x2="-99" y2="'+(H-padB)+'" stroke="#94a3b8" stroke-width="1" opacity="0" style="pointer-events:none;"/>'
+          +'<path d="'+lp+'" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'
+          +dots+xlabs
+          +'<rect id="evhOverlay" x="'+padL+'" y="0" width="'+cW+'" height="'+H+'" fill="transparent"/>'
+          +'</svg>';
       }
 
-      var kpiHtml = '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px;">'
-        + '<div style="border:1px solid #e2e8f0;border-radius:10px;padding:12px;background:white;">'
-        + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Media histórica</p>'
-        + '<p style="font-size:22px;font-weight:800;color:#2563eb;line-height:1;">' + evh.mediaRiesgo + '</p>'
-        + '<p style="font-size:11px;color:#94a3b8;margin-top:3px;">riesgo a 60 días</p>'
-        + '</div>'
-        + '<div style="border:1px solid #e2e8f0;border-radius:10px;padding:12px;background:white;">'
-        + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Diferencial</p>'
-        + '<p style="font-size:20px;font-weight:800;color:#16a34a;line-height:1;">+31,2 pp</p>'
-        + '<p style="font-size:11px;color:#94a3b8;margin-top:3px;">vs. media general (53,5%)</p>'
-        + '</div>'
-        + '<div style="border:1px solid #e2e8f0;border-radius:10px;padding:12px;background:white;">'
-        + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Consistencia</p>'
-        + '<p style="font-size:14px;font-weight:700;color:#0f172a;line-height:1.2;margin-bottom:3px;">8 / 12 meses</p>'
-        + '<p style="font-size:11px;color:#94a3b8;line-height:1.4;">' + evh.resumen + '</p>'
-        + '</div>'
-        + '<div style="border:1px solid #e2e8f0;border-radius:10px;padding:12px;background:white;">'
-        + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Solidez</p>'
-        + '<p style="font-size:11px;color:#475569;line-height:1.5;">Correlación estable entre picos de riesgo y mayor volumen de reincorporaciones.</p>'
-        + '</div>'
-        + '</div>';
+      function attachEvhHover(vals, mos) {
+        var svg=document.getElementById('evhSvg');
+        var overlay=document.getElementById('evhOverlay');
+        var cursor=document.getElementById('evhCursor');
+        var tip=document.getElementById('evhTip');
+        if(!svg||!overlay||!tip) return;
+        var W=560,padL=40,padR=16,cW=W-padL-padR,n=vals.length;
 
-      evhEl.innerHTML =
-        '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">'
-        + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">% riesgo nueva baja a 60 días</p>'
-        + '<div id="evh-filter" style="display:flex;gap:4px;">'
-        + '<button data-evhm="mes" style="' + btnOn + '">Mes</button>'
-        + '<button data-evhm="trim" style="' + btnOff + '">Trim.</button>'
-        + '<button data-evhm="anio" style="' + btnOff + '">Año</button>'
-        + '</div>'
-        + '</div>'
-        + '<div id="evh-chart">' + buildEvhSvg(allVals, allMos) + '</div>'
-        + kpiHtml;
-
-      document.getElementById('evh-filter').addEventListener('click', function(e) {
-        var btn = e.target.closest('button[data-evhm]');
-        if (!btn) return;
-        var mode = btn.getAttribute('data-evhm');
-        var vd = mode === 'mes' ? allVals : mode === 'trim' ? trimData : anioData;
-        var md = mode === 'mes' ? allMos  : mode === 'trim' ? trimMos  : anioMos;
-        document.getElementById('evh-chart').innerHTML = buildEvhSvg(vd, md);
-        document.querySelectorAll('#evh-filter button').forEach(function(b) {
-          b.style.cssText = b === btn ? btnOn : btnOff;
+        overlay.addEventListener('mousemove',function(e){
+          var rect=svg.getBoundingClientRect();
+          var rawX=(e.clientX-rect.left)*(W/rect.width);
+          var idx=Math.round((rawX-padL)/cW*(n-1));
+          idx=Math.max(0,Math.min(n-1,idx));
+          var px=(padL+idx*cW/(n>1?n-1:1)).toFixed(1);
+          cursor.setAttribute('x1',px); cursor.setAttribute('x2',px); cursor.setAttribute('opacity','0.5');
+          svg.querySelectorAll('.evh-dot').forEach(function(d){
+            var isActive=d.getAttribute('data-idx')===''+idx;
+            d.setAttribute('r',isActive?'5':'3.5');
+            d.setAttribute('fill',isActive?'#3b82f6':'white');
+          });
+          tip.innerHTML='<strong style="font-size:11px;color:#0f172a;display:block;margin-bottom:3px;">'+mos[idx]+'</strong>'
+            +'<span style="font-size:11px;color:#475569;">&#9679; Riesgo: <strong style="color:#2563eb;">'+vals[idx]+'%</strong></span>';
+          tip.style.display='block';
+          var cont=tip.parentElement.getBoundingClientRect();
+          var tx=e.clientX-cont.left+12, ty=e.clientY-cont.top-52;
+          tip.style.left=Math.min(tx,cont.width-140)+'px';
+          tip.style.top=Math.max(0,ty)+'px';
         });
+        overlay.addEventListener('mouseleave',function(){
+          cursor.setAttribute('opacity','0');
+          svg.querySelectorAll('.evh-dot').forEach(function(d){ d.setAttribute('r','3.5'); d.setAttribute('fill','white'); });
+          tip.style.display='none';
+        });
+      }
+
+      var kpiHtml='<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px;">'
+        +'<div style="border:1px solid #e2e8f0;border-radius:10px;padding:12px;background:white;">'
+        +'<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Media histórica</p>'
+        +'<p style="font-size:22px;font-weight:800;color:#2563eb;line-height:1;">'+evh.mediaRiesgo+'</p>'
+        +'<p style="font-size:11px;color:#94a3b8;margin-top:3px;">riesgo a 60 días</p>'
+        +'</div>'
+        +'<div style="border:1px solid #e2e8f0;border-radius:10px;padding:12px;background:white;">'
+        +'<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Diferencial</p>'
+        +'<p style="font-size:20px;font-weight:800;color:#16a34a;line-height:1;">+31,2 pp</p>'
+        +'<p style="font-size:11px;color:#94a3b8;margin-top:3px;">vs. media general (53,5%)</p>'
+        +'</div>'
+        +'<div style="border:1px solid #e2e8f0;border-radius:10px;padding:12px;background:white;">'
+        +'<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Consistencia</p>'
+        +'<p style="font-size:14px;font-weight:700;color:#0f172a;line-height:1.2;margin-bottom:3px;">8 / 12 meses</p>'
+        +'<p style="font-size:11px;color:#94a3b8;line-height:1.4;">'+evh.resumen+'</p>'
+        +'</div>'
+        +'<div style="border:1px solid #e2e8f0;border-radius:10px;padding:12px;background:white;">'
+        +'<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Solidez</p>'
+        +'<p style="font-size:11px;color:#475569;line-height:1.5;">Correlación estable entre picos de riesgo y mayor volumen de reincorporaciones.</p>'
+        +'</div>'
+        +'</div>';
+
+      evhEl.innerHTML=
+        '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">'
+        +'<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">% riesgo nueva baja a 60 días</p>'
+        +'<div id="evh-filter" style="display:flex;gap:4px;">'
+        +'<button data-evhm="mes" style="'+btnOn+'">Mes</button>'
+        +'<button data-evhm="trim" style="'+btnOff+'">Trim.</button>'
+        +'<button data-evhm="anio" style="'+btnOff+'">Año</button>'
+        +'</div>'
+        +'</div>'
+        +'<div style="position:relative;">'
+        +'<div id="evh-chart">'+buildEvhSvg(allVals,allMos)+'</div>'
+        +'<div id="evhTip" style="display:none;position:absolute;background:white;border:1px solid #e2e8f0;border-radius:8px;padding:8px 12px;box-shadow:0 4px 12px rgba(0,0,0,0.08);pointer-events:none;z-index:20;white-space:nowrap;"></div>'
+        +'</div>'
+        +kpiHtml;
+
+      attachEvhHover(allVals,allMos);
+
+      document.getElementById('evh-filter').addEventListener('click',function(e){
+        var btn=e.target.closest('button[data-evhm]');
+        if(!btn) return;
+        var mode=btn.getAttribute('data-evhm');
+        var vd=mode==='mes'?allVals:mode==='trim'?trimData:anioData;
+        var md=mode==='mes'?allMos:mode==='trim'?trimMos:anioMos;
+        document.getElementById('evh-chart').innerHTML=buildEvhSvg(vd,md);
+        document.querySelectorAll('#evh-filter button').forEach(function(b){
+          b.style.cssText=b===btn?btnOn:btnOff;
+        });
+        attachEvhHover(vd,md);
       });
     }
   }
