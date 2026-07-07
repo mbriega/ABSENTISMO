@@ -371,10 +371,10 @@ const PAT002_DATA = {
 
   // ── Evidencia histórica (6 meses) ─────────────────────────────
   evidenciaHistorica: {
-    meses:       ["dic 24", "ene 25", "feb 25", "mar 25", "abr 25", "may 25"],
-    apariciones: [18, 32, 21, 41, 17, 36],
-    riesgo60d:   [60, 72, 56, 84, 44, 86],
-    resumen:     "4 de los últimos 6 meses mostraron el patrón.",
+    meses:       ["jun 24","jul 24","ago 24","sep 24","oct 24","nov 24","dic 24","ene 25","feb 25","mar 25","abr 25","may 25"],
+    apariciones: [14, 19, 22, 28, 31, 35, 18, 32, 21, 41, 17, 36],
+    riesgo60d:   [62, 58, 71, 65, 73, 69, 60, 72, 56, 84, 44, 86],
+    resumen:     "8 de los últimos 12 meses mostraron el patrón.",
     mediaRiesgo: "84,7%",
     diferencial: "+31,2 pp por encima de la media general (53,5%)"
   },
