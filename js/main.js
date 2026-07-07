@@ -808,7 +808,7 @@ function initPatDetailPage() {
   if (evContent && d.comoDetectado) {
     var cd = d.comoDetectado;
     evContent.innerHTML =
-      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">'
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">'
       + '<div class="border border-surface-200 rounded-xl p-4">'
       + '<p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-1.5">Fuente del dato</p>'
       + '<p class="text-sm text-surface-600 leading-relaxed">' + cd.fuente + '</p>'
@@ -817,14 +817,14 @@ function initPatDetailPage() {
       + '<p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-1.5">Periodo analizado</p>'
       + '<p class="text-sm text-surface-600 leading-relaxed">' + cd.periodo + '</p>'
       + '</div>'
-      + '</div>'
-      + '<div class="border border-surface-200 rounded-xl p-4" style="margin-bottom:12px;">'
+      + '<div class="border border-surface-200 rounded-xl p-4">'
       + '<p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-1.5">Solapamiento principal</p>'
       + '<p class="text-sm text-surface-600 leading-relaxed">' + cd.solapamiento + '</p>'
       + '</div>'
       + '<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:16px;">'
       + '<p class="text-xs font-semibold uppercase tracking-wider mb-1.5" style="color:#92400e;">Lectura prudente</p>'
       + '<p class="text-sm leading-relaxed" style="color:#78350f;">' + cd.lecturaP + '</p>'
+      + '</div>'
       + '</div>';
   }
 
@@ -957,46 +957,84 @@ function initPatDetailPage() {
     }).join("");
   }
 
-  // ── Evidencia histórica (dentro del acordeón, lazy render) ──
+  // ── Evidencia histórica — SVG line chart estético ────────────
   var evHistDisc = document.getElementById("ev-historica-disc");
   if (evHistDisc && d.evidenciaHistorica) {
-    evHistDisc.addEventListener("toggle", function() {
-      if (!evHistDisc.open || evHistDisc._charted) return;
-      evHistDisc._charted = true;
-      if (typeof ChartsComponent !== "undefined") {
-        ChartsComponent.renderLineChart("chart-evidencia", {
-          valores: d.evidenciaHistorica.riesgo60d,
-          meses:   d.evidenciaHistorica.meses
-        });
-      }
-    });
     var evh = d.evidenciaHistorica;
     var evhEl = document.getElementById("ev-historica-body");
     if (evhEl) {
-      evhEl.innerHTML =
-        '<p class="text-[10px] font-medium text-surface-400 uppercase tracking-wider mb-3">% riesgo de nueva baja a 60 días por mes</p>'
-        + '<canvas id="chart-evidencia" height="200"></canvas>'
-        + '<div class="grid grid-cols-4 gap-3 mt-4">'
-        + '<div class="bg-primary-50 border border-primary-100 rounded-xl p-4">'
-        + '<p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider mb-1">Media histórica</p>'
-        + '<p class="text-2xl font-bold tabular-nums text-primary-700 leading-none">' + evh.mediaRiesgo + '</p>'
-        + '<p class="text-xs text-surface-500 mt-1">riesgo a 60 días</p>'
+      var vals = evh.riesgo60d, mos = evh.meses, n = vals.length;
+      var maxV = Math.max.apply(null, vals), minV = Math.min.apply(null, vals);
+      var vMin = Math.max(0, minV - 12), vMax = Math.min(100, maxV + 10), vRange = vMax - vMin;
+      var W = 600, H = 160, padL = 30, padR = 20, padT = 28, padB = 36;
+      var cW = W - padL - padR, cH = H - padT - padB;
+      function xp(i) { return padL + i * cW / (n - 1); }
+      function yp(v) { return padT + cH * (1 - (v - vMin) / vRange); }
+      var pts = vals.map(function(v, i) { return [xp(i), yp(v)]; });
+
+      // Smooth bezier line
+      var linePath = "M " + pts[0][0].toFixed(1) + " " + pts[0][1].toFixed(1);
+      for (var si = 1; si < pts.length; si++) {
+        var cpx = ((pts[si-1][0] + pts[si][0]) / 2).toFixed(1);
+        linePath += " C " + cpx + " " + pts[si-1][1].toFixed(1) + " " + cpx + " " + pts[si][1].toFixed(1) + " " + pts[si][0].toFixed(1) + " " + pts[si][1].toFixed(1);
+      }
+      var areaPath = linePath + " L " + pts[n-1][0].toFixed(1) + " " + (padT + cH) + " L " + padL + " " + (padT + cH) + " Z";
+
+      // Y gridlines at 25% intervals
+      var gridLines = "";
+      for (var gi = 0; gi <= 4; gi++) {
+        var gv = vMin + gi * vRange / 4;
+        var gy = yp(gv).toFixed(1);
+        gridLines += '<line x1="' + padL + '" y1="' + gy + '" x2="' + (W - padR) + '" y2="' + gy + '" stroke="#f1f5f9" stroke-width="1"/>';
+        if (gi > 0 && gi < 4) {
+          gridLines += '<text x="' + (padL - 4) + '" y="' + (parseFloat(gy) + 4) + '" text-anchor="end" font-size="9" fill="#cbd5e1">' + Math.round(gv) + '%</text>';
+        }
+      }
+
+      // Dots + value labels + month labels
+      var dotsHtml = pts.map(function(pt, i) {
+        var v = vals[i];
+        var isHi = v === maxV, isLo = v === minV;
+        var clr = isHi ? "#ef4444" : isLo ? "#16a34a" : "#3b82f6";
+        var bgClr = isHi ? "#fef2f2" : isLo ? "#f0fdf4" : "#eff6ff";
+        return '<circle cx="' + pt[0].toFixed(1) + '" cy="' + pt[1].toFixed(1) + '" r="4.5" fill="white" stroke="' + clr + '" stroke-width="2"/>'
+          + '<text x="' + pt[0].toFixed(1) + '" y="' + (pt[1] - 10).toFixed(1) + '" text-anchor="middle" font-size="10" font-weight="700" fill="' + clr + '">' + v + '%</text>'
+          + '<text x="' + pt[0].toFixed(1) + '" y="' + (H - 8) + '" text-anchor="middle" font-size="9" fill="#94a3b8">' + mos[i] + '</text>';
+      }).join("");
+
+      var svgHtml = '<div style="background:#f8fafc;border-radius:12px;padding:16px 8px 8px;margin-bottom:14px;">'
+        + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;padding-left:8px;">% riesgo nueva baja a 60 días · evolución mensual</p>'
+        + '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;height:auto;">'
+        + '<defs><linearGradient id="evGradB" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3b82f6" stop-opacity="0.15"/><stop offset="100%" stop-color="#3b82f6" stop-opacity="0.01"/></linearGradient></defs>'
+        + gridLines
+        + '<path d="' + areaPath + '" fill="url(#evGradB)"/>'
+        + '<path d="' + linePath + '" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>'
+        + dotsHtml
+        + '</svg></div>';
+
+      var kpiHtml = '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">'
+        + '<div style="border:1px solid #e2e8f0;border-radius:10px;padding:12px;background:white;">'
+        + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Media histórica</p>'
+        + '<p style="font-size:22px;font-weight:800;color:#2563eb;line-height:1;">' + evh.mediaRiesgo + '</p>'
+        + '<p style="font-size:11px;color:#94a3b8;margin-top:3px;">riesgo a 60 días</p>'
         + '</div>'
-        + '<div class="bg-low-50 border border-low-200 rounded-xl p-4">'
-        + '<p class="text-[10px] font-medium text-low-600 uppercase tracking-wider mb-1">Diferencial</p>'
-        + '<p class="text-xl font-bold text-low-700 leading-none">+31,2 pp</p>'
-        + '<p class="text-xs text-low-600 mt-1">sobre media general (53,5%)</p>'
+        + '<div style="border:1px solid #e2e8f0;border-radius:10px;padding:12px;background:white;">'
+        + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Diferencial</p>'
+        + '<p style="font-size:20px;font-weight:800;color:#16a34a;line-height:1;">+31,2 pp</p>'
+        + '<p style="font-size:11px;color:#94a3b8;margin-top:3px;">vs. media general (53,5%)</p>'
         + '</div>'
-        + '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4">'
-        + '<p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider mb-1">Consistencia</p>'
-        + '<p class="text-sm font-bold text-surface-900 leading-snug">4 de los últimos 6 meses</p>'
-        + '<p class="text-xs text-surface-500 mt-1 leading-relaxed">' + evh.resumen + '</p>'
+        + '<div style="border:1px solid #e2e8f0;border-radius:10px;padding:12px;background:white;">'
+        + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Consistencia</p>'
+        + '<p style="font-size:14px;font-weight:700;color:#0f172a;line-height:1.2;margin-bottom:3px;">4 / 6 meses</p>'
+        + '<p style="font-size:11px;color:#94a3b8;line-height:1.4;">' + evh.resumen + '</p>'
         + '</div>'
-        + '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4">'
-        + '<p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider mb-1">Solidez</p>'
-        + '<p class="text-xs text-surface-700 leading-relaxed">Los picos de riesgo coinciden con los meses de mayor volumen de reincorporaciones. Correlación estable y replicable.</p>'
+        + '<div style="border:1px solid #e2e8f0;border-radius:10px;padding:12px;background:white;">'
+        + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Solidez</p>'
+        + '<p style="font-size:11px;color:#475569;line-height:1.5;">Correlación estable entre picos de riesgo y mayor volumen de reincorporaciones.</p>'
         + '</div>'
         + '</div>';
+
+      evhEl.innerHTML = svgHtml + kpiHtml;
     }
   }
 
@@ -1017,11 +1055,12 @@ function initPatDetailPage() {
               + '</div>';
           }
           if (item.tipo === "metrica-par") {
-            return '<div style="' + cardBase + span + 'display:grid;grid-template-columns:1fr 1fr;gap:12px;">'
+            var subCard = "border:1px solid #e2e8f0;border-radius:10px;padding:12px;background:white;";
+            return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;' + span + '">'
               + item.items.map(function(sub) {
-                  return '<div>'
+                  return '<div style="' + subCard + '">'
                     + '<p style="' + lblStyle + '">' + sub.label + '</p>'
-                    + '<p style="font-size:18px;font-weight:700;color:#0f172a;">' + sub.valor + '</p>'
+                    + '<p style="font-size:18px;font-weight:700;color:#0f172a;margin-top:4px;">' + sub.valor + '</p>'
                     + '</div>';
                 }).join("")
               + '</div>';
