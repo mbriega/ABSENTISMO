@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Predicciones — ThirdWish Intelligence</title>
+  <link rel="stylesheet" href="../css/styles.css"/>
+  <style>
+    .pred-row{display:flex;align-items:flex-start;gap:16px;padding:14px 20px;border-bottom:1px solid #f1f5f9;transition:background .12s;}
+    .pred-row:last-child{border-bottom:none;}
+    .pred-row:hover{background:#fafbfc;}
+    .risk-badge{width:52px;height:52px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;font-weight:800;line-height:1.1;}
+    .risk-high{background:#fef2f2;color:#dc2626;}
+    .risk-med{background:#fff7ed;color:#ea580c;}
+    .risk-low{background:#fefce8;color:#ca8a04;}
+    .risk-safe{background:#f0fdf4;color:#16a34a;}
+    .status-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap;display:inline-block;}
+    .status-conf{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;}
+    .status-pend{background:#fffbeb;color:#92400e;border:1px solid #fde68a;}
+    .pat-tag{font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;white-space:nowrap;display:inline-block;}
+    .pat-001{background:#f0fdf4;color:#166534;}
+    .pat-002{background:#fff7ed;color:#c2410c;}
+    .pat-003{background:#eff6ff;color:#1d4ed8;}
+    .delta-pos{color:#dc2626;font-weight:700;font-size:11px;}
+    .delta-neg{color:#16a34a;font-weight:700;font-size:11px;}
+    .action-btn{font-size:11px;font-weight:600;padding:5px 12px;border-radius:7px;white-space:nowrap;cursor:pointer;border:none;}
+    .btn-iniciar{background:#2563eb;color:white;}
+    .btn-ver{background:white;color:#2563eb;border:1px solid #bfdbfe !important;}
+    .heatcell{flex:1;height:30px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:rgba(255,255,255,0.95);min-width:0;}
+    .kpi-card{background:white;border-radius:12px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,.06);padding:20px;}
+  </style>
+</head>
+<body data-page="prediccion" class="bg-surface-50 text-surface-900 antialiased">
+
+  <div id="sidebar-mount"></div>
+
+  <div class="ml-[260px] min-h-screen bg-surface-50">
+
+    <!-- Header -->
+    <div class="bg-white border-b border-surface-200 px-6 py-4 sticky top-0 z-10">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-base font-bold text-surface-900">Modelos Predictivos</h1>
+          <p class="text-xs text-surface-400 mt-0.5">Prediccion de riesgo de absentismo &middot; Actualizado jun 2025</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button style="font-size:12px;color:#64748b;border:1px solid #e2e8f0;background:white;padding:6px 14px;border-radius:8px;cursor:pointer;">Exportar</button>
+          <button style="font-size:12px;color:white;background:#2563eb;padding:6px 14px;border-radius:8px;cursor:pointer;border:none;">Actualizar modelo</button>
+        </div>
+      </div>
+    </div>
+
+    <main style="padding:24px;">
+
+      <!-- KPI strip -->
+      <div id="pred-kpis" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;"></div>
+
+      <!-- Prediction list -->
+      <div style="background:white;border-radius:12px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,.06);margin-bottom:24px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #f1f5f9;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <p style="font-size:13px;font-weight:600;color:#0f172a;">Predicciones activas</p>
+            <span style="font-size:11px;font-weight:700;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;padding:2px 8px;border-radius:20px;">18</span>
+          </div>
+          <p style="font-size:11px;color:#94a3b8;">Ordenado por riesgo descendente &middot; jun 2025</p>
+        </div>
+        <div id="pred-list"></div>
+      </div>
+
+      <!-- Proyeccion General de Riesgo -->
+      <div style="background:white;border-radius:12px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,.06);margin-bottom:24px;padding:20px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+          <p style="font-size:13px;font-weight:600;color:#0f172a;">Proyeccion General de Riesgo</p>
+          <p style="font-size:11px;color:#94a3b8;">Proyeccion 12 meses &middot; 2025</p>
+        </div>
+        <div id="risk-projection"></div>
+      </div>
+
+      <!-- Bottom stats -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div style="background:white;border-radius:12px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,.06);padding:20px;">
+          <p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:16px;">Mejor Pronostico</p>
+          <div id="mejor-pronostico"></div>
+        </div>
+        <div style="background:white;border-radius:12px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,.06);padding:20px;">
+          <p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:16px;">Resumen del Modelo</p>
+          <div id="resumen-modelo"></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    var PREDS = [
+      { id:"90061366", centro:"Murcia",                riesgo:92, patron:"PAT-002", patronLabel:"Reten/IT activa",      desc:"Reincidencia confirmada. IT activa con superposicion de disponibilidad en guardia.",     status:"confirmado", delta:"+2.4", fecha:"12 jun 25", accion:"iniciar" },
+      { id:"90140956", centro:"Bonus Fontiveros",      riesgo:90, patron:"PAT-001", patronLabel:"Reincidencia corta",   desc:"Episodio breve con alta recurrencia en los ultimos 90 dias. 4 bajas en 6 meses.",        status:"confirmado", delta:"+1.8", fecha:"11 jun 25", accion:"iniciar" },
+      { id:"90183117", centro:"Zona N8",               riesgo:90, patron:"PAT-002", patronLabel:"Reten/IT activa",      desc:"Coincidencia de guardia con IT activa. Riesgo elevado por patron replicado en turno.",   status:"pendiente",  delta:"+3.1", fecha:"10 jun 25", accion:"iniciar" },
+      { id:"90176107", centro:"Terminal",              riesgo:88, patron:"PAT-003", patronLabel:"IT prolongada",        desc:"Duracion media de 43 dias por episodio. Tendencia al alza este trimestre.",              status:"confirmado", delta:"-0.5", fecha:"10 jun 25", accion:"ver"     },
+      { id:"90061419", centro:"Falces",                riesgo:77, patron:"PAT-001", patronLabel:"Reincidencia corta",   desc:"3 episodios en 6 meses. Riesgo de nueva baja en los proximos 45 dias.",                status:"pendiente",  delta:"+1.2", fecha:"09 jun 25", accion:"iniciar" },
+      { id:"90034807", centro:"Ingenieria Opt&Control",riesgo:74, patron:"PAT-002", patronLabel:"Reten/IT activa",      desc:"Disponibilidad en reten con IT activa confirmada en nomina del mes en curso.",          status:"confirmado", delta:"+0.8", fecha:"09 jun 25", accion:"ver"     },
+      { id:"90035607", centro:"Codes",                 riesgo:74, patron:"PAT-003", patronLabel:"IT prolongada",        desc:"Baja superior a 60 dias. Historial de reincidencia en los ultimos 2 anos.",            status:"pendiente",  delta:"+2.0", fecha:"08 jun 25", accion:"iniciar" },
+      { id:"90140597", centro:"Made Centro",           riesgo:72, patron:"PAT-001", patronLabel:"Reincidencia corta",   desc:"Alta frecuencia de episodios breves. Media de 2,3 dias por episodio registrado.",       status:"confirmado", delta:"-1.1", fecha:"08 jun 25", accion:"ver"     },
+      { id:"90143489", centro:"Burgos",                riesgo:64, patron:"PAT-002", patronLabel:"Reten/IT activa",      desc:"Senal activa con baja intensidad. Vigilancia preventiva recomendada.",                  status:"confirmado", delta:"+0.4", fecha:"07 jun 25", accion:"iniciar" },
+      { id:"90061345", centro:"Made Este",             riesgo:63, patron:"PAT-003", patronLabel:"IT prolongada",        desc:"Tendencia moderada. Episodio actual de 38 dias con prevision de cierre proxima.",       status:"pendiente",  delta:"+1.5", fecha:"07 jun 25", accion:"ver"     },
+      { id:"50054849", centro:"Alta Tension Norte",    riesgo:60, patron:"PAT-001", patronLabel:"Reincidencia corta",   desc:"Episodios recurrentes sin patron claro. Seguimiento mensual recomendado.",              status:"confirmado", delta:"-0.3", fecha:"06 jun 25", accion:"iniciar" },
+      { id:"90155007", centro:"Sos",                   riesgo:57, patron:"PAT-002", patronLabel:"Reten/IT activa",      desc:"Senal debil. Monitorizacion activa sin necesidad de intervencion inmediata.",           status:"pendiente",  delta:"+0.9", fecha:"06 jun 25", accion:"ver"     },
+      { id:"90181461", centro:"Torviscal",             riesgo:55, patron:"PAT-001", patronLabel:"Reincidencia corta",   desc:"Baja actividad del patron. Riesgo contenido bajo supervision estandar.",               status:"confirmado", delta:"+0.2", fecha:"05 jun 25", accion:"iniciar" },
+      { id:"90137191", centro:"Guerinda",              riesgo:52, patron:"PAT-003", patronLabel:"IT prolongada",        desc:"Duracion reducida respecto al historico. Evolucion favorable en el ultimo mes.",        status:"confirmado", delta:"-0.7", fecha:"05 jun 25", accion:"ver"     },
+      { id:"90061340", centro:"Alaiz",                 riesgo:50, patron:"PAT-002", patronLabel:"Reten/IT activa",      desc:"Activacion marginal. Se mantiene en umbral de observacion preventiva.",                status:"pendiente",  delta:"+1.3", fecha:"04 jun 25", accion:"iniciar" },
+      { id:"90093604", centro:"Made Oeste",            riesgo:48, patron:"PAT-001", patronLabel:"Reincidencia corta",   desc:"Sin evidencia reciente de nueva activacion. Riesgo residual bajo.",                   status:"confirmado", delta:"+0.1", fecha:"04 jun 25", accion:"ver"     },
+      { id:"90173616", centro:"Ingenieria Global",     riesgo:45, patron:"PAT-003", patronLabel:"IT prolongada",        desc:"Cierre de episodio previsto. Pronostico favorable para los proximos 30 dias.",         status:"confirmado", delta:"-0.4", fecha:"03 jun 25", accion:"iniciar" },
+      { id:"90174565", centro:"Perdon",                riesgo:44, patron:"PAT-002", patronLabel:"Reten/IT activa",      desc:"Senal residual. Revision periodica recomendada. Sin accion inmediata necesaria.",       status:"pendiente",  delta:"+0.6", fecha:"03 jun 25", accion:"ver"     }
+    ];
+
+    function riskClass(r){return r>=80?'risk-high':r>=65?'risk-med':r>=50?'risk-low':'risk-safe';}
+
+    function renderKpis(){
+      var el=document.getElementById('pred-kpis');
+      var kpis=[
+        {valor:'12,8%',  label:'Absentismo pendiente',        sub:'Tasa general jun 2025',    color:'#ef4444',ic:'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6'},
+        {valor:'793.158 &#8364;', label:'Costes asociados',  sub:'Proyeccion anual',          color:'#f59e0b',ic:'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z'},
+        {valor:'7',      label:'Empleados en riesgo alto',    sub:'Score superior al 80%',    color:'#2563eb',ic:'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z'},
+        {valor:'2',      label:'Acciones de riesgo criticas', sub:'Requieren intervencion',   color:'#8b5cf6',ic:'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z'}
+      ];
+      el.innerHTML=kpis.map(function(k){
+        return '<div class="kpi-card">'
+          +'<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;">'
+          +'<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;line-height:1.3;max-width:100px;">'+k.label+'</p>'
+          +'<div style="width:32px;height:32px;border-radius:8px;background:'+k.color+'18;display:flex;align-items:center;justify-content:center;flex-shrink:0;">'
+          +'<svg style="width:16px;height:16px;color:'+k.color+';" fill="none" stroke="'+k.color+'" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="'+k.ic+'"/></svg>'
+          +'</div></div>'
+          +'<p style="font-size:26px;font-weight:800;color:'+k.color+';line-height:1;margin-bottom:4px;">'+k.valor+'</p>'
+          +'<p style="font-size:11px;color:#94a3b8;">'+k.sub+'</p>'
+          +'</div>';
+      }).join('');
+    }
+
+    function renderPredList(){
+      var el=document.getElementById('pred-list');
+      el.innerHTML=PREDS.map(function(p,i){
+        var rc=riskClass(p.riesgo);
+        var dc=p.delta.charAt(0)==='+' ? 'delta-pos':'delta-neg';
+        var sc=p.status==='confirmado'?'status-conf':'status-pend';
+        var sl=p.status==='confirmado'?'Confirmado':'Pendiente validar';
+        var patKey=p.patron.slice(-3).toLowerCase();
+        var pc='pat-'+patKey;
+        var btnC=p.accion==='iniciar'?'btn-iniciar':'btn-ver';
+        var btnL=p.accion==='iniciar'?'Iniciar prediccion':'Ver prediccion';
+        return '<div class="pred-row">'
+          +'<div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">'
+          +'<div class="risk-badge '+rc+'">'
+          +'<span style="font-size:15px;">'+p.riesgo+'</span>'
+          +'<span style="font-size:8px;font-weight:600;opacity:.7;">%</span>'
+          +'</div>'
+          +'<span style="font-size:9px;color:#94a3b8;margin-top:4px;">#'+(i+1)+'</span>'
+          +'</div>'
+          +'<div style="flex:1;min-width:0;">'
+          +'<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px;">'
+          +'<p style="font-size:13px;font-weight:700;color:#0f172a;">'+p.centro+'</p>'
+          +'<span style="font-size:10px;color:#cbd5e1;">Emp. '+p.id+'</span>'
+          +'<span class="pat-tag '+pc+'">'+p.patron+' &middot; '+p.patronLabel+'</span>'
+          +'</div>'
+          +'<p style="font-size:11px;color:#64748b;line-height:1.5;">'+p.desc+'</p>'
+          +'</div>'
+          +'<div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;min-width:140px;">'
+          +'<span class="status-badge '+sc+'">'+sl+'</span>'
+          +'<div style="display:flex;align-items:center;gap:5px;">'
+          +'<span style="font-size:10px;color:#94a3b8;">&Delta;</span>'
+          +'<span class="'+dc+'">'+p.delta+'</span>'
+          +'<span style="font-size:10px;color:#94a3b8;">&middot; '+p.fecha+'</span>'
+          +'</div>'
+          +'<button class="action-btn '+btnC+'">'+btnL+'</button>'
+          +'</div>'
+          +'</div>';
+      }).join('');
+    }
+
+    function renderProjection(){
+      var el=document.getElementById('risk-projection');
+      var meses=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+      var vals=[52,58,63,71,75,80,78,74,68,62,57,48];
+      function hc(v){if(v>=80)return'#ef4444';if(v>=70)return'#f97316';if(v>=60)return'#f59e0b';if(v>=50)return'#84cc16';return'#22c55e';}
+      var cells=vals.map(function(v,i){
+        return '<div class="heatcell" style="background:'+hc(v)+';" title="'+meses[i]+' 25: '+v+'%">'+v+'%</div>';
+      }).join('');
+      var labels=meses.map(function(m){
+        return '<div style="flex:1;text-align:center;font-size:9px;color:#94a3b8;font-weight:500;">'+m+'</div>';
+      }).join('');
+      var legend=[['#22c55e','<50%'],['#84cc16','50-60%'],['#f59e0b','60-70%'],['#f97316','70-80%'],['#ef4444','>80%']].map(function(c){
+        return '<div style="display:flex;align-items:center;gap:3px;">'
+          +'<div style="width:10px;height:10px;border-radius:2px;background:'+c[0]+';"></div>'
+          +'<span style="font-size:9px;color:#94a3b8;">'+c[1]+'</span>'
+          +'</div>';
+      }).join('');
+      el.innerHTML='<div style="display:flex;gap:3px;margin-bottom:6px;">'+cells+'</div>'
+        +'<div style="display:flex;gap:3px;margin-bottom:14px;">'+labels+'</div>'
+        +'<div style="display:flex;align-items:center;gap:10px;padding-top:10px;border-top:1px solid #f1f5f9;">'
+        +'<span style="font-size:10px;color:#64748b;font-weight:500;">Escala de riesgo:</span>'
+        +legend+'</div>';
+    }
+
+    function renderMejorPronostico(){
+      var el=document.getElementById('mejor-pronostico');
+      var mejores=PREDS.filter(function(p){return p.delta.charAt(0)==='-';}).slice(0,5);
+      el.innerHTML=mejores.map(function(p){
+        var barW=Math.round((100-p.riesgo)*0.7);
+        var rc=riskClass(p.riesgo);
+        var clr=p.riesgo>=80?'#dc2626':p.riesgo>=65?'#ea580c':p.riesgo>=50?'#ca8a04':'#16a34a';
+        return '<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">'
+          +'<div style="width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-direction:column;font-weight:800;font-size:13px;flex-shrink:0;background:'+clr+'18;color:'+clr+';">'
+          +p.riesgo+'<span style="font-size:7px;opacity:.7;">%</span></div>'
+          +'<div style="flex:1;">'
+          +'<p style="font-size:12px;font-weight:600;color:#0f172a;margin-bottom:5px;">'+p.centro+'</p>'
+          +'<div style="height:4px;background:#f1f5f9;border-radius:2px;">'
+          +'<div style="height:4px;width:'+barW+'%;background:#22c55e;border-radius:2px;transition:width .3s;"></div>'
+          +'</div></div>'
+          +'<span style="font-size:11px;color:#16a34a;font-weight:700;flex-shrink:0;">'+p.delta+'</span>'
+          +'</div>';
+      }).join('');
+    }
+
+    function renderResumen(){
+      var el=document.getElementById('resumen-modelo');
+      var items=[
+        {label:'Precision del modelo',  valor:'84,7%',  color:'#2563eb'},
+        {label:'Tasa de recall',         valor:'79,3%',  color:'#2563eb'},
+        {label:'F1 Score',              valor:'0.82',   color:'#8b5cf6'},
+        {label:'Ultima calibracion',    valor:'jun 25', color:'#64748b'},
+        {label:'Empleados analizados',  valor:'317',    color:'#0f172a'},
+        {label:'Patrones activos',      valor:'3',      color:'#0f172a'},
+        {label:'Horizonte prediccion',  valor:'60 dias',color:'#64748b'},
+        {label:'Umbral de alerta',      valor:'50%',    color:'#ea580c'},
+      ];
+      el.innerHTML=items.map(function(it,i){
+        var bb=i<items.length-1?'border-bottom:1px solid #f8fafc;':'';
+        return '<div style="display:flex;align-items:center;justify-content:space-between;padding:7px 0;'+bb+'">'
+          +'<p style="font-size:11px;color:#64748b;">'+it.label+'</p>'
+          +'<p style="font-size:12px;font-weight:700;color:'+it.color+';">'+it.valor+'</p>'
+          +'</div>';
+      }).join('');
+    }
+
+    renderKpis();
+    renderPredList();
+    renderProjection();
+    renderMejorPronostico();
+    renderResumen();
+  </script>
+
+  <script src="../js/components/sidebar.js"></script>
+  <script>
+    if(typeof SidebarComponent!=='undefined') SidebarComponent.render();
+  </script>
+</body>
+</html>

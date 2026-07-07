@@ -7,7 +7,7 @@ const SidebarComponent = (() => {
     { href: "/diagnostico",        label: "Diagnóstico",           icon: "chart-bar",   indent: false },
     { href: "/diagnostico/costes", label: "Costes",                icon: "currency",    indent: true  },
     { href: "/patrones", link: "patrones.html", label: "Patrones", icon: "search", indent: false, badge: true },
-    { href: "/prediccion",         label: "Predicción",            icon: "trending-up", indent: false },
+    { href: "/prediccion", link: "prediccion.html", label: "Predicción", icon: "trending-up", indent: false },
     { href: "/impacto-liderazgo",  label: "Impacto del Liderazgo", icon: "users",       indent: false },
     { href: "/red-organizativa",   label: "Red Organizativa",      icon: "lightning",   indent: false },
     { href: "/planes-accion",      label: "Planes de Acción",      icon: "clipboard",   indent: false },
