@@ -982,77 +982,7 @@ function initPatDetailPage() {
     }).join('');
   }
 
-  // ── Análisis del coste — donut + cards ───────────────────────
-  var costeEl = document.getElementById("coste-detalle-body");
-  if (costeEl && d.impactoDesglose) {
-    var cItems = d.impactoDesglose;
-    var cTotal = cItems.reduce(function(s, it) { return s + it.porcentaje; }, 0);
-    var cColors = ['#1d4ed8','#2563eb','#3b82f6','#60a5fa','#93c5fd'];
-    var r = 66, cx = 90, cy = 90, sw = 26;
-    var circ = 2 * Math.PI * r;
-    var cOffset = 0;
-    var segs = cItems.map(function(it, i) {
-      var dd = (it.porcentaje / cTotal) * circ;
-      var s = '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none"'
-        + ' stroke="'+cColors[i]+'" stroke-width="'+sw+'"'
-        + ' stroke-dasharray="'+dd.toFixed(2)+' '+(circ-dd).toFixed(2)+'"'
-        + ' stroke-dashoffset="'+(-cOffset).toFixed(2)+'"'
-        + ' transform="rotate(-90 '+cx+' '+cy+')" stroke-linecap="butt"/>';
-      cOffset += dd;
-      return s;
-    }).join('');
-    var donutSvg = '<svg viewBox="0 0 180 180" style="width:180px;height:180px;display:block;">'
-      + segs
-      + '<text x="'+cx+'" y="'+(cy-8)+'" text-anchor="middle" font-size="17" font-weight="800" fill="#1d4ed8" font-family="Inter,system-ui,sans-serif">1,20 M€</text>'
-      + '<text x="'+cx+'" y="'+(cy+12)+'" text-anchor="middle" font-size="10" fill="#94a3b8" font-family="Inter,system-ui,sans-serif">coste histórico</text>'
-      + '</svg>';
 
-    var legend = '<div class="flex-1">'
-      + cItems.map(function(it, i) {
-          return '<div class="flex items-center py-1.5 border-b border-surface-100 last:border-0">'
-            + '<div style="width:9px;height:9px;border-radius:2px;background:'+cColors[i]+';flex-shrink:0;margin-right:8px;"></div>'
-            + '<span class="text-xs text-surface-700" style="flex:1;min-width:0;">' + it.concepto + '</span>'
-            + '<span class="text-xs font-bold text-surface-900 tabular-nums">' + it.porcentaje.toFixed(1) + '%</span>'
-            + '</div>';
-        }).join('')
-      + '</div>';
-
-    var metricas = '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4 ml-4" style="min-width:210px;">'
-      + '<p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider mb-3">Métricas derivadas</p>'
-      + '<div class="distrib-row"><span>Coste medio/aparición</span><strong>5.172 €</strong></div>'
-      + '<div class="distrib-row"><span>Coste medio/persona</span><strong>10.084 €</strong></div>'
-      + '<div class="distrib-row"><span>Casos con baja posterior</span><strong>≈ 196</strong></div>'
-      + '<div class="distrib-row"><span>Coste por caso confirmado</span><strong>6.122 €</strong></div>'
-      + '</div>';
-
-    var row1 = '<div class="flex items-center gap-4 mb-4">'
-      + '<div class="flex-shrink-0">' + donutSvg + '</div>'
-      + legend
-      + metricas
-      + '</div>';
-
-    var row2 = '<div class="grid grid-cols-2 gap-3 mb-4">'
-      + cItems.map(function(it, i) {
-          return '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4">'
-            + '<div class="flex items-center justify-between mb-2">'
-            + '<div class="flex items-center gap-2">'
-            + '<div style="width:8px;height:8px;border-radius:2px;background:'+cColors[i]+';flex-shrink:0;"></div>'
-            + '<p class="text-xs font-semibold text-surface-900">' + it.concepto + '</p>'
-            + '</div>'
-            + '<span class="text-sm font-bold text-surface-700 tabular-nums shrink-0 ml-2">' + it.porcentaje.toFixed(1) + '%</span>'
-            + '</div>'
-            + '<p class="text-sm font-bold text-surface-900 tabular-nums mb-1.5">' + it.importeLabel + '</p>'
-            + '<p class="text-xs text-surface-600 leading-relaxed">' + it.tooltip + '</p>'
-            + '</div>';
-        }).join("")
-      + '</div>';
-
-    var row3 = '<div class="bg-medium-50 border border-medium-200 rounded-xl p-3">'
-      + '<p class="text-xs font-medium text-medium-700 leading-relaxed"><strong>Lectura prudente:</strong> el coste está asociado al patrón y puede solaparse con otros fenómenos. Sirve para dimensionar el impacto histórico y priorizar su peso dentro del modelo predictivo, pero no debe interpretarse como ahorro directo garantizado.</p>'
-      + '</div>';
-
-    costeEl.innerHTML = row1 + row2 + row3;
-  }
 
   // ── Qué datos mejorarían la lectura ─────────────────────────
   var datosMejEl = document.getElementById("datos-mejoran-body");
