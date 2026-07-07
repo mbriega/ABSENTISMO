@@ -169,29 +169,29 @@
           <div id="ai-analysis-list"></div>
         </div>
 
-        <!-- ── Filtros + ordenación ── -->
-        <div class="flex items-center gap-3 mb-4">
-          <div class="flex flex-nowrap gap-2 overflow-x-auto flex-1 min-w-0" id="filter-buttons">
-            <!-- Poblado por filters.js -->
+        <!-- ── Filtros ── -->
+        <div class="flex flex-nowrap gap-2 mb-3 overflow-x-auto" id="filter-buttons">
+          <!-- Poblado por filters.js -->
+        </div>
+
+        <!-- ── Ordenación ── -->
+        <div class="flex items-center justify-end gap-4 mb-4">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-medium text-surface-400">Tendencia</span>
+            <select id="tendencia-select" class="filter-select">
+              <option value="todas">Todas</option>
+              <option value="creciente">Creciente</option>
+              <option value="decreciente">Decreciente</option>
+            </select>
           </div>
-          <div class="flex items-center gap-4 shrink-0">
-            <div class="flex items-center gap-2">
-              <span class="text-xs font-medium text-surface-400">Tendencia</span>
-              <select id="tendencia-select" class="filter-select">
-                <option value="todas">Todas</option>
-                <option value="creciente">Creciente</option>
-                <option value="decreciente">Decreciente</option>
-              </select>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-xs font-medium text-surface-400">Ordenar por</span>
-              <select id="sort-select" class="filter-select">
-                <option value="importancia">Importancia</option>
-                <option value="coste">Coste</option>
-                <option value="riesgo">Riesgo 60d</option>
-                <option value="empleados">Empleados</option>
-              </select>
-            </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-medium text-surface-400">Ordenar por</span>
+            <select id="sort-select" class="filter-select">
+              <option value="importancia">Importancia</option>
+              <option value="coste">Coste</option>
+              <option value="riesgo">Riesgo 60d</option>
+              <option value="empleados">Empleados</option>
+            </select>
           </div>
         </div>
 
