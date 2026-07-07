@@ -139,6 +139,26 @@
     /* ── Accordion body: expand limit ── */
     .accordion-body.open { max-height: 3000px !important; }
 
+    /* ── Period selector pills ── */
+    .periodo-btn {
+      font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 6px;
+      cursor: pointer; border: none; background: transparent; color: #94a3b8;
+      transition: all 0.15s;
+    }
+    .periodo-btn:hover { color: #475569; background: #e2e8f0; }
+    .periodo-btn.active { background: #fff; color: #1e293b; box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
+
+    /* ── Centers stock rows ── */
+    .center-stock-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 0; border-bottom: 1px solid #f1f5f9;
+    }
+    .center-stock-row:last-child { border-bottom: none; }
+    .center-stock-name { font-size: 13px; font-weight: 600; color: #1e293b; }
+    .center-stock-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .center-stock-cost { font-size: 14px; font-weight: 700; color: #0f172a; white-space: nowrap; }
+    .center-stock-badge { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 6px; white-space: nowrap; }
+
     /* ── Responsive ── */
     @media (max-width: 1100px) {
       .pat-kpi-strip { grid-template-columns: repeat(3, 1fr) !important; }
@@ -204,10 +224,42 @@
           <div id="pat-formula-card" class="bg-white rounded-xl border border-surface-200 shadow-card p-5"></div>
         </div>
 
+        <!-- Cost history card -->
+        <div class="bg-white rounded-xl border border-surface-200 shadow-card mb-5 p-5">
+          <div class="flex items-start justify-between mb-4 flex-wrap gap-3">
+            <div>
+              <p class="text-[10px] font-medium text-surface-400 uppercase tracking-wider">Coste histórico del patrón</p>
+              <p class="text-xs text-surface-500 mt-0.5">Evolución mensual del coste asociado al patrón</p>
+            </div>
+            <div id="periodo-selector" class="flex items-center gap-1 p-1 rounded-lg" style="background:#f1f5f9;">
+              <button class="periodo-btn" data-meses="3">3M</button>
+              <button class="periodo-btn" data-meses="6">6M</button>
+              <button class="periodo-btn active" data-meses="12">12M</button>
+              <button class="periodo-btn" data-meses="0">Todo</button>
+            </div>
+          </div>
+          <div class="flex items-end gap-8 mb-5 flex-wrap">
+            <div>
+              <p id="cost-period-total" class="text-3xl font-bold tabular-nums leading-none" style="color:#1d4ed8;"></p>
+              <p id="cost-period-label" class="text-xs mt-1.5" style="color:#94a3b8;"></p>
+            </div>
+          </div>
+          <div id="cost-bar-chart" class="flex items-end" style="height:80px;gap:2px;"></div>
+          <div id="cost-bar-labels" class="flex mt-1.5" style="gap:2px;"></div>
+          <div class="mt-4 pt-3 border-t border-surface-100">
+            <p class="text-xs" style="color:#94a3b8;">Coste total histórico observado desde inicio del análisis: <span class="font-semibold" style="color:#475569;">2.138.000 €</span></p>
+          </div>
+        </div>
+
         <!-- ══ CENTROS DONDE APARECE MÁS ══ -->
         <div class="bg-white rounded-xl border border-surface-200 shadow-card mb-5 p-5">
-          <p class="text-[10px] font-medium text-surface-400 uppercase tracking-wider mb-4">Centros donde aparece más</p>
-          <div id="pat-centers-section" class="space-y-2.5"></div>
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <p class="text-[10px] font-medium text-surface-400 uppercase tracking-wider">Centros donde aparece más</p>
+              <p class="text-xs text-surface-500 mt-0.5">Coste estimado y tendencia por período seleccionado</p>
+            </div>
+          </div>
+          <div id="pat-centers-section"></div>
         </div>
 
         <!-- ══ ANÁLISIS Y AUDITORÍA ══ -->

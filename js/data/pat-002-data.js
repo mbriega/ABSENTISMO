@@ -266,11 +266,11 @@ const PAT002_DATA = {
 
   // ── Distribución por centros ──────────────────────────────────
   centrosDistribucion: [
-    { nombre: "Madrid Chamartín",         pct: 28 },
-    { nombre: "Barcelona Sants",          pct: 21 },
-    { nombre: "Sevilla Santa Justa",      pct: 16 },
-    { nombre: "Valencia Joaquín Sorolla", pct: 12 },
-    { nombre: "Otros centros",            pct: 23 }
+    { nombre: "Madrid Chamartín",         pct: 28, tendencia: "subida",  variacion: "+12%" },
+    { nombre: "Barcelona Sants",          pct: 21, tendencia: "bajada",  variacion: "-8%"  },
+    { nombre: "Sevilla Santa Justa",      pct: 16, tendencia: "estable", variacion: "0%"   },
+    { nombre: "Valencia Joaquín Sorolla", pct: 12, tendencia: "subida",  variacion: "+5%"  },
+    { nombre: "Otros centros",            pct: 23, tendencia: "bajada",  variacion: "-4%"  }
   ],
 
   // ── Fórmula visual ────────────────────────────────────────────

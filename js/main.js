@@ -350,6 +350,104 @@ function initPatronesPage() {
 }
 
 // ══════════════════════════════════════════════════════════════
+// PAT DETAIL: period selector helpers
+// ══════════════════════════════════════════════════════════════
+
+var activePeriodoMeses = 12;
+
+function getCostDataForPeriodo(meses) {
+  var costeMetrica = PAT002_DATA.evolucionTemporal.metricas.filter(function(m) { return m.key === 'coste'; })[0];
+  if (!costeMetrica) return { valores: [], meses: [] };
+  var allValores = costeMetrica.valores;
+  var allMeses   = PAT002_DATA.evolucionTemporal.meses;
+  if (meses === 0 || meses >= allValores.length) {
+    return { valores: allValores, meses: allMeses };
+  }
+  return { valores: allValores.slice(-meses), meses: allMeses.slice(-meses) };
+}
+
+function renderCostHistoryCard(meses) {
+  var data     = getCostDataForPeriodo(meses);
+  var totalK   = data.valores.reduce(function(s, v) { return s + v; }, 0);
+  var totalEur = totalK * 1000;
+  var totalFmt = totalEur >= 1000000
+    ? (totalEur / 1000000).toFixed(2).replace('.', ',') + ' M€'
+    : totalEur.toLocaleString('es-ES') + ' €';
+
+  var totalEl = document.getElementById('cost-period-total');
+  if (totalEl) totalEl.textContent = totalFmt;
+
+  var labelEl = document.getElementById('cost-period-label');
+  if (labelEl) {
+    labelEl.textContent = meses === 0
+      ? 'Coste total histórico desde inicio del análisis'
+      : 'Coste acumulado en los últimos ' + meses + ' meses';
+  }
+
+  var container = document.getElementById('cost-bar-chart');
+  var labelsEl  = document.getElementById('cost-bar-labels');
+  if (!container) return;
+
+  var maxVal  = Math.max.apply(null, data.valores);
+  var CHART_H = 68;
+  var MONTH_SHORT = {
+    '2025-01': 'ene', '2025-02': 'feb', '2025-03': 'mar', '2025-04': 'abr',
+    '2025-05': 'may', '2025-06': 'jun', '2025-07': 'jul', '2025-08': 'ago',
+    '2025-09': 'sep', '2025-10': 'oct', '2025-11': 'nov', '2025-12': 'dic'
+  };
+
+  container.innerHTML = data.valores.map(function(v) {
+    var h      = Math.max(4, Math.round((v / maxVal) * CHART_H));
+    var isPeak = v === maxVal;
+    return '<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;min-width:0;">'
+      + '<span style="font-size:8.5px;color:#94a3b8;margin-bottom:2px;white-space:nowrap;">' + Math.round(v) + 'K</span>'
+      + '<div style="width:85%;max-width:28px;height:' + h + 'px;background:'
+      + (isPeak ? '#1d4ed8' : '#93c5fd')
+      + ';border-radius:3px 3px 0 0;"></div>'
+      + '</div>';
+  }).join('');
+
+  if (labelsEl) {
+    labelsEl.innerHTML = data.meses.map(function(m) {
+      return '<div style="flex:1;text-align:center;font-size:9px;color:#94a3b8;min-width:0;">'
+        + (MONTH_SHORT[m] || m.slice(-2)) + '</div>';
+    }).join('');
+  }
+}
+
+function renderCentersStock(meses) {
+  var centersEl = document.getElementById('pat-centers-section');
+  if (!centersEl || !PAT002_DATA.centrosDistribucion) return;
+
+  var data   = getCostDataForPeriodo(meses);
+  var totalK = data.valores.reduce(function(s, v) { return s + v; }, 0);
+
+  centersEl.innerHTML = PAT002_DATA.centrosDistribucion.map(function(c) {
+    var costeEur = Math.round(totalK * c.pct / 100) * 1000;
+    var costeFmt = costeEur >= 1000000
+      ? (costeEur / 1000000).toFixed(2).replace('.', ',') + ' M€'
+      : costeEur.toLocaleString('es-ES') + ' €';
+
+    var isSubida = c.tendencia === 'subida';
+    var isBajada = c.tendencia === 'bajada';
+    var clr  = isSubida ? '#ef4444' : (isBajada ? '#16a34a' : '#64748b');
+    var bg   = isSubida ? '#fef2f2' : (isBajada ? '#f0fdf4' : '#f8fafc');
+    var bdr  = isSubida ? '#fecaca' : (isBajada ? '#bbf7d0' : '#e2e8f0');
+    var icon = isSubida ? '↑' : (isBajada ? '↓' : '→');
+
+    return '<div class="center-stock-row">'
+      + '<p class="center-stock-name">' + c.nombre + '</p>'
+      + '<div class="center-stock-right">'
+      + '<span class="center-stock-cost">' + costeFmt + '</span>'
+      + '<span class="center-stock-badge" style="color:' + clr + ';background:' + bg + ';border:1px solid ' + bdr + ';">'
+      + icon + ' ' + c.variacion
+      + '</span>'
+      + '</div>'
+      + '</div>';
+  }).join('');
+}
+
+// ══════════════════════════════════════════════════════════════
 // PÁGINA: PAT DETAIL (pat-002)
 // ══════════════════════════════════════════════════════════════
 
@@ -925,6 +1023,26 @@ function initPatDetailPage() {
   }
 
   // Consultor — envío
+  // ── Period selector init ────────────────────────────────────
+  activePeriodoMeses = 12;
+  renderCostHistoryCard(activePeriodoMeses);
+  renderCentersStock(activePeriodoMeses);
+
+  var periodoSel = document.getElementById('periodo-selector');
+  if (periodoSel) {
+    periodoSel.addEventListener('click', function(e) {
+      var btn = e.target.closest('button[data-meses]');
+      if (!btn) return;
+      var meses = parseInt(btn.getAttribute('data-meses'), 10);
+      activePeriodoMeses = meses;
+      periodoSel.querySelectorAll('.periodo-btn').forEach(function(b) {
+        b.classList.toggle('active', b === btn);
+      });
+      renderCostHistoryCard(meses);
+      renderCentersStock(meses);
+    });
+  }
+
   var sendBtn  = document.getElementById("consultor-send");
   var inputEl  = document.getElementById("consultor-input");
   var chatArea = document.getElementById("chat-area");
