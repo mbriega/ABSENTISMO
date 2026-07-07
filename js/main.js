@@ -965,25 +965,34 @@ function initPatDetailPage() {
     if (evhEl) {
       var vals = evh.riesgo60d, mos = evh.meses, n = vals.length;
       var maxV = Math.max.apply(null, vals), minV = Math.min.apply(null, vals);
-      var W = 560, H = 104, padT = 18, padB = 20, chartH = H - padT - padB;
-      var slotW = W / n, barW = slotW * 0.52;
+      var W = 560, H = 78, padT = 13, padB = 17, padLr = 5, chartH = H - padT - padB;
+      var vRange = maxV - minV || 1;
+      function xpL(i) { return padLr + i * (W - padLr * 2) / (n - 1); }
+      function ypL(v) { return padT + chartH * (1 - (v - minV) / vRange); }
+      var pts = vals.map(function(v, i) { return [xpL(i), ypL(v)]; });
 
-      var barsHtml = vals.map(function(v, i) {
-        var bh = (v / maxV) * chartH;
-        var bx = i * slotW + (slotW - barW) / 2;
-        var by = padT + chartH - bh;
-        var isMax = v === maxV, isMin = v === minV;
-        var fill = isMax ? "#2563eb" : isMin ? "#bfdbfe" : "#93c5fd";
-        var txtClr = isMax ? "#1e40af" : "#64748b";
-        return '<rect x="' + bx.toFixed(1) + '" y="' + by.toFixed(1) + '" width="' + barW.toFixed(1) + '" height="' + bh.toFixed(1) + '" rx="3" fill="' + fill + '"/>'
-          + '<text x="' + (bx + barW/2).toFixed(1) + '" y="' + (by - 3).toFixed(1) + '" text-anchor="middle" font-size="8" font-weight="600" fill="' + txtClr + '">' + v + '%</text>'
-          + '<text x="' + (bx + barW/2).toFixed(1) + '" y="' + (H - 3) + '" text-anchor="middle" font-size="8" fill="#94a3b8">' + mos[i] + '</text>';
+      var lp = "M " + pts[0][0].toFixed(1) + " " + pts[0][1].toFixed(1);
+      for (var li = 1; li < pts.length; li++) {
+        var cpx = ((pts[li-1][0] + pts[li][0]) / 2).toFixed(1);
+        lp += " C " + cpx + " " + pts[li-1][1].toFixed(1) + " " + cpx + " " + pts[li][1].toFixed(1) + " " + pts[li][0].toFixed(1) + " " + pts[li][1].toFixed(1);
+      }
+
+      var overlayHtml = pts.map(function(pt, i) {
+        var v = vals[i], isMax = v === maxV, isMin = v === minV;
+        var dotClr = isMax ? "#2563eb" : isMin ? "#94a3b8" : "#93c5fd";
+        var lbl = (isMax || isMin) ? '<text x="' + pt[0].toFixed(1) + '" y="' + (pt[1] - 5).toFixed(1) + '" text-anchor="middle" font-size="8" font-weight="700" fill="' + (isMax ? "#2563eb" : "#64748b") + '">' + v + '%</text>' : '';
+        return lbl + '<circle cx="' + pt[0].toFixed(1) + '" cy="' + pt[1].toFixed(1) + '" r="' + (isMax || isMin ? 2.5 : 1.5) + '" fill="' + dotClr + '"/>';
+      }).join("");
+
+      var monthHtml = pts.map(function(pt, i) {
+        return '<text x="' + pt[0].toFixed(1) + '" y="' + (H - 2) + '" text-anchor="middle" font-size="7.5" fill="#cbd5e1">' + mos[i] + '</text>';
       }).join("");
 
       var svgHtml = '<div style="margin-bottom:14px;">'
-        + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">% riesgo nueva baja a 60 días · 12 meses</p>'
+        + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;">% riesgo nueva baja a 60 días · 12 meses</p>'
         + '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;height:auto;">'
-        + barsHtml
+        + '<path d="' + lp + '" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'
+        + overlayHtml + monthHtml
         + '</svg></div>';
 
       var kpiHtml = '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">'
