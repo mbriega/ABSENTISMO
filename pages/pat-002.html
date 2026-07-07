@@ -149,15 +149,15 @@
     .periodo-btn.active { background: #fff; color: #1e293b; box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
 
     /* ── Centers stock rows ── */
-    .center-stock-row {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 0; border-bottom: 1px solid #f1f5f9;
-    }
+    .center-stock-row { padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
     .center-stock-row:last-child { border-bottom: none; }
+    .center-stock-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; }
     .center-stock-name { font-size: 13px; font-weight: 600; color: #1e293b; }
     .center-stock-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
     .center-stock-cost { font-size: 14px; font-weight: 700; color: #0f172a; white-space: nowrap; }
     .center-stock-badge { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 6px; white-space: nowrap; }
+    .center-stock-track { height: 5px; background: #f1f5f9; border-radius: 999px; overflow: hidden; }
+    .center-stock-fill { height: 100%; border-radius: 999px; transition: width 0.3s ease; }
 
     /* ── Responsive ── */
     @media (max-width: 1100px) {
@@ -238,14 +238,16 @@
               <button class="periodo-btn" data-meses="0">Todo</button>
             </div>
           </div>
-          <div class="flex items-end gap-8 mb-5 flex-wrap">
-            <div>
+          <div style="display:flex;align-items:flex-start;gap:24px;">
+            <div style="flex-shrink:0;">
               <p id="cost-period-total" class="text-3xl font-bold tabular-nums leading-none" style="color:#1d4ed8;"></p>
               <p id="cost-period-label" class="text-xs mt-1.5" style="color:#94a3b8;"></p>
             </div>
+            <div style="flex:1;min-width:0;">
+              <div id="cost-bar-chart" class="flex items-end" style="height:80px;gap:1px;"></div>
+              <div id="cost-bar-labels" class="flex mt-1" style="gap:1px;"></div>
+            </div>
           </div>
-          <div id="cost-bar-chart" class="flex items-end" style="height:80px;gap:2px;"></div>
-          <div id="cost-bar-labels" class="flex mt-1.5" style="gap:2px;"></div>
           <div class="mt-4 pt-3 border-t border-surface-100">
             <p class="text-xs" style="color:#94a3b8;">Coste total histórico observado desde inicio del análisis: <span class="font-semibold" style="color:#475569;">2.138.000 €</span></p>
           </div>

@@ -399,11 +399,11 @@ function renderCostHistoryCard(meses) {
   container.innerHTML = data.valores.map(function(v) {
     var h      = Math.max(4, Math.round((v / maxVal) * CHART_H));
     var isPeak = v === maxVal;
-    return '<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;min-width:0;">'
-      + '<span style="font-size:8.5px;color:#94a3b8;margin-bottom:2px;white-space:nowrap;">' + Math.round(v) + 'K</span>'
-      + '<div style="width:85%;max-width:28px;height:' + h + 'px;background:'
+    return '<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch;min-width:0;">'
+      + '<span style="font-size:8.5px;color:#94a3b8;margin-bottom:2px;white-space:nowrap;text-align:center;">' + Math.round(v) + 'K</span>'
+      + '<div style="width:100%;height:' + h + 'px;background:'
       + (isPeak ? '#1d4ed8' : '#93c5fd')
-      + ';border-radius:3px 3px 0 0;"></div>'
+      + ';border-radius:2px 2px 0 0;"></div>'
       + '</div>';
   }).join('');
 
@@ -436,12 +436,17 @@ function renderCentersStock(meses) {
     var icon = isSubida ? '↑' : (isBajada ? '↓' : '→');
 
     return '<div class="center-stock-row">'
+      + '<div class="center-stock-top">'
       + '<p class="center-stock-name">' + c.nombre + '</p>'
       + '<div class="center-stock-right">'
       + '<span class="center-stock-cost">' + costeFmt + '</span>'
       + '<span class="center-stock-badge" style="color:' + clr + ';background:' + bg + ';border:1px solid ' + bdr + ';">'
       + icon + ' ' + c.variacion
       + '</span>'
+      + '</div>'
+      + '</div>'
+      + '<div class="center-stock-track">'
+      + '<div class="center-stock-fill" style="width:' + c.pct + '%;background:' + clr + ';"></div>'
       + '</div>'
       + '</div>';
   }).join('');
