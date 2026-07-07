@@ -98,12 +98,12 @@ var TableComponent = (function() {
         ? "text-xs font-semibold text-critical-700 leading-tight"
         : "text-xs font-semibold text-surface-800 leading-tight";
 
-      var rank     = idx + 1;
-      var diasInt  = parseInt((p.diasAsoc || "").replace(/[^\d]/g, ""), 10) || 0;
-      var pct      = TOTAL_DIAS > 0 ? (diasInt / TOTAL_DIAS * 100).toFixed(1) + "%" : "—";
-      var desc     = p.descripcionHumana || p.definicion;
-      var boxBg    = BOX_BG[p.criticidad] || "#64748b";
-      var isActivo = (ESTADO[p.id] || "activo") === "activo";
+      var rank  = idx + 1;
+      var desc  = p.descripcionHumana || p.definicion;
+      var boxBg = BOX_BG[p.criticidad] || "#64748b";
+
+      var TEND_COLOR = { "Al alza": "#ef4444", "Estable": "#64748b", "Estable o a la baja": "#16a34a" };
+      var TEND_ICON  = { "Al alza": "↗", "Estable": "→", "Estable o a la baja": "↘" };
 
       var numBox = '<div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;width:52px;">'
         + '<div style="width:44px;height:44px;background:' + boxBg + ';border-radius:12px;'
@@ -113,22 +113,17 @@ var TableComponent = (function() {
         + '<span class="badge ' + (BADGE[p.criticidad] || "") + '" style="font-size:9px;padding:1px 6px;">' + p.criticidad + '</span>'
         + '</div>';
 
-      var toggleBtn = '<label class="toggle-switch" onclick="event.stopPropagation();">'
-        + '<input type="checkbox" style="display:none;" data-toggle-id="' + p.id + '"' + (isActivo ? ' checked' : '') + '>'
-        + '<span class="toggle-track"><span class="toggle-thumb"></span></span>'
-        + '</label>';
-
       var catBadge = '<span style="display:inline-block;margin-top:3px;font-size:10px;font-weight:500;'
         + 'background:#f1f5f9;color:#64748b;padding:1px 8px;border-radius:999px;">' + catLabel + '</span>';
 
-      var metaRow = '<div style="display:flex;align-items:center;gap:6px;margin-top:5px;flex-wrap:wrap;">'
-        + '<span style="font-size:11px;color:#94a3b8;">' + p.activaciones.toLocaleString("es-ES") + ' activaciones</span>'
-        + '<span style="font-size:11px;color:#cbd5e1;">&middot;</span>'
-        + '<span style="font-size:11px;color:#94a3b8;">Ene 2024–May 2025</span>'
-        + '<span style="font-size:11px;color:#cbd5e1;">&middot;</span>'
-        + '<span style="font-size:10px;font-weight:500;padding:1px 7px;border-radius:999px;'
-        + (isActivo ? 'background:#dcfce7;color:#16a34a;' : 'background:#f1f5f9;color:#94a3b8;') + '">'
-        + (isActivo ? 'Activo' : 'Inactivo') + '</span>'
+      var tendColor = TEND_COLOR[p.tendencia] || "#64748b";
+      var tendIcon  = TEND_ICON[p.tendencia]  || "→";
+      var metaRow = '<div style="display:flex;align-items:center;gap:8px;margin-top:5px;">'
+        + '<span style="font-size:11px;color:#94a3b8;">Última ocurrencia: ' + (p.ultimaOcurrencia || "—") + '</span>'
+        + (p.tendencia
+            ? '<span style="font-size:11px;color:#cbd5e1;">&middot;</span>'
+              + '<span style="font-size:11px;font-weight:500;color:' + tendColor + ';">' + tendIcon + ' ' + p.tendencia + '</span>'
+            : '')
         + '</div>';
 
       return '<tr class="' + rowClass + '"' + rowStyle + ' onclick="window.location.href=\'' + p.detalle + '\'">'
@@ -142,13 +137,12 @@ var TableComponent = (function() {
         + metaRow
         + '</div></div>'
         + '</td>'
-        + '<td class="py-3 px-3 text-right tabular-nums whitespace-nowrap"><span class="badge ' + getRiskClass(p.riesgo60d) + '">' + p.riesgo60d + '</span></td>'
-        + '<td class="py-3 px-3 text-right text-xs text-surface-600 tabular-nums">' + p.empleados + '</td>'
-        + '<td class="py-3 px-3 text-right text-xs font-semibold text-high-600 tabular-nums whitespace-nowrap">' + p.costeDirecto + '</td>'
-        + '<td class="py-3 px-3 text-right text-xs font-medium text-surface-500 tabular-nums">' + pct + '</td>'
-        + '<td class="py-3 px-3 text-center">' + toggleBtn + '</td>'
-        + '<td class="py-3 px-3 text-right">'
-        + '<a href="' + p.detalle + '" class="text-xs text-primary-600 hover:text-primary-800 font-medium whitespace-nowrap inline-flex items-center gap-1 transition-colors" onclick="event.stopPropagation()">Detalle ' + ARROW + '</a>'
+        + '<td class="py-3 px-4 text-right text-xs font-semibold text-surface-700 tabular-nums whitespace-nowrap">' + (p.diasAsoc || '—') + '</td>'
+        + '<td class="py-3 px-4 text-right text-xs text-surface-600 tabular-nums">' + p.empleados + '</td>'
+        + '<td class="py-3 px-4 text-right text-xs font-semibold text-high-600 tabular-nums whitespace-nowrap">' + p.costeDirecto + '</td>'
+        + '<td class="py-3 px-4 text-right text-xs text-surface-600 tabular-nums">' + (p.activaciones ? p.activaciones.toLocaleString('es-ES') : '—') + '</td>'
+        + '<td class="py-3 px-4 text-right">'
+        + '<a href="' + p.detalle + '" style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:500;background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe;padding:5px 12px;border-radius:8px;white-space:nowrap;text-decoration:none;" onclick="event.stopPropagation()">Ver detalle ' + ARROW + '</a>'
         + '</td>'
         + '</tr>';
     }).join("");

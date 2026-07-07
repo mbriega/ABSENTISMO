@@ -83,6 +83,8 @@ const PATRONES_DATA = {
       media: "43.5 d",
       costeDirecto: "1.215.660 €",
       criticidad: "critico",
+      ultimaOcurrencia: "dic 2025",
+      tendencia: "Al alza",
       detalle: "pat-002.html"
     },
     {
@@ -99,6 +101,8 @@ const PATRONES_DATA = {
       media: "28.1 d",
       costeDirecto: "1.159.840 €",
       criticidad: "alto",
+      ultimaOcurrencia: "dic 2025",
+      tendencia: "Al alza",
       detalle: "pat-003.html"
     },
     {
@@ -115,6 +119,8 @@ const PATRONES_DATA = {
       media: "29.1 d",
       costeDirecto: "174.512 €",
       criticidad: "alto",
+      ultimaOcurrencia: "nov 2025",
+      tendencia: "Estable",
       detalle: "pat-010.html"
     },
     {
@@ -131,6 +137,8 @@ const PATRONES_DATA = {
       media: "28.2 d",
       costeDirecto: "420.455 €",
       criticidad: "medio",
+      ultimaOcurrencia: "dic 2025",
+      tendencia: "Estable o a la baja",
       detalle: "pat-006.html"
     },
     {
@@ -147,6 +155,8 @@ const PATRONES_DATA = {
       media: "19.8 d",
       costeDirecto: "176.250 €",
       criticidad: "medio",
+      ultimaOcurrencia: "nov 2025",
+      tendencia: "Estable o a la baja",
       detalle: "pat-009.html"
     },
     {
@@ -163,6 +173,8 @@ const PATRONES_DATA = {
       media: "15.9 d",
       costeDirecto: "675.326 €",
       criticidad: "bajo",
+      ultimaOcurrencia: "dic 2025",
+      tendencia: "Estable",
       detalle: "pat-004.html"
     },
     {
@@ -179,6 +191,8 @@ const PATRONES_DATA = {
       media: "15.7 d",
       costeDirecto: "1.420.660 €",
       criticidad: "bajo",
+      ultimaOcurrencia: "dic 2025",
+      tendencia: "Estable o a la baja",
       detalle: "pat-001.html"
     },
     {
@@ -195,6 +209,8 @@ const PATRONES_DATA = {
       media: "28.9 d",
       costeDirecto: "626.526 €",
       criticidad: "bajo",
+      ultimaOcurrencia: "nov 2025",
+      tendencia: "Estable o a la baja",
       detalle: "pat-005.html"
     },
     {
@@ -211,6 +227,8 @@ const PATRONES_DATA = {
       media: "16.4 d",
       costeDirecto: "275.554 €",
       criticidad: "bajo",
+      ultimaOcurrencia: "dic 2025",
+      tendencia: "Estable",
       detalle: "pat-008.html"
     },
     {
@@ -227,6 +245,8 @@ const PATRONES_DATA = {
       media: "13.3 d",
       costeDirecto: "295.407 €",
       criticidad: "bajo",
+      ultimaOcurrencia: "oct 2025",
+      tendencia: "Estable o a la baja",
       detalle: "pat-007.html"
     },
     {
@@ -243,6 +263,8 @@ const PATRONES_DATA = {
       media: "31.2 d",
       costeDirecto: "164.411 €",
       criticidad: "bajo",
+      ultimaOcurrencia: "nov 2025",
+      tendencia: "Estable o a la baja",
       detalle: "pat-011.html"
     },
     {
@@ -259,6 +281,8 @@ const PATRONES_DATA = {
       media: "35.6 d",
       costeDirecto: "156.006 €",
       criticidad: "bajo",
+      ultimaOcurrencia: "oct 2025",
+      tendencia: "Estable",
       detalle: "pat-012.html"
     },
     {
@@ -275,6 +299,8 @@ const PATRONES_DATA = {
       media: "29.3 d",
       costeDirecto: "87.902 €",
       criticidad: "medio",
+      ultimaOcurrencia: "dic 2025",
+      tendencia: "Al alza",
       detalle: "pat-014.html"
     },
     {
@@ -291,6 +317,8 @@ const PATRONES_DATA = {
       media: "21.8 d",
       costeDirecto: "76.908 €",
       criticidad: "medio",
+      ultimaOcurrencia: "dic 2025",
+      tendencia: "Estable",
       detalle: "pat-015.html"
     },
     {
@@ -307,6 +335,8 @@ const PATRONES_DATA = {
       media: "21.2 d",
       costeDirecto: "116.621 €",
       criticidad: "bajo",
+      ultimaOcurrencia: "nov 2025",
+      tendencia: "Estable o a la baja",
       detalle: "pat-013.html"
     },
     {
@@ -323,6 +353,8 @@ const PATRONES_DATA = {
       media: "19.9 d",
       costeDirecto: "75.379 €",
       criticidad: "bajo",
+      ultimaOcurrencia: "oct 2025",
+      tendencia: "Estable o a la baja",
       detalle: "pat-016.html"
     },
     {
@@ -339,6 +371,8 @@ const PATRONES_DATA = {
       media: "10.7 d",
       costeDirecto: "13.184 €",
       criticidad: "bajo",
+      ultimaOcurrencia: "sep 2025",
+      tendencia: "Estable o a la baja",
       detalle: "pat-017.html"
     },
     {
@@ -355,6 +389,8 @@ const PATRONES_DATA = {
       media: "16.9 d",
       costeDirecto: "12.696 €",
       criticidad: "bajo",
+      ultimaOcurrencia: "oct 2025",
+      tendencia: "Estable o a la baja",
       detalle: "pat-018.html"
     }
   ]
