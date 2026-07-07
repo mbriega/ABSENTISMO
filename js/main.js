@@ -389,7 +389,7 @@ function renderCostHistoryCard(meses) {
   if (!container) return;
 
   var maxVal  = Math.max.apply(null, data.valores);
-  var CHART_H = 68;
+  var CHART_H = 90;
   var MONTH_SHORT = {
     '2025-01': 'ene', '2025-02': 'feb', '2025-03': 'mar', '2025-04': 'abr',
     '2025-05': 'may', '2025-06': 'jun', '2025-07': 'jul', '2025-08': 'ago',
