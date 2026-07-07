@@ -981,7 +981,7 @@ function initPatDetailPage() {
         if(tMax===tMin) tMax=tMin+step;
         var ticks=[]; for(var t=tMin;t<=tMax;t+=step) ticks.push(t);
         var vMin=ticks[0], vMax=ticks[ticks.length-1], vRange=vMax-vMin||1;
-        var W=560, H=190, padL=40, padR=16, padT=16, padB=28;
+        var W=560, H=130, padL=40, padR=16, padT=14, padB=26;
         var cW=W-padL-padR, cH=H-padT-padB;
         function xv(i){ return padL+i*cW/(n>1?n-1:1); }
         function yv(v){ return padT+cH*(1-(v-vMin)/vRange); }
