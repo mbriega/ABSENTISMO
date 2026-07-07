@@ -15,26 +15,18 @@
     .disc-chev{width:16px;height:16px;flex-shrink:0;color:#94a3b8;transition:transform .2s;}
     .pred-disc[open] .disc-chev{transform:rotate(180deg);}
     .disc-inner{padding:20px;}
-    /* --- Prediction cards --- */
-    .pred-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:18px 20px;display:flex;align-items:flex-start;gap:0;margin-bottom:10px;}
-    .pred-card:last-child{margin-bottom:0;}
-    .pred-left{display:flex;flex-direction:column;align-items:center;width:74px;flex-shrink:0;padding-right:18px;}
-    .rank-badge{width:42px;height:42px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:white;margin-bottom:5px;}
-    .pred-pct{font-size:21px;font-weight:800;line-height:1;}
-    .pred-pct-lbl{font-size:10px;color:#94a3b8;margin-top:2px;}
-    .pred-mid{flex:1;min-width:0;padding-right:20px;}
-    .pred-title-row{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-bottom:4px;}
-    .pred-centro{font-size:14px;font-weight:700;color:#0f172a;}
-    .tag-riesgo{font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px;white-space:nowrap;}
-    .tag-conf{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;white-space:nowrap;}
+    /* --- Prediction table --- */
+    .rank-badge{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:white;margin:0 auto;}
+    .tag-riesgo{font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;white-space:nowrap;}
+    .tag-conf{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap;}
     .conf-alta{background:#dcfce7;color:#166534;}
     .conf-media{background:#fef9c3;color:#854d0e;}
     .conf-baja{background:#fff1f2;color:#be123c;}
-    .pred-meta{font-size:11px;color:#94a3b8;margin-bottom:5px;}
-    .pred-desc{font-size:12px;color:#475569;line-height:1.5;}
-    .pred-right{flex-shrink:0;width:210px;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:10px;}
-    .pred-impacto{font-size:12px;color:#475569;text-align:right;line-height:1.5;}
-    .btn-entrar{background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe;border-radius:8px;padding:6px 13px;font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px;white-space:nowrap;}
+    .pred-tbl{width:100%;border-collapse:collapse;}
+    .pred-tbl thead th{font-size:11px;font-weight:600;color:#64748b;padding:10px 14px;border-bottom:2px solid #f1f5f9;text-align:left;white-space:nowrap;background:white;}
+    .pred-tbl tbody td{padding:11px 14px;border-bottom:1px solid #f8fafc;vertical-align:middle;font-size:12px;color:#475569;}
+    .pred-tbl tbody tr:last-child td{border-bottom:none;}
+    .pred-tbl tbody tr:hover td{background:#fafbfc;}
     /* --- Centros table --- */
     .centros-tbl{width:100%;border-collapse:collapse;}
     .centros-tbl th{font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;padding:8px 12px;border-bottom:2px solid #f1f5f9;text-align:left;white-space:nowrap;}
@@ -163,7 +155,9 @@
       </div>
 
       <!-- Predicciones activas (lista directa) -->
-      <div id="pred-list" style="margin-bottom:20px;"></div>
+      <div style="background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;margin-bottom:20px;">
+        <div id="pred-list"></div>
+      </div>
 
     </main>
   </div>
@@ -249,39 +243,48 @@
     }
 
     /* ======= RENDER PRED LIST ======= */
+    function criticidad(r){return r>=75?"critico":r>=55?"alto":"medio";}
+    function extractPersonas(imp){
+      var m=imp.match(/<strong>([^<]+)<\/strong>/);
+      return m?m[1].replace(/&ndash;/g,"–"):"";
+    }
     function renderPredList(){
       var el=document.getElementById("pred-list");
-      el.innerHTML=PREDS.map(function(p,i){
+      var hdr='<table class="pred-tbl"><thead><tr>'
+        +'<th style="width:60px;text-align:center;">Prioridad</th>'
+        +'<th>Prediccion</th>'
+        +'<th style="width:130px;">Donde</th>'
+        +'<th style="width:160px;">Cuando puede ocurrir</th>'
+        +'<th style="width:105px;text-align:center;">Probabilidad</th>'
+        +'<th style="width:100px;text-align:center;">Criticidad &#8595;</th>'
+        +'<th style="width:160px;">Impacto estimado</th>'
+        +'</tr></thead><tbody>';
+      var rows=PREDS.map(function(p,i){
         var bc=badgeColor(p.riesgo);
         var rts=riesgoTagStyle(p.tipoRiesgo);
         var confCls="conf-"+p.confianza;
-        var confLbl="Confianza "+(p.confianza==="alta"?"alta":p.confianza==="media"?"media":"baja");
-        return "<div class=\"pred-card\">"
-          +"<div class=\"pred-left\">"
-          +"<div class=\"rank-badge\" style=\"background:"+bc+";\">"+(i+1)+"</div>"
-          +"<div class=\"pred-pct\" style=\"color:"+bc+";\">"+p.riesgo+"%</div>"
-          +"<div class=\"pred-pct-lbl\">probabilidad</div>"
-          +"</div>"
-          +"<div class=\"pred-mid\">"
-          +"<div class=\"pred-title-row\">"
-          +"<svg style=\"width:13px;height:13px;flex-shrink:0;color:#64748b;\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"10\" stroke-width=\"2\"/><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 6v6l4 2\"/></svg>"
-          +"<span class=\"pred-centro\">"+p.centro+"</span>"
-          +"<span class=\"tag-riesgo\" style=\""+rts+"\">"+p.tipoRiesgo+"</span>"
-          +"<span class=\"tag-conf "+confCls+"\">"+confLbl+"</span>"
-          +"</div>"
-          +"<div class=\"pred-meta\">"+p.region+" &middot; "+p.timeframe+"</div>"
-          +"<div class=\"pred-desc\">"+p.desc+"</div>"
-          +"</div>"
-          +"<div class=\"pred-right\">"
-          +"<div class=\"pred-impacto\">"+p.impacto+"</div>"
-          +"<button class=\"btn-entrar\">Entrar en prediccion"
-          +"<svg style=\"width:12px;height:12px;\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M9 5l7 7-7 7\"/></svg>"
-          +"</button>"
-          +"</div>"
-          +"</div>";
-      }).join("");
+        var crit=criticidad(p.riesgo);
+        var nCls="nivel-"+crit;
+        var personas=extractPersonas(p.impacto);
+        return '<tr>'
+          +'<td style="text-align:center;"><div class="rank-badge" style="background:'+bc+';">'+(i+1)+'</div></td>'
+          +'<td>'
+            +'<div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:4px;">'
+              +'<span style="font-size:13px;font-weight:700;color:#0f172a;">'+p.centro+'</span>'
+              +'<span class="tag-riesgo" style="'+rts+'">'+p.tipoRiesgo+'</span>'
+              +'<span class="tag-conf '+confCls+'">Confianza '+p.confianza+'</span>'
+            +'</div>'
+            +'<p style="font-size:11px;color:#94a3b8;margin:0;line-height:1.4;">'+p.desc+'</p>'
+          +'</td>'
+          +'<td>'+p.region+'</td>'
+          +'<td>'+p.timeframe+'</td>'
+          +'<td style="text-align:center;font-size:15px;font-weight:800;color:'+bc+';">'+p.riesgo+'%</td>'
+          +'<td style="text-align:center;"><span class="nivel-badge '+nCls+'">'+crit+'</span></td>'
+          +'<td>'+personas+'</td>'
+          +'</tr>';
+      }).join('');
+      el.innerHTML=hdr+rows+'</tbody></table>';
     }
-
     /* ======= RENDER PROYECCION TEMPORAL ======= */
     function renderProjTemporal(){
       var el=document.getElementById("proj-temporal");
