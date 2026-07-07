@@ -943,24 +943,33 @@ function initPatDetailPage() {
     }
   }
 
-  // ── Dónde aparece más ────────────────────────────────────────
+  // ── Cómo leer este patrón ────────────────────────────────────
   var distribEl = document.getElementById("distrib-body");
-  if (distribEl && d.distribucionPor) {
-    var dist = d.distribucionPor;
-    var mkDistTable = function(items, nota) {
-      return '<div class="mt-2">'
-        + items.map(function(it) {
-            return '<div class="distrib-row"><span>' + it.nombre + '</span><strong>' + it.pct + '%</strong></div>';
-          }).join("")
-        + '</div>'
-        + '<p class="text-xs text-surface-400 mt-2">' + nota + '</p>';
-    };
-    distribEl.innerHTML =
-      '<div class="grid grid-cols-3 gap-3">'
-      + '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4"><p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider">Por colectivo</p>' + mkDistTable(dist.colectivo, "% sobre apariciones") + '</div>'
-      + '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4"><p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider">Por turno</p>'     + mkDistTable(dist.turno,     "% sobre apariciones") + '</div>'
-      + '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4"><p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider">Por antigüedad</p>' + mkDistTable(dist.antiguedad, "% sobre personas únicas") + '</div>'
-      + '</div>';
+  if (distribEl && d.comoLeer) {
+    distribEl.innerHTML = d.comoLeer.items.map(function(item, i) {
+      var isLast = i === d.comoLeer.items.length - 1;
+      var sep    = isLast ? '' : 'border-bottom:1px solid #f1f5f9;';
+
+      if (item.tipo === 'metrica') {
+        return '<div style="display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:start;padding:12px 0;' + sep + '">'
+          + '<div>'
+          + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">' + item.label + '</p>'
+          + '<p style="font-size:20px;font-weight:700;color:#1d4ed8;margin-top:4px;line-height:1;">' + item.valor + '</p>'
+          + '</div>'
+          + '<p style="font-size:12px;color:#64748b;line-height:1.65;margin-top:20px;">' + item.descripcion + '</p>'
+          + '</div>';
+      }
+      if (item.tipo === 'metrica-simple') {
+        return '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;' + sep + '">'
+          + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">' + item.label + '</p>'
+          + '<p style="font-size:16px;font-weight:700;color:#0f172a;">' + item.valor + '</p>'
+          + '</div>';
+      }
+      return '<div style="padding:12px 0;' + sep + '">'
+        + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;">' + item.label + '</p>'
+        + '<p style="font-size:12.5px;color:#475569;line-height:1.65;">' + item.valor + '</p>'
+        + '</div>';
+    }).join('');
   }
 
   // ── Análisis del coste — donut + cards ───────────────────────

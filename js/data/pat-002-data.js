@@ -292,6 +292,44 @@ const PAT002_DATA = {
     }
   ],
 
+  // ── Cómo leer este patrón ────────────────────────────────────
+  comoLeer: {
+    items: [
+      {
+        label: "Qué lo activa",
+        valor: "Trabaja a jornada completa (≥95%), su salario base del mes sigue por debajo del 66,7% de lo habitual y venía de una baja (IT o accidente) de 15 días o más en los 90 días anteriores.",
+        tipo:  "texto"
+      },
+      {
+        label:       "Riesgo a 60 días",
+        valor:       "84,7%",
+        descripcion: "% de empleados activados con ≥60 días de absentismo en el periodo analizado.",
+        tipo:        "metrica"
+      },
+      {
+        label:       "Coste directo",
+        valor:       "1.215.660,0 €",
+        descripcion: "Σ (días de absentismo del empleado en periodo × salario diario real = salario bruto / 220).",
+        tipo:        "metrica"
+      },
+      {
+        label: "Media por activación",
+        valor: "43,5 días",
+        tipo:  "metrica-simple"
+      },
+      {
+        label: "Última activación",
+        valor: "dic 2025",
+        tipo:  "metrica-simple"
+      },
+      {
+        label: "Lectura",
+        valor: "Identificar reincorporaciones tras bajas largas (15+ días) con salario base inferior al 66,7% de lo habitual.",
+        tipo:  "texto"
+      }
+    ]
+  },
+
   // ── Fórmula visual ────────────────────────────────────────────
   formulaSenal: {
     condiciones: [
