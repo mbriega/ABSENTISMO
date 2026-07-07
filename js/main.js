@@ -698,9 +698,81 @@ function initPatDetailPage() {
     }).join("");
   }
 
-  // Personas
-  setText("personas-subtitle", d.personas.total + " personas afectadas por este patrón");
-  setText("personas-summary",  d.personas.total + " personas · " + (d.personas.centrosAfectados || "—") + " centros afectados");
+  // Personas afectadas — tabla sortable
+  setText("personas-subtitle", "20 empleados reales que activan el patrón · clic en una columna para ordenar");
+  var personasContainer = document.getElementById("personas-table-container");
+  if (personasContainer && d.personasListado) {
+    var pSortKey = "diasBaja";
+    var pSortDir = -1;
+    var PCOLS = [
+      { key: "id",         label: "Empleado",  align: "left"  },
+      { key: "centro",     label: "Centro",    align: "left"  },
+      { key: "turno",      label: "Turno",     align: "left"  },
+      { key: "categoria",  label: "Categoría", align: "left"  },
+      { key: "edad",       label: "Edad",      align: "right" },
+      { key: "antiguedad", label: "Antig.",    align: "right" },
+      { key: "episodios",  label: "Episodios", align: "right" },
+      { key: "diasBaja",   label: "Días baja", align: "right" },
+      { key: "riesgo",     label: "Riesgo",    align: "right" }
+    ];
+    var PRIESGO_ORD = { critico: 3, alto: 2, medio: 1, bajo: 0 };
+    var PRIESGO_BDGE = {
+      critico: "background:#fef2f2;color:#dc2626;border:1px solid #fecaca;",
+      alto:    "background:#fff7ed;color:#ea580c;border:1px solid #fed7aa;",
+      medio:   "background:#fefce8;color:#ca8a04;border:1px solid #fef08a;",
+      bajo:    "background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe;"
+    };
+
+    function renderPTable() {
+      var data = d.personasListado.slice().sort(function(a, b) {
+        var va = a[pSortKey], vb = b[pSortKey];
+        if (pSortKey === "riesgo") { va = PRIESGO_ORD[va] || 0; vb = PRIESGO_ORD[vb] || 0; }
+        if (typeof va === "string") va = va.toLowerCase();
+        if (typeof vb === "string") vb = vb.toLowerCase();
+        return va < vb ? -pSortDir : va > vb ? pSortDir : 0;
+      });
+
+      var thead = "<thead><tr>"
+        + PCOLS.map(function(col) {
+            var active = col.key === pSortKey;
+            var arrow  = active ? (pSortDir === 1 ? "▲" : "▼") : "↕";
+            return "<th data-col=\"" + col.key + "\" style=\"text-align:" + col.align + ";"
+              + (active ? "color:#2563eb;" : "") + "\">"
+              + col.label + " <span style=\"font-size:9px;opacity:0.55;\">" + arrow + "</span></th>";
+          }).join("")
+        + "</tr></thead>";
+
+      var tbody = "<tbody>"
+        + data.map(function(p) {
+            var bdg = PRIESGO_BDGE[p.riesgo] || PRIESGO_BDGE.bajo;
+            var lbl = p.riesgo.charAt(0).toUpperCase() + p.riesgo.slice(1);
+            return "<tr>"
+              + "<td>Empleado " + p.id + "</td>"
+              + "<td>" + p.centro + "</td>"
+              + "<td>" + p.turno + "</td>"
+              + "<td>" + p.categoria + "</td>"
+              + "<td style=\"text-align:right;\">" + p.edad + "</td>"
+              + "<td style=\"text-align:right;\">" + p.antiguedad + "</td>"
+              + "<td style=\"text-align:right;\">" + p.episodios + "</td>"
+              + "<td style=\"text-align:right;font-weight:700;color:#0f172a;\">" + p.diasBaja + "</td>"
+              + "<td style=\"text-align:right;\"><span style=\"font-size:11px;font-weight:600;padding:2px 8px;border-radius:6px;" + bdg + "\">" + lbl + "</span></td>"
+              + "</tr>";
+          }).join("")
+        + "</tbody>";
+
+      personasContainer.innerHTML = "<table class=\"personas-table\">" + thead + tbody + "</table>";
+
+      personasContainer.querySelector("thead").addEventListener("click", function(e) {
+        var th = e.target.closest("th[data-col]");
+        if (!th) return;
+        var col = th.getAttribute("data-col");
+        pSortDir = col === pSortKey ? -pSortDir : (["diasBaja","episodios","edad","antiguedad","riesgo"].indexOf(col) >= 0 ? -1 : 1);
+        pSortKey = col;
+        renderPTable();
+      });
+    }
+    renderPTable();
+  }
 
   // Consultor — contextos
   var ctxEl = document.getElementById("consultor-contextos");

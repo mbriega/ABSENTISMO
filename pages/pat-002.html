@@ -167,6 +167,23 @@
       .pat-kpi-strip { grid-template-columns: 1fr 1fr !important; }
       .pat-kpi-cell { border-right: none; border-bottom: 1px solid #f1f5f9; }
     }
+
+    /* ── Personas table ─────────────────────────────────────── */
+    .personas-table { width:100%; border-collapse:collapse; font-size:12.5px; }
+    .personas-table th {
+      text-align:left; padding:9px 10px;
+      font-size:11px; font-weight:600; color:#94a3b8;
+      border-bottom:2px solid #e2e8f0;
+      cursor:pointer; user-select:none; white-space:nowrap;
+    }
+    .personas-table th:hover { color:#475569; }
+    .personas-table td {
+      padding:8px 10px; border-bottom:1px solid #f1f5f9;
+      color:#374151; white-space:nowrap;
+    }
+    .personas-table tr:last-child td { border-bottom:none; }
+    .personas-table tr:hover td { background:#f8fafc; }
+    .personas-table td:first-child { font-weight:500; color:#0f172a; font-size:11.5px; }
   </style>
 </head>
 <body class="bg-surface-50 text-surface-900 antialiased" data-page="pat-detail">
@@ -328,29 +345,8 @@
               </div>
               <svg class="disc-chev w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
             </summary>
-            <div class="disc-body-inner">
-              <div class="grid grid-cols-2 gap-3 mb-3">
-                <div class="bg-surface-50 rounded-xl p-4 border border-surface-100">
-                  <p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-1">Personas únicas</p>
-                  <p class="text-sm text-surface-700">119 personas activaron el patrón al menos una vez en el período analizado.</p>
-                </div>
-                <div class="bg-surface-50 rounded-xl p-4 border border-surface-100">
-                  <p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-1">Apariciones media por persona</p>
-                  <p class="text-sm text-surface-700">1,9 apariciones por persona — algunas reincorporaciones generaron el patrón más de una vez.</p>
-                </div>
-                <div class="bg-surface-50 rounded-xl p-4 border border-surface-100">
-                  <p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-1">% con nueva ausencia posterior</p>
-                  <p class="text-sm text-surface-700">84,7% en la ventana de 60 días posteriores a la reincorporación.</p>
-                </div>
-                <div class="bg-surface-50 rounded-xl p-4 border border-surface-100">
-                  <p class="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-1">Listado anonimizado</p>
-                  <p class="text-sm text-surface-700">Disponible para auditoría interna respetando privacidad y permisos.</p>
-                </div>
-              </div>
-              <div class="flex items-center justify-between">
-                <p id="personas-summary" class="text-sm text-surface-600"></p>
-                <button id="btn-ver-listado" class="text-xs text-primary-600 hover:text-primary-800 font-medium transition-colors">Ver listado →</button>
-              </div>
+            <div class="disc-body-inner" style="padding:0;overflow-x:auto;">
+              <div id="personas-table-container"></div>
             </div>
           </details>
 

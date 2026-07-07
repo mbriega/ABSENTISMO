@@ -292,6 +292,30 @@ const PAT002_DATA = {
     }
   ],
 
+  // ── Listado de personas afectadas ───────────────────────────
+  personasListado: [
+    { id: "90061366", centro: "Guerinda",                         turno: "Retén/Guardia", categoria: "Operario de Planta", edad: 43, antiguedad: 19.5, episodios: 7, diasBaja: 267, riesgo: "critico" },
+    { id: "90140956", centro: "Alta Tensión Levante",             turno: "Retén/Guardia", categoria: "Oficial de Campo",   edad: 35, antiguedad:  9.3, episodios: 3, diasBaja: 263, riesgo: "critico" },
+    { id: "90183117", centro: "Made Este",                        turno: "Retén/Guardia", categoria: "Oficial de Campo",   edad: 41, antiguedad:  7.2, episodios: 4, diasBaja: 258, riesgo: "critico" },
+    { id: "90176107", centro: "Burgos",                           turno: "Retén/Guardia", categoria: "Operario de Planta", edad: 38, antiguedad:  3.2, episodios: 5, diasBaja: 224, riesgo: "alto"    },
+    { id: "90061419", centro: "Ingeniería Optimización&Control",  turno: "Partido",       categoria: "Administrativo",     edad: 41, antiguedad: 17.5, episodios: 3, diasBaja: 167, riesgo: "critico" },
+    { id: "90034807", centro: "Alta Tensión Centro-sur",          turno: "Retén/Guardia", categoria: "Jefe de Base",       edad: 37, antiguedad:  8.7, episodios: 2, diasBaja: 165, riesgo: "medio"   },
+    { id: "90035607", centro: "Ingeniería Optimización&Control",  turno: "Mañana",        categoria: "Técnico",            edad: 42, antiguedad: 18.1, episodios: 2, diasBaja: 143, riesgo: "critico" },
+    { id: "90140597", centro: "Bonus Coruña",                     turno: "Retén/Guardia", categoria: "Operario de Planta", edad: 34, antiguedad:  9.3, episodios: 2, diasBaja: 143, riesgo: "critico" },
+    { id: "90143489", centro: "Alta Tensión Norte",               turno: "Noche",         categoria: "Oficial de Campo",   edad: 44, antiguedad:  9.1, episodios: 5, diasBaja: 141, riesgo: "alto"    },
+    { id: "90061345", centro: "Falces",                           turno: "Noche",         categoria: "Oficial de Campo",   edad: 40, antiguedad: 18.5, episodios: 3, diasBaja: 141, riesgo: "medio"   },
+    { id: "50054849", centro: "Burgos",                           turno: "Retén/Guardia", categoria: "Operario de Planta", edad: 28, antiguedad:  3.3, episodios: 2, diasBaja: 138, riesgo: "alto"    },
+    { id: "90155007", centro: "Zona 10-12",                       turno: "Retén/Guardia", categoria: "Oficial de Campo",   edad: 40, antiguedad:  7.9, episodios: 5, diasBaja: 135, riesgo: "critico" },
+    { id: "90181461", centro: "Made Centro",                      turno: "Retén/Guardia", categoria: "Operario de Planta", edad: 37, antiguedad:  7.3, episodios: 5, diasBaja: 127, riesgo: "critico" },
+    { id: "90137191", centro: "Made oeste",                       turno: "Noche",         categoria: "Oficial de Campo",   edad: 39, antiguedad:  9.5, episodios: 3, diasBaja: 125, riesgo: "alto"    },
+    { id: "90061340", centro: "Sos",                              turno: "Retén/Guardia", categoria: "Oficial de Campo",   edad: 40, antiguedad: 16.8, episodios: 5, diasBaja: 101, riesgo: "critico" },
+    { id: "90093604", centro: "Ingeniería Global",                turno: "Retén/Guardia", categoria: "Técnico",            edad: 38, antiguedad: 17.4, episodios: 5, diasBaja:  99, riesgo: "alto"    },
+    { id: "90173616", centro: "Codes",                            turno: "Retén/Guardia", categoria: "Operario de Planta", edad: 42, antiguedad:  7.7, episodios: 7, diasBaja:  98, riesgo: "critico" },
+    { id: "90174565", centro: "Perdón",                           turno: "Noche",         categoria: "Operario de Planta", edad: 31, antiguedad:  6.7, episodios: 3, diasBaja:  92, riesgo: "critico" },
+    { id: "90115285", centro: "Torviscal",                        turno: "Retén/Guardia", categoria: "Operario de Planta", edad: 47, antiguedad: 11.2, episodios: 4, diasBaja:  77, riesgo: "critico" },
+    { id: "90061321", centro: "Alaiz",                            turno: "Retén/Guardia", categoria: "Oficial de Campo",   edad: 48, antiguedad: 27.1, episodios: 3, diasBaja:  71, riesgo: "alto"    }
+  ],
+
   // ── Cómo leer este patrón ────────────────────────────────────
   comoLeer: {
     items: [
