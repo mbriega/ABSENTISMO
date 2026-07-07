@@ -55,6 +55,10 @@
     .week-labels{display:flex;gap:6px;}
     .week-lbl{flex:1;text-align:center;font-size:9px;color:#94a3b8;font-weight:500;min-width:0;}
     .kpi-card{background:white;border-radius:12px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:18px 20px;}
+    .pat-kpi-strip{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid #f1f5f9;}
+    .pat-kpi-strip-4{grid-template-columns:repeat(4,1fr);}
+    .pat-kpi-cell{padding:16px 20px;border-right:1px solid #f1f5f9;display:flex;flex-direction:column;gap:3px;}
+    .pat-kpi-cell:last-child{border-right:none;}
     .disc-sum-left{display:flex;align-items:center;gap:12px;}
     .disc-icon-wrap{width:30px;height:30px;border-radius:7px;background:#f8fafc;border:1px solid #e2e8f0;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   </style>
@@ -79,7 +83,7 @@
     <main style="padding:24px;">
 
       <!-- KPI strip -->
-      <div id="pred-kpis" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px;"></div>
+      <div style="background:white;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-bottom:20px;"><div id="pred-kpis" class="pat-kpi-strip pat-kpi-strip-4"></div></div>
 
 
       <!-- ACCORDION 2: Proyeccion temporal -->
@@ -223,23 +227,10 @@
 
     /* ======= RENDER KPIS ======= */
     function renderKpis(){
-      var el=document.getElementById("pred-kpis");
-      var kpis=[
-        {valor:"12,8%",   label:"Absentismo pendiente",        sub:"Tasa general jun 2025",   color:"#ef4444"},
-        {valor:"793.158 €",label:"Costes asociados",      sub:"Proyeccion anual",         color:"#f59e0b"},
-        {valor:"7",       label:"Empleados en riesgo alto",    sub:"Score superior al 80%",   color:"#2563eb"},
-        {valor:"2",       label:"Acciones criticas",           sub:"Requieren intervencion",  color:"#8b5cf6"}
-      ];
-      el.innerHTML=kpis.map(function(k){
-        return "<div class=\"kpi-card\">"
-          +"<p style=\"font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin:0 0 8px;\">"+k.label+"</p>"
-          +"<p style=\"font-size:26px;font-weight:800;color:#0f172a;line-height:1;margin:0 0 4px;\">"+k.valor+"</p>"
-          +"<p style=\"font-size:11px;color:#94a3b8;margin:0;\">"+k.sub+"</p>"
-          +"</div>";
-      }).join("");
+      document.getElementById("pred-kpis").innerHTML=
+        '<div class="pat-kpi-cell"><div style="width:28px;height:28px;border-radius:8px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;margin-bottom:10px;"><svg style="width:13px;height:13px;color:#64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg></div><div class="flex items-center gap-1.5"><span class="text-2xl font-bold tabular-nums leading-none text-primary-700">12,8%</span><svg style="width:13px;height:13px;color:#cbd5e1;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 16v-4m0-4h.01"/></svg></div><p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;line-height:1.25;margin:.125rem 0 0;">Absentismo pendiente</p><p class="text-xs text-surface-500 leading-relaxed mt-1">Tasa general jun 2025</p></div><div class="pat-kpi-cell"><div style="width:28px;height:28px;border-radius:8px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;margin-bottom:10px;"><svg style="width:13px;height:13px;color:#64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><div class="flex items-center gap-1.5"><span class="text-2xl font-bold tabular-nums leading-none text-primary-700">793.158 €</span><svg style="width:13px;height:13px;color:#cbd5e1;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 16v-4m0-4h.01"/></svg></div><p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;line-height:1.25;margin:.125rem 0 0;">Costes asociados</p><p class="text-xs text-surface-500 leading-relaxed mt-1">Proyeccion anual</p></div><div class="pat-kpi-cell"><div style="width:28px;height:28px;border-radius:8px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;margin-bottom:10px;"><svg style="width:13px;height:13px;color:#64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div><div class="flex items-center gap-1.5"><span class="text-2xl font-bold tabular-nums leading-none text-surface-900">7</span><svg style="width:13px;height:13px;color:#cbd5e1;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 16v-4m0-4h.01"/></svg></div><p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;line-height:1.25;margin:.125rem 0 0;">Empleados riesgo alto</p><p class="text-xs text-surface-500 leading-relaxed mt-1">Score superior al 80%</p></div><div class="pat-kpi-cell"><div style="width:28px;height:28px;border-radius:8px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;margin-bottom:10px;"><svg style="width:13px;height:13px;color:#64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></div><div class="flex items-center gap-1.5"><span class="text-2xl font-bold tabular-nums leading-none text-surface-900">2</span><svg style="width:13px;height:13px;color:#cbd5e1;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 16v-4m0-4h.01"/></svg></div><p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;line-height:1.25;margin:.125rem 0 0;">Acciones criticas</p><p class="text-xs text-surface-500 leading-relaxed mt-1">Requieren intervencion</p></div>';
     }
 
-    /* ======= RENDER PRED LIST ======= */
     function criticidad(r){return r>=75?"critico":r>=55?"alto":"medio";}
     function extractPersonas(imp){
       var m=imp.match(/<strong>([^<]+)<\/strong>/);
