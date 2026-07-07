@@ -1000,43 +1000,38 @@ function initPatDetailPage() {
     }
   }
 
-  // ── Cómo leer este patrón ────────────────────────────────────
+  // ── Cómo leer este patrón — cards 2 columnas ────────────────
   var distribEl = document.getElementById("distrib-body");
   if (distribEl && d.comoLeer) {
-    distribEl.innerHTML = d.comoLeer.items.map(function(item, i) {
-      var isLast = i === d.comoLeer.items.length - 1;
-      var sep    = isLast ? '' : 'border-bottom:1px solid #f1f5f9;';
-
-      if (item.tipo === 'metrica') {
-        return '<div style="display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:start;padding:12px 0;' + sep + '">'
-          + '<div>'
-          + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">' + item.label + '</p>'
-          + '<p style="font-size:20px;font-weight:700;color:#1d4ed8;margin-top:4px;line-height:1;">' + item.valor + '</p>'
-          + '</div>'
-          + '<p style="font-size:12px;color:#64748b;line-height:1.65;margin-top:20px;">' + item.descripcion + '</p>'
-          + '</div>';
-      }
-      if (item.tipo === 'metrica-par') {
-        return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:10px 0;' + sep + '">'
-          + item.items.map(function(sub) {
-              return '<div>'
-                + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">' + sub.label + '</p>'
-                + '<p style="font-size:16px;font-weight:700;color:#0f172a;margin-top:3px;">' + sub.valor + '</p>'
-                + '</div>';
-            }).join('')
-          + '</div>';
-      }
-      if (item.tipo === 'metrica-simple') {
-        return '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;' + sep + '">'
-          + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">' + item.label + '</p>'
-          + '<p style="font-size:16px;font-weight:700;color:#0f172a;">' + item.valor + '</p>'
-          + '</div>';
-      }
-      return '<div style="padding:12px 0;' + sep + '">'
-        + '<p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;">' + item.label + '</p>'
-        + '<p style="font-size:12.5px;color:#475569;line-height:1.65;">' + item.valor + '</p>'
-        + '</div>';
-    }).join('');
+    var lblStyle = "font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;";
+    var cardBase = "border:1px solid #e2e8f0;border-radius:12px;padding:16px;background:white;";
+    var lastIdx  = d.comoLeer.items.length - 1;
+    distribEl.innerHTML = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">'
+      + d.comoLeer.items.map(function(item, i) {
+          var span = i === lastIdx ? "grid-column:1/-1;" : "";
+          if (item.tipo === "metrica") {
+            return '<div style="' + cardBase + span + '">'
+              + '<p style="' + lblStyle + '">' + item.label + '</p>'
+              + '<p style="font-size:22px;font-weight:800;color:#1d4ed8;line-height:1;margin-bottom:5px;">' + item.valor + '</p>'
+              + '<p style="font-size:12px;color:#64748b;line-height:1.6;">' + item.descripcion + '</p>'
+              + '</div>';
+          }
+          if (item.tipo === "metrica-par") {
+            return '<div style="' + cardBase + span + 'display:grid;grid-template-columns:1fr 1fr;gap:12px;">'
+              + item.items.map(function(sub) {
+                  return '<div>'
+                    + '<p style="' + lblStyle + '">' + sub.label + '</p>'
+                    + '<p style="font-size:18px;font-weight:700;color:#0f172a;">' + sub.valor + '</p>'
+                    + '</div>';
+                }).join("")
+              + '</div>';
+          }
+          return '<div style="' + cardBase + span + '">'
+            + '<p style="' + lblStyle + '">' + item.label + '</p>'
+            + '<p style="font-size:12.5px;color:#475569;line-height:1.65;">' + item.valor + '</p>'
+            + '</div>';
+        }).join("")
+      + '</div>';
   }
 
 
@@ -1047,7 +1042,7 @@ function initPatDetailPage() {
     datosMejEl.innerHTML =
       '<div class="grid grid-cols-2 gap-3">'
       + d.datosQueMejorarian.map(function(item) {
-          return '<div class="bg-surface-50 border border-surface-100 rounded-xl p-4">'
+          return '<div class="bg-white border border-surface-200 rounded-xl p-4">'
             + '<p class="text-[10px] font-medium text-surface-500 uppercase tracking-wider mb-2">' + item.fuente + '</p>'
             + '<p class="text-sm text-surface-700 leading-relaxed">' + item.descripcion + '</p>'
             + '</div>';
