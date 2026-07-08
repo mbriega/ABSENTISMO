@@ -30,6 +30,13 @@
       background-size: 14px; cursor: pointer; appearance: none; -webkit-appearance: none; outline: none;
     }
     .filter-select:focus { border-color: #93c5fd; box-shadow: 0 0 0 2px rgba(147,197,253,0.25); }
+    .periodo-btn {
+      font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 6px;
+      cursor: pointer; border: none; background: transparent; color: #94a3b8;
+      transition: all 0.15s;
+    }
+    .periodo-btn:hover { color: #475569; background: #e2e8f0; }
+    .periodo-btn.active { background: #fff; color: #1e293b; box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
   </style>
 </head>
 <body class="bg-surface-50 text-surface-900 antialiased" data-page="patrones">
@@ -48,9 +55,15 @@
           <h1 class="text-xl font-semibold text-surface-900">Patrones Detectados</h1>
           <p class="text-sm text-surface-500 mt-0.5">Análisis de patrones y anomalías</p>
         </div>
-        <button class="w-9 h-9 rounded-full bg-primary-600 flex items-center justify-center text-white text-sm font-semibold">
-          AD
-        </button>
+        <div class="flex items-center gap-3">
+          <div id="periodo-selector" class="flex items-center gap-1 p-1 rounded-lg" style="background:#f1f5f9;">
+            <button class="periodo-btn" data-meses="3">3M</button>
+            <button class="periodo-btn" data-meses="6">6M</button>
+            <button class="periodo-btn active" data-meses="12">12M</button>
+            <button class="periodo-btn" data-meses="0">Todo</button>
+          </div>
+          <button class="w-9 h-9 rounded-full bg-primary-600 flex items-center justify-center text-white text-sm font-semibold">AD</button>
+        </div>
       </header>
 
       <!-- Page content -->
@@ -69,13 +82,8 @@
               </div>
               <p class="text-xs font-medium text-surface-500 uppercase tracking-wider">Detectados</p>
             </div>
-            <p class="text-2xl font-bold text-surface-900 tracking-tight mb-2">18</p>
-            <div class="flex gap-1">
-              <span class="badge badge--critico badge--xs">1 crítico</span>
-              <span class="badge badge--alto badge--xs">2 alto</span>
-              <span class="badge badge--medio badge--xs">4 medio</span>
-              <span class="badge badge--bajo badge--xs">11 bajo</span>
-            </div>
+            <p id="kpi-detectados-count" class="text-2xl font-bold text-surface-900 tracking-tight mb-2">18</p>
+<div id="kpi-detectados-badges" class="flex gap-1"><span class="badge badge--critico badge--xs">1 crítico</span><span class="badge badge--alto badge--xs">2 alto</span><span class="badge badge--medio badge--xs">4 medio</span><span class="badge badge--bajo badge--xs">11 bajo</span></div>
           </div>
 
           <!-- Críticos -->
@@ -91,7 +99,7 @@
               <p class="text-xs font-medium text-critical-600 uppercase tracking-wider">Críticos</p>
             </div>
             <p class="text-2xl font-bold text-critical-600 tracking-tight">1</p>
-            <p class="text-xs text-surface-400 mt-1">de 18 patrones detectados</p>
+            <p id="kpi-criticos-sub" class="text-xs text-surface-400 mt-1">de 18 patrones detectados</p>
             <p class="text-xs text-critical-500 font-medium mt-1">Requiere acción inmediata</p>
           </div>
 
@@ -106,7 +114,7 @@
               <p class="text-xs font-medium text-surface-500 uppercase tracking-wider">Mayor impacto</p>
             </div>
             <p class="text-sm font-semibold text-surface-700 leading-tight mb-1">Retén/disponibilidad</p>
-            <p class="text-2xl font-bold text-surface-900 tracking-tight tabular-nums">1.420.660 €</p>
+            <p id="kpi-mayor-impacto-coste" class="text-2xl font-bold text-surface-900 tracking-tight tabular-nums">1.420.660 €</p>
             <p class="text-xs text-surface-400 mt-1">Coste directo observado</p>
           </div>
 
@@ -126,9 +134,9 @@
                 </div>
               </div>
             </div>
-            <p class="text-2xl font-bold text-surface-900 tracking-tight tabular-nums">7.143.297 €</p>
-            <p class="text-xs text-surface-400 mt-1">18 patrones · estimación anual</p>
-            <p class="text-xs text-surface-500 font-medium mt-0.5">Prom. 397K€ por patrón</p>
+            <p id="kpi-impacto-total" class="text-2xl font-bold text-surface-900 tracking-tight tabular-nums">7.143.297 €</p>
+            <p id="kpi-impacto-sub" class="text-xs text-surface-400 mt-1">18 patrones · estimación anual</p>
+            <p id="kpi-impacto-prom" class="text-xs text-surface-500 font-medium mt-0.5">Prom. 397K€ por patrón</p>
           </div>
 
         </div>

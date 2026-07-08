@@ -355,6 +355,42 @@ function initPatronesPage() {
 
 var activePeriodoMeses = 12;
 
+  // ── Selector de periodo ───────────────────────────────────
+  var PERIODO_DATA = {
+    0:  { detectados: 18, critico: 1, alto: 2, medio: 4, bajo: 11, mayorCoste: "1.420.660 €", total: "7.143.297 €", sub: "18 patrones \xb7 hist\xf3rico completo", prom: "Prom. 397K€ por patr\xf3n" },
+    12: { detectados: 18, critico: 1, alto: 2, medio: 4, bajo: 11, mayorCoste: "1.420.660 €", total: "7.143.297 €", sub: "18 patrones \xb7 estimaci\xf3n anual",    prom: "Prom. 397K€ por patr\xf3n" },
+    6:  { detectados: 14, critico: 1, alto: 1, medio: 3, bajo: 9,  mayorCoste: "748.320 €",   total: "3.890.450 €", sub: "14 patrones \xb7 \xfaltimos 6 meses",    prom: "Prom. 278K€ por patr\xf3n" },
+    3:  { detectados:  9, critico: 1, alto: 1, medio: 2, bajo: 5,  mayorCoste: "402.000 €",   total: "2.072.130 €", sub: "9 patrones \xb7 \xfaltimo trimestre",     prom: "Prom. 230K€ por patr\xf3n" }
+  };
+  function applyPeriodoPatrones(meses) {
+    var d = PERIODO_DATA[meses] || PERIODO_DATA[12];
+    var el;
+    el = document.getElementById("kpi-detectados-count"); if (el) el.textContent = d.detectados;
+    el = document.getElementById("kpi-detectados-badges"); if (el) el.innerHTML =
+      '<span class="badge badge--critico badge--xs">' + d.critico + ' cr\xedtico</span>'
+      + '<span class="badge badge--alto badge--xs">' + d.alto + ' alto</span>'
+      + '<span class="badge badge--medio badge--xs">' + d.medio + ' medio</span>'
+      + '<span class="badge badge--bajo badge--xs">' + d.bajo + ' bajo</span>';
+    el = document.getElementById("kpi-criticos-sub");     if (el) el.textContent = "de " + d.detectados + " patrones detectados";
+    el = document.getElementById("kpi-mayor-impacto-coste"); if (el) el.textContent = d.mayorCoste;
+    el = document.getElementById("kpi-impacto-total");    if (el) el.textContent = d.total;
+    el = document.getElementById("kpi-impacto-sub");      if (el) el.textContent = d.sub;
+    el = document.getElementById("kpi-impacto-prom");     if (el) el.textContent = d.prom;
+  }
+  var periodoSelPat = document.getElementById("periodo-selector");
+  if (periodoSelPat) {
+    periodoSelPat.addEventListener("click", function(e) {
+      var btn = e.target.closest("button[data-meses]");
+      if (!btn) return;
+      var meses = parseInt(btn.getAttribute("data-meses"), 10);
+      periodoSelPat.querySelectorAll(".periodo-btn").forEach(function(b) {
+        b.classList.toggle("active", b === btn);
+      });
+      applyPeriodoPatrones(meses);
+    });
+  }
+
+
 function getCostDataForPeriodo(meses) {
   var costeMetrica = PAT002_DATA.evolucionTemporal.metricas.filter(function(m) { return m.key === 'coste'; })[0];
   if (!costeMetrica) return { valores: [], meses: [] };
@@ -738,7 +774,7 @@ function initPatDetailPage() {
             var arrow  = active ? (pSortDir === 1 ? "▲" : "▼") : "↕";
             return "<th data-col=\"" + col.key + "\" style=\"text-align:" + col.align + ";"
               + (active ? "color:#2563eb;" : "") + "\">"
-              + col.label + " <span style=\"font-size:9px;opacity:0.55;\">" + arrow + "</span></th>";
+              + col.label + " <span style=\"font-size:10px;color:#94a3b8;margin-left:2px;\">" + arrow + "</span></th>";
           }).join("")
         + "</tr></thead>";
 
