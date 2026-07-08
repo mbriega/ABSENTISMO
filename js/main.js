@@ -1292,12 +1292,12 @@ function initPatDetailPage() {
             + '</div>';
         }).join('');
       }
-      modal.classList.remove("hidden");
+      modal.style.display = "flex";
       document.body.style.overflow = "hidden";
     }
 
     function closeCentrosModal() {
-      modal.classList.add("hidden");
+      modal.style.display = "none";
       document.body.style.overflow = "";
     }
 
@@ -1383,22 +1383,22 @@ function initPatDetailPage() {
     }
 
     renderModalTable();
-    modal.classList.remove("hidden");
+    modal.style.display = "flex";
     document.body.style.overflow = "hidden";
 
     var mClose = document.getElementById("modal-personas-close");
     if (mClose) mClose.onclick = function() {
-      modal.classList.add("hidden");
+      modal.style.display = "none";
       document.body.style.overflow = "";
     };
     modal.onclick = function(e) {
-      if (e.target === modal) { modal.classList.add("hidden"); document.body.style.overflow = ""; }
+      if (e.target === modal) { modal.style.display = "none"; document.body.style.overflow = ""; }
     };
   }
   document.addEventListener("keydown", function(e) {
     var m = document.getElementById("modal-personas");
-    if (e.key === "Escape" && m && !m.classList.contains("hidden")) {
-      m.classList.add("hidden"); document.body.style.overflow = "";
+    if (e.key === "Escape" && m && m.style.display !== "none") {
+      m.style.display = "none"; document.body.style.overflow = "";
     }
   });
 
