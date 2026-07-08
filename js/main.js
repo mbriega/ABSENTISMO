@@ -67,6 +67,7 @@ var TableComponent = (function() {
   }
 
   function render(filtro) {
+    var _f = (typeof activePeriodoFactor !== "undefined") ? activePeriodoFactor : 1.0;
     var tbody = document.getElementById("patrones-table-body");
     if (!tbody) return;
 
@@ -145,8 +146,8 @@ var TableComponent = (function() {
         + '</td>'
         + mkMetric(p.diasAsoc || '—')
         + mkMetric(p.empleados)
-        + mkMetric(p.costeDirecto)
-        + mkMetric(p.activaciones ? p.activaciones.toLocaleString('es-ES') : '—')
+        + mkMetric(_f<0.99 ? fmtEurScaled(p.costeDirecto,_f) : p.costeDirecto)
+        + mkMetric(p.activaciones ? Math.round(p.activaciones*_f).toLocaleString('es-ES') : '—')
         + '<td class="py-3 px-4 text-right">'
         + '<a href="' + p.detalle + '" style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:500;background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe;padding:5px 12px;border-radius:8px;white-space:nowrap;text-decoration:none;" onclick="event.stopPropagation()">Ver detalle ' + ARROW + '</a>'
         + '</td>'
@@ -285,13 +286,12 @@ function initPatronesPage() {
   }
 
   // ── Modal: desglose del coste ────────────────────────────────
+  var desgloseCharted = false;
   (function() {
     var btn   = document.getElementById("btn-desglose-costes");
     var modal = document.getElementById("modal-desglose");
     var close = document.getElementById("modal-close");
     if (!btn || !modal) return;
-
-    var charted = false;
 
     function parseCost(str) {
       return parseInt((str || "").replace(/[^\d]/g, ""), 10) || 0;
@@ -309,8 +309,9 @@ function initPatronesPage() {
       var totalH = topPad + sorted.length * rowH + 10;
 
       var rows = sorted.map(function(p, i) {
-        var cost  = parseCost(p.costeDirecto);
-        var bw    = Math.max(4, Math.round((cost / maxCost) * B * 0.96));
+        var rawCost = parseCost(p.costeDirecto);
+        var cost  = rawCost;
+        var bw    = Math.max(4, Math.round((rawCost / maxCost) * B * 0.96));
         var y     = topPad + i * rowH;
         var cy    = y + rowH / 2;
         var color = COLORS[p.criticidad] || "#3b82f6";
@@ -321,7 +322,7 @@ function initPatronesPage() {
           + ' font-size="11.5" fill="#64748b" font-family="Inter,system-ui,sans-serif">' + label + '</text>'
           + '<rect x="' + L + '" y="' + (y + 8) + '" width="' + bw + '" height="' + (rowH - 16) + '" rx="2" fill="' + color + '"/>'
           + '<text x="' + (L + bw + 8) + '" y="' + cy + '" dominant-baseline="middle"'
-          + ' font-size="11" font-weight="600" fill="#0f172a" font-family="Inter,system-ui,sans-serif">' + p.costeDirecto + '</text>';
+          + ' font-size="11" font-weight="600" fill="#0f172a" font-family="Inter,system-ui,sans-serif">' + fmtEurScaled(p.costeDirecto, activePeriodoFactor||1.0) + '</text>';
       }).join("");
 
       var axisLine = '<line x1="' + L + '" y1="' + topPad + '" x2="' + L + '" y2="' + (totalH - 10) + '" stroke="#e2e8f0" stroke-width="1"/>';
@@ -332,7 +333,7 @@ function initPatronesPage() {
     function openModal() {
       modal.classList.remove("hidden");
       document.body.style.overflow = "hidden";
-      if (!charted) { charted = true; buildChart(); }
+      if (!desgloseCharted) { desgloseCharted = true; buildChart(); }
     }
 
     function closeModal() {
@@ -354,6 +355,11 @@ function initPatronesPage() {
 // ══════════════════════════════════════════════════════════════
 
 var activePeriodoMeses = 12;
+var activePeriodoFactor = 1.0;
+function fmtEurScaled(s, f) {
+  var n = parseInt(s.replace(/[^\d]/g,""),10)||0;
+  return Math.round(n*f).toString().replace(/\B(?=(\d{3})+(?!\d))/g,".")+" €";
+}
 
   // ── Selector de periodo ───────────────────────────────────
   var PERIODO_DATA = {
@@ -362,7 +368,9 @@ var activePeriodoMeses = 12;
     6:  { detectados: 14, critico: 1, alto: 1, medio: 3, bajo: 9,  mayorCoste: "748.320 €",   total: "3.890.450 €", sub: "14 patrones \xb7 \xfaltimos 6 meses",    prom: "Prom. 278K€ por patr\xf3n" },
     3:  { detectados:  9, critico: 1, alto: 1, medio: 2, bajo: 5,  mayorCoste: "402.000 €",   total: "2.072.130 €", sub: "9 patrones \xb7 \xfaltimo trimestre",     prom: "Prom. 230K€ por patr\xf3n" }
   };
+  var FACTOR_BY_MESES = { 0: 1.0, 12: 1.0, 6: 0.54, 3: 0.27 };
   function applyPeriodoPatrones(meses) {
+    activePeriodoFactor = FACTOR_BY_MESES[meses] !== undefined ? FACTOR_BY_MESES[meses] : 1.0;
     var d = PERIODO_DATA[meses] || PERIODO_DATA[12];
     var el;
     el = document.getElementById("kpi-detectados-count"); if (el) el.textContent = d.detectados;
@@ -376,6 +384,8 @@ var activePeriodoMeses = 12;
     el = document.getElementById("kpi-impacto-total");    if (el) el.textContent = d.total;
     el = document.getElementById("kpi-impacto-sub");      if (el) el.textContent = d.sub;
     el = document.getElementById("kpi-impacto-prom");     if (el) el.textContent = d.prom;
+    TableComponent.render(FiltersComponent.getActive());
+    desgloseCharted = false;
   }
   var periodoSelPat = document.getElementById("periodo-selector");
   if (periodoSelPat) {
@@ -919,13 +929,13 @@ function initPatDetailPage() {
         tip: "Se replicó en 4 de los últimos 6 meses analizados con resultados consistentes."
       }
     ];
-    kpiStrip.innerHTML = kpiDefs.map(function(k) {
+    kpiStrip.innerHTML = kpiDefs.map(function(k, ki) {
       return '<div class="pat-kpi-cell">'
         + '<div style="width:28px;height:28px;border-radius:8px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;margin-bottom:10px;">'
         + '<svg style="width:13px;height:13px;color:#64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24">' + k.icon + '</svg>'
         + '</div>'
         + '<div class="flex items-center gap-1.5">'
-        + '<span class="text-2xl font-bold tabular-nums leading-none ' + k.valCls + '">' + k.val + '</span>'
+        + '<span id="pkv-' + ki + '" class="text-2xl font-bold tabular-nums leading-none ' + k.valCls + '">' + k.val + '</span>'
         + KPI_TIP(k.tip)
         + '</div>'
         + '<p class="text-[10px] font-semibold text-surface-400 uppercase tracking-wider leading-tight mt-0.5">' + k.lbl + '</p>'
@@ -1209,7 +1219,23 @@ function initPatDetailPage() {
       });
       renderCostHistoryCard(meses);
       renderCentersStock(meses);
+      updatePatKpis(meses);
     });
+  }
+
+  var PAT_KPI_PERIODOS = {
+    0:  { tasa: "84,7%", apariciones: 255, personas: 85, coste: "1.215.660 €" },
+    12: { tasa: "84,7%", apariciones: 255, personas: 85, coste: "1.215.660 €" },
+    6:  { tasa: "82,3%", apariciones: 143, personas: 58, coste: "642.810 €"   },
+    3:  { tasa: "79,1%", apariciones:  67, personas: 31, coste: "298.440 €"   }
+  };
+  function updatePatKpis(meses) {
+    var k = PAT_KPI_PERIODOS[meses] || PAT_KPI_PERIODOS[12];
+    var el;
+    el = document.getElementById("pkv-0"); if (el) el.textContent = k.tasa;
+    el = document.getElementById("pkv-1"); if (el) el.textContent = k.apariciones;
+    el = document.getElementById("pkv-2"); if (el) el.textContent = k.personas;
+    el = document.getElementById("pkv-3"); if (el) el.textContent = k.coste;
   }
 
   var sendBtn  = document.getElementById("consultor-send");
