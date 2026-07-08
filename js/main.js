@@ -32,11 +32,12 @@ var TableComponent = (function() {
     centro:   "Por centro"
   };
 
-  var TOTAL_COST = PATRONES_DATA.patrones.reduce(function(s, p) {
+  var _pd = (typeof PATRONES_DATA !== "undefined") ? PATRONES_DATA.patrones : [];
+  var TOTAL_COST = _pd.reduce(function(s, p) {
     return s + (parseInt((p.costeDirecto || "").replace(/[^\d]/g, ""), 10) || 0);
   }, 0);
 
-  var TOTAL_DIAS = PATRONES_DATA.patrones.reduce(function(s, p) {
+  var TOTAL_DIAS = _pd.reduce(function(s, p) {
     return s + (parseInt((p.diasAsoc || "").replace(/[^\d]/g, ""), 10) || 0);
   }, 0);
 
@@ -1309,7 +1310,7 @@ function initPatDetailPage() {
   })();
 
   // ── Modal: todas las personas ─────────────────────────────────
-  function openPersonasModal() {
+  window.openPersonasModal = function() {
     var modal = document.getElementById("modal-personas");
     var body  = document.getElementById("modal-personas-body");
     var sub   = document.getElementById("modal-personas-subtitle");
