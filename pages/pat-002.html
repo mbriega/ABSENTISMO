@@ -285,6 +285,7 @@
               <p class="text-[10px] font-medium text-surface-400 uppercase tracking-wider">Centros donde aparece más</p>
               <p class="text-xs text-surface-500 mt-0.5">Coste estimado y tendencia por período seleccionado</p>
             </div>
+            <button id="btn-ver-todos-centros" style="font-size:11px;font-weight:600;color:#2563eb;background:#eff6ff;border:1px solid #bfdbfe;padding:5px 12px;border-radius:8px;cursor:pointer;white-space:nowrap;flex-shrink:0;">Ver todos →</button>
           </div>
           <div id="pat-centers-section"></div>
         </div>
@@ -343,7 +344,10 @@
                   <p id="personas-subtitle" class="text-xs text-surface-400"></p>
                 </div>
               </div>
-              <svg class="disc-chev w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+                <button id="btn-ver-todo-personas" onclick="event.stopPropagation();openPersonasModal();" style="font-size:11px;font-weight:600;color:#2563eb;background:#eff6ff;border:1px solid #bfdbfe;padding:4px 11px;border-radius:8px;cursor:pointer;white-space:nowrap;">Ver todo →</button>
+                <svg class="disc-chev w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </div>
             </summary>
             <div class="disc-body-inner" style="padding:0;overflow-x:auto;">
               <div id="personas-table-container"></div>
@@ -417,5 +421,38 @@
   <script src="../js/components/sidebar.js"></script>
   <script src="../js/components/charts.js"></script>
   <script src="../js/main.js"></script>
+
+  <!-- Modal: todos los centros -->
+  <div id="modal-centros" class="hidden" style="position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;background:rgba(15,23,42,0.4);backdrop-filter:blur(2px);">
+    <div style="background:white;border-radius:16px;width:min(580px,90vw);max-height:80vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.18);">
+      <div style="padding:20px 24px;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+        <div>
+          <p style="font-size:14px;font-weight:700;color:#0f172a;margin:0;">Centros donde aparece más</p>
+          <p style="font-size:11px;color:#94a3b8;margin:4px 0 0;">Distribución de coste y tendencia por centro</p>
+        </div>
+        <button id="modal-centros-close" style="width:32px;height:32px;border-radius:8px;border:none;background:#f1f5f9;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+          <svg style="width:14px;height:14px;color:#64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div id="modal-centros-body" style="overflow-y:auto;padding:20px 24px;"></div>
+    </div>
+  </div>
+
+  <!-- Modal: todas las personas -->
+  <div id="modal-personas" class="hidden" style="position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;background:rgba(15,23,42,0.4);backdrop-filter:blur(2px);">
+    <div style="background:white;border-radius:16px;width:min(960px,96vw);max-height:88vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.18);">
+      <div style="padding:20px 24px;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+        <div>
+          <p style="font-size:14px;font-weight:700;color:#0f172a;margin:0;">Personas afectadas</p>
+          <p id="modal-personas-subtitle" style="font-size:11px;color:#94a3b8;margin:4px 0 0;"></p>
+        </div>
+        <button id="modal-personas-close" style="width:32px;height:32px;border-radius:8px;border:none;background:#f1f5f9;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+          <svg style="width:14px;height:14px;color:#64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div id="modal-personas-body" style="overflow:auto;padding:0;"></div>
+    </div>
+  </div>
+
 </body>
 </html>

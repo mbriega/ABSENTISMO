@@ -1253,6 +1253,155 @@ function initPatDetailPage() {
 // HELPERS
 // ══════════════════════════════════════════════════════════════
 
+  // ── Modal: todos los centros ──────────────────────────────────
+  (function() {
+    var btn   = document.getElementById("btn-ver-todos-centros");
+    var modal = document.getElementById("modal-centros");
+    var close = document.getElementById("modal-close");  // unused here
+    var mClose = document.getElementById("modal-centros-close");
+    if (!btn || !modal) return;
+
+    function openCentrosModal() {
+      var body = document.getElementById("modal-centros-body");
+      if (body) {
+        var data = getCostDataForPeriodo(activePeriodoMeses);
+        var totalK = data.valores.reduce(function(s, v) { return s + v; }, 0);
+        body.innerHTML = PAT002_DATA.centrosDistribucion.map(function(c) {
+          var costeEur = Math.round(totalK * c.pct / 100) * 1000;
+          var costeFmt = costeEur >= 1000000
+            ? (costeEur / 1000000).toFixed(2).replace('.', ',') + ' M€'
+            : costeEur.toLocaleString('es-ES') + ' €';
+          var isSubida = c.tendencia === 'subida';
+          var isBajada = c.tendencia === 'bajada';
+          var clr  = isSubida ? '#ef4444' : (isBajada ? '#16a34a' : '#64748b');
+          var bg   = isSubida ? '#fef2f2' : (isBajada ? '#f0fdf4' : '#f8fafc');
+          var bdr  = isSubida ? '#fecaca' : (isBajada ? '#bbf7d0' : '#e2e8f0');
+          var icon = isSubida ? '↑' : (isBajada ? '↓' : '→');
+          return '<div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid #f1f5f9;">'
+            + '<div style="flex:1;min-width:0;">'
+            + '<p style="font-size:13px;font-weight:600;color:#0f172a;margin:0 0 6px;">' + c.nombre + '</p>'
+            + '<div style="height:6px;background:#f1f5f9;border-radius:999px;overflow:hidden;">'
+            + '<div style="height:100%;border-radius:999px;background:' + clr + ';width:' + c.pct + '%;transition:width .3s;"></div>'
+            + '</div>'
+            + '</div>'
+            + '<div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">'
+            + '<span style="font-size:20px;font-weight:800;color:#0f172a;tabular-nums;">' + costeFmt + '</span>'
+            + '<span style="font-size:12px;font-weight:600;padding:4px 10px;border-radius:8px;color:' + clr + ';background:' + bg + ';border:1px solid ' + bdr + ';">' + icon + ' ' + c.variacion + '</span>'
+            + '</div>'
+            + '</div>';
+        }).join('');
+      }
+      modal.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeCentrosModal() {
+      modal.classList.add("hidden");
+      document.body.style.overflow = "";
+    }
+
+    btn.addEventListener("click", openCentrosModal);
+    if (mClose) mClose.addEventListener("click", closeCentrosModal);
+    modal.addEventListener("click", function(e) { if (e.target === modal) closeCentrosModal(); });
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape" && !modal.classList.contains("hidden")) closeCentrosModal();
+    });
+  })();
+
+  // ── Modal: todas las personas ─────────────────────────────────
+  function openPersonasModal() {
+    var modal = document.getElementById("modal-personas");
+    var body  = document.getElementById("modal-personas-body");
+    var sub   = document.getElementById("modal-personas-subtitle");
+    if (!modal || !body || !PAT002_DATA.personasListado) return;
+
+    if (sub) sub.textContent = PAT002_DATA.personasListado.length + " empleados \xb7 clic en columna para ordenar";
+
+    var PCOLS = [
+      { key: "id",         label: "Empleado",  align: "left"  },
+      { key: "centro",     label: "Centro",    align: "left"  },
+      { key: "turno",      label: "Turno",     align: "left"  },
+      { key: "categoria",  label: "Categor\xeda", align: "left"  },
+      { key: "edad",       label: "Edad",      align: "right" },
+      { key: "antiguedad", label: "Antig.",    align: "right" },
+      { key: "episodios",  label: "Episodios", align: "right" },
+      { key: "diasBaja",   label: "D\xedas baja", align: "right" },
+      { key: "riesgo",     label: "Riesgo",    align: "right" }
+    ];
+    var PRIESGO_ORD  = { critico: 3, alto: 2, medio: 1, bajo: 0 };
+    var PRIESGO_BDGE = {
+      critico: "background:#fef2f2;color:#dc2626;border:1px solid #fecaca;",
+      alto:    "background:#fff7ed;color:#ea580c;border:1px solid #fed7aa;",
+      medio:   "background:#fefce8;color:#ca8a04;border:1px solid #fef08a;",
+      bajo:    "background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe;"
+    };
+    var mSortKey = "diasBaja";
+    var mSortDir = -1;
+
+    function renderModalTable() {
+      var data = PAT002_DATA.personasListado.slice().sort(function(a, b) {
+        var va = a[mSortKey], vb = b[mSortKey];
+        if (mSortKey === "riesgo") { va = PRIESGO_ORD[va]||0; vb = PRIESGO_ORD[vb]||0; }
+        if (typeof va === "string") va = va.toLowerCase();
+        if (typeof vb === "string") vb = vb.toLowerCase();
+        return va < vb ? -mSortDir : va > vb ? mSortDir : 0;
+      });
+      var thead = "<thead><tr>"
+        + PCOLS.map(function(col) {
+            var active = col.key === mSortKey;
+            var arrow  = active ? (mSortDir === 1 ? "▲" : "▼") : "↕";
+            return '<th data-col="' + col.key + '" style="text-align:' + col.align + ';'
+              + (active ? "color:#2563eb;" : "") + '">'
+              + col.label + ' <span style="font-size:10px;color:#94a3b8;margin-left:2px;">' + arrow + '</span></th>';
+          }).join("") + "</tr></thead>";
+      var tbody = "<tbody>"
+        + data.map(function(p) {
+            var bdg = PRIESGO_BDGE[p.riesgo] || PRIESGO_BDGE.bajo;
+            var lbl = p.riesgo.charAt(0).toUpperCase() + p.riesgo.slice(1);
+            return "<tr>"
+              + "<td>Empleado " + p.id + "</td>"
+              + "<td>" + p.centro + "</td>"
+              + "<td>" + p.turno + "</td>"
+              + "<td>" + p.categoria + "</td>"
+              + '<td style="text-align:right;">' + p.edad + "</td>"
+              + '<td style="text-align:right;">' + p.antiguedad + "</td>"
+              + '<td style="text-align:right;">' + p.episodios + "</td>"
+              + '<td style="text-align:right;font-weight:700;color:#0f172a;">' + p.diasBaja + "</td>"
+              + '<td style="text-align:right;"><span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:6px;' + bdg + '">' + lbl + "</span></td>"
+              + "</tr>";
+          }).join("") + "</tbody>";
+      body.innerHTML = '<table class="personas-table" style="width:100%;">' + thead + tbody + "</table>";
+      body.querySelector("thead").addEventListener("click", function(e) {
+        var th = e.target.closest("th[data-col]");
+        if (!th) return;
+        var col = th.getAttribute("data-col");
+        mSortDir = col === mSortKey ? -mSortDir : (["diasBaja","episodios","edad","antiguedad","riesgo"].indexOf(col) >= 0 ? -1 : 1);
+        mSortKey = col;
+        renderModalTable();
+      });
+    }
+
+    renderModalTable();
+    modal.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+
+    var mClose = document.getElementById("modal-personas-close");
+    if (mClose) mClose.onclick = function() {
+      modal.classList.add("hidden");
+      document.body.style.overflow = "";
+    };
+    modal.onclick = function(e) {
+      if (e.target === modal) { modal.classList.add("hidden"); document.body.style.overflow = ""; }
+    };
+  }
+  document.addEventListener("keydown", function(e) {
+    var m = document.getElementById("modal-personas");
+    if (e.key === "Escape" && m && !m.classList.contains("hidden")) {
+      m.classList.add("hidden"); document.body.style.overflow = "";
+    }
+  });
+
+
 function setText(id, value) {
   var el = document.getElementById(id);
   if (el) el.textContent = value;
