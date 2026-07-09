@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Plan de Acci&#243;n &middot; Retorno seguro tras ausencia</title>
+  <link rel="stylesheet" href="../css/styles.css"/>
+  <style>
+
+    *{box-sizing:border-box;}
+    /* layout */
+    .pd-content{max-width:1540px;margin:0 auto;padding:20px 28px 48px;}
+    .pd-back{margin-bottom:14px;display:flex;align-items:center;gap:6px;color:#64748b;font-size:13px;font-weight:600;text-decoration:none;}
+    .pd-back:hover{color:#2563eb;}
+    /* header card */
+    .pd-header{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:22px 24px 0;margin-bottom:16px;overflow:hidden;}
+    .pd-eyebrow{display:inline-flex;align-items:center;height:26px;padding:0 10px;background:#f0fdf4;color:#047857;border:1px solid #bbf7d0;border-radius:6px;font-size:12px;font-weight:700;margin-bottom:10px;}
+    .pd-title{font-size:30px;font-weight:800;color:#0f172a;margin:0 0 6px;letter-spacing:-.04em;line-height:1.1;}
+    .pd-meta{margin-top:8px;color:#64748b;font-size:12.5px;font-weight:600;display:flex;gap:10px;flex-wrap:wrap;}
+    .pd-pills{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+    .pd-pill{display:inline-flex;align-items:center;border-radius:999px;padding:0 12px;height:30px;font-size:11.5px;font-weight:700;border:1px solid #e2e8f0;background:#fff;white-space:nowrap;}
+    .pd-pill.green{background:#f0fdf4;color:#047857;border-color:#bbf7d0;}
+    .pd-pill.blue{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe;}
+    .pd-pill.amber{background:#fffbeb;color:#b45309;border-color:#fed7aa;}
+    .pd-title-row{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;padding-bottom:18px;}
+    /* metric strip */
+    .pd-metrics{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid #e2e8f0;margin:0 -24px;}
+    .pd-metric{padding:18px 20px;border-right:1px solid #e2e8f0;min-height:100px;}
+    .pd-metric:last-child{border-right:none;}
+    .pd-metric strong{display:block;font-size:22px;font-weight:800;letter-spacing:-.04em;margin-bottom:6px;color:#0f172a;}
+    .pd-metric strong.red{color:#dc2626;} .pd-metric strong.green{color:#059669;} .pd-metric strong.blue{color:#1d4ed8;} .pd-metric strong.purple{color:#7c3aed;}
+    .pd-metric label{display:block;font-size:12px;font-weight:700;color:#0f172a;margin-bottom:4px;}
+    .pd-metric span{display:block;color:#64748b;font-size:11.5px;line-height:1.38;font-weight:500;}
+    /* layout */
+    .pd-layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:16px;align-items:start;}
+    .pd-stack{display:grid;gap:16px;}
+    .pd-side{display:grid;gap:16px;position:sticky;top:70px;}
+    /* card */
+    .pd-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);overflow:hidden;}
+    .pd-card-head{padding:16px 20px;border-bottom:1px solid #f1f5f9;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;background:#fff;}
+    .pd-card-head h2{margin:0 0 4px;font-size:16px;font-weight:800;color:#0f172a;letter-spacing:-.02em;}
+    .pd-card-head p{margin:0;font-size:12px;color:#64748b;font-weight:500;}
+    .pd-card-body{padding:18px;background:#f8fafc;}
+    .pd-status{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:999px;font-size:10.5px;font-weight:700;white-space:nowrap;flex-shrink:0;}
+    .pd-status.green{background:#f0fdf4;color:#059669;border:1px solid #bbf7d0;}
+    .pd-status.blue{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
+    .pd-status.amber{background:#fffbeb;color:#b45309;border:1px solid #fed7aa;}
+    .pd-status.purple{background:#f5f3ff;color:#7c3aed;border:1px solid #ddd6fe;}
+    /* objective hero */
+    .obj-hero{display:grid;grid-template-columns:1fr 300px;gap:14px;align-items:stretch;}
+    .obj-main{background:linear-gradient(180deg,#fff,#f0fdf4);border:1px solid #bbf7d0;border-radius:12px;padding:18px;}
+    .obj-kicker{display:inline-flex;height:24px;align-items:center;padding:0 10px;background:#f0fdf4;color:#047857;border:1px solid #bbf7d0;border-radius:999px;font-size:11px;font-weight:700;margin-bottom:9px;}
+    .obj-main h2{font-size:22px;font-weight:800;color:#0f172a;letter-spacing:-.03em;margin:0 0 9px;line-height:1.2;}
+    .obj-main p{font-size:13px;font-weight:500;color:#334155;line-height:1.55;margin:0;}
+    .obj-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px;}
+    .obj-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:11px;min-height:110px;}
+    .obj-card small{display:block;color:#94a3b8;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
+    .obj-card b{display:block;font-size:12px;font-weight:700;color:#0f172a;margin-bottom:4px;line-height:1.25;}
+    .obj-card span{display:block;color:#64748b;font-size:11px;line-height:1.35;font-weight:500;}
+    .obj-side{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px;display:flex;flex-direction:column;justify-content:center;}
+    .obj-side h2{font-size:16px;font-weight:800;color:#0f172a;margin:0 0 8px;}
+    .obj-side p{font-size:12.5px;color:#64748b;line-height:1.5;font-weight:500;margin:0;}
+    .obj-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;}
+    .obj-actions button{height:34px;border-radius:8px;border:1px solid #e2e8f0;background:#fff;color:#334155;font-size:12px;font-weight:700;cursor:pointer;}
+    .obj-actions button.primary{background:#059669;color:#fff;border-color:#059669;}
+    /* flow steps */
+    .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;}
+    .flow-step{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:11px;min-height:70px;}
+    .flow-step.active{background:#fbfffd;border-color:#bbf7d0;box-shadow:inset 0 3px 0 #059669;}
+    .flow-step b{display:block;font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:4px;}
+    .flow-step span{display:block;color:#64748b;font-size:11.5px;line-height:1.35;font-weight:500;}
+    /* chat */
+    .chat-wrap{background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;}
+    .chat-top{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:#fff;border-bottom:1px solid #e2e8f0;}
+    .chat-person{display:flex;align-items:center;gap:10px;}
+    .bot-avatar{width:32px;height:32px;border-radius:50%;background:#f5f3ff;color:#7c3aed;border:1px solid #ddd6fe;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+    .chat-person strong{display:block;font-size:13px;font-weight:700;color:#0f172a;}
+    .chat-person span{display:block;color:#94a3b8;font-size:11px;font-weight:500;}
+    .chat-body{padding:16px;display:grid;gap:11px;background:linear-gradient(180deg,#fbfcff,#f8fafc);}
+    .bubble{max-width:78%;border-radius:14px;padding:11px 13px;font-size:13px;line-height:1.45;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+    .bubble.bot{background:#fff;border:1px solid #e2e8f0;color:#334155;border-top-left-radius:5px;}
+    .bubble.user{margin-left:auto;background:#dcfce7;border:1px solid #bbf7d0;color:#064e3b;border-top-right-radius:5px;}
+    .quick{display:flex;gap:7px;flex-wrap:wrap;margin-top:-3px;}
+    .quick button{height:28px;border-radius:999px;border:1px solid #e2e8f0;background:#fff;color:#334155;padding:0 11px;font-size:11.5px;font-weight:600;cursor:pointer;}
+    .quick .selected{border-color:#bbf7d0;background:#f0fdf4;color:#047857;}
+    .upload-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+    .upload{background:#fff;border:1px dashed #cbd5e1;border-radius:10px;padding:11px;display:flex;align-items:center;gap:9px;color:#64748b;font-size:12px;font-weight:600;}
+    .file-chip{height:26px;display:inline-flex;align-items:center;border-radius:999px;border:1px solid #bfdbfe;background:#eff6ff;color:#1d4ed8;padding:0 9px;font-size:11px;font-weight:700;}
+    .chat-footer{height:52px;background:#fff;border-top:1px solid #e2e8f0;padding:8px;display:grid;grid-template-columns:36px 1fr 38px;gap:8px;align-items:center;}
+    .chat-footer input{height:36px;border:1px solid #e2e8f0;border-radius:10px;padding:0 12px;color:#334155;font-size:12.5px;font-weight:500;}
+    .chat-footer .attach-btn{height:36px;border:none;border-radius:10px;background:#f1f5f9;color:#64748b;font-size:16px;cursor:pointer;}
+    .chat-footer .send-btn{height:36px;border:none;border-radius:10px;background:#7c3aed;color:#fff;font-weight:700;cursor:pointer;}
+    /* thinking */
+    .thinking{display:grid;grid-template-columns:1fr 260px;gap:12px;}
+    .thinking-main{border:1px solid #ddd6fe;background:linear-gradient(180deg,#fff,#faf5ff);border-radius:12px;padding:17px;}
+    .thinking-main h2{font-size:18px;font-weight:800;color:#0f172a;margin:0 0 6px;letter-spacing:-.025em;}
+    .thinking-main p{font-size:13px;color:#64748b;font-weight:500;margin:0;}
+    .think-list{display:grid;gap:8px;margin-top:12px;}
+    .think-row{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #f1f5f9;border-radius:9px;padding:9px 11px;color:#64748b;font-size:12px;font-weight:600;}
+    .chk{width:18px;height:18px;border-radius:50%;background:#f0fdf4;border:1px solid #bbf7d0;color:#047857;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;}
+    .agent-panel{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px;display:grid;gap:7px;}
+    .agent-item{display:flex;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid #f8fafc;padding-bottom:7px;}
+    .agent-item:last-child{border-bottom:none;padding-bottom:0;}
+    .agent-item b{font-size:12px;font-weight:700;color:#0f172a;}
+    .agent-item span{font-size:11px;font-weight:700;}
+    .agent-item span.ok{color:#059669;} .agent-item span.cond{color:#b45309;}
+    /* result hero */
+    .result-hero{display:grid;grid-template-columns:1fr 300px;gap:14px;}
+    .recommendation{border:1px solid #bbf7d0;border-radius:12px;background:linear-gradient(180deg,#fff,#f0fdf4);padding:18px;}
+    .rec-kicker{display:inline-flex;height:24px;align-items:center;padding:0 10px;background:#f0fdf4;color:#047857;border:1px solid #bbf7d0;border-radius:999px;font-size:11px;font-weight:700;margin-bottom:8px;}
+    .recommendation h2{font-size:22px;font-weight:800;color:#0f172a;letter-spacing:-.03em;margin:0 0 9px;}
+    .recommendation p{font-size:13px;font-weight:500;color:#334155;line-height:1.5;margin:0;}
+    .decision-box{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px;}
+    .decision-box h2{font-size:16px;font-weight:800;color:#0f172a;margin:0 0 8px;}
+    .decision-box p{font-size:12.5px;color:#64748b;font-weight:500;margin:0;}
+    .approve-btn{height:40px;width:100%;border:none;border-radius:8px;background:#059669;color:#fff;font-size:13px;font-weight:700;margin-top:12px;cursor:pointer;}
+    .secondary-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;}
+    .secondary-btns button{height:32px;border:1px solid #e2e8f0;background:#fff;color:#334155;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;}
+    /* plan explain */
+    .plan-explain{display:grid;grid-template-columns:1.05fr .95fr;gap:12px;}
+    .plan-explain-main{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px;}
+    .plan-explain-main h3{font-size:15px;font-weight:800;color:#0f172a;margin:0 0 8px;}
+    .plan-explain-main p{font-size:13px;color:#64748b;font-weight:500;line-height:1.5;margin:0;}
+    .explain-list{display:grid;gap:8px;margin-top:12px;}
+    .explain-row{background:#f8fafc;border:1px solid #f1f5f9;border-radius:9px;padding:10px;display:grid;grid-template-columns:110px 1fr;gap:10px;}
+    .explain-row b{font-size:12px;font-weight:700;color:#0f172a;}
+    .explain-row span{font-size:12px;color:#64748b;line-height:1.35;font-weight:500;}
+    .plan-explain-side{display:grid;gap:8px;}
+    .plan-factor{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px;}
+    .plan-factor strong{display:block;font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:5px;}
+    .plan-factor span{display:block;font-size:11.5px;color:#64748b;line-height:1.4;font-weight:500;}
+    /* plan grid */
+    .plan-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+    .action-card{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:13px;min-height:175px;}
+    .action-num{width:26px;height:26px;border-radius:50%;background:#f0fdf4;color:#047857;border:1px solid #bbf7d0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;margin-bottom:9px;}
+    .action-card strong{display:block;font-size:13px;font-weight:700;color:#0f172a;margin-bottom:5px;line-height:1.25;}
+    .action-card p{font-size:12px;color:#64748b;line-height:1.38;font-weight:500;margin:0;}
+    .action-card em{display:block;margin-top:9px;color:#94a3b8;font-size:11px;line-height:1.33;font-style:normal;font-weight:600;}
+    /* risk reduction */
+    .risk-reduction{display:grid;grid-template-columns:1.05fr .95fr;gap:12px;}
+    .risk-main{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px;}
+    .risk-main h3{font-size:15px;font-weight:800;color:#0f172a;margin:0 0 6px;}
+    .risk-main p{font-size:12.5px;color:#64748b;font-weight:500;margin:0;}
+    .risk-bars{display:grid;gap:12px;margin-top:14px;}
+    .bar-block small{display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:#0f172a;margin-bottom:6px;}
+    .bar{height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden;}
+    .bar-red span{display:block;height:100%;border-radius:999px;background:#ef4444;width:72%;}
+    .bar-green span{display:block;height:100%;border-radius:999px;background:#10b981;width:48%;}
+    .risk-explain{display:grid;gap:8px;}
+    .risk-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px;}
+    .risk-card strong{display:block;font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:4px;}
+    .risk-card span{display:block;font-size:11.5px;color:#64748b;line-height:1.35;font-weight:500;}
+    /* economic */
+    .economic{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;}
+    .econ{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px;min-height:96px;}
+    .econ small{display:block;color:#94a3b8;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;}
+    .econ b{display:block;font-size:20px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:7px;color:#0f172a;}
+    .econ b.red{color:#dc2626;} .econ b.green{color:#059669;} .econ b.blue{color:#1d4ed8;}
+    .econ span{display:block;color:#64748b;font-size:11.5px;line-height:1.35;font-weight:500;}
+    /* accordion */
+    .pd-accordion{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);overflow:hidden;}
+    .pd-accordion summary{cursor:pointer;list-style:none;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:14px;color:#0f172a;background:#fff;}
+    .pd-accordion summary::-webkit-details-marker{display:none;}
+    .pd-accordion[open] summary{border-bottom:1px solid #f1f5f9;}
+    .pd-acc-body{background:#f8fafc;padding:18px;}
+    /* agent deep */
+    .agent-deep-grid{display:grid;gap:12px;}
+    .agent-deep-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;}
+    .agent-deep-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:14px 16px;border-bottom:1px solid #e2e8f0;background:#fff;}
+    .agent-title-row{display:flex;gap:11px;align-items:center;}
+    .agent-icon{width:34px;height:34px;border-radius:50%;background:#f5f3ff;color:#7c3aed;border:1px solid #ddd6fe;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+    .agent-title-row strong{display:block;font-size:14px;font-weight:800;color:#0f172a;line-height:1.2;}
+    .agent-title-row span{display:block;color:#94a3b8;font-size:11.5px;font-weight:500;margin-top:2px;}
+    .agent-deep-body{padding:14px;background:#f8fafc;display:grid;grid-template-columns:1.05fr .95fr;gap:12px;}
+    .agent-section{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px;}
+    .agent-section h4{margin:0 0 7px;color:#0f172a;font-size:11.5px;text-transform:uppercase;letter-spacing:.055em;font-weight:700;}
+    .agent-section p{font-size:12px;color:#64748b;line-height:1.43;font-weight:500;margin:0;}
+    .agent-section ul{margin:7px 0 0;padding-left:16px;color:#64748b;font-size:12px;line-height:1.43;font-weight:500;}
+    .agent-section li{margin:3px 0;}
+    .agent-discuss{background:#fff;border:1px solid #ddd6fe;border-radius:10px;padding:12px;}
+    .agent-discuss h4{margin:0 0 8px;color:#0f172a;font-size:11.5px;text-transform:uppercase;letter-spacing:.055em;font-weight:700;}
+    .disc-bubble{background:#f8fafc;border:1px solid #f1f5f9;border-radius:9px;padding:9px;color:#64748b;font-size:12px;line-height:1.38;font-weight:500;margin-bottom:8px;}
+    .disc-bubble.user{background:#f0fdf4;border-color:#bbf7d0;color:#065f46;}
+    .disc-actions{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+    .disc-actions button{height:27px;border-radius:999px;border:1px solid #ddd6fe;background:#f5f3ff;color:#7c3aed;padding:0 9px;font-size:11px;font-weight:700;cursor:pointer;}
+    .disc-input{display:grid;grid-template-columns:1fr 34px;gap:7px;margin-top:8px;}
+    .disc-input input{height:34px;border:1px solid #e2e8f0;border-radius:7px;padding:0 10px;font-size:12px;font-weight:500;}
+    .disc-input button{height:34px;border:none;border-radius:7px;background:#7c3aed;color:#fff;font-weight:700;cursor:pointer;}
+    .restructure-box{background:linear-gradient(180deg,#fff,#f0fdf4);border:1px solid #bbf7d0;border-radius:12px;padding:14px;margin-top:12px;}
+    .restructure-box h3{font-size:15px;font-weight:800;color:#0f172a;margin:0 0 7px;}
+    .restructure-box p{font-size:12.5px;color:#64748b;font-weight:500;margin:0;}
+    .restructure-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;}
+    .restructure-card{background:#fff;border:1px solid #e2e8f0;border-radius:9px;padding:10px;}
+    .restructure-card small{display:block;color:#94a3b8;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
+    .restructure-card b{display:block;font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:3px;}
+    .restructure-card span{display:block;color:#64748b;font-size:11.5px;line-height:1.35;font-weight:500;}
+    /* side cards */
+    .side-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);overflow:hidden;}
+    .side-head{padding:13px 16px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;background:#fff;}
+    .side-head h2{margin:0;font-size:14px;font-weight:800;color:#0f172a;}
+    .side-body{padding:14px;display:grid;gap:10px;background:#f8fafc;}
+    .side-chat-item{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:11px;}
+    .side-chat-item small{display:block;color:#94a3b8;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
+    .side-chat-item p{font-size:12px;color:#334155;line-height:1.45;font-weight:500;margin:0;}
+    .mini-input{display:grid;grid-template-columns:1fr 34px;gap:7px;}
+    .mini-input input{height:34px;border:1px solid #e2e8f0;border-radius:7px;padding:0 10px;font-size:12px;font-weight:500;}
+    .mini-input button{height:34px;border:none;border-radius:7px;background:#7c3aed;color:#fff;font-weight:700;cursor:pointer;}
+    .wire{border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;background:#fff;}
+    .wire-row{display:grid;grid-template-columns:100px 1fr;border-bottom:1px solid #f1f5f9;}
+    .wire-row:last-child{border-bottom:none;}
+    .wire-row b{padding:10px 12px;background:#f8fafc;font-size:12px;font-weight:700;color:#0f172a;}
+    .wire-row span{padding:10px 12px;color:#64748b;font-size:12px;line-height:1.42;font-weight:500;}
+
+  </style>
+</head>
+<body data-page="planes-accion" class="bg-surface-50 text-surface-900 antialiased">
+  <div id="sidebar-mount"></div>
+  <div style="margin-left:260px;min-height:100vh;background:#f8fafc;max-width:calc(100vw - 260px);overflow-x:hidden;">
+
+    <!-- HEADER -->
+    <div style="background:#fff;border-bottom:1px solid #e2e8f0;padding:13px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;">
+      <div>
+        <h1 style="font-size:15px;font-weight:700;color:#0f172a;margin:0;">Plan de Acci&#243;n</h1>
+        <p style="font-size:11px;color:#94a3b8;margin:2px 0 0;">Retorno seguro tras ausencia</p>
+      </div>
+      <div style="width:34px;height:34px;border-radius:50%;background:#0f172a;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;">AD</div>
+    </div>
+
+    <section class="pd-content">
+      <a href="planes-accion.html" class="pd-back">
+        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        Volver a Planes de Acci&#243;n
+      </a>
+
+      <!-- HEADER CARD -->
+      <section class="pd-header">
+        <div class="pd-title-row">
+          <div>
+            <div class="pd-eyebrow">PLAN DE ACCI&#211;N</div>
+            <h1 class="pd-title">Retorno seguro tras ausencia</h1>
+            <div class="pd-meta">
+              <span>Predicci&#243;n #001 &middot; Plataforma Centro</span>
+              <span>&middot;</span>
+              <span>Ventana: pr&#243;ximos 14 d&#237;as</span>
+              <span>&middot;</span>
+              <span>Estado: plan listo para validar</span>
+            </div>
+          </div>
+          <div class="pd-pills">
+            <span class="pd-pill green">Plan co-creado</span>
+            <span class="pd-pill blue">Agentes disponibles</span>
+            <span class="pd-pill amber">Pendiente de aprobaci&#243;n</span>
+          </div>
+        </div>
+        <div class="pd-metrics">
+          <article class="pd-metric"><strong class="blue">72%</strong><label>Riesgo inicial</label><span>Probabilidad de incremento de ausencias si no se act&#250;a.</span></article>
+          <article class="pd-metric"><strong>94</strong><label>Criticidad</label><span>Por impacto econ&#243;mico, operativo y recurrencia.</span></article>
+          <article class="pd-metric"><strong class="red">18K&ndash;24K&#8364;</strong><label>Coste esperado</label><span>Escenario prudente de no actuaci&#243;n.</span></article>
+          <article class="pd-metric"><strong class="green">12K&ndash;15K&#8364;</strong><label>Ahorro objetivo</label><span>Estimaci&#243;n inicial del plan recomendado.</span></article>
+          <article class="pd-metric"><strong class="purple">92%</strong><label>Confianza</label><span>Tras contexto RRHH y validaci&#243;n de agentes.</span></article>
+        </div>
+      </section>
+
+      <!-- LAYOUT -->
+      <div class="pd-layout">
+        <div class="pd-stack">
+
+          <!-- OBJETIVOS -->
+          <section class="pd-card">
+            <div class="pd-card-head">
+              <div><h2>Objetivos del plan</h2><p>Antes de generar el plan, confirma que estos son los objetivos correctos.</p></div>
+              <span class="pd-status green">Objetivos del plan</span>
+            </div>
+            <div class="pd-card-body">
+              <div class="obj-hero">
+                <article class="obj-main">
+                  <div class="obj-kicker">En qu&#233; consiste</div>
+                  <h2>Un plan para reducir reca&#237;das y proteger la operaci&#243;n durante los primeros 14 d&#237;as de vuelta</h2>
+                  <p>Este plan se centra en personas que se reincorporan tras una ausencia y vuelven a equipos con carga operativa alta. El objetivo no es controlar al empleado, sino anticipar barreras pr&#225;cticas de retorno, evitar nuevas ausencias tempranas y reducir el coste previsto del pico de absentismo.</p>
+                  <div class="obj-grid">
+                    <div class="obj-card"><small>Objetivo 1</small><b>Reducir reca&#237;das tempranas</b><span>Detectar problemas de adaptaci&#243;n antes de que terminen en una nueva ausencia.</span></div>
+                    <div class="obj-card"><small>Objetivo 2</small><b>Evitar sobrecarga operativa</b><span>Proteger la vuelta sin trasladar demasiada carga a mandos ni RRHH.</span></div>
+                    <div class="obj-card"><small>Objetivo 3</small><b>Actuar con baja fricci&#243;n</b><span>Usar mensajes y seguimientos de apoyo, no medidas invasivas ni disciplinarias.</span></div>
+                    <div class="obj-card"><small>Objetivo 4</small><b>Medir impacto econ&#243;mico</b><span>Comprobar si baja el riesgo, la recurrencia y el coste esperado en 14 d&#237;as.</span></div>
+                  </div>
+                </article>
+                <aside class="obj-side">
+                  <h2>&#191;Estos objetivos son correctos?</h2>
+                  <p>Si los confirmas, preparo las preguntas necesarias para adaptar el plan a vuestra realidad. Si falta alg&#250;n objetivo, puedes ajustarlo antes de continuar.</p>
+                  <div class="obj-actions">
+                    <button class="primary">S&#237;, continuar</button>
+                    <button>Ajustar objetivos</button>
+                  </div>
+                </aside>
+              </div>
+            </div>
+          </section>
+
+          <!-- CONTEXTO -->
+          <section class="pd-card">
+            <div class="pd-card-head">
+              <div><h2>Contexto para preparar el plan</h2><p>Solo las preguntas necesarias para adaptar los objetivos confirmados a la realidad operativa.</p></div>
+              <span class="pd-status purple">2 minutos</span>
+            </div>
+            <div class="pd-card-body">
+              <div class="flow">
+                <div class="flow-step active"><b>1. Contexto</b><span>Preguntas cr&#237;ticas y documentos opcionales.</span></div>
+                <div class="flow-step active"><b>2. An&#225;lisis</b><span>Agentes revisan viabilidad, coste y l&#237;mites.</span></div>
+                <div class="flow-step active"><b>3. Plan</b><span>Acciones concretas y justificadas.</span></div>
+                <div class="flow-step"><b>4. Aprobaci&#243;n</b><span>Validar, preguntar o iterar.</span></div>
+              </div>
+              <div class="chat-wrap">
+                <div class="chat-top">
+                  <div class="chat-person"><div class="bot-avatar">AI</div><div><strong>Asistente de planes</strong><span>RRHH &middot; Operaciones &middot; Convenio &middot; Econom&#237;a</span></div></div>
+                  <span class="pd-status green">Contexto recibido</span>
+                </div>
+                <div class="chat-body">
+                  <div class="bubble bot">Necesito algo m&#225;s de contexto para preparar un plan que puedas poner en marcha. No te llevar&#225; m&#225;s de dos minutos.</div>
+                  <div class="bubble bot">&#191;Operaciones puede asumir seguimiento durante esta semana o prefieres que lo centralicemos en RRHH?</div>
+                  <div class="quick"><button>Operaciones puede asumirlo</button><button class="selected">Seguimiento limitado</button><button>Centralizar en RRHH</button></div>
+                  <div class="bubble user">Seguimiento limitado. Los mandos pueden hacer algo, pero no cuatro chequeos por persona.</div>
+                  <div class="bubble bot">&#191;El colectivo suele aceptar bien el contacto preventivo o debemos cuidar especialmente el tono?</div>
+                  <div class="quick"><button>Lo acepta bien</button><button class="selected">Cuidar tono</button><button>Mejor enfoque indirecto</button></div>
+                  <div class="bubble user">Cuidar tono. No quiero que se perciba como control.</div>
+                  <div class="bubble bot">&#191;Hay margen para ajustar temporalmente carga o prefieres que esa acci&#243;n quede condicionada?</div>
+                  <div class="quick"><button>S&#237;, hay margen</button><button class="selected">Solo si es m&#237;nimo</button><button>No incluir</button></div>
+                  <div class="bubble user">Solo si es m&#237;nimo y validado por operaci&#243;n.</div>
+                  <div class="bubble bot">Puedes adjuntar cuadrantes, convenio, protocolo de retorno o cualquier documento que quieras que tenga en cuenta.</div>
+                  <div class="upload-row">
+                    <div class="upload">&#128206; Adjuntar documento</div>
+                    <div class="upload" style="gap:6px;flex-wrap:wrap;"><span class="file-chip">cuadrante_junio.pdf</span><span class="file-chip">protocolo_retorno.pdf</span></div>
+                  </div>
+                </div>
+                <div class="chat-footer">
+                  <button class="attach-btn">&#128206;</button>
+                  <input value="Prioriza baja fricci&#243;n y ahorro prudente. Evita medidas que parezcan vigilancia." readonly/>
+                  <button class="send-btn">&#8594;</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ANÁLISIS PREVIO -->
+          <section class="pd-card">
+            <div class="pd-card-head"><div><h2>An&#225;lisis previo</h2><p>Antes de proponer acciones, se revisa viabilidad, l&#237;mites y coste esperado.</p></div><span class="pd-status blue">Finalizado</span></div>
+            <div class="pd-card-body">
+              <div class="thinking">
+                <div class="thinking-main">
+                  <h2>He preparado una versi&#243;n prudente del plan</h2>
+                  <p>La propuesta evita sobrecargar a mandos, reduce el riesgo de reca&#237;da y permite medir impacto econ&#243;mico en 14 d&#237;as.</p>
+                  <div class="think-list">
+                    <div class="think-row"><span class="chk">&#10003;</span>Contexto RRHH incorporado: seguimiento limitado, tono cuidadoso y carga m&#237;nima.</div>
+                    <div class="think-row"><span class="chk">&#10003;</span>Documentos revisados: cuadrante de junio y protocolo interno de retorno.</div>
+                    <div class="think-row"><span class="chk">&#10003;</span>Convenio: ajuste de carga condicionado a validaci&#243;n operativa.</div>
+                    <div class="think-row"><span class="chk">&#10003;</span>Econom&#237;a: ROI favorable con break-even bajo.</div>
+                  </div>
+                </div>
+                <aside class="agent-panel">
+                  <div class="agent-item"><b>Agente RRHH</b><span class="ok">Validado</span></div>
+                  <div class="agent-item"><b>Agente absentismo</b><span class="ok">Validado</span></div>
+                  <div class="agent-item"><b>Agente economista</b><span class="ok">Validado</span></div>
+                  <div class="agent-item"><b>Agente convenio</b><span class="cond">Condicionado</span></div>
+                  <div class="agent-item"><b>Agente PRL</b><span class="ok">Validado</span></div>
+                  <div class="agent-item"><b>Control &#233;tico IA</b><span class="ok">Validado</span></div>
+                </aside>
+              </div>
+            </div>
+          </section>
+
+          <!-- PLAN CREADO -->
+          <section class="pd-card">
+            <div class="pd-card-head"><div><h2>Plan creado</h2><p>Primero se muestra el razonamiento usado para construirlo. Despu&#233;s, las acciones concretas.</p></div><span class="pd-status green">Listo para validar</span></div>
+            <div class="pd-card-body">
+              <div class="result-hero">
+                <article class="recommendation">
+                  <div class="rec-kicker">Recomendaci&#243;n</div>
+                  <h2>Aprobar un plan prudente de 14 d&#237;as</h2>
+                  <p>La mejor versi&#243;n para este caso combina seguimiento ligero, contacto preventivo de apoyo y medici&#243;n r&#225;pida. No propone una intervenci&#243;n intensiva porque RRHH ha indicado que los mandos tienen disponibilidad limitada y que el tono con el colectivo debe cuidarse especialmente.</p>
+                </article>
+                <aside class="decision-box">
+                  <h2>Decisi&#243;n</h2>
+                  <p>El plan est&#225; preparado. Puedes aprobarlo, preguntar a los agentes o pedir una nueva versi&#243;n.</p>
+                  <button class="approve-btn">Aprobar plan</button>
+                  <div class="secondary-btns"><button>Preguntar</button><button>Editar</button><button>Simular</button><button>Pausar</button></div>
+                </aside>
+              </div>
+            </div>
+          </section>
+
+          <!-- QUÉ HE TENIDO EN CUENTA -->
+          <section class="pd-card">
+            <div class="pd-card-head"><div><h2>Qu&#233; he tenido en cuenta</h2><p>Resumen claro del contexto, respuestas y criterios usados para construir el plan.</p></div><span class="pd-status blue">Contexto aplicado</span></div>
+            <div class="pd-card-body">
+              <div class="plan-explain">
+                <div class="plan-explain-main">
+                  <h3>En qu&#233; consiste esta versi&#243;n</h3>
+                  <p>El plan busca intervenir antes de que el retorno se convierta en una nueva ausencia. Para ello reduce la intensidad: menos chequeos, mensajes m&#225;s cuidados y ajuste de carga solo si operaci&#243;n lo valida. Es una versi&#243;n dise&#241;ada para poder ejecutarse, no para quedar perfecta en papel.</p>
+                  <div class="explain-list">
+                    <div class="explain-row"><b>Problema</b><span>Riesgo alto de reca&#237;das y nuevas ausencias en los pr&#243;ximos 14 d&#237;as.</span></div>
+                    <div class="explain-row"><b>Dificultad</b><span>Los mandos pueden participar, pero no asumir seguimiento intensivo.</span></div>
+                    <div class="explain-row"><b>Decisi&#243;n</b><span>Reducir chequeos, cuidar tono y condicionar cualquier ajuste de carga.</span></div>
+                    <div class="explain-row"><b>Resultado</b><span>Plan menos agresivo, m&#225;s viable y con ahorro esperado todav&#237;a relevante.</span></div>
+                  </div>
+                </div>
+                <div class="plan-explain-side">
+                  <div class="plan-factor"><strong>Respuesta de RRHH</strong><span>&#171;Seguimiento limitado. No quiero que parezca control. Ajuste m&#237;nimo solo si operaci&#243;n lo valida.&#187;</span></div>
+                  <div class="plan-factor"><strong>Documentos considerados</strong><span>Cuadrante de junio y protocolo interno de retorno.</span></div>
+                  <div class="plan-factor"><strong>Criterio de los agentes</strong><span>RRHH y PRL validan el enfoque de apoyo. Convenio condiciona ajuste de carga. Econom&#237;a mantiene ROI positivo.</span></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ACCIONES -->
+          <section class="pd-card">
+            <div class="pd-card-head"><div><h2>Acciones del plan</h2><p>Cada acci&#243;n indica qu&#233; se hace, por qu&#233; se hace y qu&#233; riesgo reduce.</p></div><span class="pd-status amber">14 d&#237;as</span></div>
+            <div class="pd-card-body">
+              <div class="plan-grid">
+                <article class="action-card"><div class="action-num">1</div><strong>Revisar reincorporaciones recientes</strong><p>Identificar personas que vuelven en la ventana de riesgo y priorizar los casos con mayor exposici&#243;n operativa.</p><em>Reduce riesgo: evita actuar tarde.</em></article>
+                <article class="action-card"><div class="action-num">2</div><strong>Contacto preventivo 72h antes</strong><p>Mensaje breve de apoyo para confirmar turno, necesidades pr&#225;cticas y barreras de vuelta.</p><em>Reduce riesgo: detecta fricciones antes del retorno.</em></article>
+                <article class="action-card"><div class="action-num">3</div><strong>Chequeos breves d&#237;as 1, 7 y 14</strong><p>Seguimiento m&#237;nimo para no sobrecargar a mandos. Solo preguntas operativas y de adaptaci&#243;n.</p><em>Reduce riesgo: disminuye reca&#237;das tempranas.</em></article>
+                <article class="action-card"><div class="action-num">4</div><strong>Ajuste m&#237;nimo si es viable</strong><p>Solo si operaci&#243;n lo acepta y no afecta condiciones de trabajo. Si no encaja, se elimina.</p><em>Reduce riesgo: evita sobrecarga inicial.</em></article>
+                <article class="action-card"><div class="action-num">5</div><strong>Medir resultado</strong><p>Comparar ausencias reales, coste evitado, recurrencia y riesgo residual frente al escenario previsto.</p><em>Reduce riesgo futuro: aprende para pr&#243;ximos planes.</em></article>
+              </div>
+            </div>
+          </section>
+
+          <!-- CÓMO REDUCE EL RIESGO -->
+          <section class="pd-card">
+            <div class="pd-card-head"><div><h2>C&#243;mo reduce el riesgo</h2><p>El objetivo es bajar una probabilidad concreta de absentismo y proteger coste operativo.</p></div><span class="pd-status green">Riesgo residual</span></div>
+            <div class="pd-card-body">
+              <div class="risk-reduction">
+                <div class="risk-main">
+                  <h3>Riesgo esperado antes y despu&#233;s</h3>
+                  <p>La reducci&#243;n se produce porque el plan act&#250;a sobre retorno fr&#225;gil, sobrecarga inicial y falta de seguimiento.</p>
+                  <div class="risk-bars">
+                    <div class="bar-block"><small><span>Antes del plan</span><span>72%</span></small><div class="bar bar-red"><span></span></div></div>
+                    <div class="bar-block"><small><span>Despu&#233;s del plan</span><span>48%</span></small><div class="bar bar-green"><span></span></div></div>
+                  </div>
+                </div>
+                <div class="risk-explain">
+                  <div class="risk-card"><strong>Menos reca&#237;das tempranas</strong><span>El seguimiento en los primeros d&#237;as permite detectar barreras antes de que terminen en nueva ausencia.</span></div>
+                  <div class="risk-card"><strong>Menos sobrecarga del equipo</strong><span>El ajuste m&#237;nimo, si es viable, protege el retorno sin alterar de forma agresiva la operaci&#243;n.</span></div>
+                  <div class="risk-card"><strong>Mejor reacci&#243;n de RRHH</strong><span>El plan deja se&#241;ales medibles para intervenir antes de que el coste crezca.</span></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ANÁLISIS ECONÓMICO -->
+          <section class="pd-card">
+            <div class="pd-card-head"><div><h2>An&#225;lisis econ&#243;mico</h2><p>Lectura simple para decidir si merece la pena actuar.</p></div><span class="pd-status green">ROI positivo</span></div>
+            <div class="pd-card-body">
+              <div class="economic">
+                <div class="econ"><small>Coste si no se act&#250;a</small><b class="red">18K&ndash;24K&#8364;</b><span>Estimaci&#243;n asociada a recurrencia y cobertura.</span></div>
+                <div class="econ"><small>Inversi&#243;n del plan</small><b>1,2K&#8364;</b><span>Tiempo RRHH, mandos y coordinaci&#243;n.</span></div>
+                <div class="econ"><small>Ahorro esperado</small><b class="green">12K&ndash;15K&#8364;</b><span>Escenario prudente si baja la recurrencia.</span></div>
+                <div class="econ"><small>Break-even</small><b class="blue">1 caso</b><span>Con evitar una ausencia relevante, compensa.</span></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ACCORDION AGENTES -->
+          <details class="pd-accordion">
+            <summary>
+              <span style="display:flex;align-items:center;gap:8px;">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                Ver conclusiones de agentes y discutir el plan
+              </span>
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="flex-shrink:0;transition:transform .2s;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="pd-acc-body">
+              <div class="agent-deep-grid">
+
+                <article class="agent-deep-card">
+                  <div class="agent-deep-head">
+                    <div class="agent-title-row"><div class="agent-icon">RR</div><div><strong>Agente RRHH</strong><span>Retorno, experiencia empleado y ejecuci&#243;n por mandos</span></div></div>
+                    <span class="pd-status green">Aceptado</span>
+                  </div>
+                  <div class="agent-deep-body">
+                    <div class="agent-section">
+                      <h4>Conclusi&#243;n</h4>
+                      <p>El plan debe plantearse como apoyo al retorno, no como control. Recomienda contacto preventivo 72h antes y seguimiento breve en d&#237;as 1, 7 y 14.</p>
+                      <h4 style="margin-top:10px;">Evidencia usada</h4>
+                      <ul><li>Riesgo concentrado en los primeros 14 d&#237;as.</li><li>Mandos con disponibilidad limitada.</li><li>RRHH ha indicado sensibilidad del colectivo al tono.</li><li>El protocolo interno permite contacto de apoyo.</li></ul>
+                      <h4 style="margin-top:10px;">L&#237;mite de la recomendaci&#243;n</h4>
+                      <p>No recomienda preguntas m&#233;dicas, presi&#243;n sobre la reincorporaci&#243;n ni seguimiento excesivo.</p>
+                    </div>
+                    <div class="agent-discuss">
+                      <h4>Discutir con el agente</h4>
+                      <div class="disc-bubble user">&#171;Me preocupa que el mando no tenga buena relaci&#243;n con el equipo.&#187;</div>
+                      <div class="disc-bubble">En ese caso cambiar&#237;a el responsable del primer contacto a RRHH y dejar&#237;a al mando solo para confirmar aspectos operativos.</div>
+                      <div class="disc-actions"><button>Aplicar cambio al plan</button><button>Pedir gui&#243;n alternativo</button><button>Consultar a PRL</button></div>
+                      <div class="disc-input"><input placeholder="Pregunta o discute con el Agente RRHH..."/><button>&#8594;</button></div>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="agent-deep-card">
+                  <div class="agent-deep-head">
+                    <div class="agent-title-row"><div class="agent-icon">AB</div><div><strong>Agente absentismo</strong><span>Patrones, recurrencia y se&#241;ales de riesgo</span></div></div>
+                    <span class="pd-status green">Aceptado</span>
+                  </div>
+                  <div class="agent-deep-body">
+                    <div class="agent-section">
+                      <h4>Conclusi&#243;n</h4>
+                      <p>El foco debe estar en reca&#237;das tempranas y cobertura ajustada. No recomienda un plan general para todo el centro, sino actuar sobre el grupo concreto que explica el pico.</p>
+                      <h4 style="margin-top:10px;">Evidencia usada</h4>
+                      <ul><li>Probabilidad inicial del 72%.</li><li>Criticidad 94 por impacto econ&#243;mico y operativo.</li><li>Ventana corta de 14 d&#237;as.</li><li>Concentraci&#243;n en reincorporaciones recientes.</li></ul>
+                      <h4 style="margin-top:10px;">L&#237;mite de la recomendaci&#243;n</h4>
+                      <p>Si aparecen nuevas ausencias no relacionadas con retorno, recomendar&#237;a generar otro plan distinto.</p>
+                    </div>
+                    <div class="agent-discuss">
+                      <h4>Discutir con el agente</h4>
+                      <div class="disc-bubble user">&#171;&#191;Y si el patr&#243;n no viene del retorno sino de saturaci&#243;n del turno?&#187;</div>
+                      <div class="disc-bubble">Recalcular&#237;a el peso de la sobrecarga y propondr&#237;a una versi&#243;n orientada a redistribuci&#243;n temporal de turnos, no a retorno.</div>
+                      <div class="disc-actions"><button>Recalcular patr&#243;n</button><button>Crear plan alternativo</button><button>Ver se&#241;ales</button></div>
+                      <div class="disc-input"><input placeholder="Pregunta o discute con el Agente absentismo..."/><button>&#8594;</button></div>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="agent-deep-card">
+                  <div class="agent-deep-head">
+                    <div class="agent-title-row"><div class="agent-icon">&#8364;</div><div><strong>Agente economista</strong><span>Coste esperado, ahorro, inversi&#243;n y break-even</span></div></div>
+                    <span class="pd-status green">Aceptado</span>
+                  </div>
+                  <div class="agent-deep-body">
+                    <div class="agent-section">
+                      <h4>Conclusi&#243;n</h4>
+                      <p>Recomienda actuar porque el coste de no hacer nada es muy superior a la inversi&#243;n del plan. El break-even es bajo: basta con evitar una ausencia relevante.</p>
+                      <h4 style="margin-top:10px;">Evidencia usada</h4>
+                      <ul><li>Coste esperado sin actuaci&#243;n: 18K&ndash;24K&#8364;.</li><li>Inversi&#243;n estimada del plan: 1,2K&#8364;.</li><li>Ahorro esperado: 12K&ndash;15K&#8364;.</li><li>Versi&#243;n alternativa mantiene ahorro 9K&ndash;12K&#8364; si se centraliza en RRHH.</li></ul>
+                      <h4 style="margin-top:10px;">L&#237;mite de la recomendaci&#243;n</h4>
+                      <p>Si la dedicaci&#243;n real de mandos supera lo previsto, recalcula ROI y puede recomendar una versi&#243;n m&#225;s ligera.</p>
+                    </div>
+                    <div class="agent-discuss">
+                      <h4>Discutir con el agente</h4>
+                      <div class="disc-bubble user">&#171;Solo puedo dedicar la mitad de recursos.&#187;</div>
+                      <div class="disc-bubble">Mantendr&#237;a contacto preventivo y medici&#243;n, reducir&#237;a chequeos. El ahorro baja, pero el ROI sigue siendo positivo.</div>
+                      <div class="disc-actions"><button>Recalcular ROI</button><button>Versi&#243;n m&#237;nima viable</button><button>Ver supuestos</button></div>
+                      <div class="disc-input"><input placeholder="Pregunta o discute con el Agente economista..."/><button>&#8594;</button></div>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="agent-deep-card">
+                  <div class="agent-deep-head">
+                    <div class="agent-title-row"><div class="agent-icon">CV</div><div><strong>Agente convenio</strong><span>Jornada, funciones, descansos y l&#237;mites colectivos</span></div></div>
+                    <span class="pd-status amber">Condicionado</span>
+                  </div>
+                  <div class="agent-deep-body">
+                    <div class="agent-section">
+                      <h4>Conclusi&#243;n</h4>
+                      <p>El seguimiento y el contacto son viables si se plantean como apoyo. El ajuste de carga no debe aplicarse de forma autom&#225;tica: queda condicionado a validaci&#243;n operativa y encaje interno.</p>
+                      <h4 style="margin-top:10px;">Evidencia usada</h4>
+                      <ul><li>El ajuste puede afectar funciones, jornada o cuadrante.</li><li>No hay autorizaci&#243;n para cambios autom&#225;ticos.</li><li>El protocolo permite seguimiento de reincorporaci&#243;n.</li><li>RRHH ha pedido baja fricci&#243;n y evitar conflicto.</li></ul>
+                      <h4 style="margin-top:10px;">L&#237;mite de la recomendaci&#243;n</h4>
+                      <p>Si el ajuste afecta condiciones de trabajo, debe eliminarse o validarse por el canal interno correspondiente.</p>
+                    </div>
+                    <div class="agent-discuss">
+                      <h4>Discutir con el agente</h4>
+                      <div class="disc-bubble user">&#171;No quiero tocar turnos ni funciones.&#187;</div>
+                      <div class="disc-bubble">Entonces eliminar&#237;a el ajuste de carga y reforzar&#237;a contacto preventivo + seguimiento centralizado. El plan pierde algo de ahorro, pero gana seguridad.</div>
+                      <div class="disc-actions"><button>Eliminar ajuste</button><button>Reestructurar plan</button><button>Consultar econom&#237;a</button></div>
+                      <div class="disc-input"><input placeholder="Pregunta o discute con el Agente convenio..."/><button>&#8594;</button></div>
+                    </div>
+                  </div>
+                </article>
+
+                <div class="restructure-box">
+                  <h3>Si una conversaci&#243;n cambia el plan</h3>
+                  <p>Cuando un agente detecta una restricci&#243;n relevante, el orquestador reestructura la propuesta y recalcula impacto, esfuerzo y riesgo residual.</p>
+                  <div class="restructure-grid">
+                    <div class="restructure-card"><small>Cambio detectado</small><b>No tocar turnos ni funciones</b><span>Se elimina el ajuste de carga.</span></div>
+                    <div class="restructure-card"><small>Nueva versi&#243;n</small><b>Plan v1.1</b><span>Contacto RRHH + seguimiento ligero + medici&#243;n d&#237;a 14.</span></div>
+                    <div class="restructure-card"><small>Nuevo impacto</small><b>9K&ndash;12K&#8364; ahorro</b><span>Menor ahorro, mayor seguridad y viabilidad.</span></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </details>
+
+        </div><!-- /pd-stack -->
+
+        <aside class="pd-side">
+          <section class="side-card">
+            <div class="side-head"><h2>Asistente</h2><span class="pd-status blue">Disponible</span></div>
+            <div class="side-body">
+              <div class="side-chat-item"><small>Pregunta &#250;til</small><p>&#171;&#191;Qu&#233; pasa si operaci&#243;n no puede hacer seguimiento esta semana?&#187;</p></div>
+              <div class="side-chat-item"><small>Respuesta</small><p>Activar&#237;a una versi&#243;n centralizada en RRHH. Baja el ahorro esperado a 9K&ndash;12K&#8364;, pero sube la viabilidad.</p></div>
+              <div class="mini-input"><input placeholder="Pregunta, barrera o cambio..."/><button>&#8594;</button></div>
+            </div>
+          </section>
+          <section class="side-card">
+            <div class="side-head"><h2>Al aprobar</h2><span class="pd-status green">Se activa</span></div>
+            <div class="side-body">
+              <div class="wire">
+                <div class="wire-row"><b>D&#237;a 0</b><span>Lista de reincorporaciones y responsables.</span></div>
+                <div class="wire-row"><b>72h antes</b><span>Gui&#243;n de contacto preventivo.</span></div>
+                <div class="wire-row"><b>D&#237;as 1, 7, 14</b><span>Recordatorios de seguimiento.</span></div>
+                <div class="wire-row"><b>D&#237;a 14</b><span>Medici&#243;n de ahorro, recurrencia y riesgo residual.</span></div>
+              </div>
+            </div>
+          </section>
+          <section class="side-card">
+            <div class="side-head"><h2>Versi&#243;n alternativa</h2><span class="pd-status amber">Disponible</span></div>
+            <div class="side-body">
+              <div class="side-chat-item"><small>Si no hay mandos disponibles</small><p>Plan v1.1: seguimiento centralizado por RRHH, dos chequeos y menor carga operativa.</p></div>
+              <div class="side-chat-item"><small>Nuevo impacto</small><p>Ahorro esperado: 9K&ndash;12K&#8364;. Inversi&#243;n: 0,9K&#8364;. Viabilidad: alta.</p></div>
+            </div>
+          </section>
+        </aside>
+
+      </div><!-- /pd-layout -->
+    </section><!-- /pd-content -->
+  </div>
+
+  <script src="../js/components/sidebar.js"></script>
+  <script>if(typeof SidebarComponent!=="undefined") SidebarComponent.render();</script>
+</body>
+</html>
