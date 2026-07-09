@@ -7,14 +7,22 @@
   <link rel="stylesheet" href="../css/styles.css"/>
   <style>
     *{box-sizing:border-box;}
-    .kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);overflow:hidden;}
-    .kpi-cell{padding:18px 20px;border-right:1px solid #f1f5f9;display:flex;flex-direction:column;gap:5px;}
-    .kpi-cell:last-child{border-right:none;}
-    .kpi-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:3px;}
-    .kpi-ico{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-    .kpi-val{font-size:24px;font-weight:800;line-height:1;letter-spacing:-.035em;}
-    .kpi-label{font-size:12px;font-weight:700;color:#0f172a;}
-    .kpi-desc{font-size:11px;color:#94a3b8;line-height:1.4;}
+    .nkpi{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:20px 22px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+    .nkpi-h{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+    .nkpi-ico{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .nkpi-ico.red{background:#fef2f2;color:#dc2626;}
+    .nkpi-ico.green{background:#f0fdf4;color:#059669;}
+    .nkpi-ico.purple{background:#f5f3ff;color:#7c3aed;}
+    .nkpi-ico.blue{background:#eff6ff;color:#1d4ed8;}
+    .nkpi-ico.amber{background:#fffbeb;color:#d97706;}
+    .nkpi-lbl{font-size:11.5px;font-weight:700;color:#64748b;line-height:1.3;}
+    .nkpi-val{font-size:28px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:6px;}
+    .nkpi-val.red{color:#dc2626;}
+    .nkpi-val.green{color:#059669;}
+    .nkpi-val.purple{color:#7c3aed;}
+    .nkpi-val.blue{color:#1d4ed8;}
+    .nkpi-val.amber{color:#d97706;}
+    .nkpi-desc{font-size:11.5px;color:#94a3b8;line-height:1.4;}
     .filter-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
     .filter-chips{display:flex;gap:6px;flex-wrap:wrap;}
     .fchip{height:30px;padding:0 14px;border:1px solid #e2e8f0;background:#fff;border-radius:999px;font-size:12px;font-weight:600;color:#64748b;cursor:pointer;white-space:nowrap;box-shadow:0 1px 2px rgba(0,0,0,.04);}
@@ -28,46 +36,43 @@
     .pred-mini{background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;padding:10px;}
     .pred-mini small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
     .pred-mini b{display:block;font-size:16px;font-weight:800;color:#0f172a;letter-spacing:-.02em;}
-    .pred-card-body{background:#f8fafc;border-top:1px solid #f1f5f9;padding:16px;display:flex;flex-direction:column;gap:12px;}
-    .risk-acc{background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;}
+    .info-i{display:inline-flex;width:14px;height:14px;border-radius:50%;background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe;font-size:8px;font-weight:800;align-items:center;justify-content:center;cursor:help;vertical-align:middle;margin-left:2px;font-style:normal;}
+    .pred-card-body{background:#f8fafc;border-top:1px solid #f1f5f9;padding:16px;display:flex;flex-direction:column;gap:10px;}
+    .risk-acc,.plans-acc{background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;}
     .risk-sum{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;list-style:none;user-select:none;}
     .risk-sum::-webkit-details-marker{display:none;}
     .risk-num{width:26px;height:26px;border-radius:50%;background:#eff6ff;color:#2563eb;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .risk-num.green{background:#f0fdf4;color:#059669;}
     .risk-label{font-size:12.5px;font-weight:700;color:#0f172a;}
     .risk-sub{font-size:11px;color:#94a3b8;margin-top:1px;}
     .risk-chev{color:#94a3b8;transition:transform .2s;flex-shrink:0;}
-    .risk-acc[open] .risk-chev{transform:rotate(180deg);}
+    .risk-acc[open] .risk-chev,.plans-acc[open] .risk-chev{transform:rotate(180deg);}
     .risk-body{padding:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;border-top:1px solid #f1f5f9;}
     .risk-chip{background:#f8fafc;border:1px solid #f1f5f9;border-radius:8px;padding:10px;}
     .risk-chip strong{display:block;font-size:11.5px;color:#0f172a;margin-bottom:3px;}
     .risk-chip span{display:block;font-size:11px;color:#64748b;line-height:1.35;}
-    .plans-stack{display:flex;flex-direction:column;gap:8px;}
-    .plan-item{background:#fff;border:1px solid #e2e8f0;border-radius:10px;border-left:4px solid #7c3aed;padding:14px;display:grid;grid-template-columns:minmax(200px,1fr) 158px minmax(260px,1fr) 100px;gap:14px;align-items:center;}
-    .plan-item.green{border-left-color:#059669;}
-    .plan-item.amber{border-left-color:#d97706;}
-    .plan-item.blue{border-left-color:#2563eb;}
-    .plan-h{font-size:13.5px;font-weight:700;color:#0f172a;margin:0 0 4px;letter-spacing:-.01em;}
-    .plan-p{font-size:11.5px;color:#64748b;line-height:1.4;margin:0;}
-    .sc{display:flex;flex-direction:column;gap:5px;}
-    .sp{display:inline-flex;height:24px;align-items:center;padding:0 10px;border-radius:999px;font-size:10.5px;font-weight:700;white-space:nowrap;width:max-content;}
-    .sp.green{background:#f0fdf4;color:#059669;border:1px solid #bbf7d0;}
-    .sp.amber{background:#fffbeb;color:#b45309;border:1px solid #fed7aa;}
-    .sp.blue{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
-    .sp-prio{font-size:10.5px;color:#94a3b8;font-weight:600;}
-    .roi-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
-    .rc{background:#f8fafc;border:1px solid #f1f5f9;border-radius:7px;padding:7px;}
-    .rc small{display:block;font-size:9px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
-    .rc b{display:block;font-size:12px;font-weight:700;color:#0f172a;line-height:1.2;}
-    .rc b.green{color:#059669;}
-    .rc b.red{color:#dc2626;}
-    .plan-btn{height:32px;width:100%;border:1px solid #e2e8f0;border-radius:7px;background:#fff;color:#0f172a;font-size:11.5px;font-weight:700;cursor:pointer;}
-    .plan-btn:hover{background:#f8fafc;}
-    .stp{display:inline-flex;align-items:center;height:26px;padding:0 11px;border-radius:999px;font-size:11px;font-weight:700;border:1px solid;white-space:nowrap;}
-    .stp.red{background:#fef2f2;color:#be123c;border-color:#fecdd3;}
-    .stp.green{background:#f0fdf4;color:#047857;border-color:#bbf7d0;}
-    .stp.blue{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe;}
-    .foot-note{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:20px 22px;display:grid;grid-template-columns:1fr 240px;gap:20px;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.04);}
-    .foot-mem{background:#f0fdf4;border:1px solid #bbf7d0;color:#047857;border-radius:10px;padding:12px 14px;font-size:12px;font-weight:600;line-height:1.5;}
+    .ptable-wrap{overflow-x:auto;border-top:1px solid #f1f5f9;}
+    .ptable{width:100%;border-collapse:collapse;}
+    .ptable thead tr{background:#f8fafc;}
+    .ptable th{font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;padding:8px 14px;text-align:left;white-space:nowrap;}
+    .ptable tbody tr{border-top:1px solid #f8fafc;}
+    .ptable td{padding:9px 14px;vertical-align:middle;}
+    .pt-num{width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;}
+    .pt-num.green{background:#f0fdf4;color:#059669;}
+    .pt-num.amber{background:#fffbeb;color:#b45309;}
+    .pt-num.slate{background:#f1f5f9;color:#475569;}
+    .pt-name{font-size:12.5px;font-weight:700;color:#0f172a;display:block;margin-bottom:2px;}
+    .pt-state{display:inline-flex;height:20px;align-items:center;padding:0 8px;border-radius:999px;font-size:10px;font-weight:700;white-space:nowrap;}
+    .pt-state.green{background:#f0fdf4;color:#059669;border:1px solid #bbf7d0;}
+    .pt-state.amber{background:#fffbeb;color:#b45309;border:1px solid #fed7aa;}
+    .pt-state.blue{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
+    .pt-esfuerzo{background:#f1f5f9;color:#475569;padding:2px 8px;border-radius:5px;font-size:10.5px;font-weight:600;}
+    .pt-val-green{color:#059669;font-size:12px;font-weight:700;}
+    .pt-val-gray{color:#94a3b8;font-size:12px;}
+    .pt-btn-view{display:inline-flex;height:27px;align-items:center;padding:0 11px;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:6px;font-size:11px;font-weight:700;text-decoration:none;white-space:nowrap;cursor:pointer;}
+    .pt-btn-view:hover{background:#dbeafe;}
+    .pt-btn-create{display:inline-flex;height:27px;align-items:center;padding:0 11px;background:#2563eb;color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:700;text-decoration:none;white-space:nowrap;cursor:pointer;}
+    .pt-btn-create:hover{background:#1d4ed8;}
     .fab{position:fixed;bottom:24px;right:24px;display:flex;align-items:center;gap:8px;background:#2563eb;color:#fff;border:none;border-radius:999px;padding:12px 20px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(37,99,235,.35);z-index:50;}
   </style>
 </head>
@@ -76,57 +81,71 @@
   <div style="margin-left:260px;min-height:100vh;background:#f8fafc;max-width:calc(100vw - 260px);overflow-x:hidden;">
 
     <!-- HEADER -->
-    <div style="background:#fff;border-bottom:1px solid #e2e8f0;padding:13px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;gap:16px;flex-wrap:wrap;">
+    <div style="background:#fff;border-bottom:1px solid #e2e8f0;padding:13px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;">
       <div>
         <h1 style="font-size:15px;font-weight:700;color:#0f172a;margin:0;">Planes de Acci&#243;n</h1>
         <p style="font-size:11px;color:#94a3b8;margin:2px 0 0;">Planes generados a partir de predicciones activas &middot; &#218;lt. actualizaci&#243;n: hoy, 08:30</p>
       </div>
-      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-        <span class="stp red">3 riesgos priorizados</span>
-        <span class="stp green">7 planes generados</span>
-        <span class="stp blue">4 con activaci&#243;n recomendada</span>
-        <div style="width:34px;height:34px;border-radius:50%;background:#0f172a;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;margin-left:4px;">AD</div>
-      </div>
+      <div style="width:34px;height:34px;border-radius:50%;background:#0f172a;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;">AD</div>
     </div>
 
     <main style="padding:22px 28px;display:flex;flex-direction:column;gap:16px;">
 
-      <!-- KPI GRID -->
-      <div class="kpi-grid">
-        <div class="kpi-cell">
-          <div class="kpi-top">
-            <div><div class="kpi-val" style="color:#dc2626;">3</div><div class="kpi-label">Riesgos priorizados</div></div>
-            <div class="kpi-ico" style="background:#fef2f2;color:#dc2626;"><svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></div>
+      <!-- KPI CARDS -->
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;">
+
+        <div class="nkpi">
+          <div class="nkpi-h">
+            <div class="nkpi-ico red"><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></div>
+            <span class="nkpi-lbl">Riesgos priorizados</span>
           </div>
-          <div class="kpi-desc">Predicciones activas convertidas en planes de acci&#243;n.</div>
+          <div class="nkpi-val red">3</div>
+          <div class="nkpi-desc">Predicciones activas convertidas en planes de acci&#243;n.</div>
         </div>
-        <div class="kpi-cell">
-          <div class="kpi-top">
-            <div><div class="kpi-val" style="color:#059669;">7</div><div class="kpi-label">Planes generados</div></div>
-            <div class="kpi-ico" style="background:#f0fdf4;color:#059669;"><svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg></div>
+
+        <div class="nkpi">
+          <div class="nkpi-h">
+            <div class="nkpi-ico green"><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg></div>
+            <span class="nkpi-lbl">Planes generados</span>
           </div>
-          <div class="kpi-desc">Planes agrupados por predicci&#243;n y tipo de impacto que reducen.</div>
+          <div class="nkpi-val green">7</div>
+          <div class="nkpi-desc">Propuestas IA agrupadas por predicci&#243;n y tipo de impacto.</div>
         </div>
-        <div class="kpi-cell">
-          <div class="kpi-top">
-            <div><div class="kpi-val" style="color:#7c3aed;">4</div><div class="kpi-label">Activaci&#243;n recomendada</div></div>
-            <div class="kpi-ico" style="background:#f5f3ff;color:#7c3aed;"><svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+
+        <div class="nkpi">
+          <div class="nkpi-h">
+            <div class="nkpi-ico purple"><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+            <span class="nkpi-lbl">Activaci&#243;n recomendada</span>
           </div>
-          <div class="kpi-desc">Mejor combinaci&#243;n de impacto, urgencia, viabilidad y retorno.</div>
+          <div class="nkpi-val purple">4</div>
+          <div class="nkpi-desc">Mejor combinaci&#243;n de impacto, urgencia y retorno.</div>
         </div>
-        <div class="kpi-cell">
-          <div class="kpi-top">
-            <div><div class="kpi-val" style="color:#1d4ed8;font-size:19px;">61K&ndash;72K&#8364;</div><div class="kpi-label">Ahorro objetivo prelim.</div></div>
-            <div class="kpi-ico" style="background:#eff6ff;color:#1d4ed8;"><svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+
+        <div class="nkpi">
+          <div class="nkpi-h">
+            <div class="nkpi-ico blue"><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+            <span class="nkpi-lbl">Ahorro objetivo prelim.</span>
           </div>
-          <div class="kpi-desc">Suma prudente de ahorro esperado en planes con activaci&#243;n recomendada.</div>
+          <div class="nkpi-val blue" style="font-size:20px;">61K&ndash;72K&#8364;</div>
+          <div class="nkpi-desc">Suma del ahorro esperado en planes con activaci&#243;n recomendada.</div>
         </div>
-        <div class="kpi-cell">
-          <div class="kpi-top">
-            <div><div class="kpi-val" style="color:#d97706;">6,4K&#8364;</div><div class="kpi-label">Inversi&#243;n estimada</div></div>
-            <div class="kpi-ico" style="background:#fffbeb;color:#d97706;"><svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg></div>
+
+        <div class="nkpi">
+          <div class="nkpi-h">
+            <div class="nkpi-ico amber"><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg></div>
+            <span class="nkpi-lbl">Inversi&#243;n estimada</span>
           </div>
-          <div class="kpi-desc">Esfuerzo econ&#243;mico y operativo inicial antes de aprobar planes.</div>
+          <div class="nkpi-val amber">6,4K&#8364;</div>
+          <div class="nkpi-desc">Esfuerzo econ&#243;mico inicial antes de aprobar planes.</div>
+        </div>
+
+      </div>
+
+      <!-- BLUE INFO BOX -->
+      <div style="background:#eff6ff;border-radius:8px;padding:14px 16px;border:1px solid #bfdbfe;">
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <svg width="16" height="16" fill="none" stroke="#2563eb" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <p style="font-size:13px;color:#1e40af;line-height:1.65;margin:0;">Priorizar la gesti&#243;n de reincorporaciones tras IT larga y salarios reducidos en IT activa, por su alto riesgo y coste, antes que patrones con menor impacto econ&#243;mico. Cada predicci&#243;n puede generar uno o varios planes asociados; la decisi&#243;n final sobre estado y aprobaci&#243;n se toma dentro del detalle de cada plan.</p>
         </div>
       </div>
 
@@ -139,10 +158,10 @@
           <button class="fchip">Vigilancia</button>
           <button class="fchip">Mayor ROI preliminar</button>
         </div>
-        <button style="height:32px;border:1px solid #e2e8f0;background:#fff;border-radius:7px;padding:0 14px;font-size:12px;font-weight:700;color:#334155;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,.04);">+ Crear plan desde predicci&#243;n</button>
+        <button style="height:32px;border:none;background:#2563eb;color:#fff;border-radius:7px;padding:0 16px;font-size:12px;font-weight:700;cursor:pointer;">+ Crear plan desde predicci&#243;n</button>
       </div>
 
-      <!-- CARDS -->
+      <!-- PREDICTION CARDS -->
       <div style="display:flex;flex-direction:column;gap:14px;">
 
         <!-- CARD 1 -->
@@ -154,56 +173,97 @@
               <p class="pred-p">En los pr&#243;ximos 14 d&#237;as pueden coincidir m&#225;s ausencias de lo habitual en el turno de ma&#241;ana. El riesgo combina reincorporaciones fr&#225;giles, cobertura ajustada y posible sobrecarga del equipo disponible.</p>
             </div>
             <div class="pred-mini-grid">
-              <div class="pred-mini"><small>Probabilidad</small><b>72%</b></div>
-              <div class="pred-mini"><small>Criticidad</small><b>94</b></div>
-              <div class="pred-mini"><small>Impacto</small><b>38K&ndash;52K&#8364;</b></div>
-              <div class="pred-mini"><small>Ventana</small><b>14 d&#237;as</b></div>
+              <div class="pred-mini">
+                <small>Probabilidad <span class="info-i" title="Probabilidad estimada de que el riesgo se materialice en la ventana temporal">i</span></small>
+                <b>72%</b>
+              </div>
+              <div class="pred-mini">
+                <small>Criticidad <span class="info-i" title="&#205;ndice compuesto de impacto econ&#243;mico, operativo y recurrencia (0&#8211;100)">i</span></small>
+                <b>94</b>
+              </div>
+              <div class="pred-mini">
+                <small>Impacto <span class="info-i" title="Coste econ&#243;mico estimado si no se act&#250;a en la ventana de riesgo">i</span></small>
+                <b>38K&ndash;52K&#8364;</b>
+              </div>
+              <div class="pred-mini">
+                <small>Ventana <span class="info-i" title="Tiempo disponible para intervenir antes de que el riesgo sea irreversible">i</span></small>
+                <b>14 d&#237;as</b>
+              </div>
             </div>
           </div>
           <div class="pred-card-body">
-                        <details class="risk-acc">
+
+            <details class="risk-acc">
               <summary class="risk-sum">
                 <div class="risk-num">3</div>
-                <div style="flex:1;"><div class="risk-label">Riesgos asociados a esta predicci&#243;n</div><div class="risk-sub">Respuesta recomendada: retorno fr&#225;gil, cobertura tensionada y sobrecarga</div></div>
+                <div style="flex:1;">
+                  <div class="risk-label">Riesgos asociados a esta predicci&#243;n</div>
+                  <div class="risk-sub">Retorno fr&#225;gil, cobertura tensionada y sobrecarga</div>
+                </div>
                 <svg class="risk-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </summary>
-              <div class="risk-body"><div class="risk-chip"><strong>Riesgo 1</strong><span>Reincorporaciones fr&#225;giles que pueden terminar en nuevas ausencias.</span></div><div class="risk-chip"><strong>Riesgo 2</strong><span>Cobertura del turno de ma&#241;ana con poco margen operativo.</span></div><div class="risk-chip"><strong>Riesgo 3</strong><span>Sobrecarga del equipo disponible y posible cascada futura.</span></div></div>
+              <div class="risk-body">
+                <div class="risk-chip"><strong>Riesgo 1</strong><span>Reincorporaciones fr&#225;giles que pueden terminar en nuevas ausencias.</span></div>
+                <div class="risk-chip"><strong>Riesgo 2</strong><span>Cobertura del turno de ma&#241;ana con poco margen operativo.</span></div>
+                <div class="risk-chip"><strong>Riesgo 3</strong><span>Sobrecarga del equipo disponible y posible cascada futura.</span></div>
+              </div>
             </details>
-            <div class="plans-stack">
-              <div class="plan-item green">
-                <div><p class="plan-h">Retorno seguro tras ausencia</p><p class="plan-p">Reduce el riesgo de que reincorporaciones recientes terminen en nuevas ausencias durante la ventana cr&#237;tica.</p></div>
-                <div class="sc"><span class="sp green">Activaci&#243;n recomendada</span><span class="sp-prio">Prioridad 91/100 &middot; Esfuerzo medio</span></div>
-                <div class="roi-strip">
-                  <div class="rc"><small>Coste no actuar</small><b>18K&ndash;24K&#8364;</b></div>
-                  <div class="rc"><small>Inversi&#243;n</small><b>1,2K&#8364;</b></div>
-                  <div class="rc"><small>Ahorro esperado</small><b class="green">12K&ndash;15K&#8364;</b></div>
-                  <div class="rc"><small>ROI previo</small><b class="green">1.100%</b></div>
+
+            <details class="plans-acc">
+              <summary class="risk-sum">
+                <div class="risk-num green">3</div>
+                <div style="flex:1;">
+                  <div class="risk-label">Planes asociados a esta predicci&#243;n</div>
+                  <div class="risk-sub">2 con activaci&#243;n recomendada &middot; 1 pendiente</div>
                 </div>
-                <button class="plan-btn" onclick="location.href='plan-wizard.html'">Abrir plan</button>
+                <svg class="risk-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </summary>
+              <div class="ptable-wrap">
+                <table class="ptable">
+                  <thead>
+                    <tr>
+                      <th>Prior.</th>
+                      <th>Plan</th>
+                      <th>Estado</th>
+                      <th>Esfuerzo</th>
+                      <th>Ahorro est.</th>
+                      <th>ROI</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="pt-num green">1</span></td>
+                      <td><span class="pt-name">Retorno seguro tras ausencia</span></td>
+                      <td><span class="pt-state green">Activaci&#243;n recomendada</span></td>
+                      <td><span class="pt-esfuerzo">Medio</span></td>
+                      <td class="pt-val-green">12K&ndash;15K&#8364;</td>
+                      <td class="pt-val-green">1.100%</td>
+                      <td><a href="plan-resumen.html" class="pt-btn-view">Ver plan &#8594;</a></td>
+                    </tr>
+                    <tr>
+                      <td><span class="pt-num green">2</span></td>
+                      <td><span class="pt-name">Cobertura m&#237;nima preventiva</span></td>
+                      <td><span class="pt-state green">Activaci&#243;n recomendada</span></td>
+                      <td><span class="pt-esfuerzo">Bajo-medio</span></td>
+                      <td class="pt-val-green">7K&ndash;9K&#8364;</td>
+                      <td class="pt-val-green">760%</td>
+                      <td><a href="plan-wizard.html" class="pt-btn-create">Crear plan</a></td>
+                    </tr>
+                    <tr>
+                      <td><span class="pt-num amber">3</span></td>
+                      <td><span class="pt-name">Reequilibrio temporal de carga</span></td>
+                      <td><span class="pt-state amber">Pendiente de activaci&#243;n</span></td>
+                      <td><span class="pt-esfuerzo">Medio</span></td>
+                      <td class="pt-val-green">4K&ndash;6K&#8364;</td>
+                      <td class="pt-val-green">320%</td>
+                      <td><a href="plan-wizard.html" class="pt-btn-create">Crear plan</a></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div class="plan-item green">
-                <div><p class="plan-h">Cobertura m&#237;nima preventiva</p><p class="plan-p">Revisa sustitutos, m&#237;nimos operativos y puntos de tensi&#243;n para evitar quedarse sin margen en turno cr&#237;tico.</p></div>
-                <div class="sc"><span class="sp green">Activaci&#243;n recomendada</span><span class="sp-prio">Prioridad 88/100 &middot; Esfuerzo bajo-medio</span></div>
-                <div class="roi-strip">
-                  <div class="rc"><small>Coste no actuar</small><b>14K&ndash;19K&#8364;</b></div>
-                  <div class="rc"><small>Inversi&#243;n</small><b>0,9K&#8364;</b></div>
-                  <div class="rc"><small>Ahorro esperado</small><b class="green">7K&ndash;9K&#8364;</b></div>
-                  <div class="rc"><small>ROI previo</small><b class="green">760%</b></div>
-                </div>
-                <button class="plan-btn">Abrir plan</button>
-              </div>
-              <div class="plan-item amber">
-                <div><p class="plan-h">Reequilibrio temporal de carga</p><p class="plan-p">Evita que la soluci&#243;n de corto plazo sea cargar siempre al mismo equipo, reduciendo riesgo de cascada.</p></div>
-                <div class="sc"><span class="sp amber">Pendiente de activaci&#243;n</span><span class="sp-prio">Prioridad 74/100 &middot; Esfuerzo medio</span></div>
-                <div class="roi-strip">
-                  <div class="rc"><small>Coste no actuar</small><b>8K&ndash;12K&#8364;</b></div>
-                  <div class="rc"><small>Inversi&#243;n</small><b>1,5K&#8364;</b></div>
-                  <div class="rc"><small>Ahorro esperado</small><b class="green">4K&ndash;6K&#8364;</b></div>
-                  <div class="rc"><small>ROI previo</small><b class="green">320%</b></div>
-                </div>
-                <button class="plan-btn">Abrir plan</button>
-              </div>
-            </div>
+            </details>
+
           </div>
         </div>
 
@@ -216,34 +276,79 @@
               <p class="pred-p">La tienda puede operar por debajo de su m&#237;nimo de personas en d&#237;as sensibles. El problema principal no es el volumen de ausencia, sino la falta de margen para cubrir puestos cr&#237;ticos.</p>
             </div>
             <div class="pred-mini-grid">
-              <div class="pred-mini"><small>Probabilidad</small><b>64%</b></div>
-              <div class="pred-mini"><small>Criticidad</small><b>86</b></div>
-              <div class="pred-mini"><small>Impacto</small><b>18K&ndash;27K&#8364;</b></div>
-              <div class="pred-mini"><small>Ventana</small><b>21 d&#237;as</b></div>
+              <div class="pred-mini">
+                <small>Probabilidad <span class="info-i" title="Probabilidad estimada de que el riesgo se materialice en la ventana temporal">i</span></small>
+                <b>64%</b>
+              </div>
+              <div class="pred-mini">
+                <small>Criticidad <span class="info-i" title="&#205;ndice compuesto de impacto econ&#243;mico, operativo y recurrencia (0&#8211;100)">i</span></small>
+                <b>86</b>
+              </div>
+              <div class="pred-mini">
+                <small>Impacto <span class="info-i" title="Coste econ&#243;mico estimado si no se act&#250;a en la ventana de riesgo">i</span></small>
+                <b>18K&ndash;27K&#8364;</b>
+              </div>
+              <div class="pred-mini">
+                <small>Ventana <span class="info-i" title="Tiempo disponible para intervenir antes de que el riesgo sea irreversible">i</span></small>
+                <b>21 d&#237;as</b>
+              </div>
             </div>
           </div>
           <div class="pred-card-body">
-                        <details class="risk-acc">
+
+            <details class="risk-acc">
               <summary class="risk-sum">
                 <div class="risk-num">1</div>
-                <div style="flex:1;"><div class="risk-label">Riesgos asociados a esta predicci&#243;n</div><div class="risk-sub">Cobertura m&#237;nima concentrada en puestos cr&#237;ticos de d&#237;as sensibles</div></div>
+                <div style="flex:1;">
+                  <div class="risk-label">Riesgos asociados a esta predicci&#243;n</div>
+                  <div class="risk-sub">Cobertura m&#237;nima concentrada en puestos cr&#237;ticos de d&#237;as sensibles</div>
+                </div>
                 <svg class="risk-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </summary>
-              <div class="risk-body"><div class="risk-chip"><strong>Riesgo asociado</strong><span>La tienda tiene poco margen de sustituci&#243;n y necesita perfiles concretos.</span></div><div class="risk-chip"><strong>Agrupaci&#243;n</strong><span>El riesgo se aborda con un &#250;nico plan: impacto concentrado en cobertura m&#237;nima.</span></div><div class="risk-chip"><strong>Medici&#243;n</strong><span>Turnos protegidos, coste de sustituci&#243;n evitado y d&#237;as bajo m&#237;nimo operativo.</span></div></div>
-            </details>
-            <div class="plans-stack">
-              <div class="plan-item green">
-                <div><p class="plan-h">Plan cobertura m&#237;nima tienda cr&#237;tica</p><p class="plan-p">Identifica d&#237;as cr&#237;ticos, sustitutos equivalentes y margen de refuerzo para evitar operar bajo m&#237;nimo.</p></div>
-                <div class="sc"><span class="sp green">Activaci&#243;n recomendada</span><span class="sp-prio">Prioridad 83/100 &middot; Esfuerzo bajo</span></div>
-                <div class="roi-strip">
-                  <div class="rc"><small>Coste no actuar</small><b>18K&ndash;27K&#8364;</b></div>
-                  <div class="rc"><small>Inversi&#243;n</small><b>1,0K&#8364;</b></div>
-                  <div class="rc"><small>Ahorro esperado</small><b class="green">9K&ndash;11K&#8364;</b></div>
-                  <div class="rc"><small>ROI previo</small><b class="green">940%</b></div>
-                </div>
-                <button class="plan-btn">Abrir plan</button>
+              <div class="risk-body">
+                <div class="risk-chip"><strong>Riesgo asociado</strong><span>La tienda tiene poco margen de sustituci&#243;n y necesita perfiles concretos.</span></div>
+                <div class="risk-chip"><strong>Agrupaci&#243;n</strong><span>El riesgo se aborda con un &#250;nico plan: impacto concentrado en cobertura m&#237;nima.</span></div>
+                <div class="risk-chip"><strong>Medici&#243;n</strong><span>Turnos protegidos, coste de sustituci&#243;n evitado y d&#237;as bajo m&#237;nimo operativo.</span></div>
               </div>
-            </div>
+            </details>
+
+            <details class="plans-acc">
+              <summary class="risk-sum">
+                <div class="risk-num green">1</div>
+                <div style="flex:1;">
+                  <div class="risk-label">Planes asociados a esta predicci&#243;n</div>
+                  <div class="risk-sub">1 con activaci&#243;n recomendada</div>
+                </div>
+                <svg class="risk-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </summary>
+              <div class="ptable-wrap">
+                <table class="ptable">
+                  <thead>
+                    <tr>
+                      <th>Prior.</th>
+                      <th>Plan</th>
+                      <th>Estado</th>
+                      <th>Esfuerzo</th>
+                      <th>Ahorro est.</th>
+                      <th>ROI</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="pt-num green">1</span></td>
+                      <td><span class="pt-name">Plan cobertura m&#237;nima tienda cr&#237;tica</span></td>
+                      <td><span class="pt-state green">Activaci&#243;n recomendada</span></td>
+                      <td><span class="pt-esfuerzo">Bajo</span></td>
+                      <td class="pt-val-green">9K&ndash;11K&#8364;</td>
+                      <td class="pt-val-green">940%</td>
+                      <td><a href="plan-wizard.html" class="pt-btn-create">Crear plan</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </details>
+
           </div>
         </div>
 
@@ -256,68 +361,100 @@
               <p class="pred-p">Se detecta una se&#241;al incipiente de recurrencia en ausencias cortas. Todav&#237;a no tiene impacto alto, pero puede crecer si se combina con carga operativa o falta de seguimiento.</p>
             </div>
             <div class="pred-mini-grid">
-              <div class="pred-mini"><small>Probabilidad</small><b>51%</b></div>
-              <div class="pred-mini"><small>Criticidad</small><b>62</b></div>
-              <div class="pred-mini"><small>Impacto</small><b>9K&ndash;14K&#8364;</b></div>
-              <div class="pred-mini"><small>Ventana</small><b>60 d&#237;as</b></div>
+              <div class="pred-mini">
+                <small>Probabilidad <span class="info-i" title="Probabilidad estimada de que el riesgo se materialice en la ventana temporal">i</span></small>
+                <b>51%</b>
+              </div>
+              <div class="pred-mini">
+                <small>Criticidad <span class="info-i" title="&#205;ndice compuesto de impacto econ&#243;mico, operativo y recurrencia (0&#8211;100)">i</span></small>
+                <b>62</b>
+              </div>
+              <div class="pred-mini">
+                <small>Impacto <span class="info-i" title="Coste econ&#243;mico estimado si no se act&#250;a en la ventana de riesgo">i</span></small>
+                <b>9K&ndash;14K&#8364;</b>
+              </div>
+              <div class="pred-mini">
+                <small>Ventana <span class="info-i" title="Tiempo disponible para intervenir antes de que el riesgo sea irreversible">i</span></small>
+                <b>60 d&#237;as</b>
+              </div>
             </div>
           </div>
           <div class="pred-card-body">
-                        <details class="risk-acc">
+
+            <details class="risk-acc">
               <summary class="risk-sum">
                 <div class="risk-num">3</div>
-                <div style="flex:1;"><div class="risk-label">Riesgos asociados a esta predicci&#243;n</div><div class="risk-sub">Activaci&#243;n gradual para evitar sobreactuar ante se&#241;al a&#250;n moderada</div></div>
+                <div style="flex:1;">
+                  <div class="risk-label">Riesgos asociados a esta predicci&#243;n</div>
+                  <div class="risk-sub">Activaci&#243;n gradual para evitar sobreactuar ante se&#241;al a&#250;n moderada</div>
+                </div>
                 <svg class="risk-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </summary>
-              <div class="risk-body"><div class="risk-chip"><strong>Riesgo 1</strong><span>Se&#241;al de recurrencia incipiente en ausencias cortas.</span></div><div class="risk-chip"><strong>Riesgo 2</strong><span>Posible falta de informaci&#243;n sobre causas organizativas o de turno.</span></div><div class="risk-chip"><strong>Riesgo 3</strong><span>Riesgo a&#250;n moderado: no conviene sobreactuar.</span></div></div>
+              <div class="risk-body">
+                <div class="risk-chip"><strong>Riesgo 1</strong><span>Se&#241;al de recurrencia incipiente en ausencias cortas.</span></div>
+                <div class="risk-chip"><strong>Riesgo 2</strong><span>Posible falta de informaci&#243;n sobre causas organizativas o de turno.</span></div>
+                <div class="risk-chip"><strong>Riesgo 3</strong><span>Riesgo a&#250;n moderado: no conviene sobreactuar.</span></div>
+              </div>
             </details>
-            <div class="plans-stack">
-              <div class="plan-item green">
-                <div><p class="plan-h">Seguimiento preventivo ligero</p><p class="plan-p">Revisi&#243;n breve de se&#241;ales, mando y patr&#243;n de recurrencia sin activar medidas intensivas.</p></div>
-                <div class="sc"><span class="sp green">Activaci&#243;n recomendada</span><span class="sp-prio">Prioridad 68/100 &middot; Esfuerzo bajo</span></div>
-                <div class="roi-strip">
-                  <div class="rc"><small>Coste no actuar</small><b>6K&ndash;9K&#8364;</b></div>
-                  <div class="rc"><small>Inversi&#243;n</small><b>0,8K&#8364;</b></div>
-                  <div class="rc"><small>Ahorro esperado</small><b class="green">2K&ndash;3K&#8364;</b></div>
-                  <div class="rc"><small>ROI previo</small><b class="green">250%</b></div>
+
+            <details class="plans-acc">
+              <summary class="risk-sum">
+                <div class="risk-num green">3</div>
+                <div style="flex:1;">
+                  <div class="risk-label">Planes asociados a esta predicci&#243;n</div>
+                  <div class="risk-sub">1 recomendado &middot; 1 pendiente &middot; 1 en vigilancia</div>
                 </div>
-                <button class="plan-btn">Abrir plan</button>
+                <svg class="risk-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </summary>
+              <div class="ptable-wrap">
+                <table class="ptable">
+                  <thead>
+                    <tr>
+                      <th>Prior.</th>
+                      <th>Plan</th>
+                      <th>Estado</th>
+                      <th>Esfuerzo</th>
+                      <th>Ahorro est.</th>
+                      <th>ROI</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="pt-num green">1</span></td>
+                      <td><span class="pt-name">Seguimiento preventivo ligero</span></td>
+                      <td><span class="pt-state green">Activaci&#243;n recomendada</span></td>
+                      <td><span class="pt-esfuerzo">Bajo</span></td>
+                      <td class="pt-val-green">2K&ndash;3K&#8364;</td>
+                      <td class="pt-val-green">250%</td>
+                      <td><a href="plan-wizard.html" class="pt-btn-create">Crear plan</a></td>
+                    </tr>
+                    <tr>
+                      <td><span class="pt-num amber">2</span></td>
+                      <td><span class="pt-name">Diagn&#243;stico de microcausas</span></td>
+                      <td><span class="pt-state amber">Pendiente de activaci&#243;n</span></td>
+                      <td><span class="pt-esfuerzo">Medio</span></td>
+                      <td class="pt-val-gray">Sin activar</td>
+                      <td class="pt-val-gray">Pendiente</td>
+                      <td><a href="plan-wizard.html" class="pt-btn-create">Crear plan</a></td>
+                    </tr>
+                    <tr>
+                      <td><span class="pt-num slate">3</span></td>
+                      <td><span class="pt-name">Plan intensivo de recurrencia</span></td>
+                      <td><span class="pt-state blue">Vigilancia</span></td>
+                      <td><span class="pt-esfuerzo">Alto</span></td>
+                      <td class="pt-val-gray">Incierto</td>
+                      <td class="pt-val-gray">No recomendado</td>
+                      <td><a href="plan-wizard.html" class="pt-btn-create">Crear plan</a></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div class="plan-item amber">
-                <div><p class="plan-h">Diagn&#243;stico de microcausas</p><p class="plan-p">Entrevistas breves o revisi&#243;n de turnos si la se&#241;al crece durante las pr&#243;ximas semanas.</p></div>
-                <div class="sc"><span class="sp amber">Pendiente de activaci&#243;n</span><span class="sp-prio">Prioridad 54/100 &middot; Esfuerzo medio</span></div>
-                <div class="roi-strip">
-                  <div class="rc"><small>Coste no actuar</small><b>Por confirmar</b></div>
-                  <div class="rc"><small>Inversi&#243;n</small><b>1,3K&#8364;</b></div>
-                  <div class="rc"><small>Ahorro esperado</small><b class="">Sin activar</b></div>
-                  <div class="rc"><small>ROI previo</small><b class="">pendiente</b></div>
-                </div>
-                <button class="plan-btn">Abrir plan</button>
-              </div>
-              <div class="plan-item blue">
-                <div><p class="plan-h">Plan intensivo de recurrencia</p><p class="plan-p">Dise&#241;ado para escenarios de mayor criticidad. No se recomienda activarlo con la se&#241;al actual.</p></div>
-                <div class="sc"><span class="sp blue">Vigilancia</span><span class="sp-prio">Prioridad 39/100 &middot; Esfuerzo alto</span></div>
-                <div class="roi-strip">
-                  <div class="rc"><small>Coste no actuar</small><b>9K&ndash;14K&#8364;</b></div>
-                  <div class="rc"><small>Inversi&#243;n</small><b>3,5K&#8364;</b></div>
-                  <div class="rc"><small>Ahorro esperado</small><b class="">Incierto</b></div>
-                  <div class="rc"><small>ROI previo</small><b class="red">No recomendado</b></div>
-                </div>
-                <button class="plan-btn">Abrir plan</button>
-              </div>
-            </div>
+            </details>
+
           </div>
         </div>
 
-      </div>
-
-      <!-- FOOTER NOTE -->
-      <div class="foot-note">
-        <div>
-          <p style="font-size:13px;font-weight:700;color:#0f172a;margin:0 0 6px;">Criterio de agrupaci&#243;n</p>
-          <p style="font-size:12.5px;color:#64748b;line-height:1.5;margin:0;">Cada predicci&#243;n puede generar uno o varios planes asociados. El listado muestra la lectura econ&#243;mica preliminar, pero la decisi&#243;n final sobre estado, aprobaci&#243;n, ajustes o barreras se toma dentro del detalle de cada plan.</p>
-        </div>
-        <div class="foot-mem">El aprendizaje de ejecuci&#243;n, barreras y resultados queda guardado para mejorar futuros planes.</div>
       </div>
 
     </main>
