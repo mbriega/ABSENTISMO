@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resumen del plan &middot; Retorno seguro tras ausencia</title>
+  <link rel="stylesheet" href="../css/styles.css"/>
+  <style>
+    *{box-sizing:border-box;}
+    .rs-content{max-width:1100px;margin:0 auto;padding:22px 28px 48px;}
+    .rs-back{display:inline-flex;align-items:center;gap:6px;color:#64748b;font-size:13px;font-weight:600;text-decoration:none;margin-bottom:16px;}
+    .rs-back:hover{color:#2563eb;}
+
+    /* HEADER CARD */
+    .rs-header{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:22px 24px 0;margin-bottom:16px;overflow:hidden;}
+    .rs-header-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding-bottom:18px;}
+    .rs-badge{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:999px;background:#f0fdf4;color:#047857;border:1px solid #bbf7d0;font-size:11.5px;font-weight:700;margin-bottom:10px;}
+    .rs-badge-dot{width:7px;height:7px;border-radius:50%;background:#059669;flex-shrink:0;}
+    .rs-title{font-size:26px;font-weight:800;color:#0f172a;margin:0 0 6px;letter-spacing:-.035em;line-height:1.15;}
+    .rs-meta{font-size:12.5px;color:#94a3b8;font-weight:600;display:flex;gap:8px;flex-wrap:wrap;}
+    .rs-meta span{display:flex;align-items:center;gap:4px;}
+    .rs-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+    .rs-btn-primary{height:36px;padding:0 18px;background:#059669;border:none;border-radius:8px;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer;}
+    .rs-btn-ghost{height:36px;padding:0 14px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;color:#334155;font-size:12.5px;font-weight:600;cursor:pointer;}
+
+    /* KPI STRIP */
+    .rs-kpis{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid #e2e8f0;margin:0 -24px;}
+    .rs-kpi{padding:16px 20px;border-right:1px solid #f1f5f9;}
+    .rs-kpi:last-child{border-right:none;}
+    .rs-kpi-val{font-size:22px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:5px;color:#0f172a;}
+    .rs-kpi-val.red{color:#dc2626;} .rs-kpi-val.green{color:#059669;} .rs-kpi-val.blue{color:#1d4ed8;} .rs-kpi-val.purple{color:#7c3aed;}
+    .rs-kpi-label{font-size:11.5px;font-weight:700;color:#0f172a;margin-bottom:3px;}
+    .rs-kpi-sub{font-size:10.5px;color:#94a3b8;font-weight:500;}
+
+    /* LAYOUT */
+    .rs-layout{display:grid;grid-template-columns:1fr 300px;gap:16px;align-items:start;}
+    .rs-main{display:flex;flex-direction:column;gap:14px;}
+    .rs-side{display:flex;flex-direction:column;gap:14px;position:sticky;top:70px;}
+
+    /* CARD */
+    .rs-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);overflow:hidden;}
+    .rs-card-head{padding:14px 18px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+    .rs-card-head h3{font-size:13px;font-weight:700;color:#0f172a;margin:0;}
+    .rs-card-head p{font-size:11.5px;color:#94a3b8;font-weight:500;margin:0;}
+    .rs-card-body{padding:16px;}
+    .rs-tag{display:inline-flex;height:22px;align-items:center;padding:0 9px;border-radius:999px;font-size:10.5px;font-weight:700;white-space:nowrap;}
+    .rs-tag.green{background:#f0fdf4;color:#059669;border:1px solid #bbf7d0;}
+    .rs-tag.blue{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
+    .rs-tag.amber{background:#fffbeb;color:#b45309;border:1px solid #fed7aa;}
+    .rs-tag.red{background:#fef2f2;color:#be123c;border:1px solid #fecdd3;}
+    .rs-tag.purple{background:#f5f3ff;color:#7c3aed;border:1px solid #ddd6fe;}
+
+    /* ACTIONS LIST */
+    .action-list{display:flex;flex-direction:column;gap:8px;}
+    .action-row{display:flex;align-items:flex-start;gap:12px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;padding:12px;}
+    .action-num{width:28px;height:28px;border-radius:50%;background:#f0fdf4;color:#047857;border:1px solid #bbf7d0;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:800;flex-shrink:0;}
+    .action-row-body{flex:1;}
+    .action-row-body strong{display:block;font-size:13px;font-weight:700;color:#0f172a;margin-bottom:3px;}
+    .action-row-body p{font-size:12px;color:#64748b;line-height:1.4;font-weight:500;margin:0;}
+    .action-row-when{font-size:11px;font-weight:700;color:#94a3b8;flex-shrink:0;text-align:right;white-space:nowrap;}
+
+    /* RISK BARS */
+    .risk-wrap{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .risk-bar-block{display:flex;flex-direction:column;gap:6px;}
+    .risk-bar-label{display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:#0f172a;}
+    .risk-bar{height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden;}
+    .risk-bar-fill{height:100%;border-radius:999px;}
+    .risk-bar-fill.red{background:#ef4444;width:72%;}
+    .risk-bar-fill.green{background:#10b981;width:48%;}
+    .risk-cards{display:flex;flex-direction:column;gap:8px;}
+    .risk-card{background:#f8fafc;border:1px solid #f1f5f9;border-radius:9px;padding:10px;}
+    .risk-card strong{display:block;font-size:12px;font-weight:700;color:#0f172a;margin-bottom:3px;}
+    .risk-card span{display:block;font-size:11.5px;color:#64748b;line-height:1.35;font-weight:500;}
+
+    /* ECONOMIC */
+    .econ-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;}
+    .econ-cell{background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;padding:12px;}
+    .econ-cell small{display:block;color:#94a3b8;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;}
+    .econ-cell b{display:block;font-size:19px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:5px;color:#0f172a;}
+    .econ-cell b.red{color:#dc2626;} .econ-cell b.green{color:#059669;} .econ-cell b.blue{color:#1d4ed8;}
+    .econ-cell span{display:block;font-size:11px;color:#94a3b8;font-weight:500;}
+
+    /* SIDE: decision */
+    .side-decision{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:18px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+    .side-decision h3{font-size:14px;font-weight:800;color:#0f172a;margin:0 0 6px;}
+    .side-decision p{font-size:12.5px;color:#64748b;font-weight:500;line-height:1.5;margin:0 0 14px;}
+    .side-btn-approve{height:40px;width:100%;border:none;border-radius:8px;background:#059669;color:#fff;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:8px;}
+    .side-sec{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+    .side-sec button{height:32px;border:1px solid #e2e8f0;background:#fff;border-radius:7px;font-size:12px;font-weight:600;color:#334155;cursor:pointer;}
+
+    /* SIDE: agents */
+    .agent-list{display:flex;flex-direction:column;gap:0;}
+    .agent-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid #f8fafc;}
+    .agent-row:last-child{border-bottom:none;}
+    .agent-row-left{display:flex;align-items:center;gap:8px;}
+    .agent-icon{width:26px;height:26px;border-radius:50%;background:#f5f3ff;color:#7c3aed;border:1px solid #ddd6fe;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;}
+    .agent-row b{font-size:12px;font-weight:700;color:#0f172a;}
+    .agent-row span{font-size:11px;font-weight:700;}
+    .agent-row span.ok{color:#059669;} .agent-row span.cond{color:#b45309;}
+
+    /* SIDE: timeline */
+    .timeline{display:flex;flex-direction:column;gap:0;}
+    .tl-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid #f8fafc;}
+    .tl-row:last-child{border-bottom:none;}
+    .tl-dot-wrap{display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0;}
+    .tl-dot{width:10px;height:10px;border-radius:50%;background:#e2e8f0;border:2px solid #e2e8f0;flex-shrink:0;margin-top:3px;}
+    .tl-dot.active{background:#2563eb;border-color:#2563eb;}
+    .tl-body b{display:block;font-size:12px;font-weight:700;color:#0f172a;margin-bottom:2px;}
+    .tl-body span{font-size:11.5px;color:#64748b;font-weight:500;line-height:1.38;}
+    .tl-when{font-size:11px;font-weight:700;color:#94a3b8;margin-left:auto;flex-shrink:0;}
+
+    /* SIDE: alt version */
+    .alt-card{background:#fffbeb;border:1px solid #fed7aa;border-radius:14px;padding:16px;}
+    .alt-card p{font-size:11.5px;color:#92400e;font-weight:700;margin:0 0 10px;}
+    .alt-metrics{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+    .alt-cell{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:9px;}
+    .alt-cell small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+    .alt-cell b{display:block;font-size:14px;font-weight:800;color:#0f172a;}
+  </style>
+</head>
+<body data-page="planes-accion" class="bg-surface-50 text-surface-900 antialiased">
+  <div id="sidebar-mount"></div>
+  <div style="margin-left:260px;min-height:100vh;background:#f8fafc;max-width:calc(100vw - 260px);overflow-x:hidden;">
+
+    <!-- HEADER -->
+    <div style="background:#fff;border-bottom:1px solid #e2e8f0;padding:13px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <a href="planes-accion.html" style="display:flex;align-items:center;color:#94a3b8;text-decoration:none;">
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        </a>
+        <div>
+          <h1 style="font-size:15px;font-weight:700;color:#0f172a;margin:0;">Plan de acci&#243;n</h1>
+          <p style="font-size:11px;color:#94a3b8;margin:2px 0 0;">Resumen &middot; Retorno seguro tras ausencia</p>
+        </div>
+      </div>
+      <div style="width:34px;height:34px;border-radius:50%;background:#0f172a;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;">AD</div>
+    </div>
+
+    <section class="rs-content">
+
+      <!-- HEADER CARD -->
+      <div class="rs-header">
+        <div class="rs-header-top">
+          <div>
+            <div class="rs-badge"><span class="rs-badge-dot"></span>Pendiente de aprobaci&#243;n</div>
+            <h1 class="rs-title">Retorno seguro tras ausencia</h1>
+            <div class="rs-meta">
+              <span>Predicci&#243;n #001 &middot; Plataforma Centro</span>
+              <span>&middot;</span>
+              <span>Ventana: 14 d&#237;as</span>
+              <span>&middot;</span>
+              <span>Plan v1.0</span>
+              <span>&middot;</span>
+              <span>7 Ago 2026</span>
+            </div>
+          </div>
+          <div class="rs-actions">
+            <button class="rs-btn-ghost" onclick="location.href='plan-wizard.html'">Editar plan</button>
+            <button class="rs-btn-primary">Aprobar plan</button>
+          </div>
+        </div>
+        <div class="rs-kpis">
+          <div class="rs-kpi">
+            <div class="rs-kpi-val red">72%</div>
+            <div class="rs-kpi-label">Riesgo inicial</div>
+            <div class="rs-kpi-sub">Sin intervenci&#243;n</div>
+          </div>
+          <div class="rs-kpi">
+            <div class="rs-kpi-val green">48%</div>
+            <div class="rs-kpi-label">Riesgo residual</div>
+            <div class="rs-kpi-sub">Tras aplicar el plan</div>
+          </div>
+          <div class="rs-kpi">
+            <div class="rs-kpi-val green" style="font-size:18px;">12K&ndash;15K&#8364;</div>
+            <div class="rs-kpi-label">Ahorro esperado</div>
+            <div class="rs-kpi-sub">Escenario prudente</div>
+          </div>
+          <div class="rs-kpi">
+            <div class="rs-kpi-val">1,2K&#8364;</div>
+            <div class="rs-kpi-label">Inversi&#243;n</div>
+            <div class="rs-kpi-sub">RRHH y mandos</div>
+          </div>
+          <div class="rs-kpi">
+            <div class="rs-kpi-val blue">1.100%</div>
+            <div class="rs-kpi-label">ROI estimado</div>
+            <div class="rs-kpi-sub">Break-even: 1 caso</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rs-layout">
+        <div class="rs-main">
+
+          <!-- ACCIONES -->
+          <div class="rs-card">
+            <div class="rs-card-head">
+              <div><h3>Acciones del plan</h3><p>Qu&#233; se hace, cu&#225;ndo y para qu&#233;</p></div>
+              <span class="rs-tag amber">14 d&#237;as</span>
+            </div>
+            <div class="rs-card-body">
+              <div class="action-list">
+                <div class="action-row">
+                  <div class="action-num">1</div>
+                  <div class="action-row-body"><strong>Revisar reincorporaciones recientes</strong><p>Identificar personas que vuelven en la ventana de riesgo y priorizar los casos con mayor exposici&#243;n operativa.</p></div>
+                  <div class="action-row-when">D&#237;a 0</div>
+                </div>
+                <div class="action-row">
+                  <div class="action-num">2</div>
+                  <div class="action-row-body"><strong>Contacto preventivo 72h antes</strong><p>Mensaje breve de apoyo para confirmar turno, necesidades pr&#225;cticas y barreras de vuelta.</p></div>
+                  <div class="action-row-when">72h antes</div>
+                </div>
+                <div class="action-row">
+                  <div class="action-num">3</div>
+                  <div class="action-row-body"><strong>Chequeos breves d&#237;as 1, 7 y 14</strong><p>Seguimiento m&#237;nimo. Solo preguntas operativas y de adaptaci&#243;n.</p></div>
+                  <div class="action-row-when">D&#237;as 1 &middot; 7 &middot; 14</div>
+                </div>
+                <div class="action-row">
+                  <div class="action-num">4</div>
+                  <div class="action-row-body"><strong>Ajuste m&#237;nimo si es viable</strong><p>Solo si operaci&#243;n lo acepta y no afecta condiciones. Si no encaja, se elimina.</p></div>
+                  <div class="action-row-when">Si aplica</div>
+                </div>
+                <div class="action-row">
+                  <div class="action-num">5</div>
+                  <div class="action-row-body"><strong>Medir resultado</strong><p>Comparar ausencias reales, coste evitado y recurrencia frente al escenario previsto.</p></div>
+                  <div class="action-row-when">D&#237;a 14</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- IMPACTO EN RIESGO -->
+          <div class="rs-card">
+            <div class="rs-card-head">
+              <div><h3>Reducci&#243;n de riesgo</h3><p>Antes y despu&#233;s de aplicar el plan</p></div>
+              <span class="rs-tag green">&#8722;24 puntos</span>
+            </div>
+            <div class="rs-card-body">
+              <div class="risk-wrap">
+                <div>
+                  <div class="risk-bar-block" style="margin-bottom:12px;">
+                    <div class="risk-bar-label"><span>Sin intervenci&#243;n</span><span>72%</span></div>
+                    <div class="risk-bar"><div class="risk-bar-fill red"></div></div>
+                  </div>
+                  <div class="risk-bar-block">
+                    <div class="risk-bar-label"><span>Con este plan</span><span>48%</span></div>
+                    <div class="risk-bar"><div class="risk-bar-fill green"></div></div>
+                  </div>
+                </div>
+                <div class="risk-cards">
+                  <div class="risk-card"><strong>Menos reca&#237;das tempranas</strong><span>Seguimiento en los primeros d&#237;as detecta barreras antes de que generen nueva ausencia.</span></div>
+                  <div class="risk-card"><strong>Operaci&#243;n protegida</strong><span>Ajuste m&#237;nimo evita sobrecarga inicial sin alterar condiciones de trabajo.</span></div>
+                  <div class="risk-card"><strong>Aprendizaje medible</strong><span>El d&#237;a 14 queda registrado para mejorar futuros planes.</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LECTURA ECONÓMICA -->
+          <div class="rs-card">
+            <div class="rs-card-head">
+              <div><h3>Lectura econ&#243;mica</h3><p>Por qu&#233; merece la pena actuar</p></div>
+              <span class="rs-tag green">ROI positivo</span>
+            </div>
+            <div class="rs-card-body">
+              <div class="econ-grid">
+                <div class="econ-cell"><small>Coste sin actuaci&#243;n</small><b class="red">18K&ndash;24K&#8364;</b><span>Recurrencia y cobertura tensionada.</span></div>
+                <div class="econ-cell"><small>Inversi&#243;n del plan</small><b>1,2K&#8364;</b><span>Tiempo RRHH, mandos y coordinaci&#243;n.</span></div>
+                <div class="econ-cell"><small>Ahorro esperado</small><b class="green">12K&ndash;15K&#8364;</b><span>Escenario prudente si baja la recurrencia.</span></div>
+                <div class="econ-cell"><small>Break-even</small><b class="blue">1 caso</b><span>Con evitar una ausencia relevante, compensa.</span></div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /rs-main -->
+
+        <!-- SIDE -->
+        <aside class="rs-side">
+
+          <!-- DECISION -->
+          <div class="side-decision">
+            <h3>Decisi&#243;n</h3>
+            <p>El plan est&#225; listo y validado por los agentes. Apru&#233;balo para activar las acciones autom&#225;ticamente.</p>
+            <button class="side-btn-approve">Aprobar y activar</button>
+            <div class="side-sec">
+              <button onclick="location.href='plan-wizard.html'">Editar</button>
+              <button>Pausar</button>
+              <button>Simular</button>
+              <button>Alternativa</button>
+            </div>
+          </div>
+
+          <!-- AGENTS -->
+          <div class="rs-card">
+            <div class="rs-card-head"><h3>Validaci&#243;n de agentes</h3></div>
+            <div class="rs-card-body" style="padding:4px 16px;">
+              <div class="agent-list">
+                <div class="agent-row"><div class="agent-row-left"><div class="agent-icon">RR</div><b>Agente RRHH</b></div><span class="ok">Validado</span></div>
+                <div class="agent-row"><div class="agent-row-left"><div class="agent-icon">AB</div><b>Agente absentismo</b></div><span class="ok">Validado</span></div>
+                <div class="agent-row"><div class="agent-row-left"><div class="agent-icon">&#8364;</div><b>Agente economista</b></div><span class="ok">Validado</span></div>
+                <div class="agent-row"><div class="agent-row-left"><div class="agent-icon">CV</div><b>Agente convenio</b></div><span class="cond">Condicionado</span></div>
+                <div class="agent-row"><div class="agent-row-left"><div class="agent-icon">PL</div><b>Agente PRL</b></div><span class="ok">Validado</span></div>
+                <div class="agent-row"><div class="agent-row-left"><div class="agent-icon">AI</div><b>Control &#233;tico IA</b></div><span class="ok">Validado</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TIMELINE -->
+          <div class="rs-card">
+            <div class="rs-card-head"><h3>Al aprobar se activa</h3></div>
+            <div class="rs-card-body" style="padding:4px 16px;">
+              <div class="timeline">
+                <div class="tl-row"><div class="tl-dot-wrap"><div class="tl-dot active"></div></div><div class="tl-body"><b>D&#237;a 0</b><span>Lista de reincorporaciones y responsables.</span></div></div>
+                <div class="tl-row"><div class="tl-dot-wrap"><div class="tl-dot"></div></div><div class="tl-body"><b>72h antes de cada retorno</b><span>Gui&#243;n de contacto preventivo.</span></div></div>
+                <div class="tl-row"><div class="tl-dot-wrap"><div class="tl-dot"></div></div><div class="tl-body"><b>D&#237;as 1, 7 y 14</b><span>Recordatorios de seguimiento para mandos.</span></div></div>
+                <div class="tl-row"><div class="tl-dot-wrap"><div class="tl-dot"></div></div><div class="tl-body"><b>D&#237;a 14</b><span>Medici&#243;n de ahorro, recurrencia y riesgo residual.</span></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ALTERNATIVE -->
+          <div class="alt-card">
+            <p>&#9888;&#65039; Versi&#243;n alternativa disponible si no hay mandos</p>
+            <div class="alt-metrics">
+              <div class="alt-cell"><small>Ahorro</small><b>9K&ndash;12K&#8364;</b></div>
+              <div class="alt-cell"><small>Inversi&#243;n</small><b>0,9K&#8364;</b></div>
+              <div class="alt-cell"><small>Gesti&#243;n</small><b>Solo RRHH</b></div>
+              <div class="alt-cell"><small>Chequeos</small><b>2 (no 3)</b></div>
+            </div>
+          </div>
+
+        </aside>
+      </div>
+    </section>
+  </div>
+
+  <script src="../js/components/sidebar.js"></script>
+  <script>if(typeof SidebarComponent!=="undefined") SidebarComponent.render();</script>
+</body>
+</html>
