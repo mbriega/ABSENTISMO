@@ -14,15 +14,6 @@
     .card-sub{font-size:11px;color:#94a3b8;margin:0;}
     .tag-r{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;border:1px solid #fda4af;color:#be123c;background:#fff1f2;white-space:nowrap;}
     .tag-c{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:#fef9c3;color:#854d0e;white-space:nowrap;}
-    .bullet-list{list-style:none;margin:0;padding:0;}
-    .bullet-list li{display:flex;gap:8px;font-size:13px;color:#334155;line-height:1.5;padding:6px 0;border-bottom:1px solid #f8fafc;}
-    .bullet-list li:last-child{border-bottom:none;}
-    .bullet-dot{width:6px;height:6px;border-radius:50%;background:#2563eb;flex-shrink:0;margin-top:7px;}
-    .imp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px;}
-    .imp-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:16px;}
-    .imp-card-title{font-size:12px;font-weight:700;color:#0f172a;margin:0 0 6px;}
-    .imp-card-body{font-size:12px;color:#64748b;line-height:1.5;margin:0;}
-    .bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
     .pat-kpi-strip{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid #f1f5f9;}
     .pat-kpi-cell{padding:16px 20px;border-right:1px solid #f1f5f9;display:flex;flex-direction:column;gap:3px;}
     .pat-kpi-cell:last-child{border-right:none;}
@@ -94,7 +85,7 @@
 
     <main style="padding:24px 28px;display:flex;flex-direction:column;gap:16px;">
 
-      <!-- Back + section label + title -->
+      <!-- Back + title -->
       <div>
         <a href="prediccion.html" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#94a3b8;text-decoration:none;margin-bottom:14px;">
           <svg style="width:14px;height:14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
@@ -112,11 +103,12 @@
       </div>
 
       <!-- KPI strip -->
-      <div style="background:white;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-bottom:16px;"><div class="pat-kpi-strip"><div class="pat-kpi-cell"><div style="width:28px;height:28px;border-radius:8px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;margin-bottom:10px;"><svg style="width:13px;height:13px;color:#64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg></div><div class="flex items-center gap-1.5"><span class="text-2xl font-bold tabular-nums leading-none text-primary-700">82%</span></div><p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;line-height:1.25;margin:.125rem 0 0;">Probabilidad</p><p class="text-xs text-surface-500 leading-relaxed mt-1">de activaci&#243;n en el pr&#243;ximo trimestre</p></div><div class="pat-kpi-cell"><div style="width:28px;height:28px;border-radius:8px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;margin-bottom:10px;"><svg style="width:13px;height:13px;color:#64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div><div class="flex items-center gap-1.5"><span class="text-2xl font-bold tabular-nums leading-none text-surface-900">3&ndash;5</span></div><p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;line-height:1.25;margin:.125rem 0 0;">Personas afectadas</p><p class="text-xs text-surface-500 leading-relaxed mt-1">podr&#237;an acumular bajas largas</p></div><div class="pat-kpi-cell"><div style="width:28px;height:28px;border-radius:8px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;margin-bottom:10px;"><svg style="width:13px;height:13px;color:#64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div><div class="flex items-center gap-1.5"><span class="text-2xl font-bold tabular-nums leading-none text-surface-900">171&ndash;318</span></div><p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;line-height:1.25;margin:.125rem 0 0;">D&#237;as de baja estimados</p><p class="text-xs text-surface-500 leading-relaxed mt-1">acumulados en el trimestre</p></div><div class="pat-kpi-cell"><div style="width:28px;height:28px;border-radius:8px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;margin-bottom:10px;"><svg style="width:13px;height:13px;color:#64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><div class="flex items-center gap-1.5"><span class="text-2xl font-bold tabular-nums leading-none text-primary-700">53k&ndash;98k &#8364;</span></div><p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;line-height:1.25;margin:.125rem 0 0;">Coste estimado</p><p class="text-xs text-surface-500 leading-relaxed mt-1">impacto econ&#243;mico directo</p></div><div class="pat-kpi-cell"><div style="width:28px;height:28px;border-radius:8px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;margin-bottom:10px;"><svg style="width:13px;height:13px;color:#64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div><div class="flex items-center gap-1.5"><span class="text-2xl font-bold tabular-nums leading-none text-surface-900">66,7%</span></div><p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;line-height:1.25;margin:.125rem 0 0;">Tasa de reincidencia</p><p class="text-xs text-surface-500 leading-relaxed mt-1">de los afectados repiten episodios</p></div></div></div>
+      <div style="background:white;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-bottom:0;"><div class="pat-kpi-strip"><div class="pat-kpi-cell"><div style="width:28px;height:28px;border-radius:8px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;margin-bottom:10px;"><svg style="width:13px;height:13px;color:#64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg></div><div class="flex items-center gap-1.5"><span class="text-2xl font-bold tabular-nums leading-none text-primary-700">82%</span></div><p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;line-height:1.25;margin:.125rem 0 0;">Probabilidad</p><p class="text-xs text-surface-500 leading-relaxed mt-1">de activaci&#243;n en el pr&#243;ximo trimestre</p></div><div class="pat-kpi-cell"><div style="width:28px;height:28px;border-radius:8px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;margin-bottom:10px;"><svg style="width:13px;height:13px;color:#64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div><div class="flex items-center gap-1.5"><span class="text-2xl font-bold tabular-nums leading-none text-surface-900">3&ndash;5</span></div><p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;line-height:1.25;margin:.125rem 0 0;">Personas afectadas</p><p class="text-xs text-surface-500 leading-relaxed mt-1">podr&#237;an acumular bajas largas</p></div><div class="pat-kpi-cell"><div style="width:28px;height:28px;border-radius:8px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;margin-bottom:10px;"><svg style="width:13px;height:13px;color:#64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div><div class="flex items-center gap-1.5"><span class="text-2xl font-bold tabular-nums leading-none text-surface-900">171&ndash;318</span></div><p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;line-height:1.25;margin:.125rem 0 0;">D&#237;as de baja estimados</p><p class="text-xs text-surface-500 leading-relaxed mt-1">acumulados en el trimestre</p></div><div class="pat-kpi-cell"><div style="width:28px;height:28px;border-radius:8px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;margin-bottom:10px;"><svg style="width:13px;height:13px;color:#64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><div class="flex items-center gap-1.5"><span class="text-2xl font-bold tabular-nums leading-none text-primary-700">53k&ndash;98k &#8364;</span></div><p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;line-height:1.25;margin:.125rem 0 0;">Coste estimado</p><p class="text-xs text-surface-500 leading-relaxed mt-1">impacto econ&#243;mico directo</p></div><div class="pat-kpi-cell"><div style="width:28px;height:28px;border-radius:8px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;margin-bottom:10px;"><svg style="width:13px;height:13px;color:#64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div><div class="flex items-center gap-1.5"><span class="text-2xl font-bold tabular-nums leading-none text-surface-900">66,7%</span></div><p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;line-height:1.25;margin:.125rem 0 0;">Tasa de reincidencia</p><p class="text-xs text-surface-500 leading-relaxed mt-1">de los afectados repiten episodios</p></div></div></div>
 
-      <!-- Row 1: Que puede pasar + Por que lo creemos -->
+      <!-- Row 1: Que puede pasar (con Por que lo creemos) + Por que importa -->
       <div style="display:grid;grid-template-columns:1fr 380px;gap:16px;">
 
+        <!-- Que puede pasar + Por que lo creemos como tarjetas -->
         <div class="det-card">
           <div class="card-header">
             <div>
@@ -128,165 +120,134 @@
               IA
             </button>
           </div>
-          <p style="font-size:14px;font-weight:400;color:#334155;line-height:1.7;margin:0;">
-            El modelo detecta en Perd&#243;n un patr&#243;n de cronificaci&#243;n que viene consolid&#225;ndose desde principios de 2024. No se trata de un repunte puntual: el hist&#243;rico muestra que cada vez que este centro ha superado cierto umbral de episodios largos, la tendencia se ha mantenido o agravado en los meses siguientes. La combinaci&#243;n de reincidencia elevada y concentraci&#243;n de d&#237;as en un grupo reducido de personas hace que el riesgo sea especialmente sensible a la gesti&#243;n: intervenir sobre los perfiles correctos puede cambiar significativamente el resultado del trimestre.
+          <p style="font-size:14px;font-weight:400;color:#334155;line-height:1.7;margin:0 0 20px;">
+            El modelo detecta en Perd&#243;n un patr&#243;n de cronificaci&#243;n que viene consolid&#225;ndose desde principios de 2024. No se trata de un repunte puntual: el hist&#243;rico muestra que cada vez que este centro ha superado cierto umbral de episodios largos, la tendencia se ha mantenido o agravado en los meses siguientes. La combinaci&#243;n de reincidencia elevada y concentraci&#243;n de d&#237;as en un grupo reducido de personas hace que el riesgo sea especialmente sensible a la gesti&#243;n.
           </p>
+          <!-- Por que lo creemos como tarjetas -->
+          <div style="padding-top:16px;border-top:1px solid #f1f5f9;">
+            <p style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin:0 0 10px;">Por qu&#233; lo creemos</p>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px;display:flex;align-items:flex-start;gap:8px;">
+                <div style="width:6px;height:6px;border-radius:50%;background:#2563eb;flex-shrink:0;margin-top:5px;"></div>
+                <p style="font-size:12px;color:#334155;line-height:1.5;margin:0;">4 episodios superan los 60 d&#237;as: bajas que se cronifican.</p>
+              </div>
+              <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px;display:flex;align-items:flex-start;gap:8px;">
+                <div style="width:6px;height:6px;border-radius:50%;background:#2563eb;flex-shrink:0;margin-top:5px;"></div>
+                <p style="font-size:12px;color:#334155;line-height:1.5;margin:0;">10 personas con 2+ episodios (66,7&#8239;% de las afectadas): bajas que se repiten.</p>
+              </div>
+              <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px;display:flex;align-items:flex-start;gap:8px;">
+                <div style="width:6px;height:6px;border-radius:50%;background:#2563eb;flex-shrink:0;margin-top:5px;"></div>
+                <p style="font-size:12px;color:#334155;line-height:1.5;margin:0;">El 75,4&#8239;% de los d&#237;as se concentra en pocas personas del centro.</p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="det-card">
-          <p class="card-title" style="margin-bottom:3px;">Por qu&#233; lo creemos</p>
-          <p class="card-sub" style="margin-bottom:16px;">Se&#241;ales traducidas a lenguaje humano</p>
-          <ul class="bullet-list">
-            <li><span class="bullet-dot"></span><span>4 episodios superan los 60 d&#237;as: bajas que se cronifican.</span></li>
-            <li><span class="bullet-dot"></span><span>10 personas con 2+ episodios (66,7&#8239;% de las afectadas): bajas que se repiten.</span></li>
-            <li><span class="bullet-dot"></span><span>El 75,4&#8239;% de los d&#237;as se concentra en pocas personas del centro.</span></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- ACCORDION: Como puede evolucionar el absentismo -->
-      <details class="pred-disc">
-        <summary>
-          <div class="disc-sum-left">
-            <div class="disc-icon-wrap">
-              <svg style="width:15px;height:15px;color:#64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+        <!-- Por que importa (estilo pat-002) -->
+        <div id="pat-formula-card" class="bg-white rounded-xl border border-surface-200 shadow-card p-5">
+          <p class="text-[10px] font-medium text-surface-400 uppercase tracking-wider mb-1">Por qu&#233; importa a tu operaci&#243;n</p>
+          <p style="font-size:11px;color:#64748b;margin-bottom:16px;line-height:1.5;">Interpretaci&#243;n de la IA sobre las implicaciones de la predicci&#243;n</p>
+          <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid #f1f5f9;">
+            <div style="width:30px;height:30px;border-radius:8px;background:#fef2f2;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg style="width:14px;height:14px;color:#ef4444;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v4M12 17h.01"></path></svg>
             </div>
             <div>
-              <p style="font-size:13px;font-weight:700;color:#0f172a;margin:0 0 1px;">C&#243;mo puede evolucionar el absentismo</p>
-              <p style="font-size:11px;color:#94a3b8;margin:0;">Previsi&#243;n con componente estacional y tendencia &mdash; validado por backtest</p>
+              <p style="font-size:13px;font-weight:600;color:#1e293b;line-height:1.3;">Riesgo de reincidencia en baja</p>
+              <p style="font-size:12px;color:#64748b;margin-top:3px;line-height:1.5;">La reincorporaci&#243;n fr&#225;gil aumenta un 84,7&#8239;% las probabilidades de volver a baja en los pr&#243;ximos dos meses.</p>
             </div>
           </div>
-          <svg class="disc-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-        </summary>
-        <div class="disc-divider"></div>
-        <div class="disc-body-inner">
-
-          <!-- Period tabs + badge -->
-          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px;">
-            <div class="evo-tabs">
-              <button class="evo-tab">Semanas</button>
-              <button class="evo-tab active">Meses</button>
-              <button class="evo-tab">Trimestre</button>
+          <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid #f1f5f9;">
+            <div style="width:30px;height:30px;border-radius:8px;background:#fffbeb;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg style="width:14px;height:14px;color:#d97706;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
             </div>
-            <span style="display:inline-flex;align-items:center;gap:5px;background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;">
-              <svg style="width:11px;height:11px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-              Estacional + tendencia (validado)
-            </span>
-          </div>
-
-          <!-- Narrative -->
-          <p style="font-size:13px;color:#334155;line-height:1.7;margin:0 0 16px;">
-            El modelo combina el componente estacional del centro (mayor absentismo en los meses de invierno y primavera) con la tendencia de crecimiento sostenido observada desde mediados de 2023. La previsi&#243;n central indica un incremento progresivo en los pr&#243;ximos dos trimestres, con pico probable en el primer trimestre de 2026. El rango de incertidumbre se amplia a medida que el horizonte se aleja del presente.
-          </p>
-
-          <!-- Confidence cards -->
-          <div class="conf-cards">
-            <div class="conf-card">
-              <p class="conf-card-label">Confianza del modelo</p>
-              <p class="conf-card-val">Media</p>
-              <p class="conf-card-sub">Datos suficientes, pero ventana hist&#243;rica relativamente corta (5 a&#241;os).</p>
-            </div>
-            <div class="conf-card">
-              <p class="conf-card-label">Fiabilidad de la previsi&#243;n</p>
-              <p class="conf-card-val">83&#8239;% de acierto</p>
-              <p class="conf-card-sub">Validado por backtest en los &#250;ltimos 6 periodos comparables.</p>
+            <div>
+              <p style="font-size:13px;font-weight:600;color:#1e293b;line-height:1.3;">Presi&#243;n en el equipo</p>
+              <p style="font-size:12px;color:#64748b;margin-top:3px;line-height:1.5;">La ausencia prolongada de 3 a 5 personas clave puede dejar &#225;reas sin personal suficiente durante el trimestre.</p>
             </div>
           </div>
-
-          <!-- Chart -->
-        <div style="width:100%;overflow-x:auto;">
-          <svg viewBox="0 0 680 185" style="width:100%;min-width:480px;" role="img" aria-label="Previsi&#243;n de evoluci&#243;n del absentismo">
-            <!-- grid lines -->
-            <line x1="50" y1="20" x2="645" y2="20" stroke="#f1f5f9" stroke-width="1"/>
-            <line x1="50" y1="60" x2="645" y2="60" stroke="#f1f5f9" stroke-width="1"/>
-            <line x1="50" y1="100" x2="645" y2="100" stroke="#f1f5f9" stroke-width="1"/>
-            <line x1="50" y1="140" x2="645" y2="140" stroke="#f1f5f9" stroke-width="1"/>
-            <line x1="50" y1="160" x2="645" y2="160" stroke="#e2e8f0" stroke-width="1"/>
-            <!-- y-axis labels -->
-            <text x="44" y="163" text-anchor="end" font-size="9" fill="#94a3b8">0</text>
-            <text x="44" y="143" text-anchor="end" font-size="9" fill="#94a3b8">5</text>
-            <text x="44" y="103" text-anchor="end" font-size="9" fill="#94a3b8">10</text>
-            <text x="44" y="63" text-anchor="end" font-size="9" fill="#94a3b8">15</text>
-            <text x="44" y="23" text-anchor="end" font-size="9" fill="#94a3b8">20</text>
-            <text x="20" y="92" text-anchor="middle" font-size="8" fill="#94a3b8" transform="rotate(-90 20 92)">D&#237;as/mes</text>
-            <!-- x-axis year labels -->
-            <text x="50" y="175" text-anchor="middle" font-size="9" fill="#94a3b8">2020</text>
-            <text x="149" y="175" text-anchor="middle" font-size="9" fill="#94a3b8">2021</text>
-            <text x="248" y="175" text-anchor="middle" font-size="9" fill="#94a3b8">2022</text>
-            <text x="347" y="175" text-anchor="middle" font-size="9" fill="#94a3b8">2023</text>
-            <text x="446" y="175" text-anchor="middle" font-size="9" fill="#94a3b8">2024</text>
-            <text x="545" y="175" text-anchor="middle" font-size="9" fill="#94a3b8">2025</text>
-            <text x="608" y="175" text-anchor="middle" font-size="9" fill="#64748b" font-weight="600">Prev.</text>
-            <!-- vertical divider (historical / forecast) -->
-            <line x1="545" y1="20" x2="545" y2="160" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
-            <!-- confidence band (polygon: low forward, high backward) -->
-            <polygon points="545,65 565,61 590,60 615,65 640,57 640,7 615,21 590,20 565,31 545,41"
-              fill="#dbeafe" fill-opacity="0.55" stroke="none"/>
-            <!-- historical line -->
-            <polyline
-              points="50,116 75,106 100,110 125,120 149,110 174,97 199,102 224,116 248,122 273,112 298,122 323,126 347,116 372,108 397,100 421,91 446,97 470,83 495,68 520,58 545,53"
-              fill="none" stroke="#2563eb" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-            <!-- forecast line (dashed) -->
-            <polyline
-              points="545,53 565,46 590,40 615,43 640,32"
-              fill="none" stroke="#2563eb" stroke-width="2" stroke-dasharray="5,4" stroke-linejoin="round" stroke-linecap="round"/>
-            <!-- forecast end dot -->
-            <circle cx="640" cy="32" r="3" fill="#2563eb"/>
-            <!-- historical end dot -->
-            <circle cx="545" cy="53" r="3" fill="#2563eb"/>
-          </svg>
-        </div>
-        <!-- legend -->
-        <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:10px;padding-top:12px;border-top:1px solid #f1f5f9;">
-          <div style="display:flex;align-items:center;gap:6px;">
-            <div style="width:20px;height:2px;background:#2563eb;border-radius:1px;"></div>
-            <span style="font-size:11px;color:#64748b;">Lo que ya pas&#243; (dato real)</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:6px;">
-            <div style="width:20px;height:2px;background:#2563eb;border-radius:1px;border-top:2px dashed #2563eb;background:none;"></div>
-            <span style="font-size:11px;color:#64748b;">Lo que se prev&#233; (central)</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:6px;">
-            <div style="width:14px;height:10px;background:#dbeafe;border:1px solid #93c5fd;border-radius:2px;"></div>
-            <span style="font-size:11px;color:#64748b;">Rango probable (bajo / alto)</span>
-          </div>
-        </div>
-        <p style="font-size:11px;color:#94a3b8;margin:10px 0 0;line-height:1.5;">
-          El rango de incertidumbre se amplia a medida que el horizonte de previsi&#243;n es mayor. Los valores hist&#243;ricos son datos reales del centro; la l&#237;nea de previsi&#243;n es una estimaci&#243;n del modelo.
-        </p>
-
-        </div>
-      </details>
-
-      <!-- Por que importa a tu operacion -->
-      <div class="det-card">
-        <div class="card-header">
-          <div>
-            <p class="card-title">Por qu&#233; importa a tu operaci&#243;n</p>
-            <p class="card-sub">Interpretaci&#243;n de la IA</p>
-          </div>
-          <button class="ia-btn">
-            <svg style="width:13px;height:13px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-            IA
-          </button>
-        </div>
-        <div class="imp-grid">
-          <div class="imp-card">
-            <p class="imp-card-title">Cobertura de equipos</p>
-            <p class="imp-card-body">La ausencia prolongada de 3 a 5 personas clave puede dejar &#225;reas sin personal suficiente.</p>
-          </div>
-          <div class="imp-card">
-            <p class="imp-card-title">Coste econ&#243;mico directo</p>
-            <p class="imp-card-body">Entre 53.164 y 98.733 euros adicionales en bajas recurrentes afectar&#225;n al presupuesto del centro.</p>
-          </div>
-          <div class="imp-card">
-            <p class="imp-card-title">Cronificaci&#243;n de casos</p>
-            <p class="imp-card-body">El 66,7&#8239;% de los afectados repiten bajas, lo que indica que el problema puede agravarse sin intervenci&#243;n.</p>
+          <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;">
+            <div style="width:30px;height:30px;border-radius:8px;background:#eff6ff;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg style="width:14px;height:14px;color:#2563eb;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <div>
+              <p style="font-size:13px;font-weight:600;color:#1e293b;line-height:1.3;">Coste oculto de reincorporaci&#243;n</p>
+              <p style="font-size:12px;color:#64748b;margin-top:3px;line-height:1.5;">Entre 53.164 y 98.733&#8239;&#8364; adicionales en bajas recurrentes afectar&#225;n al presupuesto del centro.</p>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- ACCORDION: Riesgos activados (open by default) -->
+      <!-- Como puede evolucionar (fuera del acordeon) -->
+      <div class="det-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px;">
+          <div>
+            <p class="card-title">C&#243;mo puede evolucionar el absentismo</p>
+            <p class="card-sub">Previsi&#243;n con componente estacional y tendencia &mdash; validado por backtest</p>
+          </div>
+          <span style="display:inline-flex;align-items:center;gap:5px;background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;">
+            <svg style="width:11px;height:11px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            Estacional + tendencia (validado)
+          </span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px;">
+          <div class="evo-tabs">
+            <button class="evo-tab">Semanas</button>
+            <button class="evo-tab active">Meses</button>
+            <button class="evo-tab">Trimestre</button>
+          </div>
+        </div>
+        <p style="font-size:13px;color:#334155;line-height:1.7;margin:0 0 16px;">
+          El modelo combina el componente estacional del centro (mayor absentismo en los meses de invierno y primavera) con la tendencia de crecimiento sostenido observada desde mediados de 2023. La previsi&#243;n central indica un incremento progresivo en los pr&#243;ximos dos trimestres, con pico probable en el primer trimestre de 2026.
+        </p>
+        <div class="conf-cards">
+          <div class="conf-card">
+            <p class="conf-card-label">Confianza del modelo</p>
+            <p class="conf-card-val">Media</p>
+            <p class="conf-card-sub">Datos suficientes, pero ventana hist&#243;rica relativamente corta (5 a&#241;os).</p>
+          </div>
+          <div class="conf-card">
+            <p class="conf-card-label">Fiabilidad de la previsi&#243;n</p>
+            <p class="conf-card-val">83&#8239;% de acierto</p>
+            <p class="conf-card-sub">Validado por backtest en los &#250;ltimos 6 periodos comparables.</p>
+          </div>
+        </div>
+          <div style="width:100%;overflow-x:auto;">
+            <svg viewBox="0 0 680 185" style="width:100%;min-width:480px;" role="img" aria-label="Previsi&#243;n de evoluci&#243;n del absentismo">
+              <line x1="50" y1="20" x2="645" y2="20" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="50" y1="60" x2="645" y2="60" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="50" y1="100" x2="645" y2="100" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="50" y1="140" x2="645" y2="140" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="50" y1="160" x2="645" y2="160" stroke="#e2e8f0" stroke-width="1"/>
+              <text x="44" y="163" text-anchor="end" font-size="9" fill="#94a3b8">0</text>
+              <text x="44" y="143" text-anchor="end" font-size="9" fill="#94a3b8">5</text>
+              <text x="44" y="103" text-anchor="end" font-size="9" fill="#94a3b8">10</text>
+              <text x="44" y="63" text-anchor="end" font-size="9" fill="#94a3b8">15</text>
+              <text x="44" y="23" text-anchor="end" font-size="9" fill="#94a3b8">20</text>
+              <text x="20" y="92" text-anchor="middle" font-size="8" fill="#94a3b8" transform="rotate(-90 20 92)">D&#237;as/mes</text>
+              <text x="50" y="175" text-anchor="middle" font-size="9" fill="#94a3b8">2020</text>
+              <text x="149" y="175" text-anchor="middle" font-size="9" fill="#94a3b8">2021</text>
+              <text x="248" y="175" text-anchor="middle" font-size="9" fill="#94a3b8">2022</text>
+              <text x="347" y="175" text-anchor="middle" font-size="9" fill="#94a3b8">2023</text>
+              <text x="446" y="175" text-anchor="middle" font-size="9" fill="#94a3b8">2024</text>
+              <text x="545" y="175" text-anchor="middle" font-size="9" fill="#94a3b8">2025</text>
+              <text x="608" y="175" text-anchor="middle" font-size="9" fill="#64748b" font-weight="600">Prev.</text>
+              <line x1="545" y1="20" x2="545" y2="160" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+              <polygon points="545,65 565,61 590,60 615,65 640,57 640,7 615,21 590,20 565,31 545,41" fill="#dbeafe" fill-opacity="0.55" stroke="none"/>
+              <polyline points="50,116 75,106 100,110 125,120 149,110 174,97 199,102 224,116 248,122 273,112 298,122 323,126 347,116 372,108 397,100 421,91 446,97 470,83 495,68 520,58 545,53" fill="none" stroke="#2563eb" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+              <polyline points="545,53 565,46 590,40 615,43 640,32" fill="none" stroke="#2563eb" stroke-width="2" stroke-dasharray="5,4" stroke-linejoin="round" stroke-linecap="round"/>
+              <circle cx="640" cy="32" r="3" fill="#2563eb"/>
+              <circle cx="545" cy="53" r="3" fill="#2563eb"/>
+            </svg>
+          </div>
+          <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:10px;padding-top:12px;border-top:1px solid #f1f5f9;">
+            <div style="display:flex;align-items:center;gap:6px;"><div style="width:20px;height:2px;background:#2563eb;border-radius:1px;"></div><span style="font-size:11px;color:#64748b;">Lo que ya pas&#243; (dato real)</span></div>
+            <div style="display:flex;align-items:center;gap:6px;"><svg width="20" height="2" style="overflow:visible;"><line x1="0" y1="1" x2="20" y2="1" stroke="#2563eb" stroke-width="2" stroke-dasharray="4,3"/></svg><span style="font-size:11px;color:#64748b;">Lo que se prev&#233; (central)</span></div>
+            <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:10px;background:#dbeafe;border:1px solid #93c5fd;border-radius:2px;"></div><span style="font-size:11px;color:#64748b;">Rango probable (bajo / alto)</span></div>
+          </div>
+          <p style="font-size:11px;color:#94a3b8;margin:10px 0 0;line-height:1.5;">El rango de incertidumbre se ampl&#237;a a medida que el horizonte de previsi&#243;n es mayor. Los valores hist&#243;ricos son datos reales del centro; la l&#237;nea de previsi&#243;n es una estimaci&#243;n del modelo.</p>
+      </div>
+
+      <!-- ACCORDION: Riesgos activados (open) -->
       <details class="pred-disc" open>
         <summary>
           <div class="disc-sum-left">
@@ -313,66 +274,37 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td style="font-weight:600;color:#0f172a;white-space:nowrap;">Recurrencia</td>
-                  <td>Personas que repiten ausencias en el &#250;ltimo a&#241;o con m&#225;s de un episodio de baja registrado.</td>
-                  <td><span class="risk-badge-alto">Alto</span></td>
-                  <td>En el &#250;ltimo a&#241;o (2025): 10 personas con 2+ episodios (66,7&#8239;% de las afectadas del centro).</td>
-                </tr>
-                <tr>
-                  <td style="font-weight:600;color:#0f172a;white-space:nowrap;">Concentraci&#243;n</td>
-                  <td>Las ausencias se concentran en pocas personas, generando una dependencia de riesgo elevada.</td>
-                  <td><span class="risk-badge-alto">Alto</span></td>
-                  <td>En el &#250;ltimo a&#241;o (2025): el 75,4&#8239;% de los d&#237;as de baja recaen en el 20&#8239;% de personas con m&#225;s d&#237;as.</td>
-                </tr>
-                <tr>
-                  <td style="font-weight:600;color:#0f172a;white-space:nowrap;">Cronificaci&#243;n</td>
-                  <td>Bajas m&#233;dicas que se alargan m&#225;s de lo normal, indicando casos que pueden hacerse cr&#243;nicos.</td>
-                  <td><span class="risk-badge-alto">Alto</span></td>
-                  <td>En el &#250;ltimo a&#241;o (2025): 4 episodios de baja m&#233;dica superan los 60 d&#237;as de duraci&#243;n.</td>
-                </tr>
-                <tr>
-                  <td style="font-weight:600;color:#0f172a;white-space:nowrap;">Coste desproporcionado</td>
-                  <td>El coste por persona ausente es muy elevado respecto a la media de la organizaci&#243;n.</td>
-                  <td><span class="risk-badge-alto">Alto</span></td>
-                  <td>En el &#250;ltimo a&#241;o (2025): coste directo 303.795&#8239;&#8364; entre 15 personas (~20.253&#8239;&#8364;/persona).</td>
-                </tr>
-                <tr class="risk-row-na">
-                  <td style="font-weight:600;white-space:nowrap;">Cobertura tensionada</td>
-                  <td>Quedar por debajo del m&#237;nimo operativo en alg&#250;n turno o servicio por falta de personal.</td>
-                  <td><span class="risk-badge-na">No disponible</span></td>
-                  <td>Requiere datos de planificaci&#243;n de turnos y ratios de cobertura por servicio.</td>
-                </tr>
-                <tr class="risk-row-na">
-                  <td style="font-weight:600;white-space:nowrap;">Sobrecarga del equipo</td>
-                  <td>El trabajo sale adelante, pero cargando de m&#225;s sobre el personal que sigue presente.</td>
-                  <td><span class="risk-badge-na">No disponible</span></td>
-                  <td>Requiere datos de planificaci&#243;n de turnos y registro de horas extra.</td>
-                </tr>
-                <tr class="risk-row-na">
-                  <td style="font-weight:600;white-space:nowrap;">Cascada futura</td>
-                  <td>Que la sobrecarga acumulada active nuevas ausencias en el propio equipo.</td>
-                  <td><span class="risk-badge-na">No disponible</span></td>
-                  <td>Requiere datos de planificaci&#243;n de turnos y carga de trabajo hist&#243;rica.</td>
-                </tr>
-                <tr class="risk-row-na">
-                  <td style="font-weight:600;white-space:nowrap;">Sustituci&#243;n insuficiente</td>
-                  <td>Que no haya personal disponible con la cualificaci&#243;n necesaria para cubrir las ausencias.</td>
-                  <td><span class="risk-badge-na">No disponible</span></td>
-                  <td>Requiere datos de cualificaci&#243;n de la bolsa de sustitutos del centro.</td>
-                </tr>
+                <tr><td style="font-weight:600;color:#0f172a;white-space:nowrap;">Recurrencia</td><td>Personas que repiten ausencias con m&#225;s de un episodio de baja en el &#250;ltimo a&#241;o.</td><td><span class="risk-badge-alto">Alto</span></td><td>En 2025: 10 personas con 2+ episodios (66,7&#8239;% de las afectadas del centro).</td></tr>
+                <tr><td style="font-weight:600;color:#0f172a;white-space:nowrap;">Concentraci&#243;n</td><td>Las ausencias se concentran en pocas personas, generando una dependencia de riesgo elevada.</td><td><span class="risk-badge-alto">Alto</span></td><td>En 2025: el 75,4&#8239;% de los d&#237;as de baja recaen en el 20&#8239;% de personas con m&#225;s d&#237;as.</td></tr>
+                <tr><td style="font-weight:600;color:#0f172a;white-space:nowrap;">Cronificaci&#243;n</td><td>Bajas m&#233;dicas que se alargan m&#225;s de lo normal, indicando casos que pueden hacerse cr&#243;nicos.</td><td><span class="risk-badge-alto">Alto</span></td><td>En 2025: 4 episodios de baja m&#233;dica superan los 60 d&#237;as de duraci&#243;n.</td></tr>
+                <tr><td style="font-weight:600;color:#0f172a;white-space:nowrap;">Coste desproporcionado</td><td>El coste por persona ausente es muy elevado respecto a la media de la organizaci&#243;n.</td><td><span class="risk-badge-alto">Alto</span></td><td>En 2025: coste directo 303.795&#8239;&#8364; entre 15 personas (~20.253&#8239;&#8364;/persona).</td></tr>
+                <tr class="risk-row-na"><td style="font-weight:600;white-space:nowrap;">Cobertura tensionada</td><td>Quedar por debajo del m&#237;nimo operativo en alg&#250;n turno.</td><td><span class="risk-badge-na">No disponible</span></td><td>Requiere datos de planificaci&#243;n de turnos.</td></tr>
+                <tr class="risk-row-na"><td style="font-weight:600;white-space:nowrap;">Sobrecarga del equipo</td><td>El trabajo sale adelante, pero cargando de m&#225;s sobre el resto del equipo.</td><td><span class="risk-badge-na">No disponible</span></td><td>Requiere datos de planificaci&#243;n de turnos y horas extra.</td></tr>
+                <tr class="risk-row-na"><td style="font-weight:600;white-space:nowrap;">Cascada futura</td><td>Que la sobrecarga acumulada active nuevas ausencias.</td><td><span class="risk-badge-na">No disponible</span></td><td>Requiere datos de carga de trabajo hist&#243;rica.</td></tr>
+                <tr class="risk-row-na"><td style="font-weight:600;white-space:nowrap;">Sustituci&#243;n insuficiente</td><td>Que no haya personal con la cualificaci&#243;n necesaria para cubrir las ausencias.</td><td><span class="risk-badge-na">No disponible</span></td><td>Requiere datos de la bolsa de sustitutos del centro.</td></tr>
               </tbody>
             </table>
           </div>
-          <p class="risk-note">Los riesgos en gris requieren fuentes adicionales (planificaci&#243;n de turnos, ratios de cobertura, datos de sustitutos) para poder activarse. Conectar estas fuentes aumentar&#237;a la precisi&#243;n del modelo y ampliar&#237;a la capacidad de detecci&#243;n temprana.</p>
+          <p class="risk-note">Los riesgos en gris requieren fuentes adicionales (planificaci&#243;n de turnos, ratios de cobertura, datos de sustitutos) para poder activarse.</p>
         </div>
       </details>
 
-      <!-- Que paso antes + Como leer -->
-      <div class="bottom-grid">
-        <div class="det-card">
-          <p class="card-title" style="margin-bottom:3px;">Qu&#233; pas&#243; antes</p>
-          <p class="card-sub" style="margin-bottom:16px;">Lo que ya ha ocurrido en este centro</p>
+      <!-- ACCORDION: Que paso antes -->
+      <details class="pred-disc">
+        <summary>
+          <div class="disc-sum-left">
+            <div class="disc-icon-wrap">
+              <svg style="width:15px;height:15px;color:#64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <div>
+              <p style="font-size:13px;font-weight:700;color:#0f172a;margin:0 0 1px;">Qu&#233; pas&#243; antes</p>
+              <p style="font-size:11px;color:#94a3b8;margin:0;">Lo que ya ha ocurrido en este centro</p>
+            </div>
+          </div>
+          <svg class="disc-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="disc-divider"></div>
+        <div class="disc-body-inner">
           <p style="font-size:13px;color:#334155;line-height:1.7;margin:0 0 14px;">
             En situaciones parecidas, este centro ya ha tenido ausencias de forma repetida (en <strong>7 de 12 meses</strong> aparecieron episodios relevantes). Por eso no es un aviso en el aire: se apoya en lo que la propia empresa ha vivido antes.
           </p>
@@ -380,10 +312,24 @@
             En 7 de 12 meses de 2025 el centro registr&#243; alg&#250;n episodio relevante (&#8805;15 d&#237;as).
           </p>
         </div>
+      </details>
 
-        <div class="det-card">
-          <p class="card-title" style="margin-bottom:3px;">C&#243;mo leer esta predicci&#243;n</p>
-          <p class="card-sub" style="margin-bottom:16px;">Lectura prudente</p>
+      <!-- ACCORDION: Como leer esta prediccion -->
+      <details class="pred-disc">
+        <summary>
+          <div class="disc-sum-left">
+            <div class="disc-icon-wrap">
+              <svg style="width:15px;height:15px;color:#64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 16v-4m0-4h.01"/></svg>
+            </div>
+            <div>
+              <p style="font-size:13px;font-weight:700;color:#0f172a;margin:0 0 1px;">C&#243;mo leer esta predicci&#243;n</p>
+              <p style="font-size:11px;color:#94a3b8;margin:0;">Lectura prudente</p>
+            </div>
+          </div>
+          <svg class="disc-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </summary>
+        <div class="disc-divider"></div>
+        <div class="disc-body-inner">
           <p style="font-size:13px;color:#334155;line-height:1.7;margin:0 0 16px;">
             Esta predicci&#243;n estima el riesgo de cronificaci&#243;n de bajas en el centro Perd&#243;n para los pr&#243;ximos tres meses, basada en datos hist&#243;ricos reales.
           </p>
@@ -392,14 +338,14 @@
             <p style="font-size:11px;color:#94a3b8;line-height:1.5;margin:0;">Es una estimaci&#243;n basada en el hist&#243;rico real del centro, no una certeza. Conviene validarla con RRHH antes de actuar.</p>
           </div>
         </div>
-      </div>
+      </details>
 
       <!-- ACCORDION: Como interpretar la probabilidad -->
       <details class="pred-disc">
         <summary>
           <div class="disc-sum-left">
             <div class="disc-icon-wrap">
-              <svg style="width:15px;height:15px;color:#64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 16v-4m0-4h.01"/></svg>
+              <svg style="width:15px;height:15px;color:#64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
             </div>
             <div>
               <p style="font-size:13px;font-weight:700;color:#0f172a;margin:0 0 1px;">C&#243;mo interpretar la probabilidad</p>
@@ -411,26 +357,10 @@
         <div class="disc-divider"></div>
         <div class="disc-body-inner">
           <div class="interp-grid">
-            <div class="interp-card">
-              <p class="interp-label">Probabilidad del evento</p>
-              <p class="interp-val">82%</p>
-              <p class="interp-body">El modelo estima que hay un 82&#8239;% de probabilidad de que se active el patr&#243;n de cronificaci&#243;n en Perd&#243;n durante el pr&#243;ximo trimestre.</p>
-            </div>
-            <div class="interp-card">
-              <p class="interp-label">Confianza del modelo</p>
-              <p class="interp-val" style="color:#854d0e;">Media</p>
-              <p class="interp-body">El modelo tiene datos suficientes de este centro, pero la ventana hist&#243;rica es relativamente corta (5 a&#241;os). Con m&#225;s datos la confianza mejorar&#237;a.</p>
-            </div>
-            <div class="interp-card">
-              <p class="interp-label">Rendimiento hist&#243;rico</p>
-              <p class="interp-val">83% acierto</p>
-              <p class="interp-body">En los &#250;ltimos 6 periodos similares, el modelo identific&#243; correctamente el resultado en 5 de ellos. El 17&#8239;% restante correspondi&#243; a cambios imprevistos en plantilla.</p>
-            </div>
-            <div class="interp-card">
-              <p class="interp-label">Incertidumbre</p>
-              <p class="interp-val" style="font-size:16px;color:#64748b;">Media</p>
-              <p class="interp-body">La predicci&#243;n puede variar si cambian la plantilla, el calendario laboral o si se incorporan nuevos datos de n&#243;mina antes del cierre del trimestre.</p>
-            </div>
+            <div class="interp-card"><p class="interp-label">Probabilidad del evento</p><p class="interp-val">82%</p><p class="interp-body">El modelo estima un 82&#8239;% de probabilidad de que se active el patr&#243;n de cronificaci&#243;n en Perd&#243;n durante el pr&#243;ximo trimestre.</p></div>
+            <div class="interp-card"><p class="interp-label">Confianza del modelo</p><p class="interp-val" style="color:#854d0e;">Media</p><p class="interp-body">El modelo tiene datos suficientes de este centro, pero la ventana hist&#243;rica es relativamente corta (5 a&#241;os).</p></div>
+            <div class="interp-card"><p class="interp-label">Rendimiento hist&#243;rico</p><p class="interp-val">83% acierto</p><p class="interp-body">En los &#250;ltimos 6 periodos similares, el modelo identific&#243; correctamente el resultado en 5 de ellos.</p></div>
+            <div class="interp-card"><p class="interp-label">Incertidumbre</p><p class="interp-val" style="font-size:16px;color:#64748b;">Media</p><p class="interp-body">Puede variar si cambian la plantilla, el calendario laboral o si se incorporan nuevos datos de n&#243;mina.</p></div>
           </div>
         </div>
       </details>
@@ -453,89 +383,32 @@
         <div class="disc-body-inner">
           <div class="pred-today-grid">
             <div class="pred-today-col">
-              <p class="pred-today-head">
-                <svg style="width:14px;height:14px;color:#16a34a;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                Fiable con n&#243;mina + ausencias + plantilla
-              </p>
+              <p class="pred-today-head"><svg style="width:14px;height:14px;color:#16a34a;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Fiable con n&#243;mina + ausencias + plantilla</p>
               <ul class="pred-today-list">
-                <li>
-                  <svg style="width:14px;height:14px;color:#16a34a;flex-shrink:0;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                  Probabilidad de cronificaci&#243;n por centro y trimestre
-                </li>
-                <li>
-                  <svg style="width:14px;height:14px;color:#16a34a;flex-shrink:0;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                  Personas con mayor riesgo de recaer en baja larga
-                </li>
-                <li>
-                  <svg style="width:14px;height:14px;color:#16a34a;flex-shrink:0;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                  Estimaci&#243;n de d&#237;as de baja acumulados
-                </li>
-                <li>
-                  <svg style="width:14px;height:14px;color:#16a34a;flex-shrink:0;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                  Coste directo estimado (sin sustituciones externas)
-                </li>
-                <li>
-                  <svg style="width:14px;height:14px;color:#16a34a;flex-shrink:0;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                  Tendencia hist&#243;rica del patr&#243;n por centro
-                </li>
+                <li><svg style="width:14px;height:14px;color:#16a34a;flex-shrink:0;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Probabilidad de cronificaci&#243;n por centro y trimestre</li>
+                <li><svg style="width:14px;height:14px;color:#16a34a;flex-shrink:0;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Personas con mayor riesgo de recaer en baja larga</li>
+                <li><svg style="width:14px;height:14px;color:#16a34a;flex-shrink:0;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Estimaci&#243;n de d&#237;as de baja acumulados</li>
+                <li><svg style="width:14px;height:14px;color:#16a34a;flex-shrink:0;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Coste directo estimado (sin sustituciones externas)</li>
+                <li><svg style="width:14px;height:14px;color:#16a34a;flex-shrink:0;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Tendencia hist&#243;rica del patr&#243;n por centro</li>
               </ul>
             </div>
             <div class="pred-today-col" style="background:#fafafa;border-color:#f1f5f9;">
-              <p class="pred-today-head" style="color:#64748b;">
-                <svg style="width:14px;height:14px;color:#94a3b8;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                Requiere conectar m&#225;s fuentes
-              </p>
+              <p class="pred-today-head" style="color:#64748b;"><svg style="width:14px;height:14px;color:#94a3b8;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Requiere conectar m&#225;s fuentes</p>
               <ul class="pred-today-list">
-                <li style="color:#94a3b8;">
-                  <svg style="width:14px;height:14px;color:#cbd5e1;flex-shrink:0;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                  Riesgo de cobertura por turno o servicio
-                </li>
-                <li style="color:#94a3b8;">
-                  <svg style="width:14px;height:14px;color:#cbd5e1;flex-shrink:0;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                  Sobrecarga del personal de sustituci&#243;n
-                </li>
-                <li style="color:#94a3b8;">
-                  <svg style="width:14px;height:14px;color:#cbd5e1;flex-shrink:0;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                  Impacto en el calendario operativo
-                </li>
-                <li style="color:#94a3b8;">
-                  <svg style="width:14px;height:14px;color:#cbd5e1;flex-shrink:0;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                  Probabilidad de cascada de ausencias en el equipo
-                </li>
-                <li style="color:#94a3b8;">
-                  <svg style="width:14px;height:14px;color:#cbd5e1;flex-shrink:0;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                  Coste total real (con sustituciones externas)
-                </li>
+                <li style="color:#94a3b8;"><svg style="width:14px;height:14px;color:#cbd5e1;flex-shrink:0;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>Riesgo de cobertura por turno o servicio</li>
+                <li style="color:#94a3b8;"><svg style="width:14px;height:14px;color:#cbd5e1;flex-shrink:0;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>Sobrecarga del personal de sustituci&#243;n</li>
+                <li style="color:#94a3b8;"><svg style="width:14px;height:14px;color:#cbd5e1;flex-shrink:0;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>Impacto en el calendario operativo</li>
+                <li style="color:#94a3b8;"><svg style="width:14px;height:14px;color:#cbd5e1;flex-shrink:0;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>Probabilidad de cascada de ausencias</li>
+                <li style="color:#94a3b8;"><svg style="width:14px;height:14px;color:#cbd5e1;flex-shrink:0;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>Coste total real (con sustituciones externas)</li>
               </ul>
             </div>
           </div>
         </div>
       </details>
 
-      <!-- Que mejoraria esta prediccion -->
-      <div class="det-card">
-        <p class="card-title" style="margin-bottom:3px;">Qu&#233; mejorar&#237;a esta predicci&#243;n</p>
-        <p class="card-sub" style="margin-bottom:16px;">Datos adicionales que aumentar&#237;an la precisi&#243;n del modelo</p>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
-          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px;">
-            <p style="font-size:10px;font-weight:500;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin:0 0 8px;">Cobertura</p>
-            <p style="font-size:13px;color:#334155;line-height:1.55;margin:0;">Conocer la ratio de cobertura por turno permitir&#237;a estimar con mayor precisi&#243;n cu&#225;ntos recursos adicionales se necesitar&#225;n si se activan las bajas previstas.</p>
-          </div>
-          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px;">
-            <p style="font-size:10px;font-weight:500;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin:0 0 8px;">Sobrecarga</p>
-            <p style="font-size:13px;color:#334155;line-height:1.55;margin:0;">Los datos de carga de trabajo del personal de sustituci&#243;n revelar&#237;an si el equipo puede absorber las ausencias sin generar nuevas bajas por fatiga acumulada.</p>
-          </div>
-          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px;">
-            <p style="font-size:10px;font-weight:500;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin:0 0 8px;">Sustituci&#243;n</p>
-            <p style="font-size:13px;color:#334155;line-height:1.55;margin:0;">Integrar el coste real de sustituciones externas mejorar&#237;a la estimaci&#243;n econ&#243;mica, que actualmente no incluye horas extraordinarias ni contratos temporales.</p>
-          </div>
-        </div>
-      </div>
-
     </main>
   </div>
 
-  <!-- Floating Consultor IA button -->
   <button class="fab">
     <svg style="width:16px;height:16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
     Consultor IA
