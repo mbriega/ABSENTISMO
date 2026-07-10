@@ -26,7 +26,6 @@
     .pred-mini{background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;padding:10px;}
     .pred-mini small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
     .pred-mini b{display:block;font-size:16px;font-weight:800;color:#0f172a;letter-spacing:-.02em;}
-    /* info icon — gris claro */
     .info-i{display:inline-flex;width:14px;height:14px;border-radius:50%;background:#f1f5f9;color:#cbd5e1;border:1px solid #e2e8f0;font-size:8px;font-weight:800;align-items:center;justify-content:center;cursor:help;vertical-align:middle;margin-left:2px;font-style:normal;}
     .pred-card-body{background:#f8fafc;border-top:1px solid #f1f5f9;padding:16px;display:flex;flex-direction:column;gap:10px;}
     .risk-acc,.plans-acc{background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;}
@@ -47,31 +46,30 @@
     .ptable{width:100%;border-collapse:collapse;}
     .ptable thead tr{background:#f8fafc;}
     .ptable th{font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;padding:8px 14px;text-align:left;white-space:nowrap;}
-    .ptable tbody tr{border-top:1px solid #f8fafc;}
-    .ptable td{padding:9px 14px;vertical-align:middle;}
+    .ptable tbody tr{border-top:1px solid #f1f5f9;}
+    .ptable td{padding:10px 14px;vertical-align:middle;}
+    /* Fila activada: fondo verde suave + acento izquierdo */
+    .pt-row-active{background:#f0fdf4;box-shadow:inset 4px 0 0 #059669;}
+    /* Fila sin activar: ligeramente apagada */
+    .pt-row-inactive{background:#fff;}
     .pt-num{width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;}
     .pt-num.green{background:#f0fdf4;color:#059669;}
     .pt-num.amber{background:#fffbeb;color:#b45309;}
     .pt-num.slate{background:#f1f5f9;color:#475569;}
     .pt-name{font-size:12.5px;font-weight:700;color:#0f172a;display:block;}
+    .pt-name-dim{font-size:12.5px;font-weight:600;color:#94a3b8;display:block;}
     .pt-state{display:inline-flex;height:20px;align-items:center;padding:0 8px;border-radius:999px;font-size:10px;font-weight:700;white-space:nowrap;}
     .pt-state.green{background:#f0fdf4;color:#059669;border:1px solid #bbf7d0;}
     .pt-state.amber{background:#fffbeb;color:#b45309;border:1px solid #fed7aa;}
     .pt-state.blue{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
+    .pt-state.gray{background:#f1f5f9;color:#94a3b8;border:1px solid #e2e8f0;}
     .pt-dark{color:#0f172a;font-size:12px;font-weight:700;}
-    .pt-gray{color:#94a3b8;font-size:12px;font-weight:600;}
-    /* Toggle switch */
-    .pt-sw{display:inline-flex;align-items:center;cursor:pointer;}
-    .pt-sw input{display:none;}
-    .pt-sw-track{width:34px;height:18px;background:#e2e8f0;border-radius:9px;position:relative;transition:background .2s;flex-shrink:0;}
-    .pt-sw input:checked + .pt-sw-track{background:#2563eb;}
-    .pt-sw-thumb{width:14px;height:14px;background:#fff;border-radius:50%;position:absolute;top:2px;left:2px;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.2);}
-    .pt-sw input:checked + .pt-sw-track .pt-sw-thumb{left:18px;}
-    /* Buttons */
-    .pt-btn-view{display:inline-flex;height:27px;align-items:center;padding:0 11px;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:6px;font-size:11px;font-weight:700;text-decoration:none;white-space:nowrap;cursor:pointer;}
-    .pt-btn-view:hover{background:#dbeafe;}
-    .pt-btn-create{display:inline-flex;height:27px;align-items:center;padding:0 11px;background:#2563eb;color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:700;text-decoration:none;white-space:nowrap;cursor:pointer;}
-    .pt-btn-create:hover{background:#1d4ed8;}
+    .pt-dim{color:#cbd5e1;font-size:12px;font-weight:600;}
+    /* Botones de accion */
+    .pt-btn-activated{display:inline-flex;align-items:center;gap:5px;height:27px;padding:0 11px;background:#f0fdf4;color:#059669;border:1px solid #bbf7d0;border-radius:6px;font-size:11px;font-weight:700;text-decoration:none;white-space:nowrap;}
+    .pt-btn-activated:hover{background:#dcfce7;}
+    .pt-btn-activate{display:inline-flex;height:27px;align-items:center;padding:0 11px;background:#2563eb;color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:700;text-decoration:none;white-space:nowrap;cursor:pointer;}
+    .pt-btn-activate:hover{background:#1d4ed8;}
     .fab{position:fixed;bottom:24px;right:24px;display:flex;align-items:center;gap:8px;background:#2563eb;color:#fff;border:none;border-radius:999px;padding:12px 20px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(37,99,235,.35);z-index:50;}
   </style>
 </head>
@@ -89,49 +87,31 @@
 
     <main style="padding:22px 28px;display:flex;flex-direction:column;gap:16px;">
 
+      <!-- KPI CARDS -->
       <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;">
         <div class="nkpi">
-          <div class="nkpi-h">
-            <div class="nkpi-ico"><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></div>
-            <span class="nkpi-lbl">Riesgos priorizados</span>
-          </div>
-          <div class="nkpi-val">3</div>
-          <div class="nkpi-desc">Predicciones activas convertidas en planes de acci&#243;n.</div>
+          <div class="nkpi-h"><div class="nkpi-ico"><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></div><span class="nkpi-lbl">Riesgos priorizados</span></div>
+          <div class="nkpi-val">3</div><div class="nkpi-desc">Predicciones activas convertidas en planes de acci&#243;n.</div>
         </div>
         <div class="nkpi">
-          <div class="nkpi-h">
-            <div class="nkpi-ico"><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg></div>
-            <span class="nkpi-lbl">Planes generados</span>
-          </div>
-          <div class="nkpi-val">7</div>
-          <div class="nkpi-desc">Propuestas IA agrupadas por predicci&#243;n y tipo de impacto.</div>
+          <div class="nkpi-h"><div class="nkpi-ico"><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg></div><span class="nkpi-lbl">Planes generados</span></div>
+          <div class="nkpi-val">7</div><div class="nkpi-desc">Propuestas IA agrupadas por predicci&#243;n y tipo de impacto.</div>
         </div>
         <div class="nkpi">
-          <div class="nkpi-h">
-            <div class="nkpi-ico"><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-            <span class="nkpi-lbl">Activaci&#243;n recomendada</span>
-          </div>
-          <div class="nkpi-val">4</div>
-          <div class="nkpi-desc">Mejor combinaci&#243;n de impacto, urgencia y retorno.</div>
+          <div class="nkpi-h"><div class="nkpi-ico"><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><span class="nkpi-lbl">Activaci&#243;n recomendada</span></div>
+          <div class="nkpi-val">4</div><div class="nkpi-desc">Mejor combinaci&#243;n de impacto, urgencia y retorno.</div>
         </div>
         <div class="nkpi">
-          <div class="nkpi-h">
-            <div class="nkpi-ico"><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
-            <span class="nkpi-lbl">Ahorro objetivo prelim.</span>
-          </div>
-          <div class="nkpi-val" style="font-size:20px;">61K&ndash;72K&#8364;</div>
-          <div class="nkpi-desc">Suma del ahorro esperado en planes con activaci&#243;n recomendada.</div>
+          <div class="nkpi-h"><div class="nkpi-ico"><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><span class="nkpi-lbl">Ahorro objetivo prelim.</span></div>
+          <div class="nkpi-val" style="font-size:20px;">61K&ndash;72K&#8364;</div><div class="nkpi-desc">Suma del ahorro esperado en planes con activaci&#243;n recomendada.</div>
         </div>
         <div class="nkpi">
-          <div class="nkpi-h">
-            <div class="nkpi-ico"><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg></div>
-            <span class="nkpi-lbl">Inversi&#243;n estimada</span>
-          </div>
-          <div class="nkpi-val">6,4K&#8364;</div>
-          <div class="nkpi-desc">Esfuerzo econ&#243;mico inicial antes de aprobar planes.</div>
+          <div class="nkpi-h"><div class="nkpi-ico"><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg></div><span class="nkpi-lbl">Inversi&#243;n estimada</span></div>
+          <div class="nkpi-val">6,4K&#8364;</div><div class="nkpi-desc">Esfuerzo econ&#243;mico inicial antes de aprobar planes.</div>
         </div>
       </div>
 
+      <!-- BLUE INFO BOX -->
       <div style="background:#eff6ff;border-radius:8px;padding:14px 16px;border:1px solid #bfdbfe;">
         <div style="display:flex;align-items:flex-start;gap:10px;">
           <svg width="16" height="16" fill="none" stroke="#2563eb" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
@@ -142,6 +122,7 @@
         </div>
       </div>
 
+      <!-- FILTER BAR -->
       <div class="filter-bar">
         <div class="filter-chips">
           <button class="fchip active">Todos los planes</button>
@@ -153,6 +134,7 @@
         <button style="height:32px;border:none;background:#2563eb;color:#fff;border-radius:7px;padding:0 16px;font-size:12px;font-weight:700;cursor:pointer;">+ Crear plan desde predicci&#243;n</button>
       </div>
 
+      <!-- PREDICTION CARDS -->
       <div style="display:flex;flex-direction:column;gap:14px;">
 
         <!-- CARD 1 -->
@@ -171,6 +153,7 @@
             </div>
           </div>
           <div class="pred-card-body">
+
             <details class="risk-acc">
               <summary class="risk-sum">
                 <div class="risk-num">3</div>
@@ -178,15 +161,16 @@
                 <svg class="risk-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </summary>
               <div class="risk-body">
-                <div class="risk-chip"><strong>Riesgo 1</strong><span>Reincorporaciones fr&#225;giles que pueden terminar en nuevas ausencias.</span></div>
-                <div class="risk-chip"><strong>Riesgo 2</strong><span>Cobertura del turno de ma&#241;ana con poco margen operativo.</span></div>
-                <div class="risk-chip"><strong>Riesgo 3</strong><span>Sobrecarga del equipo disponible y posible cascada futura.</span></div>
+                <div class="risk-chip"><strong>Retorno fr&#225;gil</strong><span>Reincorporaciones recientes con alta probabilidad de generar nuevas ausencias a corto plazo.</span></div>
+                <div class="risk-chip"><strong>Cobertura tensionada</strong><span>Turno de ma&#241;ana con margen operativo m&#237;nimo; cualquier baja adicional supera el umbral cr&#237;tico.</span></div>
+                <div class="risk-chip"><strong>Sobrecarga en cascada</strong><span>La presi&#243;n sostenida sobre el equipo disponible puede generar nuevas ausencias de forma encadenada.</span></div>
               </div>
             </details>
+
             <details class="plans-acc">
               <summary class="risk-sum">
                 <div class="risk-num green">3</div>
-                <div style="flex:1;"><div class="risk-label">Planes asociados a esta predicci&#243;n</div><div class="risk-sub">2 con activaci&#243;n recomendada &middot; 1 pendiente</div></div>
+                <div style="flex:1;"><div class="risk-label">Planes asociados a esta predicci&#243;n</div><div class="risk-sub">1 activado &middot; 1 pendiente de activar &middot; 1 sin activar</div></div>
                 <svg class="risk-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </summary>
               <div class="ptable-wrap">
@@ -194,48 +178,52 @@
                   <thead><tr>
                     <th>Prior. <span class="info-i" title="Orden de prioridad seg&#250;n impacto, urgencia y viabilidad">i</span></th>
                     <th>Plan <span class="info-i" title="Nombre del plan de acci&#243;n propuesto por IA">i</span></th>
-                    <th>Estado <span class="info-i" title="Estado actual: Activaci&#243;n recomendada, Pendiente o Vigilancia">i</span></th>
+                    <th>Estado <span class="info-i" title="Estado de recomendaci&#243;n del plan">i</span></th>
                     <th>Esfuerzo <span class="info-i" title="Nivel de esfuerzo humano y econ&#243;mico para implementar el plan">i</span></th>
                     <th>Ahorro est. <span class="info-i" title="Ahorro econ&#243;mico estimado si el plan se ejecuta con &#233;xito">i</span></th>
-                    <th>ROI <span class="info-i" title="Retorno sobre la inversi&#243;n estimado (ahorro / coste del plan)">i</span></th>
-                    <th>Activar <span class="info-i" title="Activa o desactiva el plan seg&#250;n la decisi&#243;n tomada">i</span></th>
+                    <th>ROI <span class="info-i" title="Retorno sobre la inversi&#243;n estimado">i</span></th>
                     <th>Acci&#243;n</th>
                   </tr></thead>
                   <tbody>
-                    <tr>
+                    <!-- ACTIVADO -->
+                    <tr class="pt-row-active">
                       <td><span class="pt-num green">1</span></td>
                       <td><span class="pt-name">Retorno seguro tras ausencia</span></td>
                       <td><span class="pt-state green">Activaci&#243;n recomendada</span></td>
                       <td class="pt-dark">Medio</td>
                       <td class="pt-dark">12K&ndash;15K&#8364;</td>
                       <td class="pt-dark">1.100%</td>
-                      <td><label class="pt-sw"><input type="checkbox"><span class="pt-sw-track"><span class="pt-sw-thumb"></span></span></label></td>
-                      <td><a href="plan-resumen.html" class="pt-btn-view">Ver plan &#8594;</a></td>
+                      <td>
+                        <a href="plan-resumen.html" class="pt-btn-activated">
+                          <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                          Activado
+                        </a>
+                      </td>
                     </tr>
-                    <tr>
-                      <td><span class="pt-num green">2</span></td>
+                    <!-- SIN ACTIVAR -->
+                    <tr class="pt-row-inactive">
+                      <td><span class="pt-num amber">2</span></td>
                       <td><span class="pt-name">Cobertura m&#237;nima preventiva</span></td>
-                      <td><span class="pt-state green">Activaci&#243;n recomendada</span></td>
+                      <td><span class="pt-state amber">Pendiente de activaci&#243;n</span></td>
                       <td class="pt-dark">Bajo-medio</td>
                       <td class="pt-dark">7K&ndash;9K&#8364;</td>
                       <td class="pt-dark">760%</td>
-                      <td><label class="pt-sw"><input type="checkbox"><span class="pt-sw-track"><span class="pt-sw-thumb"></span></span></label></td>
-                      <td><a href="plan-wizard.html" class="pt-btn-create">Crear plan</a></td>
+                      <td><a href="plan-wizard.html" class="pt-btn-activate">Activar plan</a></td>
                     </tr>
-                    <tr>
-                      <td><span class="pt-num amber">3</span></td>
-                      <td><span class="pt-name">Reequilibrio temporal de carga</span></td>
-                      <td><span class="pt-state amber">Pendiente de activaci&#243;n</span></td>
-                      <td class="pt-dark">Medio</td>
-                      <td class="pt-dark">4K&ndash;6K&#8364;</td>
-                      <td class="pt-dark">320%</td>
-                      <td><label class="pt-sw"><input type="checkbox"><span class="pt-sw-track"><span class="pt-sw-thumb"></span></span></label></td>
-                      <td><a href="plan-wizard.html" class="pt-btn-create">Crear plan</a></td>
+                    <tr class="pt-row-inactive">
+                      <td><span class="pt-num slate">3</span></td>
+                      <td><span class="pt-name-dim">Reequilibrio temporal de carga</span></td>
+                      <td><span class="pt-state gray">Sin activar</span></td>
+                      <td class="pt-dim">Medio</td>
+                      <td class="pt-dim">4K&ndash;6K&#8364;</td>
+                      <td class="pt-dim">320%</td>
+                      <td><a href="plan-wizard.html" class="pt-btn-activate" style="background:#e2e8f0;color:#94a3b8;">Activar plan</a></td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </details>
+
           </div>
         </div>
 
@@ -255,22 +243,24 @@
             </div>
           </div>
           <div class="pred-card-body">
+
             <details class="risk-acc">
               <summary class="risk-sum">
-                <div class="risk-num">1</div>
+                <div class="risk-num">3</div>
                 <div style="flex:1;"><div class="risk-label">Riesgos asociados a esta predicci&#243;n</div><div class="risk-sub">Cobertura m&#237;nima concentrada en puestos cr&#237;ticos de d&#237;as sensibles</div></div>
                 <svg class="risk-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </summary>
               <div class="risk-body">
-                <div class="risk-chip"><strong>Riesgo asociado</strong><span>La tienda tiene poco margen de sustituci&#243;n y necesita perfiles concretos.</span></div>
-                <div class="risk-chip"><strong>Agrupaci&#243;n</strong><span>El riesgo se aborda con un &#250;nico plan: impacto concentrado en cobertura m&#237;nima.</span></div>
-                <div class="risk-chip"><strong>Medici&#243;n</strong><span>Turnos protegidos, coste de sustituci&#243;n evitado y d&#237;as bajo m&#237;nimo operativo.</span></div>
+                <div class="risk-chip"><strong>Sustituci&#243;n limitada</strong><span>La tienda tiene poco margen de sustituci&#243;n y necesita perfiles con competencias concretas.</span></div>
+                <div class="risk-chip"><strong>Impacto concentrado</strong><span>El riesgo no est&#225; distribuido: se materializa en un &#250;nico punto cr&#237;tico de cobertura m&#237;nima.</span></div>
+                <div class="risk-chip"><strong>Indicadores a vigilar</strong><span>Turnos protegidos, coste de sustituci&#243;n evitado y d&#237;as operando bajo m&#237;nimo como m&#233;tricas clave.</span></div>
               </div>
             </details>
+
             <details class="plans-acc">
               <summary class="risk-sum">
                 <div class="risk-num green">1</div>
-                <div style="flex:1;"><div class="risk-label">Planes asociados a esta predicci&#243;n</div><div class="risk-sub">1 con activaci&#243;n recomendada</div></div>
+                <div style="flex:1;"><div class="risk-label">Planes asociados a esta predicci&#243;n</div><div class="risk-sub">1 pendiente de activar</div></div>
                 <svg class="risk-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </summary>
               <div class="ptable-wrap">
@@ -278,28 +268,27 @@
                   <thead><tr>
                     <th>Prior. <span class="info-i" title="Orden de prioridad seg&#250;n impacto, urgencia y viabilidad">i</span></th>
                     <th>Plan <span class="info-i" title="Nombre del plan de acci&#243;n propuesto por IA">i</span></th>
-                    <th>Estado <span class="info-i" title="Estado actual: Activaci&#243;n recomendada, Pendiente o Vigilancia">i</span></th>
+                    <th>Estado <span class="info-i" title="Estado de recomendaci&#243;n del plan">i</span></th>
                     <th>Esfuerzo <span class="info-i" title="Nivel de esfuerzo humano y econ&#243;mico para implementar el plan">i</span></th>
                     <th>Ahorro est. <span class="info-i" title="Ahorro econ&#243;mico estimado si el plan se ejecuta con &#233;xito">i</span></th>
-                    <th>ROI <span class="info-i" title="Retorno sobre la inversi&#243;n estimado (ahorro / coste del plan)">i</span></th>
-                    <th>Activar <span class="info-i" title="Activa o desactiva el plan seg&#250;n la decisi&#243;n tomada">i</span></th>
+                    <th>ROI <span class="info-i" title="Retorno sobre la inversi&#243;n estimado">i</span></th>
                     <th>Acci&#243;n</th>
                   </tr></thead>
                   <tbody>
-                    <tr>
+                    <tr class="pt-row-inactive">
                       <td><span class="pt-num green">1</span></td>
                       <td><span class="pt-name">Plan cobertura m&#237;nima tienda cr&#237;tica</span></td>
                       <td><span class="pt-state green">Activaci&#243;n recomendada</span></td>
                       <td class="pt-dark">Bajo</td>
                       <td class="pt-dark">9K&ndash;11K&#8364;</td>
                       <td class="pt-dark">940%</td>
-                      <td><label class="pt-sw"><input type="checkbox"><span class="pt-sw-track"><span class="pt-sw-thumb"></span></span></label></td>
-                      <td><a href="plan-wizard.html" class="pt-btn-create">Crear plan</a></td>
+                      <td><a href="plan-wizard.html" class="pt-btn-activate">Activar plan</a></td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </details>
+
           </div>
         </div>
 
@@ -319,6 +308,7 @@
             </div>
           </div>
           <div class="pred-card-body">
+
             <details class="risk-acc">
               <summary class="risk-sum">
                 <div class="risk-num">3</div>
@@ -326,15 +316,16 @@
                 <svg class="risk-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </summary>
               <div class="risk-body">
-                <div class="risk-chip"><strong>Riesgo 1</strong><span>Se&#241;al de recurrencia incipiente en ausencias cortas.</span></div>
-                <div class="risk-chip"><strong>Riesgo 2</strong><span>Posible falta de informaci&#243;n sobre causas organizativas o de turno.</span></div>
-                <div class="risk-chip"><strong>Riesgo 3</strong><span>Riesgo a&#250;n moderado: no conviene sobreactuar.</span></div>
+                <div class="risk-chip"><strong>Recurrencia incipiente</strong><span>La frecuencia de ausencias cortas supera el patr&#243;n hist&#243;rico en este equipo, aunque a&#250;n dentro de los umbrales de alerta.</span></div>
+                <div class="risk-chip"><strong>Causas no identificadas</strong><span>Sin informaci&#243;n suficiente sobre el origen: pueden ser turnos, carga, fricci&#243;n con el mando o factores externos.</span></div>
+                <div class="risk-chip"><strong>Se&#241;al moderada</strong><span>El nivel actual no justifica medidas intensivas; actuar con precisi&#243;n evita el coste de sobreintervenir.</span></div>
               </div>
             </details>
+
             <details class="plans-acc">
               <summary class="risk-sum">
                 <div class="risk-num green">3</div>
-                <div style="flex:1;"><div class="risk-label">Planes asociados a esta predicci&#243;n</div><div class="risk-sub">1 recomendado &middot; 1 pendiente &middot; 1 en vigilancia</div></div>
+                <div style="flex:1;"><div class="risk-label">Planes asociados a esta predicci&#243;n</div><div class="risk-sub">1 pendiente &middot; 1 sin activar &middot; 1 en vigilancia</div></div>
                 <svg class="risk-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </summary>
               <div class="ptable-wrap">
@@ -342,48 +333,45 @@
                   <thead><tr>
                     <th>Prior. <span class="info-i" title="Orden de prioridad seg&#250;n impacto, urgencia y viabilidad">i</span></th>
                     <th>Plan <span class="info-i" title="Nombre del plan de acci&#243;n propuesto por IA">i</span></th>
-                    <th>Estado <span class="info-i" title="Estado actual: Activaci&#243;n recomendada, Pendiente o Vigilancia">i</span></th>
+                    <th>Estado <span class="info-i" title="Estado de recomendaci&#243;n del plan">i</span></th>
                     <th>Esfuerzo <span class="info-i" title="Nivel de esfuerzo humano y econ&#243;mico para implementar el plan">i</span></th>
                     <th>Ahorro est. <span class="info-i" title="Ahorro econ&#243;mico estimado si el plan se ejecuta con &#233;xito">i</span></th>
-                    <th>ROI <span class="info-i" title="Retorno sobre la inversi&#243;n estimado (ahorro / coste del plan)">i</span></th>
-                    <th>Activar <span class="info-i" title="Activa o desactiva el plan seg&#250;n la decisi&#243;n tomada">i</span></th>
+                    <th>ROI <span class="info-i" title="Retorno sobre la inversi&#243;n estimado">i</span></th>
                     <th>Acci&#243;n</th>
                   </tr></thead>
                   <tbody>
-                    <tr>
+                    <tr class="pt-row-inactive">
                       <td><span class="pt-num green">1</span></td>
                       <td><span class="pt-name">Seguimiento preventivo ligero</span></td>
                       <td><span class="pt-state green">Activaci&#243;n recomendada</span></td>
                       <td class="pt-dark">Bajo</td>
                       <td class="pt-dark">2K&ndash;3K&#8364;</td>
                       <td class="pt-dark">250%</td>
-                      <td><label class="pt-sw"><input type="checkbox"><span class="pt-sw-track"><span class="pt-sw-thumb"></span></span></label></td>
-                      <td><a href="plan-wizard.html" class="pt-btn-create">Crear plan</a></td>
+                      <td><a href="plan-wizard.html" class="pt-btn-activate">Activar plan</a></td>
                     </tr>
-                    <tr>
+                    <tr class="pt-row-inactive">
                       <td><span class="pt-num amber">2</span></td>
                       <td><span class="pt-name">Diagn&#243;stico de microcausas</span></td>
                       <td><span class="pt-state amber">Pendiente de activaci&#243;n</span></td>
                       <td class="pt-dark">Medio</td>
-                      <td class="pt-gray">Sin activar</td>
-                      <td class="pt-gray">Pendiente</td>
-                      <td><label class="pt-sw"><input type="checkbox"><span class="pt-sw-track"><span class="pt-sw-thumb"></span></span></label></td>
-                      <td><a href="plan-wizard.html" class="pt-btn-create">Crear plan</a></td>
+                      <td class="pt-dim">Sin activar</td>
+                      <td class="pt-dim">Pendiente</td>
+                      <td><a href="plan-wizard.html" class="pt-btn-activate" style="background:#e2e8f0;color:#94a3b8;">Activar plan</a></td>
                     </tr>
-                    <tr>
+                    <tr class="pt-row-inactive">
                       <td><span class="pt-num slate">3</span></td>
-                      <td><span class="pt-name">Plan intensivo de recurrencia</span></td>
-                      <td><span class="pt-state blue">Vigilancia</span></td>
-                      <td class="pt-dark">Alto</td>
-                      <td class="pt-gray">Incierto</td>
-                      <td class="pt-gray">No recomendado</td>
-                      <td><label class="pt-sw"><input type="checkbox"><span class="pt-sw-track"><span class="pt-sw-thumb"></span></span></label></td>
-                      <td><a href="plan-wizard.html" class="pt-btn-create">Crear plan</a></td>
+                      <td><span class="pt-name-dim">Plan intensivo de recurrencia</span></td>
+                      <td><span class="pt-state gray">Sin activar</span></td>
+                      <td class="pt-dim">Alto</td>
+                      <td class="pt-dim">Incierto</td>
+                      <td class="pt-dim">&#8212;</td>
+                      <td><a href="plan-wizard.html" class="pt-btn-activate" style="background:#e2e8f0;color:#94a3b8;">Activar plan</a></td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </details>
+
           </div>
         </div>
 
