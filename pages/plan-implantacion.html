@@ -7,10 +7,10 @@
   <link rel="stylesheet" href="../css/styles.css"/>
   <style>
     *{box-sizing:border-box;}
-    .impl-content{padding:22px 28px 48px;}
+    .impl-content{padding:22px 28px 48px;display:flex;flex-direction:column;gap:14px;}
 
     /* HEADER CARD */
-    .impl-header{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:22px 24px 0;margin-bottom:16px;overflow:hidden;}
+    .impl-header{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:22px 24px 0;overflow:hidden;}
     .impl-header-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding-bottom:18px;}
     .impl-badge{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:999px;background:#f0fdf4;color:#047857;border:1px solid #bbf7d0;font-size:11.5px;font-weight:700;margin-bottom:10px;}
     .impl-badge-dot{width:7px;height:7px;border-radius:50%;background:#059669;flex-shrink:0;animation:pulse 2s infinite;}
@@ -34,129 +34,137 @@
     .impl-kpi-sub{font-size:11.5px;color:#64748b;font-weight:500;line-height:1.35;}
     .info-i{display:inline-flex;width:16px;height:16px;border-radius:50%;background:#f1f5f9;border:1.5px solid #e2e8f0;color:#94a3b8;font-size:9.5px;font-weight:800;align-items:center;justify-content:center;cursor:default;vertical-align:middle;margin-left:4px;}
 
-    /* LAYOUT */
-    .impl-layout{display:grid;grid-template-columns:1fr 300px;gap:16px;align-items:start;}
-    .impl-main{display:flex;flex-direction:column;gap:14px;}
-    .impl-side{display:flex;flex-direction:column;gap:14px;position:sticky;top:70px;}
-
-    /* CARD */
+    /* SHARED CARD */
     .i-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);overflow:hidden;}
     .i-card-head{padding:14px 18px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;gap:12px;}
     .i-card-head h3{font-size:13px;font-weight:700;color:#0f172a;margin:0;}
     .i-card-head p{font-size:11.5px;color:#94a3b8;font-weight:500;margin:0;}
-    .i-card-body{padding:16px;}
+    .i-card-body{padding:18px;}
     .i-tag{display:inline-flex;height:22px;align-items:center;padding:0 9px;border-radius:999px;font-size:10.5px;font-weight:700;white-space:nowrap;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
     .i-tag.green{background:#f0fdf4;color:#059669;border-color:#bbf7d0;}
     .i-tag.amber{background:#fffbeb;color:#b45309;border-color:#fed7aa;}
-    .i-tag.red{background:#fef2f2;color:#be123c;border-color:#fecdd3;}
+
+    /* PRÓXIMO PASO */
+    .nextbox{background:#fffbeb;border:1px solid #fed7aa;border-radius:14px;padding:18px 22px;}
+    .nextbox-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+    .nextbox-icon{width:32px;height:32px;border-radius:8px;background:#fde68a;border:1.5px solid #fed7aa;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .nextbox-head-text h4{font-size:13px;font-weight:700;color:#92400e;margin:0;}
+    .nextbox-head-text p{font-size:11.5px;color:#b45309;font-weight:500;margin:2px 0 0;}
+    .nextbox-title{font-size:17px;font-weight:800;color:#0f172a;margin-bottom:6px;letter-spacing:-.02em;}
+    .nextbox-desc{font-size:13px;color:#64748b;font-weight:500;line-height:1.5;margin-bottom:16px;}
+    .nextbox-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;}
+    .nextbox-cell{background:#fff;border:1px solid #fde68a;border-radius:9px;padding:11px 14px;}
+    .nextbox-cell small{display:block;font-size:9px;font-weight:700;color:#b45309;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
+    .nextbox-cell b{display:block;font-size:13px;font-weight:700;color:#0f172a;margin-bottom:2px;}
+    .nextbox-cell span{display:block;font-size:11px;color:#64748b;font-weight:500;line-height:1.35;}
+    .nextbox-btns{display:flex;gap:8px;}
+    .nextbox-btn-primary{height:38px;padding:0 20px;background:#0f172a;border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;}
+    .nextbox-btn-ghost{height:38px;padding:0 16px;background:#fff;border:1px solid #fed7aa;border-radius:8px;color:#92400e;font-size:12.5px;font-weight:600;cursor:pointer;}
+
+    /* PROGRESO */
+    .prog-bar-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+    .prog-bar-header span{font-size:13px;font-weight:700;color:#0f172a;}
+    .prog-bar-header b{font-size:22px;font-weight:800;color:#059669;letter-spacing:-.04em;}
+    .prog-bar-track{height:14px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin-bottom:18px;}
+    .prog-bar-fill{height:100%;background:linear-gradient(90deg,#059669,#10b981);border-radius:999px;width:42%;}
+    .prog-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+    .prog-stat{background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;padding:12px 14px;}
+    .prog-stat small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
+    .prog-stat b{display:block;font-size:15px;font-weight:800;color:#0f172a;letter-spacing:-.02em;}
+    .prog-stat span{display:block;font-size:11px;color:#64748b;font-weight:500;margin-top:3px;}
+    .prog-stat b.green{color:#059669;}
+    .prog-stat b.amber{color:#d97706;}
+    .prog-stat b.red{color:#dc2626;}
 
     /* RESUMEN ECONÓMICO */
     .econ-scenarios{display:grid;grid-template-columns:repeat(3,1fr);}
-    .econ-scenario{padding:16px 18px;border-right:1px solid #f1f5f9;}
+    .econ-scenario{padding:16px 20px;border-right:1px solid #f1f5f9;}
     .econ-scenario:last-child{border-right:none;}
     .econ-scenario small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;}
-    .econ-scenario b{display:block;font-size:26px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:6px;color:#0f172a;}
+    .econ-scenario b{display:block;font-size:28px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:6px;color:#0f172a;}
     .econ-scenario b.red{color:#dc2626;} .econ-scenario b.green{color:#059669;}
-    .econ-scenario span{display:block;font-size:11.5px;color:#64748b;font-weight:500;line-height:1.35;}
-    .econ-deviation{display:flex;align-items:flex-start;gap:10px;padding:12px 16px;background:#fffbeb;border-top:1px solid #fed7aa;}
+    .econ-scenario span{display:block;font-size:12px;color:#64748b;font-weight:500;line-height:1.4;}
+    .econ-deviation{display:flex;align-items:flex-start;gap:10px;padding:12px 18px;background:#fffbeb;border-top:1px solid #fed7aa;}
     .econ-deviation p{font-size:12px;color:#92400e;font-weight:600;line-height:1.5;margin:0;}
-    .econ-deviation strong{font-weight:700;}
 
-    /* PRÓXIMO PASO */
-    .nextbox{background:#fffbeb;border:1px solid #fed7aa;border-radius:14px;padding:16px 20px;}
-    .nextbox-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
-    .nextbox-icon{width:32px;height:32px;border-radius:8px;background:#fde68a;border:1.5px solid #fed7aa;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-    .nextbox-head h4{font-size:13px;font-weight:700;color:#92400e;margin:0;}
-    .nextbox-head p{font-size:11.5px;color:#b45309;font-weight:500;margin:2px 0 0;}
-    .nextbox-title{font-size:16px;font-weight:800;color:#0f172a;margin-bottom:6px;letter-spacing:-.02em;}
-    .nextbox-desc{font-size:12.5px;color:#64748b;font-weight:500;line-height:1.5;margin-bottom:14px;}
-    .nextbox-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;}
-    .nextbox-cell{background:#fff;border:1px solid #fde68a;border-radius:9px;padding:10px 12px;}
-    .nextbox-cell small{display:block;font-size:9px;font-weight:700;color:#b45309;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
-    .nextbox-cell b{display:block;font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:2px;}
-    .nextbox-cell span{display:block;font-size:11px;color:#64748b;font-weight:500;line-height:1.35;}
-    .nextbox-btns{display:flex;gap:8px;}
-    .nextbox-btn-primary{height:36px;padding:0 18px;background:#0f172a;border:none;border-radius:8px;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer;}
-    .nextbox-btn-ghost{height:36px;padding:0 14px;background:#fff;border:1px solid #fed7aa;border-radius:8px;color:#92400e;font-size:12px;font-weight:600;cursor:pointer;}
+    /* ORQUESTADOR */
+    .orch-inner{display:grid;grid-template-columns:1fr 260px;gap:0;border-top:1px solid #f1f5f9;}
+    .orch-chat{border-right:1px solid #f1f5f9;display:flex;flex-direction:column;}
+    .orch-bubbles{flex:1;padding:16px;background:#f8fafc;display:flex;flex-direction:column;gap:9px;max-height:220px;overflow-y:auto;}
+    .orch-bubble{border-radius:12px;padding:10px 13px;font-size:12.5px;line-height:1.5;font-weight:500;}
+    .orch-bubble.ai{background:#fff;border:1px solid #e2e8f0;color:#334155;border-top-left-radius:4px;max-width:85%;}
+    .orch-bubble.user{align-self:flex-end;background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af;border-top-right-radius:4px;max-width:85%;}
+    .orch-input-row{display:flex;gap:8px;padding:10px 14px;background:#fff;border-top:1px solid #f1f5f9;}
+    .orch-input{flex:1;height:34px;border:1px solid #e2e8f0;border-radius:8px;padding:0 12px;font-size:12.5px;color:#334155;font-family:inherit;}
+    .orch-send{width:34px;height:34px;border:none;border-radius:8px;background:#7c3aed;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .orch-actions{padding:16px;display:flex;flex-direction:column;gap:6px;}
+    .orch-actions-label{font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;}
+    .orch-btn{height:32px;border:1px solid #e2e8f0;background:#f8fafc;border-radius:7px;font-size:11.5px;font-weight:600;color:#334155;cursor:pointer;text-align:left;padding:0 12px;}
+    .orch-btn.primary{background:#0f172a;color:#fff;border-color:#0f172a;}
 
     /* DETALLE DEL PLAN */
     .act-list{display:flex;flex-direction:column;gap:8px;}
-    .act-row{display:flex;align-items:flex-start;gap:12px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;padding:12px;}
+    .act-row{display:grid;grid-template-columns:28px 1fr 130px 110px;align-items:center;gap:14px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;padding:12px 14px;}
     .act-row.act-pending{background:#fffbeb;border-color:#fed7aa;}
     .act-num{width:28px;height:28px;border-radius:50%;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:800;flex-shrink:0;}
     .act-num.done{background:#f0fdf4;color:#059669;border-color:#bbf7d0;}
     .act-num.pending{background:#fffbeb;color:#b45309;border-color:#fed7aa;}
-    .act-body{flex:1;}
     .act-body small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;}
-    .act-body strong{display:block;font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:3px;}
+    .act-body strong{display:block;font-size:13px;font-weight:700;color:#0f172a;margin-bottom:2px;}
     .act-body p{font-size:11.5px;color:#64748b;line-height:1.4;font-weight:500;margin:0;}
-    .act-owner{flex-shrink:0;text-align:right;min-width:110px;}
-    .act-owner b{display:block;font-size:11.5px;font-weight:700;color:#0f172a;margin-bottom:2px;}
+    .act-owner{text-align:right;}
+    .act-owner b{display:block;font-size:12px;font-weight:700;color:#0f172a;}
     .act-owner span{display:block;font-size:10.5px;color:#94a3b8;font-weight:500;}
-    .act-status{display:inline-flex;height:22px;align-items:center;padding:0 9px;border-radius:999px;font-size:10px;font-weight:700;white-space:nowrap;flex-shrink:0;}
+    .act-status{display:inline-flex;height:22px;align-items:center;padding:0 9px;border-radius:999px;font-size:10px;font-weight:700;white-space:nowrap;justify-self:end;}
     .act-status.done{background:#f0fdf4;color:#059669;border:1px solid #bbf7d0;}
     .act-status.pending{background:#fffbeb;color:#b45309;border:1px solid #fed7aa;}
     .act-status.scheduled{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
 
-    /* DESVIACIÓN ECONÓMICA */
-    .dev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
-    .dev-cell{background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;padding:12px;}
-    .dev-cell small{display:block;color:#94a3b8;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;}
-    .dev-cell b{display:block;font-size:19px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:5px;color:#0f172a;}
+    /* ACORDEONES */
+    .acc-details{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);overflow:hidden;}
+    .acc-summary{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;list-style:none;user-select:none;gap:12px;}
+    .acc-summary::-webkit-details-marker{display:none;}
+    .acc-summary-left{display:flex;align-items:center;gap:10px;}
+    .acc-summary h3{font-size:13px;font-weight:700;color:#0f172a;margin:0;}
+    .acc-summary p{font-size:11.5px;color:#94a3b8;font-weight:500;margin:2px 0 0;}
+    .acc-chev{color:#94a3b8;transition:transform .2s;flex-shrink:0;}
+    .acc-details[open] .acc-chev{transform:rotate(180deg);}
+    .acc-body{border-top:1px solid #f1f5f9;padding:18px;background:#f8fafc;}
+
+    /* Desviación económica (acordeón) */
+    .dev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+    .dev-cell{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;}
+    .dev-cell small{display:block;color:#94a3b8;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;}
+    .dev-cell b{display:block;font-size:20px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:5px;color:#0f172a;}
     .dev-cell b.green{color:#059669;} .dev-cell b.amber{color:#d97706;}
-    .dev-cell span{display:block;font-size:11px;color:#94a3b8;font-weight:500;}
+    .dev-cell span{display:block;font-size:11.5px;color:#64748b;font-weight:500;}
 
-    /* HISTORIAL */
-    .hist-details{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);overflow:hidden;}
-    .hist-summary{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;list-style:none;user-select:none;}
-    .hist-summary::-webkit-details-marker{display:none;}
-    .hist-summary h3{font-size:13px;font-weight:700;color:#0f172a;margin:0;}
-    .hist-chev{color:#94a3b8;transition:transform .2s;flex-shrink:0;}
-    .hist-details[open] .hist-chev{transform:rotate(180deg);}
-    .hist-body{border-top:1px solid #f1f5f9;padding:14px;background:#f8fafc;display:flex;flex-direction:column;gap:8px;}
-    .hist-row{background:#fff;border:1px solid #f1f5f9;border-radius:9px;padding:10px 14px;display:grid;grid-template-columns:80px 1fr 100px;gap:12px;align-items:center;}
+    /* Riesgo de ejecución (acordeón) */
+    .risk-bar-block{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+    .risk-bar-label{font-size:12px;font-weight:700;color:#0f172a;width:160px;flex-shrink:0;}
+    .risk-bar-track{flex:1;height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden;}
+    .risk-bar-fill-amber{height:100%;background:#f59e0b;border-radius:999px;width:56%;}
+    .risk-bar-pct{font-size:13px;font-weight:800;width:36px;text-align:right;flex-shrink:0;color:#d97706;}
+    .acc-note{background:#fff;border:1px solid #e2e8f0;border-radius:9px;padding:11px 14px;margin-top:10px;}
+    .acc-note small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;}
+    .acc-note p{font-size:12.5px;color:#334155;font-weight:600;line-height:1.5;margin:0;}
+
+    /* ROI final (acordeón) */
+    .roi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    .roi-cell{background:#fff;border:1px solid #e2e8f0;border-radius:9px;padding:13px 14px;}
+    .roi-cell small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
+    .roi-cell p{font-size:12.5px;color:#334155;font-weight:600;line-height:1.5;margin:0;}
+
+    /* Historial (acordeón) */
+    .hist-list{display:flex;flex-direction:column;gap:8px;}
+    .hist-row{background:#fff;border:1px solid #e2e8f0;border-radius:9px;padding:11px 14px;display:grid;grid-template-columns:90px 1fr 110px;gap:14px;align-items:center;}
     .hist-row small{font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;}
-    .hist-row b{display:block;font-size:12px;font-weight:700;color:#0f172a;margin-bottom:2px;}
-    .hist-row span.desc{font-size:11px;color:#64748b;font-weight:500;}
-
-    /* SIDEBAR: PROGRESO */
-    .prog-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:18px;}
-    .prog-ring-wrap{display:flex;justify-content:center;margin:16px 0 14px;}
-    .prog-ring{width:152px;height:152px;border-radius:50%;background:conic-gradient(#059669 0 42%,#e2e8f0 42% 100%);display:flex;align-items:center;justify-content:center;}
-    .prog-ring-inner{width:108px;height:108px;border-radius:50%;background:#fff;border:1px solid #e2e8f0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:2px;}
-    .prog-ring-inner b{font-size:28px;font-weight:800;letter-spacing:-.05em;color:#0f172a;line-height:1;}
-    .prog-ring-inner span{font-size:10.5px;color:#94a3b8;font-weight:700;}
-    .prog-facts{display:flex;flex-direction:column;}
-    .prog-fact{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid #f1f5f9;font-size:12px;}
-    .prog-fact span:first-child{color:#64748b;font-weight:600;}
-    .prog-fact span:last-child{color:#0f172a;font-weight:700;text-align:right;}
-
-    /* SIDEBAR: ORQUESTADOR */
-    .orch-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);overflow:hidden;}
-    .orch-head{padding:12px 16px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;}
-    .orch-agent{display:flex;align-items:center;gap:8px;}
-    .orch-avatar{width:28px;height:28px;border-radius:7px;background:#f5f3ff;border:1px solid #ddd6fe;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-    .orch-head h3{font-size:12.5px;font-weight:700;color:#0f172a;margin:0;}
-    .orch-head p{font-size:10.5px;color:#94a3b8;font-weight:500;margin:2px 0 0;}
-    .orch-badge{display:inline-flex;height:20px;align-items:center;padding:0 8px;border-radius:999px;background:#f5f3ff;color:#7c3aed;border:1px solid #ddd6fe;font-size:10px;font-weight:700;}
-    .orch-body{padding:12px;background:#f8fafc;display:flex;flex-direction:column;gap:8px;max-height:220px;overflow-y:auto;}
-    .orch-bubble{border-radius:12px;padding:9px 11px;font-size:11.5px;line-height:1.45;font-weight:500;}
-    .orch-bubble.ai{background:#fff;border:1px solid #e2e8f0;color:#334155;border-top-left-radius:4px;}
-    .orch-bubble.user{margin-left:28px;background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af;border-top-right-radius:4px;}
-    .orch-actions{display:flex;flex-direction:column;gap:5px;padding:10px 12px;border-top:1px solid #f1f5f9;background:#fff;}
-    .orch-btn{height:30px;border:1px solid #e2e8f0;background:#f8fafc;border-radius:7px;font-size:11px;font-weight:600;color:#334155;cursor:pointer;text-align:left;padding:0 10px;}
-    .orch-btn.primary{background:#0f172a;color:#fff;border-color:#0f172a;}
-    .orch-input-row{display:flex;gap:7px;padding:8px 12px;border-top:1px solid #f1f5f9;background:#fff;}
-    .orch-input{flex:1;height:32px;border:1px solid #e2e8f0;border-radius:8px;padding:0 10px;font-size:11.5px;color:#334155;font-family:inherit;}
-    .orch-send{width:32px;height:32px;border:none;border-radius:8px;background:#7c3aed;color:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-
-    /* SIDEBAR: RIESGO + ROI */
-    .side-note{background:#f8fafc;border:1px solid #f1f5f9;border-radius:9px;padding:10px 12px;margin-bottom:8px;}
-    .side-note:last-child{margin-bottom:0;}
-    .side-note small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;}
-    .side-note p{font-size:12px;color:#334155;font-weight:600;line-height:1.5;margin:0;}
-    .risk-bar{height:8px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin-top:8px;}
-    .risk-bar-fill{height:100%;border-radius:999px;background:#f59e0b;width:56%;}
+    .hist-row b{display:block;font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:2px;}
+    .hist-row .desc{display:block;font-size:11.5px;color:#64748b;font-weight:500;}
+    .hist-status{display:inline-flex;height:22px;align-items:center;padding:0 9px;border-radius:999px;font-size:10px;font-weight:700;justify-self:end;}
+    .hist-status.done{background:#f0fdf4;color:#059669;border:1px solid #bbf7d0;}
+    .hist-status.pending{background:#fffbeb;color:#b45309;border:1px solid #fed7aa;}
+    .hist-status.scheduled{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
   </style>
 </head>
 <body data-page="planes-accion" class="bg-surface-50 text-surface-900 antialiased">
@@ -183,7 +191,7 @@
     <section class="impl-content">
 
       <!-- HEADER CARD -->
-      <div class="impl-header" style="margin-bottom:16px;">
+      <div class="impl-header">
         <div class="impl-header-top">
           <div>
             <div class="impl-badge"><span class="impl-badge-dot"></span>Plan en implantaci&#243;n</div>
@@ -202,44 +210,33 @@
             <span class="impl-pill blue">Orquestador activo</span>
           </div>
         </div>
-        <!-- KPI STRIP -->
         <div class="impl-kpis">
           <div class="impl-kpi">
-            <div class="impl-kpi-icon">
-              <svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M16 2v4M8 2v4M3 10h18"/></svg>
-            </div>
+            <div class="impl-kpi-icon"><svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M16 2v4M8 2v4M3 10h18"/></svg></div>
             <div class="impl-kpi-val">6 / 14 <span class="info-i" title="D&#237;a actual del plan sobre el total de d&#237;as de la ventana de intervenci&#243;n.">i</span></div>
             <div class="impl-kpi-label">D&#237;a actual</div>
             <div class="impl-kpi-sub">Ventana de 14 d&#237;as</div>
           </div>
           <div class="impl-kpi">
-            <div class="impl-kpi-icon">
-              <svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            </div>
+            <div class="impl-kpi-icon"><svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
             <div class="impl-kpi-val">42% <span class="info-i" title="Porcentaje de acciones del plan completadas o en curso sobre el total.">i</span></div>
             <div class="impl-kpi-label">Completado</div>
             <div class="impl-kpi-sub">2 de 6 acciones</div>
           </div>
           <div class="impl-kpi">
-            <div class="impl-kpi-icon">
-              <svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
-            </div>
+            <div class="impl-kpi-icon"><svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg></div>
             <div class="impl-kpi-val" style="font-size:19px;">12.500&#8364; <span class="info-i" title="Ahorro previsto actualizado con el avance actual del plan.">i</span></div>
             <div class="impl-kpi-label">Ahorro previsto</div>
             <div class="impl-kpi-sub">&#8595;1.200&#8364; vs objetivo</div>
           </div>
           <div class="impl-kpi">
-            <div class="impl-kpi-icon">
-              <svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            </div>
+            <div class="impl-kpi-icon"><svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
             <div class="impl-kpi-val">8,0x <span class="info-i" title="ROI estimado: ahorro previsto sobre inversi&#243;n operativa del plan.">i</span></div>
             <div class="impl-kpi-label">ROI estimado</div>
             <div class="impl-kpi-sub">Sobre inversi&#243;n operativa</div>
           </div>
           <div class="impl-kpi">
-            <div class="impl-kpi-icon">
-              <svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
-            </div>
+            <div class="impl-kpi-icon"><svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg></div>
             <div class="impl-kpi-val">56% <span class="info-i" title="Riesgo residual actualizado con el avance del plan. Baja desde el 72% inicial.">i</span></div>
             <div class="impl-kpi-label">Riesgo residual</div>
             <div class="impl-kpi-sub">Desde 72% inicial</div>
@@ -247,274 +244,135 @@
         </div>
       </div>
 
-      <div class="impl-layout">
-        <div class="impl-main">
+      <!-- 1. ACCIÓN CRÍTICA -->
+      <div class="nextbox">
+        <div class="nextbox-head">
+          <div class="nextbox-icon">
+            <svg width="15" height="15" fill="none" stroke="#b45309" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+          </div>
+          <div class="nextbox-head-text">
+            <h4>Acci&#243;n cr&#237;tica &mdash; Hoy</h4>
+            <p>Sin esto, el plan pierde capacidad preventiva en la ventana activa</p>
+          </div>
+        </div>
+        <div class="nextbox-title">Contactar 2 reincorporaciones antes de las 15:00</div>
+        <div class="nextbox-desc">Debe hacerlo RRHH Operaciones usando el gui&#243;n de apoyo. Si no se ejecuta hoy, se pierde parte de la ventana preventiva.</div>
+        <div class="nextbox-grid">
+          <div class="nextbox-cell">
+            <small>Responsable</small>
+            <b>RRHH Operaciones</b>
+            <span>Mar&#237;a L&#243;pez</span>
+          </div>
+          <div class="nextbox-cell">
+            <small>Fecha l&#237;mite</small>
+            <b>Hoy &middot; 15:00</b>
+            <span>Ventana preventiva activa</span>
+          </div>
+          <div class="nextbox-cell">
+            <small>Riesgo si no se hace</small>
+            <b>Sube riesgo de reca&#237;da</b>
+            <span>El plan pierde capacidad preventiva.</span>
+          </div>
+          <div class="nextbox-cell">
+            <small>Recomendaci&#243;n</small>
+            <b>Asignar ahora</b>
+            <span>Mejor menor ahorro que retrasar ejecuci&#243;n.</span>
+          </div>
+        </div>
+        <div class="nextbox-btns">
+          <button class="nextbox-btn-primary">Marcar como asignado</button>
+          <button class="nextbox-btn-ghost">Pedir alternativa al orquestador</button>
+        </div>
+      </div>
 
-          <!-- RESUMEN ECONÓMICO -->
-          <div class="i-card">
-            <div class="i-card-head">
-              <div><h3>Resumen econ&#243;mico</h3><p>Comparativa entre no actuar y ejecutar el plan con el avance actual</p></div>
-              <span class="i-tag green">Sigue compensando</span>
+      <!-- 2. PROGRESO DEL PLAN -->
+      <div class="i-card">
+        <div class="i-card-head">
+          <div><h3>Avance del plan</h3><p>Fase: Seguimiento preventivo &middot; D&#237;a 6 de 14</p></div>
+          <span class="i-tag green">En plazo</span>
+        </div>
+        <div class="i-card-body">
+          <div class="prog-bar-header">
+            <span>Progreso de ejecuci&#243;n</span>
+            <b>42%</b>
+          </div>
+          <div class="prog-bar-track">
+            <div class="prog-bar-fill"></div>
+          </div>
+          <div class="prog-stats">
+            <div class="prog-stat">
+              <small>Acciones completadas</small>
+              <b class="green">2 de 6</b>
+              <span>Identificaci&#243;n + cuadrante</span>
             </div>
-            <div class="econ-scenarios">
-              <div class="econ-scenario">
-                <small>Si no act&#250;o</small>
-                <b class="red">24.000&#8364;</b>
-                <span>Coste esperado por nuevas ausencias, sustituci&#243;n y p&#233;rdida operativa.</span>
-              </div>
-              <div class="econ-scenario">
-                <small>Ejecutando el plan</small>
-                <b>11.500&#8364;</b>
-                <span>Coste esperado actualizado con el plan ya en marcha.</span>
-              </div>
-              <div class="econ-scenario">
-                <small>Ahorro previsto</small>
-                <b class="green">12.500&#8364;</b>
-                <span>ROI estimado: 8,0x sobre la inversi&#243;n operativa prevista.</span>
-              </div>
+            <div class="prog-stat">
+              <small>Riesgo de ejecuci&#243;n</small>
+              <b class="amber">Medio</b>
+              <span>Acci&#243;n cr&#237;tica pendiente</span>
             </div>
-            <div class="econ-deviation">
-              <svg width="14" height="14" fill="none" stroke="#b45309" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
-              <p><strong>El ahorro baja 1.200&#8364; frente al objetivo inicial.</strong> Motivo: menor disponibilidad del mando para hacer dos contactos preventivos dentro de la ventana prevista.</p>
+            <div class="prog-stat">
+              <small>Pr&#243;xima acci&#243;n</small>
+              <b class="red">Hoy &middot; 15:00</b>
+              <span>Contacto preventivo 72h</span>
+            </div>
+            <div class="prog-stat">
+              <small>D&#237;as restantes</small>
+              <b>8 de 14</b>
+              <span>Ventana activa hasta 15/07</span>
             </div>
           </div>
+        </div>
+      </div>
 
-          <!-- PRÓXIMO PASO -->
-          <div class="nextbox">
-            <div class="nextbox-head">
-              <div class="nextbox-icon">
-                <svg width="15" height="15" fill="none" stroke="#b45309" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
-              </div>
-              <div>
-                <h4>Acci&#243;n cr&#237;tica &mdash; Hoy</h4>
-                <p>Sin esto, el plan pierde capacidad preventiva en la ventana activa</p>
-              </div>
+      <!-- 3. RESUMEN ECONÓMICO -->
+      <div class="i-card">
+        <div class="i-card-head">
+          <div><h3>Resumen econ&#243;mico</h3><p>Comparativa entre no actuar y ejecutar el plan con el avance actual</p></div>
+          <span class="i-tag green">Sigue compensando</span>
+        </div>
+        <div class="econ-scenarios">
+          <div class="econ-scenario">
+            <small>Si no act&#250;o</small>
+            <b class="red">24.000&#8364;</b>
+            <span>Coste esperado por nuevas ausencias, sustituci&#243;n y p&#233;rdida operativa.</span>
+          </div>
+          <div class="econ-scenario">
+            <small>Ejecutando el plan</small>
+            <b>11.500&#8364;</b>
+            <span>Coste esperado actualizado con el plan ya en marcha.</span>
+          </div>
+          <div class="econ-scenario">
+            <small>Ahorro previsto</small>
+            <b class="green">12.500&#8364;</b>
+            <span>ROI estimado: 8,0x sobre la inversi&#243;n operativa prevista.</span>
+          </div>
+        </div>
+        <div class="econ-deviation">
+          <svg width="14" height="14" fill="none" stroke="#b45309" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+          <p><strong>El ahorro baja 1.200&#8364; frente al objetivo inicial.</strong> Motivo: menor disponibilidad del mando para hacer dos contactos preventivos dentro de la ventana prevista.</p>
+        </div>
+      </div>
+
+      <!-- 4. ORQUESTADOR IA -->
+      <div class="i-card">
+        <div class="i-card-head">
+          <div style="display:flex;align-items:center;gap:9px;">
+            <div style="width:28px;height:28px;border-radius:7px;background:#f5f3ff;border:1px solid #ddd6fe;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="13" height="13" fill="none" stroke="#7c3aed" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
             </div>
-            <div class="nextbox-title">Contactar 2 reincorporaciones antes de las 15:00</div>
-            <div class="nextbox-desc">Debe hacerlo RRHH Operaciones usando el gui&#243;n de apoyo. Si no se ejecuta hoy, se pierde parte de la ventana preventiva.</div>
-            <div class="nextbox-grid">
-              <div class="nextbox-cell">
-                <small>Responsable</small>
-                <b>RRHH Operaciones</b>
-                <span>Mar&#237;a L&#243;pez</span>
-              </div>
-              <div class="nextbox-cell">
-                <small>Fecha l&#237;mite</small>
-                <b>Hoy &middot; 15:00</b>
-                <span>Ventana preventiva activa</span>
-              </div>
-              <div class="nextbox-cell">
-                <small>Riesgo si no se hace</small>
-                <b>Sube riesgo de reca&#237;da</b>
-                <span>El plan pierde capacidad preventiva.</span>
-              </div>
-              <div class="nextbox-cell">
-                <small>Recomendaci&#243;n</small>
-                <b>Asignar ahora</b>
-                <span>Mejor menor ahorro que retrasar ejecuci&#243;n.</span>
-              </div>
-            </div>
-            <div class="nextbox-btns">
-              <button class="nextbox-btn-primary">Marcar como asignado</button>
-              <button class="nextbox-btn-ghost">Pedir alternativa al orquestador</button>
+            <div>
+              <h3 style="margin:0;">Orquestador</h3>
+              <p style="margin:0;">RRHH &middot; Operaciones &middot; Econom&#237;a</p>
             </div>
           </div>
-
-          <!-- DETALLE DEL PLAN -->
-          <div class="i-card">
-            <div class="i-card-head">
-              <div><h3>Detalle del plan</h3><p>Acciones, responsables y estado de ejecuci&#243;n</p></div>
-              <span class="i-tag">6 acciones</span>
-            </div>
-            <div class="i-card-body">
-              <div class="act-list">
-                <div class="act-row">
-                  <div class="act-num done">1</div>
-                  <div class="act-body">
-                    <small>D&#237;a 0</small>
-                    <strong>Identificar reincorporaciones cr&#237;ticas</strong>
-                    <p>Lista priorizada por riesgo, centro y ventana temporal.</p>
-                  </div>
-                  <div class="act-owner"><b>RRHH</b><span>Completado d&#237;a 0</span></div>
-                  <span class="act-status done">&#10003; Hecho</span>
-                </div>
-                <div class="act-row">
-                  <div class="act-num done">2</div>
-                  <div class="act-body">
-                    <small>D&#237;a 3</small>
-                    <strong>Revisar cuadrante y carga operativa</strong>
-                    <p>Validar si hay conflictos de turno o sobrecarga.</p>
-                  </div>
-                  <div class="act-owner"><b>Operaciones</b><span>Hoy 09:20</span></div>
-                  <span class="act-status done">&#10003; Hecho</span>
-                </div>
-                <div class="act-row act-pending">
-                  <div class="act-num pending">3</div>
-                  <div class="act-body">
-                    <small>Hoy &mdash; urgente</small>
-                    <strong>Contacto preventivo 72h antes</strong>
-                    <p>Contactar 2 reincorporaciones con mensaje de apoyo. Sin preguntas m&#233;dicas.</p>
-                  </div>
-                  <div class="act-owner"><b>RRHH Operaciones</b><span>Antes de 15:00</span></div>
-                  <span class="act-status pending">Pendiente</span>
-                </div>
-                <div class="act-row">
-                  <div class="act-num">4</div>
-                  <div class="act-body">
-                    <small>D&#237;a 7</small>
-                    <strong>Chequeo operativo breve</strong>
-                    <p>Confirmar adaptaci&#243;n operativa y detectar barreras pr&#225;cticas.</p>
-                  </div>
-                  <div class="act-owner"><b>Jefe de turno</b><span>08/07/2026</span></div>
-                  <span class="act-status scheduled">Programado</span>
-                </div>
-                <div class="act-row">
-                  <div class="act-num">5</div>
-                  <div class="act-body">
-                    <small>D&#237;a 10</small>
-                    <strong>Revisi&#243;n intermedia de riesgo</strong>
-                    <p>Actualizar riesgo residual y comprobar desviaci&#243;n econ&#243;mica.</p>
-                  </div>
-                  <div class="act-owner"><b>Plataforma + RRHH</b><span>11/07/2026</span></div>
-                  <span class="act-status scheduled">Programado</span>
-                </div>
-                <div class="act-row">
-                  <div class="act-num">6</div>
-                  <div class="act-body">
-                    <small>D&#237;a 14</small>
-                    <strong>Cierre y ROI final</strong>
-                    <p>Medir coste real, coste evitado, ROI y aprendizaje reutilizable.</p>
-                  </div>
-                  <div class="act-owner"><b>Plataforma</b><span>15/07/2026</span></div>
-                  <span class="act-status scheduled">Programado</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- DESVIACIÓN ECONÓMICA -->
-          <div class="i-card">
-            <div class="i-card-head">
-              <div><h3>Desviaci&#243;n econ&#243;mica</h3><p>Qu&#233; ha cambiado y por qu&#233; afecta al ahorro previsto</p></div>
-              <span class="i-tag amber">Controlado</span>
-            </div>
-            <div class="i-card-body">
-              <div class="dev-grid">
-                <div class="dev-cell">
-                  <small>Objetivo inicial</small>
-                  <b class="green">13.700&#8364;</b>
-                  <span>Ahorro previsto al aprobar el plan.</span>
-                </div>
-                <div class="dev-cell">
-                  <small>Previsi&#243;n actual</small>
-                  <b class="green">12.500&#8364;</b>
-                  <span>Ahorro esperado con el microajuste.</span>
-                </div>
-                <div class="dev-cell">
-                  <small>Motivo</small>
-                  <b class="amber" style="font-size:15px;">Mando no disponible</b>
-                  <span>RRHH absorbe dos contactos para no retrasar el plan.</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- HISTORIAL -->
-          <details class="hist-details">
-            <summary class="hist-summary">
-              <h3>Hist&#243;rico de cambios y trazabilidad</h3>
-              <svg class="hist-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="hist-body">
-              <div class="hist-row">
-                <div><small>D&#237;a 0</small></div>
-                <div><b>Plan aprobado</b><span class="desc">Objetivo econ&#243;mico 12K&#8211;15K&#8364; y riesgo inicial 72%.</span></div>
-                <span class="act-status done">Cerrado</span>
-              </div>
-              <div class="hist-row">
-                <div><small>D&#237;a 3</small></div>
-                <div><b>Cuadrante revisado</b><span class="desc">No se detectan conflictos operativos relevantes.</span></div>
-                <span class="act-status done">Cerrado</span>
-              </div>
-              <div class="hist-row">
-                <div><small>D&#237;a 6</small></div>
-                <div><b>Microajuste recomendado</b><span class="desc">RRHH asume dos contactos por indisponibilidad del mando.</span></div>
-                <span class="act-status pending">Pendiente</span>
-              </div>
-              <div class="hist-row">
-                <div><small>D&#237;a 14</small></div>
-                <div><b>ROI final</b><span class="desc">Se calcular&#225; coste real, coste evitado, ROI y aprendizaje.</span></div>
-                <span class="act-status scheduled">Programado</span>
-              </div>
-            </div>
-          </details>
-
-        </div><!-- /impl-main -->
-
-        <!-- SIDEBAR -->
-        <aside class="impl-side">
-
-          <!-- PROGRESO -->
-          <div class="prog-card">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
-              <div>
-                <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Avance del plan</div>
-                <div style="font-size:14px;font-weight:700;color:#0f172a;">Fase: Seguimiento preventivo</div>
-              </div>
-              <span class="i-tag green">En plazo</span>
-            </div>
-            <div class="prog-ring-wrap">
-              <div class="prog-ring">
-                <div class="prog-ring-inner">
-                  <b>42%</b>
-                  <span>completado</span>
-                </div>
-              </div>
-            </div>
-            <div class="prog-facts">
-              <div class="prog-fact">
-                <span>Acciones completadas</span>
-                <span>2 de 6</span>
-              </div>
-              <div class="prog-fact">
-                <span>Riesgo de ejecuci&#243;n</span>
-                <span style="color:#d97706;">Medio</span>
-              </div>
-              <div class="prog-fact">
-                <span>Pr&#243;xima acci&#243;n</span>
-                <span style="color:#dc2626;">Hoy &middot; 15:00</span>
-              </div>
-              <div class="prog-fact">
-                <span>D&#237;as restantes</span>
-                <span>8 de 14</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- ORQUESTADOR IA -->
-          <div class="orch-card">
-            <div class="orch-head">
-              <div class="orch-agent">
-                <div class="orch-avatar">
-                  <svg width="14" height="14" fill="none" stroke="#7c3aed" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                </div>
-                <div>
-                  <h3>Orquestador</h3>
-                  <p>RRHH &middot; Operaciones &middot; Econom&#237;a</p>
-                </div>
-              </div>
-              <span class="orch-badge">Activo</span>
-            </div>
-            <div class="orch-body">
+          <span style="display:inline-flex;height:22px;align-items:center;padding:0 9px;border-radius:999px;font-size:10.5px;font-weight:700;background:#f5f3ff;color:#7c3aed;border:1px solid #ddd6fe;">Activo</span>
+        </div>
+        <div class="orch-inner">
+          <div class="orch-chat">
+            <div class="orch-bubbles">
               <div class="orch-bubble ai">Recomiendo que RRHH haga hoy los 2 contactos. Mantiene el plan en plazo y conserva la mayor parte del ahorro previsto.</div>
               <div class="orch-bubble user">&#191;Y si RRHH tampoco puede hacerlo hoy?</div>
-              <div class="orch-bubble ai">Reestructurar&#237;a el plan: contacto ma&#241;ana a primera hora, chequeo reforzado d&#237;a 7 y nueva previsi&#243;n de ahorro de 9,8K&#8211;11,3K&#8364;.</div>
-            </div>
-            <div class="orch-actions">
-              <button class="orch-btn primary">Aplicar recomendaci&#243;n actual</button>
-              <button class="orch-btn">Recalcular con menos carga</button>
-              <button class="orch-btn">Explicar impacto econ&#243;mico</button>
-              <button class="orch-btn">Cambiar responsable</button>
+              <div class="orch-bubble ai">Reestructurar&#237;a el plan: contacto ma&#241;ana a primera hora, chequeo reforzado d&#237;a 7 y nueva previsi&#243;n de ahorro de 9,8K&#8211;11,3K&#8364;. El riesgo subir&#237;a de medio a medio-alto.</div>
             </div>
             <div class="orch-input-row">
               <input class="orch-input" placeholder="Pide un ajuste, explica una barrera&#8230;"/>
@@ -523,46 +381,180 @@
               </button>
             </div>
           </div>
-
-          <!-- RIESGO DE EJECUCIÓN -->
-          <div class="i-card">
-            <div class="i-card-head">
-              <div><h3>Riesgo de ejecuci&#243;n</h3><p>No solo mide avance; mide si el plan puede cumplirse</p></div>
-              <span class="i-tag amber">Medio</span>
-            </div>
-            <div class="i-card-body" style="padding:12px 14px;">
-              <div class="side-note">
-                <small>Motivo</small>
-                <p>Existe una acci&#243;n cr&#237;tica pendiente hoy y a&#250;n no est&#225; marcada como asignada.</p>
-                <div class="risk-bar"><div class="risk-bar-fill"></div></div>
-              </div>
-              <div class="side-note">
-                <small>C&#243;mo bajarlo</small>
-                <p>Asignar a RRHH los 2 contactos antes de las 15:00.</p>
-              </div>
-            </div>
+          <div class="orch-actions">
+            <div class="orch-actions-label">Acciones r&#225;pidas</div>
+            <button class="orch-btn primary">Aplicar recomendaci&#243;n actual</button>
+            <button class="orch-btn">Recalcular con menos carga</button>
+            <button class="orch-btn">Explicar impacto econ&#243;mico</button>
+            <button class="orch-btn">Cambiar responsable</button>
           </div>
-
-          <!-- ROI FINAL -->
-          <div class="i-card">
-            <div class="i-card-head">
-              <div><h3>ROI final</h3><p>Qu&#233; se calcular&#225; al cierre del plan</p></div>
-              <span class="i-tag">D&#237;a 14</span>
-            </div>
-            <div class="i-card-body" style="padding:12px 14px;">
-              <div class="side-note">
-                <small>Se medir&#225;</small>
-                <p>Coste real, coste evitado, coste interno del plan y ROI final.</p>
-              </div>
-              <div class="side-note">
-                <small>Aprendizaje</small>
-                <p>Qu&#233; acciones funcionaron y qu&#233; patr&#243;n se puede reutilizar en pr&#243;ximos planes.</p>
-              </div>
-            </div>
-          </div>
-
-        </aside>
+        </div>
       </div>
+
+      <!-- 5. DETALLE DEL PLAN -->
+      <div class="i-card">
+        <div class="i-card-head">
+          <div><h3>Detalle del plan</h3><p>Acciones, responsables y estado de ejecuci&#243;n</p></div>
+          <span class="i-tag">6 acciones</span>
+        </div>
+        <div class="i-card-body">
+          <div class="act-list">
+            <div class="act-row">
+              <div class="act-num done">&#10003;</div>
+              <div class="act-body"><small>D&#237;a 0</small><strong>Identificar reincorporaciones cr&#237;ticas</strong><p>Lista priorizada por riesgo, centro y ventana temporal.</p></div>
+              <div class="act-owner"><b>RRHH</b><span>Completado d&#237;a 0</span></div>
+              <span class="act-status done">Hecho</span>
+            </div>
+            <div class="act-row">
+              <div class="act-num done">&#10003;</div>
+              <div class="act-body"><small>D&#237;a 3</small><strong>Revisar cuadrante y carga operativa</strong><p>Validar si hay conflictos de turno o sobrecarga.</p></div>
+              <div class="act-owner"><b>Operaciones</b><span>Hoy 09:20</span></div>
+              <span class="act-status done">Hecho</span>
+            </div>
+            <div class="act-row act-pending">
+              <div class="act-num pending">3</div>
+              <div class="act-body"><small>Hoy &mdash; urgente</small><strong>Contacto preventivo 72h antes</strong><p>Contactar 2 reincorporaciones con mensaje de apoyo. Sin preguntas m&#233;dicas.</p></div>
+              <div class="act-owner"><b>RRHH Operaciones</b><span>Antes de 15:00</span></div>
+              <span class="act-status pending">Pendiente</span>
+            </div>
+            <div class="act-row">
+              <div class="act-num">4</div>
+              <div class="act-body"><small>D&#237;a 7</small><strong>Chequeo operativo breve</strong><p>Confirmar adaptaci&#243;n operativa y detectar barreras pr&#225;cticas.</p></div>
+              <div class="act-owner"><b>Jefe de turno</b><span>08/07/2026</span></div>
+              <span class="act-status scheduled">Programado</span>
+            </div>
+            <div class="act-row">
+              <div class="act-num">5</div>
+              <div class="act-body"><small>D&#237;a 10</small><strong>Revisi&#243;n intermedia de riesgo</strong><p>Actualizar riesgo residual y comprobar desviaci&#243;n econ&#243;mica.</p></div>
+              <div class="act-owner"><b>Plataforma + RRHH</b><span>11/07/2026</span></div>
+              <span class="act-status scheduled">Programado</span>
+            </div>
+            <div class="act-row">
+              <div class="act-num">6</div>
+              <div class="act-body"><small>D&#237;a 14</small><strong>Cierre y ROI final</strong><p>Medir coste real, coste evitado, ROI y aprendizaje reutilizable.</p></div>
+              <div class="act-owner"><b>Plataforma</b><span>15/07/2026</span></div>
+              <span class="act-status scheduled">Programado</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. ACORDEÓN: DESVIACIÓN ECONÓMICA -->
+      <details class="acc-details">
+        <summary class="acc-summary">
+          <div class="acc-summary-left">
+            <div>
+              <h3>Desviaci&#243;n econ&#243;mica</h3>
+              <p>Qu&#233; ha cambiado y por qu&#233; afecta al ahorro previsto</p>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="i-tag amber">&#8595;1.200&#8364; vs objetivo</span>
+            <svg class="acc-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </div>
+        </summary>
+        <div class="acc-body">
+          <div class="dev-grid">
+            <div class="dev-cell"><small>Objetivo inicial</small><b class="green">13.700&#8364;</b><span>Ahorro previsto al aprobar el plan.</span></div>
+            <div class="dev-cell"><small>Previsi&#243;n actual</small><b class="green">12.500&#8364;</b><span>Ahorro esperado con el microajuste.</span></div>
+            <div class="dev-cell"><small>Motivo</small><b class="amber" style="font-size:15px;">Mando no disponible</b><span>RRHH absorbe dos contactos para no retrasar el plan.</span></div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 7. ACORDEÓN: RIESGO DE EJECUCIÓN -->
+      <details class="acc-details">
+        <summary class="acc-summary">
+          <div class="acc-summary-left">
+            <div>
+              <h3>Riesgo de ejecuci&#243;n</h3>
+              <p>No solo mide avance; mide si el plan puede cumplirse</p>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="i-tag amber">Medio &middot; 56%</span>
+            <svg class="acc-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </div>
+        </summary>
+        <div class="acc-body">
+          <div class="risk-bar-block">
+            <span class="risk-bar-label">Riesgo de ejecuci&#243;n</span>
+            <div class="risk-bar-track"><div class="risk-bar-fill-amber"></div></div>
+            <span class="risk-bar-pct">56%</span>
+          </div>
+          <div class="acc-note">
+            <small>Motivo</small>
+            <p>Existe una acci&#243;n cr&#237;tica pendiente hoy y a&#250;n no est&#225; marcada como asignada.</p>
+          </div>
+          <div class="acc-note" style="margin-top:8px;">
+            <small>C&#243;mo bajarlo</small>
+            <p>Asignar a RRHH los 2 contactos antes de las 15:00. El riesgo bajar&#237;a a bajo (&lt;30%) al completar la acci&#243;n.</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- 8. ACORDEÓN: ROI FINAL -->
+      <details class="acc-details">
+        <summary class="acc-summary">
+          <div class="acc-summary-left">
+            <div>
+              <h3>ROI final</h3>
+              <p>Qu&#233; se calcular&#225; al cierre del plan el d&#237;a 14</p>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="i-tag">D&#237;a 14</span>
+            <svg class="acc-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </div>
+        </summary>
+        <div class="acc-body">
+          <div class="roi-grid">
+            <div class="roi-cell"><small>Se medir&#225;</small><p>Coste real, coste evitado, coste interno del plan y ROI final comparado con el objetivo inicial.</p></div>
+            <div class="roi-cell"><small>Aprendizaje</small><p>Qu&#233; acciones funcionaron, qu&#233; patr&#243;n se puede reutilizar y qu&#233; ajustar en pr&#243;ximos planes similares.</p></div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 9. ACORDEÓN: HISTORIAL -->
+      <details class="acc-details">
+        <summary class="acc-summary">
+          <div class="acc-summary-left">
+            <div>
+              <h3>Hist&#243;rico de cambios y trazabilidad</h3>
+              <p>Registro de eventos y ajustes desde la activaci&#243;n del plan</p>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="i-tag">4 eventos</span>
+            <svg class="acc-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </div>
+        </summary>
+        <div class="acc-body">
+          <div class="hist-list">
+            <div class="hist-row">
+              <div><small>D&#237;a 0</small></div>
+              <div><b>Plan aprobado</b><span class="desc">Objetivo econ&#243;mico 12K&#8211;15K&#8364; y riesgo inicial 72%.</span></div>
+              <span class="hist-status done">Cerrado</span>
+            </div>
+            <div class="hist-row">
+              <div><small>D&#237;a 3</small></div>
+              <div><b>Cuadrante revisado</b><span class="desc">No se detectan conflictos operativos relevantes.</span></div>
+              <span class="hist-status done">Cerrado</span>
+            </div>
+            <div class="hist-row">
+              <div><small>D&#237;a 6</small></div>
+              <div><b>Microajuste recomendado</b><span class="desc">RRHH asume dos contactos por indisponibilidad del mando.</span></div>
+              <span class="hist-status pending">Pendiente</span>
+            </div>
+            <div class="hist-row">
+              <div><small>D&#237;a 14</small></div>
+              <div><b>ROI final</b><span class="desc">Se calcular&#225; coste real, coste evitado, ROI y aprendizaje.</span></div>
+              <span class="hist-status scheduled">Programado</span>
+            </div>
+          </div>
+        </div>
+      </details>
+
     </section>
   </div>
 
