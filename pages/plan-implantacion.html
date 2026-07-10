@@ -20,7 +20,6 @@
     .impl-pills{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end;flex-shrink:0;}
     .impl-pill{display:inline-flex;height:24px;align-items:center;padding:0 10px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap;}
     .impl-pill.green{background:#f0fdf4;color:#047857;border:1px solid #bbf7d0;}
-    .impl-pill.amber{background:#fffbeb;color:#b45309;border:1px solid #fed7aa;}
     .impl-pill.blue{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
 
     /* KPI STRIP */
@@ -42,24 +41,23 @@
     .i-card-body{padding:18px;}
     .i-tag{display:inline-flex;height:22px;align-items:center;padding:0 9px;border-radius:999px;font-size:10.5px;font-weight:700;white-space:nowrap;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
     .i-tag.green{background:#f0fdf4;color:#059669;border-color:#bbf7d0;}
-    .i-tag.amber{background:#fffbeb;color:#b45309;border-color:#fed7aa;}
 
-    /* PRÓXIMO PASO */
-    .nextbox{background:#fffbeb;border:1px solid #fed7aa;border-radius:14px;padding:18px 22px;}
+    /* ACCIÓN CRÍTICA — azul con opacidad */
+    .nextbox{background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:18px 22px;}
     .nextbox-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
-    .nextbox-icon{width:32px;height:32px;border-radius:8px;background:#fde68a;border:1.5px solid #fed7aa;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-    .nextbox-head-text h4{font-size:13px;font-weight:700;color:#92400e;margin:0;}
-    .nextbox-head-text p{font-size:11.5px;color:#b45309;font-weight:500;margin:2px 0 0;}
+    .nextbox-icon{width:32px;height:32px;border-radius:8px;background:#dbeafe;border:1.5px solid #bfdbfe;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .nextbox-head-text h4{font-size:13px;font-weight:700;color:#1d4ed8;margin:0;}
+    .nextbox-head-text p{font-size:11.5px;color:#3b82f6;font-weight:500;margin:2px 0 0;}
     .nextbox-title{font-size:17px;font-weight:800;color:#0f172a;margin-bottom:6px;letter-spacing:-.02em;}
-    .nextbox-desc{font-size:13px;color:#64748b;font-weight:500;line-height:1.5;margin-bottom:16px;}
+    .nextbox-desc{font-size:13px;color:#334155;font-weight:500;line-height:1.5;margin-bottom:16px;}
     .nextbox-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;}
-    .nextbox-cell{background:#fff;border:1px solid #fde68a;border-radius:9px;padding:11px 14px;}
-    .nextbox-cell small{display:block;font-size:9px;font-weight:700;color:#b45309;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
+    .nextbox-cell{background:#fff;border:1px solid #bfdbfe;border-radius:9px;padding:11px 14px;}
+    .nextbox-cell small{display:block;font-size:9px;font-weight:700;color:#1d4ed8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
     .nextbox-cell b{display:block;font-size:13px;font-weight:700;color:#0f172a;margin-bottom:2px;}
     .nextbox-cell span{display:block;font-size:11px;color:#64748b;font-weight:500;line-height:1.35;}
     .nextbox-btns{display:flex;gap:8px;}
-    .nextbox-btn-primary{height:38px;padding:0 20px;background:#0f172a;border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;}
-    .nextbox-btn-ghost{height:38px;padding:0 16px;background:#fff;border:1px solid #fed7aa;border-radius:8px;color:#92400e;font-size:12.5px;font-weight:600;cursor:pointer;}
+    .nextbox-btn-primary{height:38px;padding:0 20px;background:#2563eb;border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;}
+    .nextbox-btn-ghost{height:38px;padding:0 16px;background:#fff;border:1px solid #bfdbfe;border-radius:8px;color:#1d4ed8;font-size:12.5px;font-weight:600;cursor:pointer;}
 
     /* PROGRESO */
     .prog-bar-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
@@ -73,7 +71,7 @@
     .prog-stat b{display:block;font-size:15px;font-weight:800;color:#0f172a;letter-spacing:-.02em;}
     .prog-stat span{display:block;font-size:11px;color:#64748b;font-weight:500;margin-top:3px;}
     .prog-stat b.green{color:#059669;}
-    .prog-stat b.amber{color:#d97706;}
+    .prog-stat b.blue{color:#1d4ed8;}
     .prog-stat b.red{color:#dc2626;}
 
     /* RESUMEN ECONÓMICO */
@@ -84,32 +82,30 @@
     .econ-scenario b{display:block;font-size:28px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:6px;color:#0f172a;}
     .econ-scenario b.red{color:#dc2626;} .econ-scenario b.green{color:#059669;}
     .econ-scenario span{display:block;font-size:12px;color:#64748b;font-weight:500;line-height:1.4;}
-    .econ-deviation{display:flex;align-items:flex-start;gap:10px;padding:12px 18px;background:#fffbeb;border-top:1px solid #fed7aa;}
-    .econ-deviation p{font-size:12px;color:#92400e;font-weight:600;line-height:1.5;margin:0;}
+    .econ-deviation{display:flex;align-items:flex-start;gap:10px;padding:12px 18px;background:#eff6ff;border-top:1px solid #bfdbfe;}
+    .econ-deviation p{font-size:12px;color:#1e40af;font-weight:600;line-height:1.5;margin:0;}
 
-    /* ORQUESTADOR */
-    .orch-inner{display:grid;grid-template-columns:1fr 260px;gap:0;border-top:1px solid #f1f5f9;}
-    .orch-chat{border-right:1px solid #f1f5f9;display:flex;flex-direction:column;}
-    .orch-bubbles{flex:1;padding:16px;background:#f8fafc;display:flex;flex-direction:column;gap:9px;max-height:220px;overflow-y:auto;}
+    /* ORQUESTADOR — columna única, acciones dentro del chat */
+    .orch-bubbles{padding:16px;background:#f8fafc;display:flex;flex-direction:column;gap:9px;max-height:220px;overflow-y:auto;}
     .orch-bubble{border-radius:12px;padding:10px 13px;font-size:12.5px;line-height:1.5;font-weight:500;}
     .orch-bubble.ai{background:#fff;border:1px solid #e2e8f0;color:#334155;border-top-left-radius:4px;max-width:85%;}
     .orch-bubble.user{align-self:flex-end;background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af;border-top-right-radius:4px;max-width:85%;}
+    .orch-quick{padding:10px 14px;background:#fff;border-top:1px solid #f1f5f9;display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+    .orch-quick-label{font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-right:4px;}
+    .orch-quick-btn{height:28px;border:1px solid #e2e8f0;background:#f8fafc;border-radius:999px;font-size:11px;font-weight:600;color:#334155;cursor:pointer;padding:0 12px;white-space:nowrap;}
+    .orch-quick-btn.primary{background:#0f172a;color:#fff;border-color:#0f172a;}
     .orch-input-row{display:flex;gap:8px;padding:10px 14px;background:#fff;border-top:1px solid #f1f5f9;}
     .orch-input{flex:1;height:34px;border:1px solid #e2e8f0;border-radius:8px;padding:0 12px;font-size:12.5px;color:#334155;font-family:inherit;}
     .orch-send{width:34px;height:34px;border:none;border-radius:8px;background:#7c3aed;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-    .orch-actions{padding:16px;display:flex;flex-direction:column;gap:6px;}
-    .orch-actions-label{font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;}
-    .orch-btn{height:32px;border:1px solid #e2e8f0;background:#f8fafc;border-radius:7px;font-size:11.5px;font-weight:600;color:#334155;cursor:pointer;text-align:left;padding:0 12px;}
-    .orch-btn.primary{background:#0f172a;color:#fff;border-color:#0f172a;}
 
     /* DETALLE DEL PLAN */
     .act-list{display:flex;flex-direction:column;gap:8px;}
     .act-row{display:grid;grid-template-columns:28px 1fr 130px 110px;align-items:center;gap:14px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;padding:12px 14px;}
-    .act-row.act-pending{background:#fffbeb;border-color:#fed7aa;}
+    .act-row.act-pending{background:#eff6ff;border-color:#bfdbfe;}
     .act-num{width:28px;height:28px;border-radius:50%;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:800;flex-shrink:0;}
     .act-num.done{background:#f0fdf4;color:#059669;border-color:#bbf7d0;}
-    .act-num.pending{background:#fffbeb;color:#b45309;border-color:#fed7aa;}
     .act-body small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;}
+    .act-body small.urgent{color:#1d4ed8;}
     .act-body strong{display:block;font-size:13px;font-weight:700;color:#0f172a;margin-bottom:2px;}
     .act-body p{font-size:11.5px;color:#64748b;line-height:1.4;font-weight:500;margin:0;}
     .act-owner{text-align:right;}
@@ -117,45 +113,44 @@
     .act-owner span{display:block;font-size:10.5px;color:#94a3b8;font-weight:500;}
     .act-status{display:inline-flex;height:22px;align-items:center;padding:0 9px;border-radius:999px;font-size:10px;font-weight:700;white-space:nowrap;justify-self:end;}
     .act-status.done{background:#f0fdf4;color:#059669;border:1px solid #bbf7d0;}
-    .act-status.pending{background:#fffbeb;color:#b45309;border:1px solid #fed7aa;}
-    .act-status.scheduled{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
+    .act-status.pending{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
+    .act-status.scheduled{background:#f8fafc;color:#64748b;border:1px solid #e2e8f0;}
 
     /* ACORDEONES */
     .acc-details{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);overflow:hidden;}
     .acc-summary{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;list-style:none;user-select:none;gap:12px;}
     .acc-summary::-webkit-details-marker{display:none;}
-    .acc-summary-left{display:flex;align-items:center;gap:10px;}
-    .acc-summary h3{font-size:13px;font-weight:700;color:#0f172a;margin:0;}
-    .acc-summary p{font-size:11.5px;color:#94a3b8;font-weight:500;margin:2px 0 0;}
+    .acc-summary-left h3{font-size:13px;font-weight:700;color:#0f172a;margin:0;}
+    .acc-summary-left p{font-size:11.5px;color:#94a3b8;font-weight:500;margin:2px 0 0;}
     .acc-chev{color:#94a3b8;transition:transform .2s;flex-shrink:0;}
     .acc-details[open] .acc-chev{transform:rotate(180deg);}
     .acc-body{border-top:1px solid #f1f5f9;padding:18px;background:#f8fafc;}
 
-    /* Desviación económica (acordeón) */
+    /* Desviación económica */
     .dev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
     .dev-cell{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;}
     .dev-cell small{display:block;color:#94a3b8;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;}
     .dev-cell b{display:block;font-size:20px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:5px;color:#0f172a;}
-    .dev-cell b.green{color:#059669;} .dev-cell b.amber{color:#d97706;}
+    .dev-cell b.green{color:#059669;} .dev-cell b.blue{color:#1d4ed8;}
     .dev-cell span{display:block;font-size:11.5px;color:#64748b;font-weight:500;}
 
-    /* Riesgo de ejecución (acordeón) */
+    /* Riesgo de ejecución */
     .risk-bar-block{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
     .risk-bar-label{font-size:12px;font-weight:700;color:#0f172a;width:160px;flex-shrink:0;}
     .risk-bar-track{flex:1;height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden;}
-    .risk-bar-fill-amber{height:100%;background:#f59e0b;border-radius:999px;width:56%;}
-    .risk-bar-pct{font-size:13px;font-weight:800;width:36px;text-align:right;flex-shrink:0;color:#d97706;}
+    .risk-bar-fill-blue{height:100%;background:#2563eb;border-radius:999px;width:56%;}
+    .risk-bar-pct{font-size:13px;font-weight:800;width:36px;text-align:right;flex-shrink:0;color:#1d4ed8;}
     .acc-note{background:#fff;border:1px solid #e2e8f0;border-radius:9px;padding:11px 14px;margin-top:10px;}
     .acc-note small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;}
     .acc-note p{font-size:12.5px;color:#334155;font-weight:600;line-height:1.5;margin:0;}
 
-    /* ROI final (acordeón) */
+    /* ROI */
     .roi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
     .roi-cell{background:#fff;border:1px solid #e2e8f0;border-radius:9px;padding:13px 14px;}
     .roi-cell small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
     .roi-cell p{font-size:12.5px;color:#334155;font-weight:600;line-height:1.5;margin:0;}
 
-    /* Historial (acordeón) */
+    /* Historial */
     .hist-list{display:flex;flex-direction:column;gap:8px;}
     .hist-row{background:#fff;border:1px solid #e2e8f0;border-radius:9px;padding:11px 14px;display:grid;grid-template-columns:90px 1fr 110px;gap:14px;align-items:center;}
     .hist-row small{font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;}
@@ -163,8 +158,8 @@
     .hist-row .desc{display:block;font-size:11.5px;color:#64748b;font-weight:500;}
     .hist-status{display:inline-flex;height:22px;align-items:center;padding:0 9px;border-radius:999px;font-size:10px;font-weight:700;justify-self:end;}
     .hist-status.done{background:#f0fdf4;color:#059669;border:1px solid #bbf7d0;}
-    .hist-status.pending{background:#fffbeb;color:#b45309;border:1px solid #fed7aa;}
-    .hist-status.scheduled{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
+    .hist-status.pending{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
+    .hist-status.scheduled{background:#f8fafc;color:#64748b;border:1px solid #e2e8f0;}
   </style>
 </head>
 <body data-page="planes-accion" class="bg-surface-50 text-surface-900 antialiased">
@@ -206,7 +201,7 @@
           </div>
           <div class="impl-pills">
             <span class="impl-pill green">&#10003; En plazo</span>
-            <span class="impl-pill amber">Riesgo ejecuci&#243;n medio</span>
+            <span class="impl-pill blue">Riesgo ejecuci&#243;n medio</span>
             <span class="impl-pill blue">Orquestador activo</span>
           </div>
         </div>
@@ -248,7 +243,7 @@
       <div class="nextbox">
         <div class="nextbox-head">
           <div class="nextbox-icon">
-            <svg width="15" height="15" fill="none" stroke="#b45309" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+            <svg width="15" height="15" fill="none" stroke="#1d4ed8" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
           </div>
           <div class="nextbox-head-text">
             <h4>Acci&#243;n cr&#237;tica &mdash; Hoy</h4>
@@ -281,7 +276,7 @@
         </div>
         <div class="nextbox-btns">
           <button class="nextbox-btn-primary">Marcar como asignado</button>
-          <button class="nextbox-btn-ghost">Pedir alternativa al orquestador</button>
+          <button class="nextbox-btn-ghost" onclick="document.getElementById('orquestador').scrollIntoView({behavior:'smooth',block:'start'})">Pedir alternativa al orquestador</button>
         </div>
       </div>
 
@@ -307,7 +302,7 @@
             </div>
             <div class="prog-stat">
               <small>Riesgo de ejecuci&#243;n</small>
-              <b class="amber">Medio</b>
+              <b class="blue">Medio</b>
               <span>Acci&#243;n cr&#237;tica pendiente</span>
             </div>
             <div class="prog-stat">
@@ -348,13 +343,13 @@
           </div>
         </div>
         <div class="econ-deviation">
-          <svg width="14" height="14" fill="none" stroke="#b45309" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+          <svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           <p><strong>El ahorro baja 1.200&#8364; frente al objetivo inicial.</strong> Motivo: menor disponibilidad del mando para hacer dos contactos preventivos dentro de la ventana prevista.</p>
         </div>
       </div>
 
       <!-- 4. ORQUESTADOR IA -->
-      <div class="i-card">
+      <div class="i-card" id="orquestador">
         <div class="i-card-head">
           <div style="display:flex;align-items:center;gap:9px;">
             <div style="width:28px;height:28px;border-radius:7px;background:#f5f3ff;border:1px solid #ddd6fe;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
@@ -367,27 +362,23 @@
           </div>
           <span style="display:inline-flex;height:22px;align-items:center;padding:0 9px;border-radius:999px;font-size:10.5px;font-weight:700;background:#f5f3ff;color:#7c3aed;border:1px solid #ddd6fe;">Activo</span>
         </div>
-        <div class="orch-inner">
-          <div class="orch-chat">
-            <div class="orch-bubbles">
-              <div class="orch-bubble ai">Recomiendo que RRHH haga hoy los 2 contactos. Mantiene el plan en plazo y conserva la mayor parte del ahorro previsto.</div>
-              <div class="orch-bubble user">&#191;Y si RRHH tampoco puede hacerlo hoy?</div>
-              <div class="orch-bubble ai">Reestructurar&#237;a el plan: contacto ma&#241;ana a primera hora, chequeo reforzado d&#237;a 7 y nueva previsi&#243;n de ahorro de 9,8K&#8211;11,3K&#8364;. El riesgo subir&#237;a de medio a medio-alto.</div>
-            </div>
-            <div class="orch-input-row">
-              <input class="orch-input" placeholder="Pide un ajuste, explica una barrera&#8230;"/>
-              <button class="orch-send">
-                <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-              </button>
-            </div>
-          </div>
-          <div class="orch-actions">
-            <div class="orch-actions-label">Acciones r&#225;pidas</div>
-            <button class="orch-btn primary">Aplicar recomendaci&#243;n actual</button>
-            <button class="orch-btn">Recalcular con menos carga</button>
-            <button class="orch-btn">Explicar impacto econ&#243;mico</button>
-            <button class="orch-btn">Cambiar responsable</button>
-          </div>
+        <div class="orch-bubbles">
+          <div class="orch-bubble ai">Recomiendo que RRHH haga hoy los 2 contactos. Mantiene el plan en plazo y conserva la mayor parte del ahorro previsto.</div>
+          <div class="orch-bubble user">&#191;Y si RRHH tampoco puede hacerlo hoy?</div>
+          <div class="orch-bubble ai">Reestructurar&#237;a el plan: contacto ma&#241;ana a primera hora, chequeo reforzado d&#237;a 7 y nueva previsi&#243;n de ahorro de 9,8K&#8211;11,3K&#8364;. El riesgo subir&#237;a de medio a medio-alto.</div>
+        </div>
+        <div class="orch-quick">
+          <span class="orch-quick-label">Acciones r&#225;pidas</span>
+          <button class="orch-quick-btn primary">Aplicar recomendaci&#243;n</button>
+          <button class="orch-quick-btn">Recalcular con menos carga</button>
+          <button class="orch-quick-btn">Explicar impacto econ&#243;mico</button>
+          <button class="orch-quick-btn">Cambiar responsable</button>
+        </div>
+        <div class="orch-input-row">
+          <input class="orch-input" placeholder="Pide un ajuste, explica una barrera&#8230;"/>
+          <button class="orch-send">
+            <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </button>
         </div>
       </div>
 
@@ -412,8 +403,8 @@
               <span class="act-status done">Hecho</span>
             </div>
             <div class="act-row act-pending">
-              <div class="act-num pending">3</div>
-              <div class="act-body"><small>Hoy &mdash; urgente</small><strong>Contacto preventivo 72h antes</strong><p>Contactar 2 reincorporaciones con mensaje de apoyo. Sin preguntas m&#233;dicas.</p></div>
+              <div class="act-num">3</div>
+              <div class="act-body"><small class="urgent">Hoy &mdash; urgente</small><strong>Contacto preventivo 72h antes</strong><p>Contactar 2 reincorporaciones con mensaje de apoyo. Sin preguntas m&#233;dicas.</p></div>
               <div class="act-owner"><b>RRHH Operaciones</b><span>Antes de 15:00</span></div>
               <span class="act-status pending">Pendiente</span>
             </div>
@@ -443,13 +434,11 @@
       <details class="acc-details">
         <summary class="acc-summary">
           <div class="acc-summary-left">
-            <div>
-              <h3>Desviaci&#243;n econ&#243;mica</h3>
-              <p>Qu&#233; ha cambiado y por qu&#233; afecta al ahorro previsto</p>
-            </div>
+            <h3>Desviaci&#243;n econ&#243;mica</h3>
+            <p>Qu&#233; ha cambiado y por qu&#233; afecta al ahorro previsto</p>
           </div>
           <div style="display:flex;align-items:center;gap:10px;">
-            <span class="i-tag amber">&#8595;1.200&#8364; vs objetivo</span>
+            <span class="i-tag">&#8595;1.200&#8364; vs objetivo</span>
             <svg class="acc-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </div>
         </summary>
@@ -457,7 +446,7 @@
           <div class="dev-grid">
             <div class="dev-cell"><small>Objetivo inicial</small><b class="green">13.700&#8364;</b><span>Ahorro previsto al aprobar el plan.</span></div>
             <div class="dev-cell"><small>Previsi&#243;n actual</small><b class="green">12.500&#8364;</b><span>Ahorro esperado con el microajuste.</span></div>
-            <div class="dev-cell"><small>Motivo</small><b class="amber" style="font-size:15px;">Mando no disponible</b><span>RRHH absorbe dos contactos para no retrasar el plan.</span></div>
+            <div class="dev-cell"><small>Motivo</small><b class="blue" style="font-size:15px;">Mando no disponible</b><span>RRHH absorbe dos contactos para no retrasar el plan.</span></div>
           </div>
         </div>
       </details>
@@ -466,20 +455,18 @@
       <details class="acc-details">
         <summary class="acc-summary">
           <div class="acc-summary-left">
-            <div>
-              <h3>Riesgo de ejecuci&#243;n</h3>
-              <p>No solo mide avance; mide si el plan puede cumplirse</p>
-            </div>
+            <h3>Riesgo de ejecuci&#243;n</h3>
+            <p>No solo mide avance; mide si el plan puede cumplirse</p>
           </div>
           <div style="display:flex;align-items:center;gap:10px;">
-            <span class="i-tag amber">Medio &middot; 56%</span>
+            <span class="i-tag">Medio &middot; 56%</span>
             <svg class="acc-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </div>
         </summary>
         <div class="acc-body">
           <div class="risk-bar-block">
             <span class="risk-bar-label">Riesgo de ejecuci&#243;n</span>
-            <div class="risk-bar-track"><div class="risk-bar-fill-amber"></div></div>
+            <div class="risk-bar-track"><div class="risk-bar-fill-blue"></div></div>
             <span class="risk-bar-pct">56%</span>
           </div>
           <div class="acc-note">
@@ -497,10 +484,8 @@
       <details class="acc-details">
         <summary class="acc-summary">
           <div class="acc-summary-left">
-            <div>
-              <h3>ROI final</h3>
-              <p>Qu&#233; se calcular&#225; al cierre del plan el d&#237;a 14</p>
-            </div>
+            <h3>ROI final</h3>
+            <p>Qu&#233; se calcular&#225; al cierre del plan el d&#237;a 14</p>
           </div>
           <div style="display:flex;align-items:center;gap:10px;">
             <span class="i-tag">D&#237;a 14</span>
@@ -519,10 +504,8 @@
       <details class="acc-details">
         <summary class="acc-summary">
           <div class="acc-summary-left">
-            <div>
-              <h3>Hist&#243;rico de cambios y trazabilidad</h3>
-              <p>Registro de eventos y ajustes desde la activaci&#243;n del plan</p>
-            </div>
+            <h3>Hist&#243;rico de cambios y trazabilidad</h3>
+            <p>Registro de eventos y ajustes desde la activaci&#243;n del plan</p>
           </div>
           <div style="display:flex;align-items:center;gap:10px;">
             <span class="i-tag">4 eventos</span>
