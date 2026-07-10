@@ -70,6 +70,15 @@
     .pt-btn-activated:hover{background:#dcfce7;}
     .pt-btn-activate{display:inline-flex;height:27px;align-items:center;padding:0 11px;background:#2563eb;color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:700;text-decoration:none;white-space:nowrap;cursor:pointer;}
     .pt-btn-activate:hover{background:#1d4ed8;}
+    .pt-btn-ghost{display:inline-flex;height:27px;align-items:center;padding:0 11px;background:#fff;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;font-weight:600;color:#334155;text-decoration:none;white-space:nowrap;}
+    /* Fila pendiente de implantacion */
+    .pt-row-impl{background:#eff6ff;box-shadow:inset 4px 0 0 #2563eb;}
+    .pt-state.impl{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
+    /* Boton iniciar implantacion */
+    .pt-btn-impl{display:inline-flex;height:27px;align-items:center;gap:5px;padding:0 11px;background:#2563eb;color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:700;text-decoration:none;white-space:nowrap;cursor:pointer;}
+    .pt-btn-impl:hover{background:#1d4ed8;}
+    /* Cabecera columna implantacion resaltada */
+    .th-impl{color:#1d4ed8 !important;}
     .fab{position:fixed;bottom:24px;right:24px;display:flex;align-items:center;gap:8px;background:#2563eb;color:#fff;border:none;border-radius:999px;padding:12px 20px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(37,99,235,.35);z-index:50;}
   </style>
 </head>
@@ -128,6 +137,7 @@
           <button class="fchip active">Todos los planes</button>
           <button class="fchip">Activaci&#243;n recomendada</button>
           <button class="fchip">Pendiente de activaci&#243;n</button>
+          <button class="fchip" style="color:#1d4ed8;border-color:#bfdbfe;">Pendiente implantaci&#243;n <span style="display:inline-flex;width:16px;height:16px;border-radius:50%;background:#2563eb;color:#fff;font-size:9px;font-weight:800;align-items:center;justify-content:center;margin-left:4px;">1</span></button>
           <button class="fchip">Mayor ROI preliminar</button>
         </div>
         <button style="height:32px;border:none;background:#2563eb;color:#fff;border-radius:7px;padding:0 16px;font-size:12px;font-weight:700;cursor:pointer;">+ Crear plan desde predicci&#243;n</button>
@@ -169,7 +179,7 @@
             <details class="plans-acc">
               <summary class="risk-sum">
                 <div class="risk-num green">3</div>
-                <div style="flex:1;"><div class="risk-label">Planes asociados a esta predicci&#243;n</div><div class="risk-sub">1 activado &middot; 1 pendiente de activar &middot; 1 sin activar</div></div>
+                <div style="flex:1;"><div class="risk-label">Planes asociados a esta predicci&#243;n</div><div class="risk-sub">1 pendiente de implantaci&#243;n &middot; 2 pendientes de activar</div></div>
                 <svg class="risk-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </summary>
               <div class="ptable-wrap">
@@ -182,20 +192,22 @@
                     <th>Ahorro est. <span class="info-i" title="Ahorro econ&#243;mico estimado si el plan se ejecuta con &#233;xito">i</span></th>
                     <th>ROI <span class="info-i" title="Retorno sobre la inversi&#243;n estimado">i</span></th>
                     <th>Acci&#243;n</th>
+                    <th class="th-impl">Implantaci&#243;n <span class="info-i" title="Planes aprobados cuya ventana de implantaci&#243;n est&#225; abierta y requieren iniciar la ejecuci&#243;n">i</span></th>
                   </tr></thead>
                   <tbody>
-                    <!-- ACTIVADO -->
-                    <tr class="pt-row-active">
+                    <!-- PENDIENTE IMPLANTACIÓN -->
+                    <tr class="pt-row-impl">
                       <td><span class="pt-num green">1</span></td>
                       <td><span class="pt-name">Retorno seguro tras ausencia</span></td>
-                      <td><span class="pt-state green">Activaci&#243;n recomendada</span></td>
+                      <td><span class="pt-state impl">Pendiente implantaci&#243;n</span></td>
                       <td class="pt-dark">Medio</td>
                       <td class="pt-dark">12K&ndash;15K&#8364;</td>
                       <td class="pt-dark">1.100%</td>
+                      <td><a href="plan-resumen.html" class="pt-btn-ghost">Ver plan</a></td>
                       <td>
-                        <a href="plan-resumen.html" class="pt-btn-activated">
-                          <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                          Activado
+                        <a href="plan-resumen.html" class="pt-btn-impl">
+                          <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                          Iniciar
                         </a>
                       </td>
                     </tr>
@@ -208,6 +220,7 @@
                       <td class="pt-dark">7K&ndash;9K&#8364;</td>
                       <td class="pt-dark">760%</td>
                       <td><a href="plan-wizard.html" class="pt-btn-activate">Activar plan</a></td>
+                      <td><span class="pt-dim">&#8212;</span></td>
                     </tr>
                     <tr class="pt-row-inactive">
                       <td><span class="pt-num amber">3</span></td>
@@ -217,6 +230,7 @@
                       <td class="pt-dark">4K&ndash;6K&#8364;</td>
                       <td class="pt-dark">320%</td>
                       <td><a href="plan-wizard.html" class="pt-btn-activate">Activar plan</a></td>
+                      <td><span class="pt-dim">&#8212;</span></td>
                     </tr>
                   </tbody>
                 </table>
@@ -272,6 +286,7 @@
                     <th>Ahorro est. <span class="info-i" title="Ahorro econ&#243;mico estimado si el plan se ejecuta con &#233;xito">i</span></th>
                     <th>ROI <span class="info-i" title="Retorno sobre la inversi&#243;n estimado">i</span></th>
                     <th>Acci&#243;n</th>
+                    <th>Implantaci&#243;n <span class="info-i" title="Planes aprobados cuya ventana de implantaci&#243;n est&#225; abierta y requieren iniciar la ejecuci&#243;n">i</span></th>
                   </tr></thead>
                   <tbody>
                     <tr class="pt-row-inactive">
@@ -282,6 +297,7 @@
                       <td class="pt-dark">9K&ndash;11K&#8364;</td>
                       <td class="pt-dark">940%</td>
                       <td><a href="plan-wizard.html" class="pt-btn-activate">Activar plan</a></td>
+                      <td><span class="pt-dim">&#8212;</span></td>
                     </tr>
                   </tbody>
                 </table>
@@ -337,6 +353,7 @@
                     <th>Ahorro est. <span class="info-i" title="Ahorro econ&#243;mico estimado si el plan se ejecuta con &#233;xito">i</span></th>
                     <th>ROI <span class="info-i" title="Retorno sobre la inversi&#243;n estimado">i</span></th>
                     <th>Acci&#243;n</th>
+                    <th>Implantaci&#243;n <span class="info-i" title="Planes aprobados cuya ventana de implantaci&#243;n est&#225; abierta y requieren iniciar la ejecuci&#243;n">i</span></th>
                   </tr></thead>
                   <tbody>
                     <tr class="pt-row-inactive">
@@ -347,6 +364,7 @@
                       <td class="pt-dark">2K&ndash;3K&#8364;</td>
                       <td class="pt-dark">250%</td>
                       <td><a href="plan-wizard.html" class="pt-btn-activate">Activar plan</a></td>
+                      <td><span class="pt-dim">&#8212;</span></td>
                     </tr>
                     <tr class="pt-row-inactive">
                       <td><span class="pt-num amber">2</span></td>
@@ -356,6 +374,7 @@
                       <td class="pt-dark">Sin activar</td>
                       <td class="pt-dark">Pendiente</td>
                       <td><a href="plan-wizard.html" class="pt-btn-activate">Activar plan</a></td>
+                      <td><span class="pt-dim">&#8212;</span></td>
                     </tr>
                     <tr class="pt-row-inactive">
                       <td><span class="pt-num amber">3</span></td>
@@ -365,6 +384,7 @@
                       <td class="pt-dark">Incierto</td>
                       <td class="pt-dark">&#8212;</td>
                       <td><a href="plan-wizard.html" class="pt-btn-activate">Activar plan</a></td>
+                      <td><span class="pt-dim">&#8212;</span></td>
                     </tr>
                   </tbody>
                 </table>
