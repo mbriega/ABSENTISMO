@@ -812,8 +812,7 @@
         <span class="wiz-meta" id="wiz-meta-text">Paso 1 de 4</span>
         <div id="step4-sec-btns" style="display:none;gap:8px;" class="wiz-nav">
           <button class="wiz-btn-back" title="Vuelve al paso 1 para modificar objetivos y contexto">&#8592; Editar plan</button>
-          <button class="wiz-btn-back" title="Solicita una versi&#243;n alternativa del plan generado">Versi&#243;n alternativa</button>
-          <button class="wiz-btn-back" title="Guarda el plan en estado de pausa sin activarlo">Pausar plan</button>
+          <button class="wiz-btn-back" style="border-color:#fecdd3;color:#dc2626;" title="Guarda el plan en estado de pausa sin activarlo">Pausar plan</button>
         </div>
       </div>
       <div class="wiz-nav">
@@ -822,7 +821,7 @@
           Confirmar objetivos
           <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
         </button>
-        <button class="wiz-btn-approve" id="btn-approve" onclick="location.href='plan-resumen.html'">
+        <button class="wiz-btn-approve" id="btn-approve" onclick="showApproveModal()">
           <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
           Aprobar y activar plan
         </button>
@@ -831,9 +830,39 @@
 
   </div>
 
+  <!-- MODAL: PLAN APROBADO -->
+  <div id="approve-modal" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(15,23,42,.5);backdrop-filter:blur(4px);align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:18px;box-shadow:0 24px 64px rgba(0,0,0,.18);padding:32px 28px;width:400px;max-width:calc(100vw - 32px);text-align:center;">
+      <div style="width:56px;height:56px;border-radius:50%;background:#f0fdf4;border:2px solid #bbf7d0;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;">
+        <svg width="26" height="26" fill="none" stroke="#059669" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <h2 style="font-size:20px;font-weight:800;color:#0f172a;margin:0 0 8px;letter-spacing:-.03em;">Plan aprobado</h2>
+      <p style="font-size:13px;color:#64748b;font-weight:500;line-height:1.6;margin:0 0 8px;"><strong style="color:#0f172a;">Retorno seguro tras ausencia</strong> se ha activado correctamente.</p>
+      <p style="font-size:12.5px;color:#94a3b8;font-weight:500;line-height:1.5;margin:0 0 26px;">Las acciones se desencadenar&#225;n autom&#225;ticamente seg&#250;n la secuencia del plan.</p>
+      <div style="display:flex;flex-direction:column;gap:9px;">
+        <a href="plan-resumen.html" style="height:44px;display:flex;align-items:center;justify-content:center;gap:8px;background:#0f172a;border-radius:10px;color:#fff;font-size:13px;font-weight:700;text-decoration:none;">
+          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          Ver resumen del plan
+        </a>
+        <a href="plan-implantacion.html" style="height:44px;display:flex;align-items:center;justify-content:center;gap:8px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;color:#334155;font-size:13px;font-weight:600;text-decoration:none;">
+          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          Ver seguimiento de implantaci&#243;n
+        </a>
+      </div>
+    </div>
+  </div>
+
   <script src="../js/components/sidebar.js"></script>
   <script>
     if(typeof SidebarComponent!=="undefined") SidebarComponent.render();
+
+    function showApproveModal() {
+      var m = document.getElementById("approve-modal");
+      m.style.display = "flex";
+    }
+    document.getElementById("approve-modal").addEventListener("click", function(e) {
+      if(e.target === this) this.style.display = "none";
+    });
 
     var current = 1;
     var labels = ["Confirmar objetivos","Enviar contexto","Ver plan generado","Aprobar y activar plan"];
