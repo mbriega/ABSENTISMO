@@ -131,10 +131,10 @@
     .econ b{display:block;font-size:20px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:6px;color:#0f172a;}
     .econ span{display:block;color:#64748b;font-size:11.5px;font-weight:500;}
     .apr-side{display:flex;flex-direction:column;gap:16px;}
-    .apr-decision{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.04);display:flex;flex-direction:column;}
-    .apr-decision h3{font-size:14px;font-weight:800;color:#0f172a;margin:0 0 8px;}
-    .apr-decision p{font-size:12.5px;color:#64748b;font-weight:500;line-height:1.5;margin:0 0 16px;flex:1;}
-    .apr-approve-btn{height:42px;width:100%;border:none;border-radius:9px;background:#2563eb;color:#fff;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:8px;}
+    .apr-decision{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.04);display:flex;flex-direction:column;justify-content:center;gap:14px;}
+    .apr-decision h3{font-size:14px;font-weight:800;color:#0f172a;margin:0;}
+    .apr-decision p{font-size:12.5px;color:#64748b;font-weight:500;line-height:1.5;margin:0;}
+    .apr-approve-btn{height:42px;width:100%;border:none;border-radius:9px;background:#2563eb;color:#fff;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;}
     .apr-approve-btn:hover{background:#1d4ed8;}
     .apr-sec-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
     .apr-sec-btns button{height:34px;border:1px solid #e2e8f0;background:#fff;border-radius:7px;font-size:12px;font-weight:600;color:#475569;cursor:pointer;}
@@ -528,16 +528,14 @@
             <div class="apr-decision">
               <h3>Decisi&#243;n</h3>
               <p>El plan est&#225; preparado. Puedes aprobarlo, editarlo o pedir una versi&#243;n alternativa antes de activar.</p>
-              <div style="display:flex;flex-direction:column;gap:10px;width:260px;align-self:center;">
-                <button class="apr-approve-btn" onclick="location.href='plan-resumen.html'">
-                  <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                  Aprobar y activar plan
-                </button>
-                <div class="apr-sec-btns" style="grid-template-columns:1fr 1fr 1fr;">
-                  <button>Editar</button>
-                  <button>Versi&#243;n alternativa</button>
-                  <button>Pausar</button>
-                </div>
+              <button class="apr-approve-btn" onclick="location.href='plan-resumen.html'">
+                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                Aprobar y activar plan
+              </button>
+              <div class="apr-sec-btns" style="grid-template-columns:1fr 1fr 1fr;">
+                <button>Editar</button>
+                <button>Versi&#243;n alternativa</button>
+                <button>Pausar</button>
               </div>
             </div>
             <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:22px 24px;display:flex;flex-direction:column;">
