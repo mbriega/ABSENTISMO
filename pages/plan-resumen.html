@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="../css/styles.css"/>
   <style>
     *{box-sizing:border-box;}
-    .rs-content{padding:22px 28px 48px;}
+    .rs-content{padding:22px 28px 96px;}
 
     /* HEADER CARD */
     .rs-header{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:22px 24px 0;margin-bottom:16px;overflow:hidden;}
@@ -16,10 +16,8 @@
     .rs-badge-dot{width:7px;height:7px;border-radius:50%;background:#059669;flex-shrink:0;}
     .rs-title{font-size:24px;font-weight:800;color:#0f172a;margin:0 0 6px;letter-spacing:-.035em;line-height:1.15;}
     .rs-meta{font-size:12px;color:#94a3b8;font-weight:600;display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
-    .rs-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end;}
-    .rs-btn-primary{height:38px;padding:0 20px;background:#2563eb;border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;}
-    .rs-btn-ghost{height:38px;padding:0 14px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;color:#334155;font-size:12.5px;font-weight:600;cursor:pointer;}
-    .rs-btn-danger{height:38px;padding:0 14px;background:#fff;border:1px solid #fecdd3;border-radius:8px;color:#dc2626;font-size:12.5px;font-weight:600;cursor:pointer;}
+    .rs-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+    .rs-btn-ghost{height:38px;padding:0 14px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;color:#334155;font-size:12.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:5px;}
 
     /* KPI STRIP */
     .rs-kpis{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid #e2e8f0;margin:0 -24px;}
@@ -31,9 +29,10 @@
     .rs-kpi-sub{font-size:10.5px;color:#94a3b8;font-weight:500;}
 
     /* AGENT STRIP */
-    .agent-strip{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:12px 18px;margin-bottom:16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
-    .agent-strip-label{font-size:10.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;flex-shrink:0;margin-right:4px;}
-    .agent-pill{display:inline-flex;align-items:center;gap:6px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:8px;padding:5px 10px;}
+    .agent-wrap{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:10px 18px 12px;margin-bottom:20px;}
+    .agent-wrap-label{font-size:10.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;}
+    .agent-pills{display:flex;align-items:center;gap:8px;}
+    .agent-pill{display:inline-flex;align-items:center;gap:6px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:8px;padding:5px 10px;white-space:nowrap;}
     .agent-pill-av{width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:800;flex-shrink:0;}
     .agent-pill b{font-size:11.5px;font-weight:700;color:#0f172a;}
     .agent-pill-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
@@ -53,10 +52,12 @@
     .rs-tag.green{background:#f0fdf4;color:#059669;border:1px solid #bbf7d0;}
     .rs-tag.blue{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
     .rs-tag.amber{background:#fffbeb;color:#b45309;border:1px solid #fed7aa;}
+    .rs-tag.purple{background:#f5f3ff;color:#7c3aed;border:1px solid #ddd6fe;}
     .info-i{display:inline-flex;width:16px;height:16px;border-radius:50%;background:#eff6ff;border:1.5px solid #bfdbfe;color:#2563eb;font-size:9.5px;font-weight:800;align-items:center;justify-content:center;cursor:default;vertical-align:middle;margin-left:4px;}
 
-    /* ACCIONES + TIMELINE grid */
-    .plan-grid{display:grid;grid-template-columns:2fr 1fr;gap:16px;align-items:start;margin-bottom:16px;}
+    /* SECTION SPACING */
+    .rs-section{margin-bottom:20px;}
+    .rs-section-group{margin-bottom:28px;}
 
     /* ACTIONS LIST */
     .action-list{display:flex;flex-direction:column;gap:8px;}
@@ -68,25 +69,27 @@
     .action-row-when{font-size:11px;font-weight:700;color:#94a3b8;flex-shrink:0;text-align:right;white-space:nowrap;padding-top:2px;}
 
     /* TIMELINE (blue box) */
-    .timeline-box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:16px;}
-    .timeline-box h4{font-size:11px;font-weight:700;color:#1d4ed8;text-transform:uppercase;letter-spacing:.06em;margin:0 0 12px;}
-    .tl-list{display:flex;flex-direction:column;}
-    .tl-row{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid #dbeafe;}
-    .tl-row:last-child{border-bottom:none;}
+    .timeline-box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:16px 20px;}
+    .timeline-box-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+    .timeline-box h4{font-size:11px;font-weight:700;color:#1d4ed8;text-transform:uppercase;letter-spacing:.06em;margin:0;}
+    .tl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+    .tl-item{background:#fff;border:1px solid #bfdbfe;border-radius:9px;padding:10px 12px;display:flex;gap:8px;align-items:flex-start;}
     .tl-dot{width:10px;height:10px;border-radius:50%;background:#bfdbfe;border:2px solid #bfdbfe;flex-shrink:0;margin-top:3px;}
     .tl-dot.active{background:#2563eb;border-color:#2563eb;}
-    .tl-body b{display:block;font-size:12px;font-weight:700;color:#1d4ed8;margin-bottom:2px;}
-    .tl-body span{font-size:11px;color:#3b82f6;font-weight:500;line-height:1.38;}
+    .tl-item b{display:block;font-size:12px;font-weight:700;color:#1d4ed8;margin-bottom:2px;}
+    .tl-item span{display:block;font-size:11px;color:#3b82f6;font-weight:500;line-height:1.38;}
 
     /* RISK BARS */
     .risk-bars{margin-bottom:16px;}
-    .risk-bar-block{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+    .risk-bar-block{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
     .risk-bar-block:last-child{margin-bottom:0;}
-    .risk-bar-label{display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:#0f172a;}
-    .risk-bar{height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden;}
+    .risk-bar-name{font-size:12px;font-weight:700;color:#0f172a;width:140px;flex-shrink:0;}
+    .risk-bar-track{flex:1;height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden;}
     .risk-bar-fill{height:100%;border-radius:999px;}
     .risk-bar-fill.red{background:#ef4444;width:72%;}
     .risk-bar-fill.green{background:#10b981;width:48%;}
+    .risk-bar-pct{font-size:13px;font-weight:800;width:38px;text-align:right;flex-shrink:0;}
+    .risk-bar-pct.red{color:#dc2626;} .risk-bar-pct.green{color:#059669;}
     .risk-insights{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
     .risk-insight{background:#f8fafc;border:1px solid #f1f5f9;border-radius:9px;padding:12px;}
     .risk-insight strong{display:block;font-size:12px;font-weight:700;color:#0f172a;margin-bottom:4px;}
@@ -100,10 +103,31 @@
     .econ-cell b.red{color:#dc2626;} .econ-cell b.green{color:#059669;} .econ-cell b.blue{color:#1d4ed8;}
     .econ-cell span{display:block;font-size:11px;color:#94a3b8;font-weight:500;}
 
+    /* VERSIÓN ALTERNATIVA */
+    .alt-box{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);overflow:hidden;}
+    .alt-box-head{padding:16px 20px;border-bottom:1px solid #f1f5f9;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}
+    .alt-box-head h3{font-size:13px;font-weight:700;color:#0f172a;margin:0 0 4px;}
+    .alt-box-head p{font-size:12px;color:#64748b;font-weight:500;margin:0;line-height:1.5;}
+    .alt-box-body{padding:16px 20px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;}
+    .alt-compare{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;}
+    .alt-col{display:flex;flex-direction:column;gap:7px;}
+    .alt-col-label{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;}
+    .alt-metric{background:#f8fafc;border:1px solid #f1f5f9;border-radius:9px;padding:10px 12px;}
+    .alt-metric.current{border-color:#bfdbfe;background:#eff6ff;}
+    .alt-metric small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
+    .alt-metric small.blue{color:#3b82f6;}
+    .alt-metric b{display:block;font-size:15px;font-weight:800;color:#0f172a;}
+    .alt-metric b.blue{color:#1d4ed8;}
+    .alt-metric span{display:block;font-size:10.5px;color:#94a3b8;font-weight:500;margin-top:2px;}
+    .alt-metric span.blue{color:#3b82f6;}
+    .alt-actions{display:flex;flex-direction:column;gap:8px;flex-shrink:0;}
+    .alt-btn-primary{height:36px;padding:0 16px;background:#2563eb;border:none;border-radius:8px;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;}
+    .alt-btn-ghost{height:36px;padding:0 16px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;color:#334155;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;}
+
     /* CONTROL ÉTICO IA */
     .ethics-box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:16px 20px;}
     .ethics-box-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
-    .ethics-icon{width:32px;height:32px;border-radius:8px;background:#dbeafe;border:1.5px solid #bfdbfe;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+    .ethics-icon{width:32px;height:32px;border-radius:8px;background:#dbeafe;border:1.5px solid #bfdbfe;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
     .ethics-box-head h4{font-size:13px;font-weight:700;color:#1d4ed8;margin:0;}
     .ethics-box-head p{font-size:11.5px;color:#3b82f6;font-weight:500;margin:2px 0 0;}
     .ethics-items{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;margin-bottom:14px;}
@@ -115,7 +139,15 @@
     .ethics-score{display:flex;align-items:center;gap:10px;padding-top:10px;border-top:1px solid #bfdbfe;}
     .ethics-score-bar{flex:1;height:8px;background:#dbeafe;border-radius:999px;overflow:hidden;}
     .ethics-score-fill{height:100%;background:#2563eb;border-radius:999px;width:88%;}
+    .ethics-score-labels{display:flex;align-items:center;gap:8px;flex-shrink:0;}
     .ethics-score span{font-size:12px;font-weight:700;color:#1d4ed8;white-space:nowrap;}
+
+    /* STICKY FOOTER */
+    .rs-footer{position:fixed;bottom:0;left:260px;right:0;background:#fff;border-top:1px solid #e2e8f0;padding:12px 28px;display:flex;align-items:center;justify-content:space-between;z-index:10;box-shadow:0 -1px 8px rgba(0,0,0,.06);}
+    .rs-footer-meta{font-size:12px;color:#94a3b8;font-weight:600;}
+    .rs-footer-actions{display:flex;align-items:center;gap:10px;}
+    .rs-btn-danger{height:38px;padding:0 16px;background:#fff;border:1px solid #fecdd3;border-radius:8px;color:#dc2626;font-size:12.5px;font-weight:600;cursor:pointer;}
+    .rs-btn-primary{height:38px;padding:0 20px;background:#2563eb;border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;}
   </style>
 </head>
 <body data-page="planes-accion" class="bg-surface-50 text-surface-900 antialiased">
@@ -133,13 +165,20 @@
           <p style="font-size:11px;color:#94a3b8;margin:2px 0 0;">Resumen &middot; Retorno seguro tras ausencia</p>
         </div>
       </div>
-      <div style="width:34px;height:34px;border-radius:50%;background:#0f172a;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;">AD</div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <button class="rs-btn-ghost" onclick="location.href='plan-wizard.html'">&#8592; Editar plan</button>
+        <button class="rs-btn-ghost" title="Exporta el resumen del plan en PDF">
+          <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h4a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+          Exportar PDF
+        </button>
+        <div style="width:34px;height:34px;border-radius:50%;background:#0f172a;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;">AD</div>
+      </div>
     </div>
 
     <section class="rs-content">
 
       <!-- HEADER CARD -->
-      <div class="rs-header">
+      <div class="rs-header rs-section">
         <div class="rs-header-top">
           <div>
             <div class="rs-badge"><span class="rs-badge-dot"></span>Plan activado</div>
@@ -155,18 +194,6 @@
               <span style="color:#e2e8f0;">&middot;</span>
               <span>Activado el 7 Ago 2026</span>
             </div>
-          </div>
-          <div class="rs-actions">
-            <button class="rs-btn-ghost" onclick="location.href='plan-wizard.html'">&#8592; Editar plan</button>
-            <button class="rs-btn-ghost" title="Exporta el resumen del plan en PDF">
-              <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h4a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
-              Exportar PDF
-            </button>
-            <button class="rs-btn-danger" title="Detiene todas las acciones en curso y desactiva el plan">Desactivar plan</button>
-            <button class="rs-btn-primary">
-              Iniciar implantaci&#243;n
-              <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
           </div>
         </div>
         <!-- KPI STRIP -->
@@ -200,113 +227,113 @@
       </div>
 
       <!-- AGENT VALIDATION STRIP -->
-      <div class="agent-strip">
-        <span class="agent-strip-label">Validaci&#243;n de agentes</span>
-        <div class="agent-pill">
-          <div class="agent-pill-av" style="background:#eff6ff;color:#1d4ed8;">RH</div>
-          <b>RRHH</b>
-          <span class="agent-pill-dot ok"></span>
-          <span class="agent-pill-status ok">Validado</span>
-        </div>
-        <div class="agent-pill">
-          <div class="agent-pill-av" style="background:#fff7ed;color:#c2410c;">OP</div>
-          <b>Operaciones</b>
-          <span class="agent-pill-dot ok"></span>
-          <span class="agent-pill-status ok">Validado</span>
-        </div>
-        <div class="agent-pill">
-          <div class="agent-pill-av" style="background:#f5f3ff;color:#6d28d9;">CV</div>
-          <b>Convenio</b>
-          <span class="agent-pill-dot cond"></span>
-          <span class="agent-pill-status cond">Condicionado</span>
-        </div>
-        <div class="agent-pill">
-          <div class="agent-pill-av" style="background:#f0fdf4;color:#166534;">EC</div>
-          <b>Econ&#243;mico</b>
-          <span class="agent-pill-dot ok"></span>
-          <span class="agent-pill-status ok">Validado</span>
-        </div>
-        <div class="agent-pill">
-          <div class="agent-pill-av" style="background:#ecfeff;color:#0e7490;">AB</div>
-          <b>Absentismo</b>
-          <span class="agent-pill-dot ok"></span>
-          <span class="agent-pill-status ok">Validado</span>
-        </div>
-        <div class="agent-pill">
-          <div class="agent-pill-av" style="background:#fff1f2;color:#be123c;">PL</div>
-          <b>PRL</b>
-          <span class="agent-pill-dot ok"></span>
-          <span class="agent-pill-status ok">Validado</span>
+      <div class="agent-wrap rs-section">
+        <div class="agent-wrap-label">Validaci&#243;n de agentes</div>
+        <div class="agent-pills">
+          <div class="agent-pill">
+            <div class="agent-pill-av" style="background:#eff6ff;color:#1d4ed8;">RH</div>
+            <b>RRHH</b>
+            <span class="agent-pill-dot ok"></span>
+            <span class="agent-pill-status ok">Validado</span>
+          </div>
+          <div class="agent-pill">
+            <div class="agent-pill-av" style="background:#fff7ed;color:#c2410c;">OP</div>
+            <b>Operaciones</b>
+            <span class="agent-pill-dot ok"></span>
+            <span class="agent-pill-status ok">Validado</span>
+          </div>
+          <div class="agent-pill" title="Condici&#243;n: validaci&#243;n previa del art&#237;culo 32 del convenio antes de aplicar el ajuste de turno">
+            <div class="agent-pill-av" style="background:#f5f3ff;color:#6d28d9;">CV</div>
+            <b>Convenio</b>
+            <span class="agent-pill-dot cond"></span>
+            <span class="agent-pill-status cond">Condicionado &#8505;</span>
+          </div>
+          <div class="agent-pill">
+            <div class="agent-pill-av" style="background:#f0fdf4;color:#166534;">EC</div>
+            <b>Econ&#243;mico</b>
+            <span class="agent-pill-dot ok"></span>
+            <span class="agent-pill-status ok">Validado</span>
+          </div>
+          <div class="agent-pill">
+            <div class="agent-pill-av" style="background:#ecfeff;color:#0e7490;">AB</div>
+            <b>Absentismo</b>
+            <span class="agent-pill-dot ok"></span>
+            <span class="agent-pill-status ok">Validado</span>
+          </div>
+          <div class="agent-pill">
+            <div class="agent-pill-av" style="background:#fff1f2;color:#be123c;">PL</div>
+            <b>PRL</b>
+            <span class="agent-pill-dot ok"></span>
+            <span class="agent-pill-status ok">Validado</span>
+          </div>
         </div>
       </div>
 
-      <!-- ACCIONES + TIMELINE -->
-      <div class="plan-grid">
-
-        <!-- ACCIONES DEL PLAN -->
-        <div class="rs-card">
-          <div class="rs-card-head">
-            <div><h3>Acciones del plan</h3><p>Qu&#233; se hace, cu&#225;ndo y para qu&#233;</p></div>
-            <span class="rs-tag amber">14 d&#237;as</span>
-          </div>
-          <div class="rs-card-body">
-            <div class="action-list">
-              <div class="action-row">
-                <div class="action-num">1</div>
-                <div class="action-row-body"><strong>Revisar reincorporaciones recientes</strong><p>Identificar personas que vuelven en la ventana de riesgo y priorizar los casos con mayor exposici&#243;n operativa.</p></div>
-                <div class="action-row-when">D&#237;a 0</div>
-              </div>
-              <div class="action-row">
-                <div class="action-num">2</div>
-                <div class="action-row-body"><strong>Contacto preventivo 72h antes</strong><p>Mensaje breve de apoyo para confirmar turno, necesidades pr&#225;cticas y barreras de vuelta.</p></div>
-                <div class="action-row-when">72h antes</div>
-              </div>
-              <div class="action-row">
-                <div class="action-num">3</div>
-                <div class="action-row-body"><strong>Chequeos breves d&#237;as 1, 7 y 14</strong><p>Seguimiento m&#237;nimo. Solo preguntas operativas y de adaptaci&#243;n.</p></div>
-                <div class="action-row-when">D&#237;as 1 &middot; 7 &middot; 14</div>
-              </div>
-              <div class="action-row">
-                <div class="action-num">4</div>
-                <div class="action-row-body"><strong>Ajuste m&#237;nimo si es viable</strong><p>Solo si operaci&#243;n lo acepta y no afecta condiciones. Si no encaja, se elimina.</p></div>
-                <div class="action-row-when">Si aplica</div>
-              </div>
-              <div class="action-row">
-                <div class="action-num">5</div>
-                <div class="action-row-body"><strong>Medir resultado</strong><p>Comparar ausencias reales, coste evitado y recurrencia frente al escenario previsto.</p></div>
-                <div class="action-row-when">D&#237;a 14</div>
-              </div>
+      <!-- ACCIONES DEL PLAN -->
+      <div class="rs-card rs-section">
+        <div class="rs-card-head">
+          <div><h3>Acciones del plan</h3><p>Qu&#233; se hace, cu&#225;ndo y para qu&#233;</p></div>
+          <span class="rs-tag amber">14 d&#237;as</span>
+        </div>
+        <div class="rs-card-body">
+          <div class="action-list">
+            <div class="action-row">
+              <div class="action-num">1</div>
+              <div class="action-row-body"><strong>Revisar reincorporaciones recientes</strong><p>Identificar personas que vuelven en la ventana de riesgo y priorizar los casos con mayor exposici&#243;n operativa.</p></div>
+              <div class="action-row-when">D&#237;a 0</div>
+            </div>
+            <div class="action-row">
+              <div class="action-num">2</div>
+              <div class="action-row-body"><strong>Contacto preventivo 72h antes</strong><p>Mensaje breve de apoyo para confirmar turno, necesidades pr&#225;cticas y barreras de vuelta.</p></div>
+              <div class="action-row-when">72h antes</div>
+            </div>
+            <div class="action-row">
+              <div class="action-num">3</div>
+              <div class="action-row-body"><strong>Chequeos breves d&#237;as 1, 7 y 14</strong><p>Seguimiento m&#237;nimo. Solo preguntas operativas y de adaptaci&#243;n.</p></div>
+              <div class="action-row-when">D&#237;as 1 &middot; 7 &middot; 14</div>
+            </div>
+            <div class="action-row">
+              <div class="action-num">4</div>
+              <div class="action-row-body"><strong>Ajuste m&#237;nimo si es viable</strong><p>Solo si operaci&#243;n lo acepta y no afecta condiciones. Si no encaja, se elimina.</p></div>
+              <div class="action-row-when">Si aplica</div>
+            </div>
+            <div class="action-row">
+              <div class="action-num">5</div>
+              <div class="action-row-body"><strong>Medir resultado</strong><p>Comparar ausencias reales, coste evitado y recurrencia frente al escenario previsto.</p></div>
+              <div class="action-row-when">D&#237;a 14</div>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- TIMELINE -->
-        <div class="timeline-box">
-          <h4>Al activar se desencadena</h4>
-          <div class="tl-list">
-            <div class="tl-row">
-              <div class="tl-dot active"></div>
-              <div class="tl-body"><b>D&#237;a 0</b><span>Lista de reincorporaciones y responsables.</span></div>
-            </div>
-            <div class="tl-row">
-              <div class="tl-dot"></div>
-              <div class="tl-body"><b>72h antes de cada retorno</b><span>Gui&#243;n de contacto preventivo.</span></div>
-            </div>
-            <div class="tl-row">
-              <div class="tl-dot"></div>
-              <div class="tl-body"><b>D&#237;as 1, 7 y 14</b><span>Recordatorios de seguimiento para mandos.</span></div>
-            </div>
-            <div class="tl-row">
-              <div class="tl-dot"></div>
-              <div class="tl-body"><b>D&#237;a 14</b><span>Medici&#243;n de ahorro, recurrencia y riesgo residual.</span></div>
-            </div>
+      <!-- TIMELINE -->
+      <div class="timeline-box rs-section-group">
+        <div class="timeline-box-head">
+          <h4>Secuencia de activaci&#243;n</h4>
+          <span class="rs-tag blue">4 hitos</span>
+        </div>
+        <div class="tl-grid">
+          <div class="tl-item">
+            <div class="tl-dot active"></div>
+            <div><b>D&#237;a 0</b><span>Lista de reincorporaciones y responsables asignados.</span></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div><b>72h antes de cada retorno</b><span>Gui&#243;n de contacto preventivo enviado al mando.</span></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div><b>D&#237;as 1, 7 y 14</b><span>Recordatorios de seguimiento para mandos.</span></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div><b>D&#237;a 14</b><span>Medici&#243;n de ahorro, recurrencia y riesgo residual.</span></div>
           </div>
         </div>
+      </div>
 
-      </div><!-- /plan-grid -->
-
-      <!-- REDUCCIÓN DE RIESGO (full width) -->
-      <div class="rs-card" style="margin-bottom:16px;">
+      <!-- REDUCCIÓN DE RIESGO -->
+      <div class="rs-card rs-section">
         <div class="rs-card-head">
           <div><h3>Reducci&#243;n de riesgo</h3><p>Antes y despu&#233;s de aplicar el plan</p></div>
           <span class="rs-tag green">&#8722;24 puntos</span>
@@ -314,12 +341,14 @@
         <div class="rs-card-body">
           <div class="risk-bars">
             <div class="risk-bar-block">
-              <div class="risk-bar-label"><span>Sin intervenci&#243;n</span><span>72%</span></div>
-              <div class="risk-bar"><div class="risk-bar-fill red"></div></div>
+              <span class="risk-bar-name">Sin intervenci&#243;n</span>
+              <div class="risk-bar-track"><div class="risk-bar-fill red"></div></div>
+              <span class="risk-bar-pct red">72%</span>
             </div>
             <div class="risk-bar-block">
-              <div class="risk-bar-label"><span>Con este plan</span><span>48%</span></div>
-              <div class="risk-bar"><div class="risk-bar-fill green"></div></div>
+              <span class="risk-bar-name">Con este plan</span>
+              <div class="risk-bar-track"><div class="risk-bar-fill green"></div></div>
+              <span class="risk-bar-pct green">48%</span>
             </div>
           </div>
           <div class="risk-insights">
@@ -330,8 +359,8 @@
         </div>
       </div>
 
-      <!-- LECTURA ECONÓMICA (full width) -->
-      <div class="rs-card" style="margin-bottom:16px;">
+      <!-- LECTURA ECONÓMICA -->
+      <div class="rs-card rs-section-group">
         <div class="rs-card-head">
           <div><h3>Lectura econ&#243;mica</h3><p>Por qu&#233; merece la pena actuar</p></div>
           <span class="rs-tag green">ROI positivo</span>
@@ -346,10 +375,43 @@
         </div>
       </div>
 
-      <!-- CONTROL ÉTICO IA (full width) -->
+      <!-- VERSIÓN ALTERNATIVA -->
+      <div class="alt-box rs-section-group">
+        <div class="alt-box-head">
+          <div>
+            <h3>Versi&#243;n alternativa &mdash; Plan simplificado sin mandos</h3>
+            <p>Si los mandos directos no pueden participar en los chequeos (baja, rotaci&#243;n, carga operativa), existe una versi&#243;n del plan gestionada exclusivamente por RRHH. Funciona con dos chequeos en lugar de tres y sin ajuste de turno, lo que reduce ligeramente el impacto pero garantiza que el plan se ejecuta aunque la cadena de mando no est&#233; disponible.</p>
+          </div>
+          <span class="rs-tag purple" style="flex-shrink:0;">Plan v1.1</span>
+        </div>
+        <div class="alt-box-body">
+          <div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:9px;">
+              <div class="alt-metric current"><small class="blue">Ahorro (v1.0)</small><b class="blue">12K&#8211;15K&#8364;</b><span class="blue">Plan actual</span></div>
+              <div class="alt-metric"><small>Ahorro (v1.1)</small><b>9K&#8211;12K&#8364;</b><span>Versi&#243;n simplificada</span></div>
+              <div class="alt-metric current"><small class="blue">Inversi&#243;n (v1.0)</small><b class="blue">1,2K&#8364;</b><span class="blue">Plan actual</span></div>
+              <div class="alt-metric"><small>Inversi&#243;n (v1.1)</small><b>0,9K&#8364;</b><span>Solo RRHH</span></div>
+            </div>
+            <div style="margin-top:9px;display:grid;grid-template-columns:repeat(4,1fr);gap:9px;">
+              <div class="alt-metric current"><small class="blue">Gesti&#243;n (v1.0)</small><b class="blue" style="font-size:13px;">RRHH + Mandos</b><span class="blue">3 chequeos</span></div>
+              <div class="alt-metric"><small>Gesti&#243;n (v1.1)</small><b style="font-size:13px;">Solo RRHH</b><span>2 chequeos</span></div>
+              <div class="alt-metric current"><small class="blue">Riesgo residual (v1.0)</small><b class="blue">48%</b><span class="blue">Plan actual</span></div>
+              <div class="alt-metric"><small>Riesgo residual (v1.1)</small><b>54%</b><span>Sin ajuste de turno</span></div>
+            </div>
+          </div>
+          <div class="alt-actions">
+            <button class="alt-btn-primary" title="Sustituye el plan actual por la versi&#243;n simplificada sin mandos">Activar v1.1</button>
+            <button class="alt-btn-ghost" title="Consulta el detalle completo de la versi&#243;n alternativa">Ver detalle</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTROL ÉTICO IA -->
       <div class="ethics-box">
         <div class="ethics-box-head">
-          <div class="ethics-icon">&#129504;</div>
+          <div class="ethics-icon">
+            <svg width="16" height="16" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
           <div>
             <h4>Control &#233;tico IA <span class="info-i" title="Este plan ha sido evaluado autom&#225;ticamente por el sistema de control &#233;tico antes de presentarse para aprobaci&#243;n.">i</span></h4>
             <p>Validaci&#243;n autom&#225;tica de principios &#233;ticos y proporcionalidad</p>
@@ -378,13 +440,27 @@
           </div>
         </div>
         <div class="ethics-score">
-          <span style="font-size:11.5px;color:#3b82f6;font-weight:600;">Puntuaci&#243;n de medibilidad</span>
+          <span style="font-size:11.5px;color:#3b82f6;font-weight:600;flex-shrink:0;">Puntuaci&#243;n de medibilidad</span>
           <div class="ethics-score-bar"><div class="ethics-score-fill"></div></div>
           <span>88 / 100</span>
+          <span style="font-size:10.5px;color:#3b82f6;font-weight:500;margin-left:2px;">&#8212; Excelente</span>
         </div>
       </div>
 
     </section>
+
+    <!-- STICKY FOOTER -->
+    <div class="rs-footer">
+      <span class="rs-footer-meta">Plan v1.0 &middot; Activado el 7 Ago 2026 &middot; Plataforma Centro</span>
+      <div class="rs-footer-actions">
+        <button class="rs-btn-danger" title="Detiene todas las acciones en curso y desactiva el plan">Desactivar plan</button>
+        <button class="rs-btn-primary" onclick="location.href='planes-accion.html'">
+          Iniciar implantaci&#243;n
+          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
   </div>
 
   <script src="../js/components/sidebar.js"></script>
