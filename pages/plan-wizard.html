@@ -407,11 +407,13 @@
           <!-- Right sidebar -->
           <aside>
             <div class="ctx-summary">
-              <h4>Resumen de respuestas <span class="info-i" title="Cuanto m&#225;s concretas sean las respuestas, m&#225;s ajustado y viable ser&#225; el plan generado.">i</span></h4>
-              <div class="ctx-answer">Seguimiento limitado por los mandos</div>
-              <div class="ctx-answer">Tono de apoyo, no de control</div>
-              <div class="ctx-answer">Ajuste m&#237;nimo y condicionado</div>
-              <div class="ctx-answer" style="color:#94a3b8;">Coste por d&#237;a pendiente de confirmar</div>
+              <h4 id="ctx-summary-title">Resumen RRHH <span class="info-i" title="Cuanto m&#225;s concretas sean las respuestas, m&#225;s ajustado y viable ser&#225; el plan generado.">i</span></h4>
+              <div id="ctx-answers">
+                <div class="ctx-answer">Seguimiento limitado por los mandos</div>
+                <div class="ctx-answer">Tono de apoyo, no de control</div>
+                <div class="ctx-answer">Ajuste m&#237;nimo y condicionado</div>
+                <div class="ctx-answer" style="color:#94a3b8;">Coste por d&#237;a pendiente de confirmar</div>
+              </div>
             </div>
           </aside>
         </div>
@@ -574,9 +576,9 @@
       <div>
         <span class="wiz-meta" id="wiz-meta-text">Paso 1 de 4</span>
         <div id="step4-sec-btns" style="display:none;gap:8px;" class="wiz-nav">
-          <button class="wiz-btn-back">Editar</button>
-          <button class="wiz-btn-back">Versi&#243;n alternativa</button>
-          <button class="wiz-btn-back">Pausar</button>
+          <button class="wiz-btn-back" title="Vuelve al paso 1 para modificar objetivos y contexto">&#8592; Editar plan</button>
+          <button class="wiz-btn-back" title="Solicita una versi&#243;n alternativa del plan generado">Versi&#243;n alternativa</button>
+          <button class="wiz-btn-back" title="Guarda el plan en estado de pausa sin activarlo">Pausar plan</button>
         </div>
       </div>
       <div class="wiz-nav">
@@ -631,11 +633,60 @@
       window.scrollTo({top:0, behavior:"smooth"});
     }
 
+    var agentLabels = {
+      rrhh: "RRHH", ops: "Operaciones", conv: "Convenio", eco: "Econ&#243;mico", abs: "Absentismo", prl: "PRL"
+    };
+    var agentSummaries = {
+      rrhh: [
+        {text:"Seguimiento limitado por los mandos"},
+        {text:"Tono de apoyo, no de control"},
+        {text:"Ajuste m&#237;nimo y condicionado"},
+        {text:"Coste por d&#237;a pendiente de confirmar", muted:true}
+      ],
+      ops: [
+        {text:"Margen operativo suficiente"},
+        {text:"Seguimiento preferiblemente autom&#225;tico"},
+        {text:"Sin impacto en turnos cr&#237;ticos"},
+        {text:"Protocolo de cobertura ya activo", muted:true}
+      ],
+      conv: [
+        {text:"Validaci&#243;n previa obligatoria"},
+        {text:"Protocolo de retorno es pr&#225;ctica interna"},
+        {text:"Sin cl&#225;usula de penalizaci&#243;n aplicable"},
+        {text:"Revisar art&#237;culo 32 del convenio", muted:true}
+      ],
+      eco: [
+        {text:"Coste por d&#237;a revisado al alza"},
+        {text:"ROI confirmado: 1.250%"},
+        {text:"Break-even en 1 caso evitado"},
+        {text:"Partida presupuestaria por confirmar", muted:true}
+      ],
+      abs: [
+        {text:"Patr&#243;n confirmado: peor en verano"},
+        {text:"Ventana ajustada a d&#237;as 7&#8211;14"},
+        {text:"Colectivo de riesgo identificado"},
+        {text:"Tendencia a la baja en Q1", muted:true}
+      ],
+      prl: [
+        {text:"Chequeos voluntarios &#8212; no cl&#237;nicos"},
+        {text:"Sin puestos restringidos en colectivo"},
+        {text:"Plan de prevenci&#243;n actualizado"},
+        {text:"Evaluaci&#243;n psicosocial pendiente", muted:true}
+      ]
+    };
+
     function showAgent(id) {
       document.querySelectorAll(".agent-tab").forEach(function(t){ t.classList.remove("active"); });
       document.querySelectorAll(".agent-chat").forEach(function(c){ c.style.display = "none"; });
       document.querySelector("[data-agent='" + id + "']").classList.add("active");
       document.getElementById("chat-" + id).style.display = "flex";
+      var label = agentLabels[id] || id;
+      document.getElementById("ctx-summary-title").innerHTML = "Resumen " + label + ' <span class="info-i" title="Cuanto m&#225;s concretas sean las respuestas, m&#225;s ajustado y viable ser&#225; el plan generado.">i</span>';
+      var items = agentSummaries[id] || [];
+      var html = items.map(function(item){
+        return '<div class="ctx-answer"' + (item.muted ? ' style="color:#94a3b8;"' : '') + '>' + item.text + '</div>';
+      }).join('');
+      document.getElementById("ctx-answers").innerHTML = html;
     }
   </script>
 </body>
