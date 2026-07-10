@@ -246,6 +246,14 @@
                 <span class="agent-tab-av" style="background:#f0fdf4;color:#166534;">EC</span>
                 Econom&#237;a
               </button>
+              <button class="agent-tab" data-agent="abs" onclick="showAgent('abs')">
+                <span class="agent-tab-av" style="background:#ecfeff;color:#0e7490;">AB</span>
+                Absentismo
+              </button>
+              <button class="agent-tab" data-agent="prl" onclick="showAgent('prl')">
+                <span class="agent-tab-av" style="background:#fff1f2;color:#be123c;">PL</span>
+                PRL
+              </button>
             </div>
 
             <!-- Chat bodies -->
@@ -343,6 +351,43 @@
                 <div class="bubble user">S&#237;, confirmar.</div>
               </div>
 
+              <!-- Absentismo chat -->
+              <div id="chat-abs" class="agent-chat" style="display:none;">
+                <div class="bubble bot">Analizo los patrones de absentismo hist&#243;ricos de este colectivo para validar las hip&#243;tesis del plan.</div>
+                <div class="bubble bot">El colectivo tiene una tasa de recurrencia del 38% en los primeros 30 d&#237;as. &#191;Es coherente con lo que observ&#225;is en el d&#237;a a d&#237;a?</div>
+                <div class="quick">
+                  <button class="sel">S&#237;, es representativo</button>
+                  <button>Puede ser algo mayor</button>
+                  <button>No reconozco ese dato</button>
+                </div>
+                <div class="bubble user">S&#237;, es representativo. Los retornos del turno de ma&#241;ana son especialmente problem&#225;ticos.</div>
+                <div class="bubble bot">Identificado. Las recurrencias se concentran en el turno de ma&#241;ana en la segunda semana. Ajusto la ventana de intervenci&#243;n a d&#237;as 7&#8211;14. &#191;Hay alg&#250;n patr&#243;n estacional que deba tener en cuenta?</div>
+                <div class="quick">
+                  <button class="sel">S&#237;, peor en verano</button>
+                  <button>No hay patr&#243;n claro</button>
+                  <button>S&#237;, peor en invierno</button>
+                </div>
+                <div class="bubble user">S&#237;, peor en verano. La carga se dispara cuando hay vacaciones escalonadas.</div>
+              </div>
+
+              <!-- PRL chat -->
+              <div id="chat-prl" class="agent-chat" style="display:none;">
+                <div class="bubble bot">Reviso que el plan cumpla con los requisitos de Prevenci&#243;n de Riesgos Laborales antes de validarlo.</div>
+                <div class="bubble bot">&#191;El protocolo de retorno actual prev&#233; una evaluaci&#243;n m&#233;dica o adaptaci&#243;n de puesto tras ausencias prolongadas?</div>
+                <div class="quick">
+                  <button>S&#237;, hay protocolo</button>
+                  <button class="sel">Solo para IT larga</button>
+                  <button>No tenemos protocolo</button>
+                </div>
+                <div class="bubble user">Solo para IT larga. Las ausencias cortas no tienen seguimiento formal de PRL.</div>
+                <div class="bubble bot">Entendido. El plan no introduce obligaciones adicionales de PRL. Los chequeos propuestos son voluntarios y de car&#225;cter operativo, no cl&#237;nico. Queda dentro del marco legal vigente. &#191;Hay alg&#250;n puesto con restricciones especiales que deba considerar?</div>
+                <div class="quick">
+                  <button>S&#237;, hay puestos restringidos</button>
+                  <button class="sel">No en este colectivo</button>
+                </div>
+                <div class="bubble user">No en este colectivo. Todos en l&#237;nea est&#225;ndar.</div>
+              </div>
+
             </div><!-- /chat-body -->
 
             <div class="chat-input">
@@ -391,9 +436,60 @@
             <div class="agent-row"><div class="agent-row-name"><span class="agent-dot ok"></span>Agente economista</div><span class="agent-status ok">Validado</span></div>
             <div class="agent-row"><div class="agent-row-name"><span class="agent-dot cond"></span>Agente convenio</div><span class="agent-status cond">Condicionado</span></div>
             <div class="agent-row"><div class="agent-row-name"><span class="agent-dot ok"></span>Agente PRL</div><span class="agent-status ok">Validado</span></div>
-            <div class="agent-row"><div class="agent-row-name"><span class="agent-dot ok"></span>Control &#233;tico IA</div><span class="agent-status ok">Validado</span></div>
+            <div class="agent-row"><div class="agent-row-name"><span class="agent-dot ok"></span>Agente absentismo</div><span class="agent-status ok">Validado</span></div>
           </div>
         </div>
+
+        <!-- Control ético IA -->
+        <div style="margin-top:16px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:22px 24px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:32px;height:32px;border-radius:8px;background:#dbeafe;color:#1d4ed8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              </div>
+              <div>
+                <p style="font-size:13px;font-weight:800;color:#1d4ed8;margin:0 0 1px;">Control &#233;tico y de proporcionalidad</p>
+                <p style="font-size:11px;color:#3b82f6;font-weight:600;margin:0;">Verificaci&#243;n autom&#225;tica antes de activar el plan</p>
+              </div>
+            </div>
+            <span style="display:inline-flex;height:22px;align-items:center;padding:0 10px;background:#dbeafe;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:999px;font-size:10.5px;font-weight:700;letter-spacing:.04em;">SUPERADO</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:18px;">
+            <div style="display:flex;align-items:flex-start;gap:8px;background:#fff;border:1px solid #dbeafe;border-radius:9px;padding:9px 11px;">
+              <svg width="13" height="13" fill="none" stroke="#2563eb" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              <span style="font-size:12px;color:#1e40af;font-weight:500;line-height:1.4;">Predicci&#243;n basada en comportamientos observables &mdash; no inferencias discriminatorias</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;background:#fff;border:1px solid #dbeafe;border-radius:9px;padding:9px 11px;">
+              <svg width="13" height="13" fill="none" stroke="#2563eb" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              <span style="font-size:12px;color:#1e40af;font-weight:500;line-height:1.4;">Datos de engagement usados solo agregados por equipo &mdash; nunca nominales</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;background:#fff;border:1px solid #dbeafe;border-radius:9px;padding:9px 11px;">
+              <svg width="13" height="13" fill="none" stroke="#2563eb" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              <span style="font-size:12px;color:#1e40af;font-weight:500;line-height:1.4;">Sin penalizaci&#243;n por pertenencia a grupo de riesgo &mdash; foco en mejora, no en control</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;background:#fff;border:1px solid #dbeafe;border-radius:9px;padding:9px 11px;">
+              <svg width="13" height="13" fill="none" stroke="#2563eb" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              <span style="font-size:12px;color:#1e40af;font-weight:500;line-height:1.4;">Plan revisable por la empresa &mdash; ninguna acci&#243;n automatizada sin supervisi&#243;n humana</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;background:#fff;border:1px solid #dbeafe;border-radius:9px;padding:9px 11px;grid-column:1/-1;">
+              <svg width="13" height="13" fill="none" stroke="#2563eb" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              <span style="font-size:12px;color:#1e40af;font-weight:500;line-height:1.4;">Score de fatiga basado en turnos planificados &mdash; no en dispositivos de seguimiento personal</span>
+            </div>
+          </div>
+          <div style="background:#fff;border:1px solid #dbeafe;border-radius:10px;padding:14px 16px;">
+            <p style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin:0 0 10px;">Medibilidad del plan</p>
+            <div style="display:flex;align-items:center;gap:14px;">
+              <span style="font-size:32px;font-weight:800;color:#0f172a;letter-spacing:-.04em;line-height:1;">96</span>
+              <div style="flex:1;">
+                <div style="height:6px;background:#e2e8f0;border-radius:999px;overflow:hidden;">
+                  <div style="width:96%;height:100%;background:#2563eb;border-radius:999px;"></div>
+                </div>
+              </div>
+            </div>
+            <p style="font-size:12px;color:#64748b;font-weight:500;margin:8px 0 0;">Excelente &mdash; todos los KPIs calculables con Scheduling + T&amp;A + Mutua. Predicci&#243;n individual validable.</p>
+          </div>
+        </div>
+
       </div>
 
       <!-- STEP 4 — APROBACIÓN -->
