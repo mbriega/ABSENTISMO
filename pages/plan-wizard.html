@@ -524,21 +524,7 @@
             </div>
           </div>
 
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch;">
-            <div class="apr-decision">
-              <h3>Decisi&#243;n</h3>
-              <p>El plan est&#225; preparado. Puedes aprobarlo, editarlo o pedir una versi&#243;n alternativa antes de activar.</p>
-              <button class="apr-approve-btn" onclick="location.href='plan-resumen.html'">
-                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                Aprobar y activar plan
-              </button>
-              <div class="apr-sec-btns" style="grid-template-columns:1fr 1fr 1fr;">
-                <button>Editar</button>
-                <button>Versi&#243;n alternativa</button>
-                <button>Pausar</button>
-              </div>
-            </div>
-            <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:22px 24px;display:flex;flex-direction:column;">
+          <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:22px 24px;display:flex;flex-direction:column;">
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
                 <div style="display:flex;align-items:center;gap:10px;">
                   <div style="width:32px;height:32px;border-radius:8px;background:#dbeafe;color:#1d4ed8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
@@ -570,7 +556,6 @@
                 </div>
               </div>
             </div>
-          </div>
 
         </div>
       </div>
@@ -579,7 +564,14 @@
 
     <!-- FOOTER NAV -->
     <div class="wiz-footer">
-      <span class="wiz-meta" id="wiz-meta-text">Paso 1 de 4</span>
+      <div>
+        <span class="wiz-meta" id="wiz-meta-text">Paso 1 de 4</span>
+        <div id="step4-sec-btns" style="display:none;gap:8px;" class="wiz-nav">
+          <button class="wiz-btn-back">Editar</button>
+          <button class="wiz-btn-back">Versi&#243;n alternativa</button>
+          <button class="wiz-btn-back">Pausar</button>
+        </div>
+      </div>
       <div class="wiz-nav">
         <button class="wiz-btn-back" id="btn-prev" style="display:none;" onclick="wizNav(-1)">&#8592; Anterior</button>
         <button class="wiz-btn-next" id="btn-next" onclick="wizNav(1)">
@@ -625,8 +617,10 @@
       document.getElementById("btn-prev").style.display = current === 1 ? "none" : "flex";
       document.getElementById("btn-next").style.display = current === 4 ? "none" : "flex";
       document.getElementById("btn-approve").style.display = current === 4 ? "flex" : "none";
+      document.getElementById("wiz-meta-text").style.display = current === 4 ? "none" : "";
+      document.getElementById("step4-sec-btns").style.display = current === 4 ? "flex" : "none";
       if(current < 4) document.getElementById("btn-next").innerHTML = labels[current-1] + ' <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>';
-      document.getElementById("wiz-meta-text").innerHTML = metaLabels[current-1];
+      document.getElementById("wiz-meta-text").innerHTML = current < 4 ? metaLabels[current-1] : "";
       window.scrollTo({top:0, behavior:"smooth"});
     }
 
