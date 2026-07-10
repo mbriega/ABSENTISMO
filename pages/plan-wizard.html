@@ -528,14 +528,16 @@
             <div class="apr-decision">
               <h3>Decisi&#243;n</h3>
               <p>El plan est&#225; preparado. Puedes aprobarlo, editarlo o pedir una versi&#243;n alternativa antes de activar.</p>
-              <button class="apr-approve-btn" onclick="location.href='plan-resumen.html'">
-                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                Aprobar y activar plan
-              </button>
-              <div class="apr-sec-btns" style="grid-template-columns:1fr 1fr 1fr;">
-                <button>Editar</button>
-                <button>Versi&#243;n alternativa</button>
-                <button>Pausar</button>
+              <div style="display:flex;flex-direction:column;gap:10px;width:260px;align-self:center;">
+                <button class="apr-approve-btn" onclick="location.href='plan-resumen.html'">
+                  <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                  Aprobar y activar plan
+                </button>
+                <div class="apr-sec-btns" style="grid-template-columns:1fr 1fr 1fr;">
+                  <button>Editar</button>
+                  <button>Versi&#243;n alternativa</button>
+                  <button>Pausar</button>
+                </div>
               </div>
             </div>
             <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:22px 24px;display:flex;flex-direction:column;">
