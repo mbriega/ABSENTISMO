@@ -43,9 +43,10 @@
     .obj-main h2{font-size:20px;font-weight:800;color:#0f172a;letter-spacing:-.03em;margin:0 0 10px;line-height:1.25;}
     .obj-main > p{font-size:13px;color:#64748b;line-height:1.6;font-weight:500;margin:0 0 20px;}
     .obj-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
-    .obj-card{background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;padding:14px;}
+    .obj-card{background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;padding:14px;position:relative;}
+    .obj-card::after{content:'✓';position:absolute;top:10px;right:10px;width:18px;height:18px;border-radius:50%;background:#eff6ff;border:1.5px solid #bfdbfe;color:#2563eb;font-size:10px;font-weight:800;line-height:18px;text-align:center;}
     .obj-card small{display:block;color:#94a3b8;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;}
-    .obj-card b{display:block;font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:5px;line-height:1.3;}
+    .obj-card b{display:block;font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:5px;line-height:1.3;padding-right:22px;}
     .obj-card span{display:block;color:#64748b;font-size:11.5px;line-height:1.4;font-weight:500;}
     .obj-confirm{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
     .obj-confirm h3{font-size:14px;font-weight:800;color:#0f172a;margin:0;}
@@ -199,7 +200,6 @@
         <p class="sec-title">Paso 1 &mdash; Confirma los objetivos del plan</p>
         <div style="display:flex;flex-direction:column;gap:16px;">
           <article class="obj-main">
-            <div class="obj-kicker">EN QU&#201; CONSISTE</div>
             <h2>Un plan para reducir reca&#237;das y proteger la operaci&#243;n durante los primeros 14 d&#237;as de vuelta</h2>
             <p>Este plan se centra en personas que se reincorporan tras una ausencia en equipos con carga operativa alta. El objetivo no es controlar al empleado, sino anticipar barreras pr&#225;cticas de retorno, evitar nuevas ausencias tempranas y reducir el coste previsto del pico de absentismo.</p>
             <div class="obj-grid">
@@ -233,26 +233,32 @@
               <button class="agent-tab active" data-agent="rrhh" onclick="showAgent('rrhh')">
                 <span class="agent-tab-av" style="background:#eff6ff;color:#1d4ed8;">RH</span>
                 RRHH
+                <span style="width:7px;height:7px;border-radius:50%;background:#059669;flex-shrink:0;margin-left:2px;"></span>
               </button>
               <button class="agent-tab" data-agent="ops" onclick="showAgent('ops')">
                 <span class="agent-tab-av" style="background:#fff7ed;color:#c2410c;">OP</span>
                 Operaciones
+                <span style="width:7px;height:7px;border-radius:50%;background:#059669;flex-shrink:0;margin-left:2px;"></span>
               </button>
               <button class="agent-tab" data-agent="conv" onclick="showAgent('conv')">
                 <span class="agent-tab-av" style="background:#f5f3ff;color:#6d28d9;">CV</span>
                 Convenio
+                <span style="width:7px;height:7px;border-radius:50%;background:#d97706;flex-shrink:0;margin-left:2px;"></span>
               </button>
               <button class="agent-tab" data-agent="eco" onclick="showAgent('eco')">
                 <span class="agent-tab-av" style="background:#f0fdf4;color:#166534;">EC</span>
                 Econom&#237;a
+                <span style="width:7px;height:7px;border-radius:50%;background:#059669;flex-shrink:0;margin-left:2px;"></span>
               </button>
               <button class="agent-tab" data-agent="abs" onclick="showAgent('abs')">
                 <span class="agent-tab-av" style="background:#ecfeff;color:#0e7490;">AB</span>
                 Absentismo
+                <span style="width:7px;height:7px;border-radius:50%;background:#059669;flex-shrink:0;margin-left:2px;"></span>
               </button>
               <button class="agent-tab" data-agent="prl" onclick="showAgent('prl')">
                 <span class="agent-tab-av" style="background:#fff1f2;color:#be123c;">PL</span>
                 PRL
+                <span style="width:7px;height:7px;border-radius:50%;background:#059669;flex-shrink:0;margin-left:2px;"></span>
               </button>
             </div>
 
@@ -432,9 +438,10 @@
           <div class="agents-panel">
             <h4>Validaci&#243;n de agentes</h4>
             <div class="agent-row"><div class="agent-row-name"><span class="agent-dot ok"></span>Agente RRHH</div><span class="agent-status ok">Validado</span></div>
-            <div class="agent-row"><div class="agent-row-name"><span class="agent-dot ok"></span>Agente absentismo</div><span class="agent-status ok">Validado</span></div>
+            <div class="agent-row"><div class="agent-row-name"><span class="agent-dot ok"></span>Agente operaciones</div><span class="agent-status ok">Validado</span></div>
             <div class="agent-row"><div class="agent-row-name"><span class="agent-dot ok"></span>Agente economista</div><span class="agent-status ok">Validado</span></div>
             <div class="agent-row"><div class="agent-row-name"><span class="agent-dot cond"></span>Agente convenio</div><span class="agent-status cond">Condicionado</span></div>
+            <p style="font-size:11px;color:#94a3b8;font-weight:500;margin:0 0 4px;padding-left:16px;">Ajuste de carga requiere validaci&#243;n operativa antes de activar.</p>
             <div class="agent-row"><div class="agent-row-name"><span class="agent-dot ok"></span>Agente PRL</div><span class="agent-status ok">Validado</span></div>
             <div class="agent-row"><div class="agent-row-name"><span class="agent-dot ok"></span>Agente absentismo</div><span class="agent-status ok">Validado</span></div>
           </div>
@@ -454,24 +461,24 @@
             </div>
             <span style="display:inline-flex;height:22px;align-items:center;padding:0 10px;background:#dbeafe;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:999px;font-size:10.5px;font-weight:700;letter-spacing:.04em;">SUPERADO</span>
           </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:18px;">
-            <div style="display:flex;align-items:flex-start;gap:8px;background:#fff;border:1px solid #dbeafe;border-radius:9px;padding:9px 11px;">
+          <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:7px;margin-bottom:18px;">
+            <div style="display:flex;align-items:flex-start;gap:8px;background:#fff;border:1px solid #dbeafe;border-radius:9px;padding:9px 11px;grid-column:span 2;">
               <svg width="13" height="13" fill="none" stroke="#2563eb" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
               <span style="font-size:12px;color:#1e40af;font-weight:500;line-height:1.4;">Predicci&#243;n basada en comportamientos observables &mdash; no inferencias discriminatorias</span>
             </div>
-            <div style="display:flex;align-items:flex-start;gap:8px;background:#fff;border:1px solid #dbeafe;border-radius:9px;padding:9px 11px;">
+            <div style="display:flex;align-items:flex-start;gap:8px;background:#fff;border:1px solid #dbeafe;border-radius:9px;padding:9px 11px;grid-column:span 2;">
               <svg width="13" height="13" fill="none" stroke="#2563eb" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
               <span style="font-size:12px;color:#1e40af;font-weight:500;line-height:1.4;">Datos de engagement usados solo agregados por equipo &mdash; nunca nominales</span>
             </div>
-            <div style="display:flex;align-items:flex-start;gap:8px;background:#fff;border:1px solid #dbeafe;border-radius:9px;padding:9px 11px;">
+            <div style="display:flex;align-items:flex-start;gap:8px;background:#fff;border:1px solid #dbeafe;border-radius:9px;padding:9px 11px;grid-column:span 2;">
               <svg width="13" height="13" fill="none" stroke="#2563eb" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
               <span style="font-size:12px;color:#1e40af;font-weight:500;line-height:1.4;">Sin penalizaci&#243;n por pertenencia a grupo de riesgo &mdash; foco en mejora, no en control</span>
             </div>
-            <div style="display:flex;align-items:flex-start;gap:8px;background:#fff;border:1px solid #dbeafe;border-radius:9px;padding:9px 11px;">
+            <div style="display:flex;align-items:flex-start;gap:8px;background:#fff;border:1px solid #dbeafe;border-radius:9px;padding:9px 11px;grid-column:span 3;">
               <svg width="13" height="13" fill="none" stroke="#2563eb" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
               <span style="font-size:12px;color:#1e40af;font-weight:500;line-height:1.4;">Plan revisable por la empresa &mdash; ninguna acci&#243;n automatizada sin supervisi&#243;n humana</span>
             </div>
-            <div style="display:flex;align-items:flex-start;gap:8px;background:#fff;border:1px solid #dbeafe;border-radius:9px;padding:9px 11px;grid-column:1/-1;">
+            <div style="display:flex;align-items:flex-start;gap:8px;background:#fff;border:1px solid #dbeafe;border-radius:9px;padding:9px 11px;grid-column:span 3;">
               <svg width="13" height="13" fill="none" stroke="#2563eb" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
               <span style="font-size:12px;color:#1e40af;font-weight:500;line-height:1.4;">Score de fatiga basado en turnos planificados &mdash; no en dispositivos de seguimiento personal</span>
             </div>
@@ -517,10 +524,10 @@
           <div class="eco-section">
             <p class="sec-title" style="margin:0 0 0;">Lectura econ&#243;mica</p>
             <div class="eco-grid">
-              <div class="econ"><small>Coste si no se act&#250;a</small><b style="color:#dc2626;">18K&ndash;24K&#8364;</b><span>Recurrencia y cobertura.</span></div>
-              <div class="econ"><small>Inversi&#243;n</small><b>1,2K&#8364;</b><span>RRHH, mandos y coordinaci&#243;n.</span></div>
               <div class="econ"><small>Ahorro esperado</small><b style="color:#059669;">12K&ndash;15K&#8364;</b><span>Escenario prudente.</span></div>
               <div class="econ"><small>Break-even</small><b style="color:#1d4ed8;">1 caso</b><span>Con evitar una ausencia relevante, compensa.</span></div>
+              <div class="econ"><small>Inversi&#243;n</small><b>1,2K&#8364;</b><span>RRHH, mandos y coordinaci&#243;n.</span></div>
+              <div class="econ"><small>Riesgo sin intervenci&#243;n</small><b style="color:#dc2626;">18K&ndash;24K&#8364;</b><span>Recurrencia y cobertura estimadas.</span></div>
             </div>
           </div>
 
