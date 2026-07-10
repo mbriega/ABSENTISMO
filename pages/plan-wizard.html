@@ -147,6 +147,115 @@
     .tl-row:last-child{border-bottom:none;}
     .tl-row b{padding:10px 12px;font-size:12px;font-weight:700;color:#0f172a;border-right:1px solid #f1f5f9;background:#f8fafc;display:flex;align-items:center;}
     .tl-row span{padding:10px 12px;font-size:12px;color:#64748b;font-weight:500;line-height:1.4;display:flex;align-items:center;}
+
+    /* STEP 4 — PLAN SUMMARY (embedded from plan-resumen) */
+    .rs-header{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:22px 24px 0;overflow:hidden;}
+    .rs-header-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding-bottom:18px;}
+    .rs-badge{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:999px;background:#f0fdf4;color:#047857;border:1px solid #bbf7d0;font-size:11.5px;font-weight:700;margin-bottom:10px;}
+    .rs-badge.preview{background:#fffbeb;color:#b45309;border-color:#fed7aa;}
+    .rs-badge-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+    .rs-badge.preview .rs-badge-dot{background:#d97706;}
+    .rs-title{font-size:24px;font-weight:800;color:#0f172a;margin:0 0 6px;letter-spacing:-.035em;line-height:1.15;}
+    .rs-meta{font-size:12px;color:#94a3b8;font-weight:600;display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+    .rs-kpis{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid #e2e8f0;margin:0 -24px;}
+    .rs-kpi{padding:18px 20px;border-right:1px solid #f1f5f9;}
+    .rs-kpi:last-child{border-right:none;}
+    .rs-kpi-icon{width:28px;height:28px;border-radius:7px;background:#eff6ff;border:1px solid #bfdbfe;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;}
+    .rs-kpi-val{font-size:24px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:6px;color:#0f172a;display:flex;align-items:center;gap:5px;}
+    .rs-kpi-val .info-i{font-size:8.5px;width:14px;height:14px;flex-shrink:0;background:#f1f5f9;border-color:#e2e8f0;color:#94a3b8;}
+    .rs-kpi-label{font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;}
+    .rs-kpi-sub{font-size:11.5px;color:#64748b;font-weight:500;line-height:1.35;}
+    .agent-wrap{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:10px 18px 12px;}
+    .agent-wrap-label{font-size:10.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;}
+    .agent-pills{display:flex;align-items:center;gap:8px;}
+    .agent-pill{display:inline-flex;align-items:center;gap:6px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:8px;padding:5px 10px;white-space:nowrap;}
+    .agent-pill-av{width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:800;flex-shrink:0;}
+    .agent-pill b{font-size:11.5px;font-weight:700;color:#0f172a;}
+    .agent-pill-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+    .agent-pill-dot.ok{background:#059669;}
+    .agent-pill-dot.cond{background:#d97706;}
+    .agent-pill-status{font-size:10.5px;font-weight:700;}
+    .agent-pill-status.ok{color:#059669;}
+    .agent-pill-status.cond{color:#d97706;}
+    .rs-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);overflow:hidden;}
+    .rs-card-head{padding:14px 18px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+    .rs-card-head h3{font-size:13px;font-weight:700;color:#0f172a;margin:0;}
+    .rs-card-head p{font-size:11.5px;color:#94a3b8;font-weight:500;margin:0;}
+    .rs-card-body{padding:16px;}
+    .rs-tag{display:inline-flex;height:22px;align-items:center;padding:0 9px;border-radius:999px;font-size:10.5px;font-weight:700;white-space:nowrap;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
+    .rs-section{margin-bottom:20px;}
+    .rs-section-group{margin-bottom:28px;}
+    .action-list{display:flex;flex-direction:column;gap:8px;}
+    .action-row{display:flex;align-items:flex-start;gap:12px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;padding:12px;}
+    .action-num{width:28px;height:28px;border-radius:50%;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:800;flex-shrink:0;}
+    .action-row-body{flex:1;}
+    .action-row-body strong{display:block;font-size:13px;font-weight:700;color:#0f172a;margin-bottom:3px;}
+    .action-row-body p{font-size:12px;color:#64748b;line-height:1.4;font-weight:500;margin:0;}
+    .action-row-when{font-size:11px;font-weight:700;color:#94a3b8;flex-shrink:0;text-align:right;white-space:nowrap;padding-top:2px;}
+    .timeline-box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:16px 20px;}
+    .timeline-box-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+    .timeline-box h4{font-size:11px;font-weight:700;color:#1d4ed8;text-transform:uppercase;letter-spacing:.06em;margin:0;}
+    .tl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+    .tl-item{background:#fff;border:1px solid #bfdbfe;border-radius:9px;padding:10px 12px;display:flex;gap:8px;align-items:flex-start;}
+    .tl-dot{width:10px;height:10px;border-radius:50%;background:#bfdbfe;border:2px solid #bfdbfe;flex-shrink:0;margin-top:3px;}
+    .tl-dot.active{background:#2563eb;border-color:#2563eb;}
+    .tl-item b{display:block;font-size:12px;font-weight:700;color:#1d4ed8;margin-bottom:2px;}
+    .tl-item span{display:block;font-size:11px;color:#3b82f6;font-weight:500;line-height:1.38;}
+    .risk-bars{margin-bottom:16px;}
+    .risk-bar-block{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+    .risk-bar-block:last-child{margin-bottom:0;}
+    .risk-bar-name{font-size:12px;font-weight:700;color:#0f172a;width:140px;flex-shrink:0;}
+    .risk-bar-track{flex:1;height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden;}
+    .risk-bar-fill{height:100%;border-radius:999px;}
+    .risk-bar-fill.red{background:#ef4444;width:72%;}
+    .risk-bar-fill.green{background:#10b981;width:48%;}
+    .risk-bar-pct{font-size:13px;font-weight:800;width:38px;text-align:right;flex-shrink:0;}
+    .risk-bar-pct.red{color:#dc2626;} .risk-bar-pct.green{color:#059669;}
+    .risk-insights{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+    .risk-insight{background:#f8fafc;border:1px solid #f1f5f9;border-radius:9px;padding:12px;}
+    .risk-insight strong{display:block;font-size:12px;font-weight:700;color:#0f172a;margin-bottom:4px;}
+    .risk-insight span{display:block;font-size:11.5px;color:#64748b;line-height:1.4;font-weight:500;}
+    .econ-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;}
+    .econ-cell{background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;padding:12px;}
+    .econ-cell small{display:block;color:#94a3b8;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;}
+    .econ-cell b{display:block;font-size:19px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:5px;color:#0f172a;}
+    .econ-cell b.red{color:#dc2626;} .econ-cell b.green{color:#059669;} .econ-cell b.blue{color:#1d4ed8;}
+    .econ-cell span{display:block;font-size:11px;color:#94a3b8;font-weight:500;}
+    .alt-box{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);overflow:hidden;}
+    .alt-box-head{padding:16px 20px;border-bottom:1px solid #f1f5f9;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}
+    .alt-box-head h3{font-size:13px;font-weight:700;color:#0f172a;margin:0 0 4px;}
+    .alt-box-head p{font-size:12px;color:#64748b;font-weight:500;margin:0;line-height:1.5;}
+    .alt-box-body{padding:16px 20px;}
+    .alt-row-label{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;}
+    .alt-row{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:9px;}
+    .alt-metric{background:#f8fafc;border:1px solid #f1f5f9;border-radius:9px;padding:10px 12px;}
+    .alt-metric.current{border-color:#bfdbfe;background:#eff6ff;}
+    .alt-metric small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
+    .alt-metric small.blue{color:#3b82f6;}
+    .alt-metric b{display:block;font-size:15px;font-weight:800;color:#0f172a;}
+    .alt-metric b.blue{color:#1d4ed8;}
+    .alt-metric span{display:block;font-size:10.5px;color:#94a3b8;font-weight:500;margin-top:2px;}
+    .alt-metric span.blue{color:#3b82f6;}
+    .alt-footer{display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:14px;border-top:1px solid #f1f5f9;}
+    .alt-footer-note{font-size:11.5px;color:#94a3b8;font-weight:500;}
+    .alt-footer-btns{display:flex;gap:8px;}
+    .alt-btn-primary{height:36px;padding:0 16px;background:#2563eb;border:none;border-radius:8px;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;}
+    .alt-btn-ghost{height:36px;padding:0 16px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;color:#334155;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;}
+    .ethics-box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:16px 20px;}
+    .ethics-box-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+    .ethics-icon{width:32px;height:32px;border-radius:8px;background:#dbeafe;border:1.5px solid #bfdbfe;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .ethics-box-head h4{font-size:13px;font-weight:700;color:#1d4ed8;margin:0;}
+    .ethics-box-head p{font-size:11.5px;color:#3b82f6;font-weight:500;margin:2px 0 0;}
+    .ethics-items{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;margin-bottom:14px;}
+    .ethics-item{background:#fff;border:1px solid #bfdbfe;border-radius:9px;padding:9px 10px;grid-column:span 2;}
+    .ethics-item b{display:block;font-size:11.5px;font-weight:700;color:#1d4ed8;margin-bottom:3px;}
+    .ethics-item span{display:block;font-size:10.5px;color:#3b82f6;font-weight:500;line-height:1.35;}
+    .ethics-item:nth-child(4){grid-column:span 3;}
+    .ethics-item:nth-child(5){grid-column:span 3;}
+    .ethics-score{display:flex;align-items:center;gap:10px;padding-top:10px;border-top:1px solid #bfdbfe;}
+    .ethics-score-bar{flex:1;height:8px;background:#dbeafe;border-radius:999px;overflow:hidden;}
+    .ethics-score-fill{height:100%;background:#2563eb;border-radius:999px;width:88%;}
+    .ethics-score span{font-size:12px;font-weight:700;color:#1d4ed8;white-space:nowrap;}
   </style>
 </head>
 <body data-page="planes-accion" class="bg-surface-50 text-surface-900 antialiased">
@@ -501,72 +610,198 @@
 
       </div>
 
-      <!-- STEP 4 — APROBACIÓN -->
+      <!-- STEP 4 — RESUMEN DEL PLAN -->
       <div id="step-4" style="display:none;">
-        <p class="sec-title">Paso 4 &mdash; Plan listo para aprobar</p>
-        <div style="display:flex;flex-direction:column;gap:18px;">
+        <p class="sec-title">Paso 4 &mdash; Revisa el plan generado antes de aprobarlo</p>
 
-          <article class="rec-card">
-            <div class="rec-kicker">RECOMENDACI&#211;N</div>
-            <h2>Aprobar un plan prudente de 14 d&#237;as</h2>
-            <p>La mejor versi&#243;n para este caso combina seguimiento ligero, contacto preventivo de apoyo y medici&#243;n r&#225;pida. No propone una intervenci&#243;n intensiva porque los mandos tienen disponibilidad limitada y el tono con el colectivo debe cuidarse.</p>
-          </article>
-
-          <div class="actions-section">
-            <p class="sec-title" style="margin:0 0 0;">Acciones del plan</p>
-            <div class="plan-grid">
-              <article class="action-card"><div class="action-num">1</div><strong>Revisar reincorporaciones</strong><p>Identificar personas que vuelven en la ventana y priorizar los de mayor exposici&#243;n.</p><em>Evita actuar tarde.</em></article>
-              <article class="action-card"><div class="action-num">2</div><strong>Contacto preventivo 72h antes</strong><p>Mensaje breve de apoyo para confirmar turno y barreras de vuelta.</p><em>Detecta fricciones antes del retorno.</em></article>
-              <article class="action-card"><div class="action-num">3</div><strong>Chequeos d&#237;as 1, 7 y 14</strong><p>Seguimiento m&#237;nimo. Solo preguntas operativas y de adaptaci&#243;n.</p><em>Disminuye reca&#237;das tempranas.</em></article>
-              <article class="action-card"><div class="action-num">4</div><strong>Ajuste m&#237;nimo si es viable</strong><p>Solo si operaci&#243;n lo acepta y no afecta condiciones de trabajo.</p><em>Evita sobrecarga inicial.</em></article>
-              <article class="action-card"><div class="action-num">5</div><strong>Medir resultado</strong><p>Comparar ausencias reales, coste evitado y recurrencia frente al escenario previsto.</p><em>Aprende para pr&#243;ximos planes.</em></article>
-            </div>
-          </div>
-
-          <div class="eco-section">
-            <p class="sec-title" style="margin:0 0 0;">Lectura econ&#243;mica</p>
-            <div class="eco-grid">
-              <div class="econ"><small>Ahorro esperado</small><b style="color:#059669;">12K&ndash;15K&#8364;</b><span>Escenario prudente.</span></div>
-              <div class="econ"><small>Break-even</small><b style="color:#1d4ed8;">1 caso</b><span>Con evitar una ausencia relevante, compensa.</span></div>
-              <div class="econ"><small>Inversi&#243;n</small><b>1,2K&#8364;</b><span>RRHH, mandos y coordinaci&#243;n.</span></div>
-              <div class="econ"><small>Riesgo sin intervenci&#243;n</small><b style="color:#dc2626;">18K&ndash;24K&#8364;</b><span>Recurrencia y cobertura estimadas.</span></div>
-            </div>
-          </div>
-
-          <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:22px 24px;display:flex;flex-direction:column;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div style="width:32px;height:32px;border-radius:8px;background:#dbeafe;color:#1d4ed8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                  </div>
-                  <div>
-                    <p style="font-size:13px;font-weight:800;color:#1d4ed8;margin:0 0 1px;">Al aprobar se activa</p>
-                    <p style="font-size:11px;color:#3b82f6;font-weight:600;margin:0;">Activaci&#243;n inmediata y autom&#225;tica del plan</p>
-                  </div>
-                </div>
-                <span style="display:inline-flex;height:22px;align-items:center;padding:0 10px;background:#dbeafe;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:999px;font-size:10.5px;font-weight:700;letter-spacing:.04em;">AUTOM&#193;TICO</span>
-              </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1;">
-                <div style="background:#fff;border:1px solid #dbeafe;border-radius:9px;padding:12px 14px;">
-                  <p style="font-size:10.5px;font-weight:700;color:#1d4ed8;text-transform:uppercase;letter-spacing:.05em;margin:0 0 5px;">D&#237;a 0</p>
-                  <p style="font-size:12px;color:#1e40af;font-weight:500;line-height:1.4;margin:0;">Lista de reincorporaciones y responsables asignados.</p>
-                </div>
-                <div style="background:#fff;border:1px solid #dbeafe;border-radius:9px;padding:12px 14px;">
-                  <p style="font-size:10.5px;font-weight:700;color:#1d4ed8;text-transform:uppercase;letter-spacing:.05em;margin:0 0 5px;">72h antes</p>
-                  <p style="font-size:12px;color:#1e40af;font-weight:500;line-height:1.4;margin:0;">Gui&#243;n de contacto preventivo enviado a mandos.</p>
-                </div>
-                <div style="background:#fff;border:1px solid #dbeafe;border-radius:9px;padding:12px 14px;">
-                  <p style="font-size:10.5px;font-weight:700;color:#1d4ed8;text-transform:uppercase;letter-spacing:.05em;margin:0 0 5px;">D&#237;as 1 &middot; 7 &middot; 14</p>
-                  <p style="font-size:12px;color:#1e40af;font-weight:500;line-height:1.4;margin:0;">Recordatorios de seguimiento autom&#225;ticos.</p>
-                </div>
-                <div style="background:#fff;border:1px solid #dbeafe;border-radius:9px;padding:12px 14px;">
-                  <p style="font-size:10.5px;font-weight:700;color:#1d4ed8;text-transform:uppercase;letter-spacing:.05em;margin:0 0 5px;">D&#237;a 14</p>
-                  <p style="font-size:12px;color:#1e40af;font-weight:500;line-height:1.4;margin:0;">Medici&#243;n de ahorro y riesgo residual.</p>
-                </div>
+        <!-- HEADER CARD -->
+        <div class="rs-header rs-section">
+          <div class="rs-header-top">
+            <div>
+              <div class="rs-badge preview"><span class="rs-badge-dot"></span>Vista previa &mdash; Pendiente aprobaci&#243;n</div>
+              <h1 class="rs-title">Retorno seguro tras ausencia</h1>
+              <div class="rs-meta">
+                <span>Predicci&#243;n #001</span>
+                <span style="color:#e2e8f0;">&middot;</span>
+                <span>Plataforma Centro</span>
+                <span style="color:#e2e8f0;">&middot;</span>
+                <span>Ventana: 14 d&#237;as</span>
+                <span style="color:#e2e8f0;">&middot;</span>
+                <span>Plan v1.0</span>
               </div>
             </div>
-
+          </div>
+          <div class="rs-kpis">
+            <div class="rs-kpi">
+              <div class="rs-kpi-icon"><svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg></div>
+              <div class="rs-kpi-val">72% <span class="info-i" title="Probabilidad de recurrencia de absentismo sin ninguna intervenci&#243;n en la ventana de retorno.">i</span></div>
+              <div class="rs-kpi-label">Riesgo inicial</div>
+              <div class="rs-kpi-sub">Sin intervenci&#243;n</div>
+            </div>
+            <div class="rs-kpi">
+              <div class="rs-kpi-icon"><svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+              <div class="rs-kpi-val">48% <span class="info-i" title="Riesgo estimado una vez aplicadas todas las acciones del plan.">i</span></div>
+              <div class="rs-kpi-label">Riesgo residual</div>
+              <div class="rs-kpi-sub">Tras aplicar el plan</div>
+            </div>
+            <div class="rs-kpi">
+              <div class="rs-kpi-icon"><svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg></div>
+              <div class="rs-kpi-val" style="font-size:19px;">12K&#8211;15K&#8364; <span class="info-i" title="Ahorro estimado si el plan consigue reducir la recurrencia en el colectivo objetivo.">i</span></div>
+              <div class="rs-kpi-label">Ahorro esperado</div>
+              <div class="rs-kpi-sub">Escenario prudente</div>
+            </div>
+            <div class="rs-kpi">
+              <div class="rs-kpi-icon"><svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828A4 4 0 109.172 9.172M12 8v1m0 6v1"/></svg></div>
+              <div class="rs-kpi-val">1,2K&#8364; <span class="info-i" title="Coste estimado de ejecuci&#243;n: tiempo de RRHH, mandos y coordinaci&#243;n durante los 14 d&#237;as del plan.">i</span></div>
+              <div class="rs-kpi-label">Inversi&#243;n</div>
+              <div class="rs-kpi-sub">RRHH y mandos</div>
+            </div>
+            <div class="rs-kpi">
+              <div class="rs-kpi-icon"><svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+              <div class="rs-kpi-val">1.100% <span class="info-i" title="Retorno sobre la inversi&#243;n. Con evitar un solo caso de recurrencia el plan se paga.">i</span></div>
+              <div class="rs-kpi-label">ROI estimado</div>
+              <div class="rs-kpi-sub">Break-even: 1 caso</div>
+            </div>
+          </div>
         </div>
+
+        <!-- AGENT VALIDATION STRIP -->
+        <div class="agent-wrap rs-section">
+          <div class="agent-wrap-label">Validaci&#243;n de agentes</div>
+          <div class="agent-pills">
+            <div class="agent-pill"><div class="agent-pill-av" style="background:#eff6ff;color:#1d4ed8;">RH</div><b>RRHH</b><span class="agent-pill-dot ok"></span><span class="agent-pill-status ok">Validado</span></div>
+            <div class="agent-pill"><div class="agent-pill-av" style="background:#fff7ed;color:#c2410c;">OP</div><b>Operaciones</b><span class="agent-pill-dot ok"></span><span class="agent-pill-status ok">Validado</span></div>
+            <div class="agent-pill" title="Condici&#243;n: validaci&#243;n previa del art&#237;culo 32 del convenio antes de aplicar el ajuste de turno"><div class="agent-pill-av" style="background:#f5f3ff;color:#6d28d9;">CV</div><b>Convenio</b><span class="agent-pill-dot cond"></span><span class="agent-pill-status cond">Condicionado &#8505;</span></div>
+            <div class="agent-pill"><div class="agent-pill-av" style="background:#f0fdf4;color:#166534;">EC</div><b>Econ&#243;mico</b><span class="agent-pill-dot ok"></span><span class="agent-pill-status ok">Validado</span></div>
+            <div class="agent-pill"><div class="agent-pill-av" style="background:#ecfeff;color:#0e7490;">AB</div><b>Absentismo</b><span class="agent-pill-dot ok"></span><span class="agent-pill-status ok">Validado</span></div>
+            <div class="agent-pill"><div class="agent-pill-av" style="background:#fff1f2;color:#be123c;">PL</div><b>PRL</b><span class="agent-pill-dot ok"></span><span class="agent-pill-status ok">Validado</span></div>
+          </div>
+        </div>
+
+        <!-- ACCIONES DEL PLAN -->
+        <div class="rs-card rs-section">
+          <div class="rs-card-head">
+            <div><h3>Acciones del plan</h3><p>Qu&#233; se hace, cu&#225;ndo y para qu&#233;</p></div>
+            <span class="rs-tag">14 d&#237;as</span>
+          </div>
+          <div class="rs-card-body">
+            <div class="action-list">
+              <div class="action-row"><div class="action-num">1</div><div class="action-row-body"><strong>Revisar reincorporaciones recientes</strong><p>Identificar personas que vuelven en la ventana de riesgo y priorizar los casos con mayor exposici&#243;n operativa.</p></div><div class="action-row-when">D&#237;a 0</div></div>
+              <div class="action-row"><div class="action-num">2</div><div class="action-row-body"><strong>Contacto preventivo 72h antes</strong><p>Mensaje breve de apoyo para confirmar turno, necesidades pr&#225;cticas y barreras de vuelta.</p></div><div class="action-row-when">72h antes</div></div>
+              <div class="action-row"><div class="action-num">3</div><div class="action-row-body"><strong>Chequeos breves d&#237;as 1, 7 y 14</strong><p>Seguimiento m&#237;nimo. Solo preguntas operativas y de adaptaci&#243;n.</p></div><div class="action-row-when">D&#237;as 1 &middot; 7 &middot; 14</div></div>
+              <div class="action-row"><div class="action-num">4</div><div class="action-row-body"><strong>Ajuste m&#237;nimo si es viable</strong><p>Solo si operaci&#243;n lo acepta y no afecta condiciones. Si no encaja, se elimina.</p></div><div class="action-row-when">Si aplica</div></div>
+              <div class="action-row"><div class="action-num">5</div><div class="action-row-body"><strong>Medir resultado</strong><p>Comparar ausencias reales, coste evitado y recurrencia frente al escenario previsto.</p></div><div class="action-row-when">D&#237;a 14</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TIMELINE -->
+        <div class="timeline-box rs-section-group">
+          <div class="timeline-box-head">
+            <h4>Secuencia de activaci&#243;n</h4>
+            <span class="rs-tag">4 hitos</span>
+          </div>
+          <div class="tl-grid">
+            <div class="tl-item"><div class="tl-dot active"></div><div><b>D&#237;a 0</b><span>Lista de reincorporaciones y responsables asignados.</span></div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div><b>72h antes de cada retorno</b><span>Gui&#243;n de contacto preventivo enviado al mando.</span></div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div><b>D&#237;as 1, 7 y 14</b><span>Recordatorios de seguimiento para mandos.</span></div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div><b>D&#237;a 14</b><span>Medici&#243;n de ahorro, recurrencia y riesgo residual.</span></div></div>
+          </div>
+        </div>
+
+        <!-- REDUCCIÓN DE RIESGO -->
+        <div class="rs-card rs-section">
+          <div class="rs-card-head">
+            <div><h3>Reducci&#243;n de riesgo</h3><p>Antes y despu&#233;s de aplicar el plan</p></div>
+            <span class="rs-tag">&#8722;24 puntos</span>
+          </div>
+          <div class="rs-card-body">
+            <div class="risk-bars">
+              <div class="risk-bar-block"><span class="risk-bar-name">Sin intervenci&#243;n</span><div class="risk-bar-track"><div class="risk-bar-fill red"></div></div><span class="risk-bar-pct red">72%</span></div>
+              <div class="risk-bar-block"><span class="risk-bar-name">Con este plan</span><div class="risk-bar-track"><div class="risk-bar-fill green"></div></div><span class="risk-bar-pct green">48%</span></div>
+            </div>
+            <div class="risk-insights">
+              <div class="risk-insight"><strong>Menos reca&#237;das tempranas</strong><span>Seguimiento en los primeros d&#237;as detecta barreras antes de que generen nueva ausencia.</span></div>
+              <div class="risk-insight"><strong>Operaci&#243;n protegida</strong><span>Ajuste m&#237;nimo evita sobrecarga inicial sin alterar condiciones de trabajo.</span></div>
+              <div class="risk-insight"><strong>Aprendizaje medible</strong><span>El d&#237;a 14 queda registrado para mejorar futuros planes.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LECTURA ECONÓMICA -->
+        <div class="rs-card rs-section-group">
+          <div class="rs-card-head">
+            <div><h3>Lectura econ&#243;mica</h3><p>Por qu&#233; merece la pena actuar</p></div>
+            <span class="rs-tag">ROI positivo</span>
+          </div>
+          <div class="rs-card-body">
+            <div class="econ-grid">
+              <div class="econ-cell"><small>Riesgo sin intervenci&#243;n</small><b class="red">18K&#8211;24K&#8364;</b><span>Recurrencia y cobertura tensionada.</span></div>
+              <div class="econ-cell"><small>Ahorro esperado</small><b class="green">12K&#8211;15K&#8364;</b><span>Escenario prudente si baja la recurrencia.</span></div>
+              <div class="econ-cell"><small>Break-even</small><b class="blue">1 caso</b><span>Con evitar una ausencia relevante, compensa.</span></div>
+              <div class="econ-cell"><small>Inversi&#243;n del plan</small><b>1,2K&#8364;</b><span>Tiempo RRHH, mandos y coordinaci&#243;n.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VERSIÓN ALTERNATIVA -->
+        <div class="alt-box rs-section-group">
+          <div class="alt-box-head">
+            <div>
+              <h3>Versi&#243;n alternativa &mdash; Plan simplificado sin mandos</h3>
+              <p>Si los mandos directos no pueden participar en los chequeos, existe una versi&#243;n del plan gestionada exclusivamente por RRHH. Funciona con dos chequeos en lugar de tres y sin ajuste de turno, lo que reduce ligeramente el impacto pero garantiza que el plan se ejecuta aunque la cadena de mando no est&#233; disponible.</p>
+            </div>
+            <span class="rs-tag" style="flex-shrink:0;">Plan v1.1</span>
+          </div>
+          <div class="alt-box-body">
+            <div class="alt-row-label">v1.0 &mdash; Plan propuesto (con mandos)</div>
+            <div class="alt-row">
+              <div class="alt-metric current"><small class="blue">Ahorro esperado</small><b class="blue">12K&#8211;15K&#8364;</b><span class="blue">Escenario prudente</span></div>
+              <div class="alt-metric current"><small class="blue">Inversi&#243;n</small><b class="blue">1,2K&#8364;</b><span class="blue">RRHH + Mandos</span></div>
+              <div class="alt-metric current"><small class="blue">Gesti&#243;n</small><b class="blue" style="font-size:13px;">RRHH + Mandos</b><span class="blue">3 chequeos</span></div>
+              <div class="alt-metric current"><small class="blue">Riesgo residual</small><b class="blue">48%</b><span class="blue">Con ajuste de turno</span></div>
+            </div>
+            <div class="alt-row-label">v1.1 &mdash; Versi&#243;n simplificada (sin mandos)</div>
+            <div class="alt-row">
+              <div class="alt-metric"><small>Ahorro esperado</small><b>9K&#8211;12K&#8364;</b><span>Escenario conservador</span></div>
+              <div class="alt-metric"><small>Inversi&#243;n</small><b>0,9K&#8364;</b><span>Solo RRHH</span></div>
+              <div class="alt-metric"><small>Gesti&#243;n</small><b style="font-size:13px;">Solo RRHH</b><span>2 chequeos</span></div>
+              <div class="alt-metric"><small>Riesgo residual</small><b>54%</b><span>Sin ajuste de turno</span></div>
+            </div>
+            <div class="alt-footer">
+              <span class="alt-footer-note">Activar v1.1 sustituye el plan propuesto. La versi&#243;n anterior quedar&#225; guardada.</span>
+              <div class="alt-footer-btns">
+                <button class="alt-btn-ghost">Ver detalle</button>
+                <button class="alt-btn-primary">Activar v1.1</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONTROL ÉTICO IA -->
+        <div class="ethics-box">
+          <div class="ethics-box-head">
+            <div class="ethics-icon"><svg width="16" height="16" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+            <div>
+              <h4>Control &#233;tico IA <span class="info-i" title="Este plan ha sido evaluado autom&#225;ticamente por el sistema de control &#233;tico antes de presentarse para aprobaci&#243;n.">i</span></h4>
+              <p>Validaci&#243;n autom&#225;tica de principios &#233;ticos y proporcionalidad</p>
+            </div>
+          </div>
+          <div class="ethics-items">
+            <div class="ethics-item"><b>&#10003; Proporcionalidad</b><span>Las acciones son proporcionales al riesgo identificado y no invasivas.</span></div>
+            <div class="ethics-item"><b>&#10003; Transparencia</b><span>El colectivo puede conocer el plan y sus criterios de activaci&#243;n.</span></div>
+            <div class="ethics-item"><b>&#10003; No discriminaci&#243;n</b><span>Criterios objetivos. Sin sesgos de g&#233;nero, edad ni condici&#243;n.</span></div>
+            <div class="ethics-item"><b>&#10003; Privacidad</b><span>No se procesan datos cl&#237;nicos. Solo presencia y operativa.</span></div>
+            <div class="ethics-item"><b>&#10003; Intervenci&#243;n humana</b><span>Ninguna acci&#243;n autom&#225;tica afecta condiciones laborales sin revisi&#243;n humana.</span></div>
+          </div>
+          <div class="ethics-score">
+            <span style="font-size:11.5px;color:#3b82f6;font-weight:600;flex-shrink:0;">Puntuaci&#243;n de medibilidad</span>
+            <div class="ethics-score-bar"><div class="ethics-score-fill"></div></div>
+            <span>88 / 100</span>
+            <span style="font-size:10.5px;color:#3b82f6;font-weight:500;margin-left:2px;">&#8212; Excelente</span>
+          </div>
+        </div>
+
       </div>
 
     </div><!-- /wiz-content -->
