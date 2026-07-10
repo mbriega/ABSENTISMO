@@ -23,7 +23,7 @@
     .rs-kpis{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid #e2e8f0;margin:0 -24px;}
     .rs-kpi{padding:18px 20px;border-right:1px solid #f1f5f9;}
     .rs-kpi:last-child{border-right:none;}
-    .rs-kpi-icon{width:28px;height:28px;border-radius:7px;background:#f8fafc;border:1px solid #e2e8f0;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;}
+    .rs-kpi-icon{width:28px;height:28px;border-radius:7px;background:#eff6ff;border:1px solid #bfdbfe;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;}
     .rs-kpi-val{font-size:24px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:6px;color:#0f172a;display:flex;align-items:center;gap:5px;}
     .rs-kpi-val.red{color:#dc2626;} .rs-kpi-val.green{color:#059669;} .rs-kpi-val.blue{color:#1d4ed8;}
     .rs-kpi-val .info-i{font-size:8.5px;width:14px;height:14px;flex-shrink:0;}
@@ -50,11 +50,7 @@
     .rs-card-head h3{font-size:13px;font-weight:700;color:#0f172a;margin:0;}
     .rs-card-head p{font-size:11.5px;color:#94a3b8;font-weight:500;margin:0;}
     .rs-card-body{padding:16px;}
-    .rs-tag{display:inline-flex;height:22px;align-items:center;padding:0 9px;border-radius:999px;font-size:10.5px;font-weight:700;white-space:nowrap;}
-    .rs-tag.green{background:#f0fdf4;color:#059669;border:1px solid #bbf7d0;}
-    .rs-tag.blue{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
-    .rs-tag.amber{background:#fffbeb;color:#b45309;border:1px solid #fed7aa;}
-    .rs-tag.purple{background:#f5f3ff;color:#7c3aed;border:1px solid #ddd6fe;}
+    .rs-tag{display:inline-flex;height:22px;align-items:center;padding:0 9px;border-radius:999px;font-size:10.5px;font-weight:700;white-space:nowrap;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
     .info-i{display:inline-flex;width:16px;height:16px;border-radius:50%;background:#eff6ff;border:1.5px solid #bfdbfe;color:#2563eb;font-size:9.5px;font-weight:800;align-items:center;justify-content:center;cursor:default;vertical-align:middle;margin-left:4px;}
 
     /* SECTION SPACING */
@@ -110,10 +106,9 @@
     .alt-box-head{padding:16px 20px;border-bottom:1px solid #f1f5f9;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}
     .alt-box-head h3{font-size:13px;font-weight:700;color:#0f172a;margin:0 0 4px;}
     .alt-box-head p{font-size:12px;color:#64748b;font-weight:500;margin:0;line-height:1.5;}
-    .alt-box-body{padding:16px 20px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;}
-    .alt-compare{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;}
-    .alt-col{display:flex;flex-direction:column;gap:7px;}
-    .alt-col-label{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;}
+    .alt-box-body{padding:16px 20px;}
+    .alt-row-label{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;}
+    .alt-row{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:9px;}
     .alt-metric{background:#f8fafc;border:1px solid #f1f5f9;border-radius:9px;padding:10px 12px;}
     .alt-metric.current{border-color:#bfdbfe;background:#eff6ff;}
     .alt-metric small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
@@ -122,7 +117,9 @@
     .alt-metric b.blue{color:#1d4ed8;}
     .alt-metric span{display:block;font-size:10.5px;color:#94a3b8;font-weight:500;margin-top:2px;}
     .alt-metric span.blue{color:#3b82f6;}
-    .alt-actions{display:flex;flex-direction:column;gap:8px;flex-shrink:0;}
+    .alt-footer{display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:14px;border-top:1px solid #f1f5f9;}
+    .alt-footer-note{font-size:11.5px;color:#94a3b8;font-weight:500;}
+    .alt-footer-btns{display:flex;gap:8px;}
     .alt-btn-primary{height:36px;padding:0 16px;background:#2563eb;border:none;border-radius:8px;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;}
     .alt-btn-ghost{height:36px;padding:0 16px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;color:#334155;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;}
 
@@ -202,7 +199,7 @@
         <div class="rs-kpis">
           <div class="rs-kpi">
             <div class="rs-kpi-icon">
-              <svg width="14" height="14" fill="none" stroke="#94a3b8" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+              <svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
             </div>
             <div class="rs-kpi-val red">72% <span class="info-i" title="Probabilidad de recurrencia de absentismo sin ninguna intervenci&#243;n en la ventana de retorno.">i</span></div>
             <div class="rs-kpi-label">Riesgo inicial</div>
@@ -210,7 +207,7 @@
           </div>
           <div class="rs-kpi">
             <div class="rs-kpi-icon">
-              <svg width="14" height="14" fill="none" stroke="#94a3b8" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              <svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
             </div>
             <div class="rs-kpi-val green">48% <span class="info-i" title="Riesgo estimado una vez aplicadas todas las acciones del plan.">i</span></div>
             <div class="rs-kpi-label">Riesgo residual</div>
@@ -218,7 +215,7 @@
           </div>
           <div class="rs-kpi">
             <div class="rs-kpi-icon">
-              <svg width="14" height="14" fill="none" stroke="#94a3b8" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+              <svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
             </div>
             <div class="rs-kpi-val green" style="font-size:19px;">12K&#8211;15K&#8364; <span class="info-i" title="Ahorro estimado en coste de absentismo si el plan consigue reducir la recurrencia en el colectivo objetivo.">i</span></div>
             <div class="rs-kpi-label">Ahorro esperado</div>
@@ -226,7 +223,7 @@
           </div>
           <div class="rs-kpi">
             <div class="rs-kpi-icon">
-              <svg width="14" height="14" fill="none" stroke="#94a3b8" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828A4 4 0 109.172 9.172M12 8v1m0 6v1"/></svg>
+              <svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828A4 4 0 109.172 9.172M12 8v1m0 6v1"/></svg>
             </div>
             <div class="rs-kpi-val">1,2K&#8364; <span class="info-i" title="Coste estimado de ejecuci&#243;n: tiempo de RRHH, mandos y coordinaci&#243;n durante los 14 d&#237;as del plan.">i</span></div>
             <div class="rs-kpi-label">Inversi&#243;n</div>
@@ -234,7 +231,7 @@
           </div>
           <div class="rs-kpi">
             <div class="rs-kpi-icon">
-              <svg width="14" height="14" fill="none" stroke="#94a3b8" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              <svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
             </div>
             <div class="rs-kpi-val blue">1.100% <span class="info-i" title="Retorno sobre la inversi&#243;n: (ahorro - inversi&#243;n) / inversi&#243;n. Con evitar un solo caso de recurrencia el plan se paga.">i</span></div>
             <div class="rs-kpi-label">ROI estimado</div>
@@ -290,7 +287,7 @@
       <div class="rs-card rs-section">
         <div class="rs-card-head">
           <div><h3>Acciones del plan</h3><p>Qu&#233; se hace, cu&#225;ndo y para qu&#233;</p></div>
-          <span class="rs-tag amber">14 d&#237;as</span>
+          <span class="rs-tag">14 d&#237;as</span>
         </div>
         <div class="rs-card-body">
           <div class="action-list">
@@ -327,7 +324,7 @@
       <div class="timeline-box rs-section-group">
         <div class="timeline-box-head">
           <h4>Secuencia de activaci&#243;n</h4>
-          <span class="rs-tag blue">4 hitos</span>
+          <span class="rs-tag">4 hitos</span>
         </div>
         <div class="tl-grid">
           <div class="tl-item">
@@ -353,7 +350,7 @@
       <div class="rs-card rs-section">
         <div class="rs-card-head">
           <div><h3>Reducci&#243;n de riesgo</h3><p>Antes y despu&#233;s de aplicar el plan</p></div>
-          <span class="rs-tag green">&#8722;24 puntos</span>
+          <span class="rs-tag">&#8722;24 puntos</span>
         </div>
         <div class="rs-card-body">
           <div class="risk-bars">
@@ -380,7 +377,7 @@
       <div class="rs-card rs-section-group">
         <div class="rs-card-head">
           <div><h3>Lectura econ&#243;mica</h3><p>Por qu&#233; merece la pena actuar</p></div>
-          <span class="rs-tag green">ROI positivo</span>
+          <span class="rs-tag">ROI positivo</span>
         </div>
         <div class="rs-card-body">
           <div class="econ-grid">
@@ -399,26 +396,32 @@
             <h3>Versi&#243;n alternativa &mdash; Plan simplificado sin mandos</h3>
             <p>Si los mandos directos no pueden participar en los chequeos (baja, rotaci&#243;n, carga operativa), existe una versi&#243;n del plan gestionada exclusivamente por RRHH. Funciona con dos chequeos en lugar de tres y sin ajuste de turno, lo que reduce ligeramente el impacto pero garantiza que el plan se ejecuta aunque la cadena de mando no est&#233; disponible.</p>
           </div>
-          <span class="rs-tag purple" style="flex-shrink:0;">Plan v1.1</span>
+          <span class="rs-tag" style="flex-shrink:0;">Plan v1.1</span>
         </div>
         <div class="alt-box-body">
-          <div>
-            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:9px;">
-              <div class="alt-metric current"><small class="blue">Ahorro (v1.0)</small><b class="blue">12K&#8211;15K&#8364;</b><span class="blue">Plan actual</span></div>
-              <div class="alt-metric"><small>Ahorro (v1.1)</small><b>9K&#8211;12K&#8364;</b><span>Versi&#243;n simplificada</span></div>
-              <div class="alt-metric current"><small class="blue">Inversi&#243;n (v1.0)</small><b class="blue">1,2K&#8364;</b><span class="blue">Plan actual</span></div>
-              <div class="alt-metric"><small>Inversi&#243;n (v1.1)</small><b>0,9K&#8364;</b><span>Solo RRHH</span></div>
-            </div>
-            <div style="margin-top:9px;display:grid;grid-template-columns:repeat(4,1fr);gap:9px;">
-              <div class="alt-metric current"><small class="blue">Gesti&#243;n (v1.0)</small><b class="blue" style="font-size:13px;">RRHH + Mandos</b><span class="blue">3 chequeos</span></div>
-              <div class="alt-metric"><small>Gesti&#243;n (v1.1)</small><b style="font-size:13px;">Solo RRHH</b><span>2 chequeos</span></div>
-              <div class="alt-metric current"><small class="blue">Riesgo residual (v1.0)</small><b class="blue">48%</b><span class="blue">Plan actual</span></div>
-              <div class="alt-metric"><small>Riesgo residual (v1.1)</small><b>54%</b><span>Sin ajuste de turno</span></div>
-            </div>
+          <!-- Fila v1.0 -->
+          <div class="alt-row-label">v1.0 &mdash; Plan actual (con mandos)</div>
+          <div class="alt-row">
+            <div class="alt-metric current"><small class="blue">Ahorro esperado</small><b class="blue">12K&#8211;15K&#8364;</b><span class="blue">Escenario prudente</span></div>
+            <div class="alt-metric current"><small class="blue">Inversi&#243;n</small><b class="blue">1,2K&#8364;</b><span class="blue">RRHH + Mandos</span></div>
+            <div class="alt-metric current"><small class="blue">Gesti&#243;n</small><b class="blue" style="font-size:13px;">RRHH + Mandos</b><span class="blue">3 chequeos</span></div>
+            <div class="alt-metric current"><small class="blue">Riesgo residual</small><b class="blue">48%</b><span class="blue">Con ajuste de turno</span></div>
           </div>
-          <div class="alt-actions">
-            <button class="alt-btn-primary" title="Sustituye el plan actual por la versi&#243;n simplificada sin mandos">Activar v1.1</button>
-            <button class="alt-btn-ghost" title="Consulta el detalle completo de la versi&#243;n alternativa">Ver detalle</button>
+          <!-- Fila v1.1 -->
+          <div class="alt-row-label">v1.1 &mdash; Versi&#243;n simplificada (sin mandos)</div>
+          <div class="alt-row">
+            <div class="alt-metric"><small>Ahorro esperado</small><b>9K&#8211;12K&#8364;</b><span>Escenario conservador</span></div>
+            <div class="alt-metric"><small>Inversi&#243;n</small><b>0,9K&#8364;</b><span>Solo RRHH</span></div>
+            <div class="alt-metric"><small>Gesti&#243;n</small><b style="font-size:13px;">Solo RRHH</b><span>2 chequeos</span></div>
+            <div class="alt-metric"><small>Riesgo residual</small><b>54%</b><span>Sin ajuste de turno</span></div>
+          </div>
+          <!-- Footer botones -->
+          <div class="alt-footer">
+            <span class="alt-footer-note">Activar v1.1 sustituye el plan actual. La versi&#243;n anterior quedar&#225; guardada.</span>
+            <div class="alt-footer-btns">
+              <button class="alt-btn-ghost" title="Consulta el detalle completo de la versi&#243;n alternativa">Ver detalle</button>
+              <button class="alt-btn-primary" title="Sustituye el plan actual por la versi&#243;n simplificada sin mandos">Activar v1.1</button>
+            </div>
           </div>
         </div>
       </div>
