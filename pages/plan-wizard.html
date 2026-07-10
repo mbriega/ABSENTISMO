@@ -86,8 +86,11 @@
     .ctx-summary{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:18px;box-shadow:0 1px 3px rgba(0,0,0,.04);overflow-y:auto;height:100%;}
     .ctx-summary h4{font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin:0 0 12px;}
     .ctx-answer{background:#f8fafc;border:1px solid #f1f5f9;border-radius:8px;padding:10px 12px;font-size:12px;color:#334155;font-weight:600;margin-bottom:7px;}
-    .ctx-tip{background:#fefce8;border:1px solid #fef08a;border-radius:10px;padding:12px 14px;margin-top:12px;}
-    .ctx-tip p{font-size:12px;color:#713f12;line-height:1.5;margin:0;font-weight:500;}
+    .tip-wrap{position:relative;display:inline-flex;vertical-align:middle;margin-left:5px;}
+    .tip-i{display:inline-flex;width:14px;height:14px;border-radius:50%;background:#f1f5f9;color:#cbd5e1;border:1px solid #e2e8f0;font-size:8px;font-weight:800;align-items:center;justify-content:center;cursor:help;font-style:normal;}
+    .tip-box{position:absolute;right:0;top:calc(100% + 7px);background:#0f172a;color:#fff;font-size:11.5px;font-weight:500;line-height:1.45;padding:9px 11px;border-radius:8px;width:210px;white-space:normal;opacity:0;pointer-events:none;transition:opacity .15s;z-index:100;}
+    .tip-box::before{content:'';position:absolute;bottom:100%;right:5px;border:5px solid transparent;border-bottom-color:#0f172a;}
+    .tip-wrap:hover .tip-box{opacity:1;}
 
     /* STEP 3 — ANÁLISIS */
     .ana-layout{display:grid;grid-template-columns:1fr 260px;gap:20px;align-items:start;}
@@ -358,14 +361,11 @@
           <!-- Right sidebar -->
           <aside>
             <div class="ctx-summary">
-              <h4>Resumen de respuestas</h4>
+              <h4>Resumen de respuestas<span class="tip-wrap"><i class="tip-i">i</i><span class="tip-box">Cuanto m&#225;s concretas sean las respuestas, m&#225;s ajustado y viable ser&#225; el plan generado.</span></span></h4>
               <div class="ctx-answer">Seguimiento limitado por los mandos</div>
               <div class="ctx-answer">Tono de apoyo, no de control</div>
               <div class="ctx-answer">Ajuste m&#237;nimo y condicionado</div>
               <div class="ctx-answer" style="color:#94a3b8;">Coste por d&#237;a pendiente de confirmar</div>
-              <div class="ctx-tip">
-                <p>Cuanto m&#225;s concretas sean las respuestas, m&#225;s ajustado y viable ser&#225; el plan generado.</p>
-              </div>
             </div>
           </aside>
         </div>
