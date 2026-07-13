@@ -985,6 +985,17 @@
       if (btn) btn.classList.add("active");
       if (panel) panel.classList.add("active");
       updateAI(tabId);
+      // Sync sidebar sub-nav active state
+      try {
+        var url = new URL(window.location.href);
+        url.searchParams.set("tab", tabId);
+        history.replaceState(null, "", url.toString());
+      } catch(e){}
+      document.querySelectorAll(".ci-subnav-link").forEach(function(a){
+        var href = a.getAttribute("href") || "";
+        var match = href.indexOf("tab=" + tabId) !== -1;
+        a.classList.toggle("active", match);
+      });
     }
 
     function updateAI(tabId) {
