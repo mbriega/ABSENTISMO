@@ -33,6 +33,15 @@
     .impl-kpi-sub{font-size:11.5px;color:#64748b;font-weight:500;line-height:1.35;}
     .info-i{display:inline-flex;width:16px;height:16px;border-radius:50%;background:#f1f5f9;border:1.5px solid #e2e8f0;color:#94a3b8;font-size:9.5px;font-weight:800;align-items:center;justify-content:center;cursor:default;vertical-align:middle;margin-left:4px;}
 
+    /* TAB BAR */
+    .tab-bar{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);display:flex;padding:0 14px;}
+    .tab-btn{height:48px;padding:0 18px;border:none;background:none;font-size:13px;font-weight:600;color:#94a3b8;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s;display:inline-flex;align-items:center;gap:7px;}
+    .tab-btn.active{color:#0f172a;border-bottom-color:#0f172a;}
+    .tab-btn:hover:not(.active){color:#334155;}
+    .tab-urgent-dot{width:6px;height:6px;background:#dc2626;border-radius:50%;flex-shrink:0;}
+    .tab-panel{display:none;flex-direction:column;gap:14px;}
+    .tab-panel.active{display:flex;}
+
     /* SHARED CARD */
     .i-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);overflow:hidden;}
     .i-card-head{padding:14px 18px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;gap:12px;}
@@ -201,11 +210,10 @@
 
     <section class="impl-content">
 
-      <!-- HEADER CARD -->
+      <!-- HEADER CARD — siempre visible, fuera de las pestañas -->
       <div class="impl-header">
         <div class="impl-header-top">
           <div>
-            <!-- badge muestra día actual, no repite el topbar -->
             <div class="impl-badge"><span class="impl-badge-dot"></span>D&#237;a 6 de 14 &middot; En plazo</div>
             <h1 class="impl-title">Retorno seguro tras ausencia</h1>
             <div class="impl-meta">
@@ -256,340 +264,379 @@
         </div>
       </div>
 
-      <!-- 1. ACCIÓN CRÍTICA -->
-      <div class="nextbox">
-        <div class="nextbox-head">
-          <div class="nextbox-icon">
-            <svg width="15" height="15" fill="none" stroke="#1d4ed8" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
-          </div>
-          <div class="nextbox-head-text">
-            <h4>Acci&#243;n cr&#237;tica &mdash; Hoy</h4>
-            <p>Sin esto, el plan pierde capacidad preventiva en la ventana activa</p>
-          </div>
-        </div>
-        <div class="nextbox-title">Contactar 2 reincorporaciones antes de las 15:00</div>
-        <div class="nextbox-desc">Debe hacerlo RRHH Operaciones usando el gui&#243;n de apoyo. Si no se ejecuta hoy, se pierde parte de la ventana preventiva.</div>
-        <div class="nextbox-grid">
-          <div class="nextbox-cell">
-            <small>Responsable</small>
-            <b>RRHH Operaciones</b>
-            <span>Mar&#237;a L&#243;pez</span>
-          </div>
-          <div class="nextbox-cell">
-            <small>Fecha l&#237;mite</small>
-            <b>Hoy &middot; 15:00</b>
-            <span>Ventana preventiva activa</span>
-          </div>
-          <div class="nextbox-cell">
-            <small>Riesgo si no se hace</small>
-            <b>Sube riesgo de reca&#237;da</b>
-            <span>El plan pierde capacidad preventiva.</span>
-          </div>
-          <div class="nextbox-cell">
-            <small>Recomendaci&#243;n</small>
-            <b>Asignar ahora</b>
-            <span>Mejor menor ahorro que retrasar ejecuci&#243;n.</span>
-          </div>
-        </div>
-        <div class="nextbox-btns">
-          <button class="nextbox-btn-primary">Marcar como asignado</button>
-          <button class="nextbox-btn-ghost" onclick="document.getElementById('orquestador').scrollIntoView({behavior:'smooth',block:'start'})">Pedir alternativa al orquestador</button>
-        </div>
+      <!-- BARRA DE PESTAÑAS -->
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="hoy" onclick="switchTab('hoy')">
+          Hoy
+          <span class="tab-urgent-dot"></span>
+        </button>
+        <button class="tab-btn" data-tab="economia" onclick="switchTab('economia')">Econom&#237;a</button>
+        <button class="tab-btn" data-tab="plan" onclick="switchTab('plan')">Plan</button>
       </div>
 
-      <!-- 2. PROGRESO DEL PLAN -->
-      <div class="i-card">
-        <div class="i-card-head">
-          <div><h3>Avance del plan</h3><p>Fase: Seguimiento preventivo &middot; D&#237;a 6 de 14</p></div>
-          <span class="i-tag green">En plazo</span>
-        </div>
-        <div class="i-card-body">
-          <!-- mini-timeline: 14 días, hoy = día 6 -->
-          <div class="prog-timeline">
-            <span class="tl-dot past"></span><span class="tl-conn past"></span>
-            <span class="tl-dot past"></span><span class="tl-conn past"></span>
-            <span class="tl-dot past"></span><span class="tl-conn past"></span>
-            <span class="tl-dot past"></span><span class="tl-conn past"></span>
-            <span class="tl-dot past"></span><span class="tl-conn today"></span>
-            <span class="tl-dot today"></span><span class="tl-conn future"></span>
-            <span class="tl-dot future"></span><span class="tl-conn future"></span>
-            <span class="tl-dot future"></span><span class="tl-conn future"></span>
-            <span class="tl-dot future"></span><span class="tl-conn future"></span>
-            <span class="tl-dot future"></span><span class="tl-conn future"></span>
-            <span class="tl-dot future"></span><span class="tl-conn future"></span>
-            <span class="tl-dot future"></span><span class="tl-conn future"></span>
-            <span class="tl-dot future"></span><span class="tl-conn future"></span>
-            <span class="tl-dot future"></span>
-          </div>
-          <div class="prog-tl-labels">
-            <span>D&#237;a 1</span>
-            <span class="tl-lbl-today">Hoy &middot; D&#237;a 6</span>
-            <span>D&#237;a 14</span>
-          </div>
-          <div class="prog-bar-header">
-            <span>Progreso de ejecuci&#243;n</span>
-            <b>42%</b>
-          </div>
-          <div class="prog-bar-track">
-            <div class="prog-bar-fill"></div>
-          </div>
-          <div class="prog-stats">
-            <div class="prog-stat">
-              <small>Acciones completadas</small>
-              <b class="green">2 de 6</b>
-              <span>Identificaci&#243;n + cuadrante</span>
-            </div>
-            <div class="prog-stat">
-              <small>Riesgo de ejecuci&#243;n</small>
-              <b class="blue">Medio</b>
-              <span>Acci&#243;n cr&#237;tica pendiente</span>
-            </div>
-            <div class="prog-stat">
-              <small>Pr&#243;xima acci&#243;n</small>
-              <!-- urgente pero no vencido: negro, no rojo de error -->
-              <b class="urgent">Hoy &middot; 15:00</b>
-              <span>Contacto preventivo 72h</span>
-            </div>
-            <div class="prog-stat">
-              <small>D&#237;as restantes</small>
-              <b>8 de 14</b>
-              <span>Ventana activa hasta 15/07</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!-- ─────────────────────────────────────────── -->
+      <!-- TAB: HOY                                    -->
+      <!-- Acción crítica · Orquestador · Progreso     -->
+      <!-- ─────────────────────────────────────────── -->
+      <div id="hoy" class="tab-panel active">
 
-      <!-- 3. RESUMEN ECONÓMICO -->
-      <div class="i-card">
-        <div class="i-card-head">
-          <div><h3>Resumen econ&#243;mico</h3><p>Sin actuar vs. con plan activo</p></div>
-          <span class="i-tag green">Sigue compensando</span>
-        </div>
-        <div class="econ-scenarios">
-          <div class="econ-scenario">
-            <small>Sin actuar</small>
-            <b class="red">24.000&#8364;</b>
-            <span>Coste esperado por nuevas ausencias, sustituci&#243;n y p&#233;rdida operativa.</span>
+        <!-- ACCIÓN CRÍTICA -->
+        <div class="nextbox">
+          <div class="nextbox-head">
+            <div class="nextbox-icon">
+              <svg width="15" height="15" fill="none" stroke="#1d4ed8" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+            </div>
+            <div class="nextbox-head-text">
+              <h4>Acci&#243;n cr&#237;tica &mdash; Hoy</h4>
+              <p>Sin esto, el plan pierde capacidad preventiva en la ventana activa</p>
+            </div>
           </div>
-          <div class="econ-scenario">
-            <small>Coste con plan activo</small>
-            <b>11.500&#8364;</b>
-            <span>Coste esperado actualizado con el plan ya en marcha.</span>
+          <div class="nextbox-title">Contactar 2 reincorporaciones antes de las 15:00</div>
+          <div class="nextbox-desc">Debe hacerlo RRHH Operaciones usando el gui&#243;n de apoyo. Si no se ejecuta hoy, se pierde parte de la ventana preventiva.</div>
+          <div class="nextbox-grid">
+            <div class="nextbox-cell">
+              <small>Responsable</small>
+              <b>RRHH Operaciones</b>
+              <span>Mar&#237;a L&#243;pez</span>
+            </div>
+            <div class="nextbox-cell">
+              <small>Fecha l&#237;mite</small>
+              <b>Hoy &middot; 15:00</b>
+              <span>Ventana preventiva activa</span>
+            </div>
+            <div class="nextbox-cell">
+              <small>Riesgo si no se hace</small>
+              <b>Sube riesgo de reca&#237;da</b>
+              <span>El plan pierde capacidad preventiva.</span>
+            </div>
+            <div class="nextbox-cell">
+              <small>Recomendaci&#243;n</small>
+              <b>Asignar ahora</b>
+              <span>Mejor menor ahorro que retrasar ejecuci&#243;n.</span>
+            </div>
           </div>
-          <!-- ahorro: fondo verde sutil para destacar el resultado positivo -->
-          <div class="econ-scenario highlight">
-            <small>Ahorro previsto</small>
-            <b class="green">12.500&#8364;</b>
-            <span>ROI estimado: 8,0x sobre la inversi&#243;n operativa prevista.</span>
+          <div class="nextbox-btns">
+            <button class="nextbox-btn-primary">Marcar como asignado</button>
+            <button class="nextbox-btn-ghost" onclick="document.getElementById('orquestador').scrollIntoView({behavior:'smooth',block:'start'})">Pedir alternativa al orquestador</button>
           </div>
         </div>
-        <div class="econ-deviation">
-          <svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <p><strong>El ahorro baja 1.200&#8364; frente al objetivo inicial.</strong> Motivo: menor disponibilidad del mando para hacer dos contactos preventivos dentro de la ventana prevista.</p>
-        </div>
-      </div>
 
-      <!-- 4. ORQUESTADOR IA -->
-      <div class="i-card" id="orquestador">
-        <div class="i-card-head">
-          <div style="display:flex;align-items:center;gap:9px;">
-            <div style="width:28px;height:28px;border-radius:7px;background:#eff6ff;border:1px solid #bfdbfe;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-              <svg width="13" height="13" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        <!-- ORQUESTADOR IA -->
+        <div class="i-card" id="orquestador">
+          <div class="i-card-head">
+            <div style="display:flex;align-items:center;gap:9px;">
+              <div style="width:28px;height:28px;border-radius:7px;background:#eff6ff;border:1px solid #bfdbfe;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="13" height="13" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <div>
+                <h3 style="margin:0;">Orquestador</h3>
+                <p style="margin:0;">RRHH &middot; Operaciones &middot; Econom&#237;a</p>
+              </div>
             </div>
-            <div>
-              <h3 style="margin:0;">Orquestador</h3>
-              <p style="margin:0;">RRHH &middot; Operaciones &middot; Econom&#237;a</p>
+            <span class="i-tag">Activo</span>
+          </div>
+          <div class="orch-bubbles">
+            <div class="orch-bubble ai">
+              <span class="orch-ai-label">Orquestador</span>
+              Recomiendo que RRHH haga hoy los 2 contactos. Mantiene el plan en plazo y conserva la mayor parte del ahorro previsto.
+            </div>
+            <div class="orch-bubble user">&#191;Y si RRHH tampoco puede hacerlo hoy?</div>
+            <div class="orch-bubble ai">
+              <span class="orch-ai-label">Orquestador</span>
+              Reestructurar&#237;a el plan: contacto ma&#241;ana a primera hora, chequeo reforzado d&#237;a 7 y nueva previsi&#243;n de ahorro de 9,8K&#8211;11,3K&#8364;. El riesgo subir&#237;a de medio a medio-alto.
             </div>
           </div>
-          <span class="i-tag">Activo</span>
-        </div>
-        <div class="orch-bubbles">
-          <div class="orch-bubble ai">
-            <span class="orch-ai-label">Orquestador</span>
-            Recomiendo que RRHH haga hoy los 2 contactos. Mantiene el plan en plazo y conserva la mayor parte del ahorro previsto.
+          <div class="orch-quick">
+            <span class="orch-quick-label">Acciones r&#225;pidas</span>
+            <button class="orch-quick-btn primary">Aplicar recomendaci&#243;n</button>
+            <button class="orch-quick-btn">Recalcular con menos carga</button>
+            <button class="orch-quick-btn">Explicar impacto econ&#243;mico</button>
+            <button class="orch-quick-btn">Cambiar responsable</button>
           </div>
-          <div class="orch-bubble user">&#191;Y si RRHH tampoco puede hacerlo hoy?</div>
-          <div class="orch-bubble ai">
-            <span class="orch-ai-label">Orquestador</span>
-            Reestructurar&#237;a el plan: contacto ma&#241;ana a primera hora, chequeo reforzado d&#237;a 7 y nueva previsi&#243;n de ahorro de 9,8K&#8211;11,3K&#8364;. El riesgo subir&#237;a de medio a medio-alto.
+          <div class="orch-input-row">
+            <input class="orch-input" placeholder="Pide un ajuste, explica una barrera&#8230;"/>
+            <button class="orch-send">
+              <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            </button>
           </div>
         </div>
-        <div class="orch-quick">
-          <span class="orch-quick-label">Acciones r&#225;pidas</span>
-          <button class="orch-quick-btn primary">Aplicar recomendaci&#243;n</button>
-          <button class="orch-quick-btn">Recalcular con menos carga</button>
-          <button class="orch-quick-btn">Explicar impacto econ&#243;mico</button>
-          <button class="orch-quick-btn">Cambiar responsable</button>
-        </div>
-        <div class="orch-input-row">
-          <input class="orch-input" placeholder="Pide un ajuste, explica una barrera&#8230;"/>
-          <button class="orch-send">
-            <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-          </button>
-        </div>
-      </div>
 
-      <!-- 5. DETALLE DEL PLAN -->
-      <div class="i-card">
-        <div class="i-card-head">
-          <div><h3>Detalle del plan</h3><p>Acciones, responsables y estado de ejecuci&#243;n</p></div>
-          <span class="i-tag">6 acciones</span>
-        </div>
-        <div class="i-card-body">
-          <div class="act-list">
-            <div class="act-row">
-              <div class="act-num done">&#10003;</div>
-              <div class="act-body"><small>D&#237;a 0</small><strong>Identificar reincorporaciones cr&#237;ticas</strong><p>Lista priorizada por riesgo, centro y ventana temporal.</p></div>
-              <div class="act-owner"><b>RRHH</b><span>Completado d&#237;a 0</span></div>
-              <span class="act-status done">Hecho</span>
+        <!-- PROGRESO DEL PLAN -->
+        <div class="i-card">
+          <div class="i-card-head">
+            <div><h3>Avance del plan</h3><p>Fase: Seguimiento preventivo &middot; D&#237;a 6 de 14</p></div>
+            <span class="i-tag green">En plazo</span>
+          </div>
+          <div class="i-card-body">
+            <div class="prog-timeline">
+              <span class="tl-dot past"></span><span class="tl-conn past"></span>
+              <span class="tl-dot past"></span><span class="tl-conn past"></span>
+              <span class="tl-dot past"></span><span class="tl-conn past"></span>
+              <span class="tl-dot past"></span><span class="tl-conn past"></span>
+              <span class="tl-dot past"></span><span class="tl-conn today"></span>
+              <span class="tl-dot today"></span><span class="tl-conn future"></span>
+              <span class="tl-dot future"></span><span class="tl-conn future"></span>
+              <span class="tl-dot future"></span><span class="tl-conn future"></span>
+              <span class="tl-dot future"></span><span class="tl-conn future"></span>
+              <span class="tl-dot future"></span><span class="tl-conn future"></span>
+              <span class="tl-dot future"></span><span class="tl-conn future"></span>
+              <span class="tl-dot future"></span><span class="tl-conn future"></span>
+              <span class="tl-dot future"></span><span class="tl-conn future"></span>
+              <span class="tl-dot future"></span>
             </div>
-            <div class="act-row">
-              <div class="act-num done">&#10003;</div>
-              <div class="act-body"><small>D&#237;a 3</small><strong>Revisar cuadrante y carga operativa</strong><p>Validar si hay conflictos de turno o sobrecarga.</p></div>
-              <div class="act-owner"><b>Operaciones</b><span>Hoy 09:20</span></div>
-              <span class="act-status done">Hecho</span>
+            <div class="prog-tl-labels">
+              <span>D&#237;a 1</span>
+              <span class="tl-lbl-today">Hoy &middot; D&#237;a 6</span>
+              <span>D&#237;a 14</span>
             </div>
-            <!-- borde izquierdo 3px azul para señalar la acción que requiere atención ahora -->
-            <div class="act-row act-pending">
-              <div class="act-num">3</div>
-              <div class="act-body"><small class="urgent">Hoy &mdash; urgente</small><strong>Contacto preventivo 72h antes</strong><p>Contactar 2 reincorporaciones con mensaje de apoyo. Sin preguntas m&#233;dicas.</p></div>
-              <div class="act-owner"><b>RRHH Operaciones</b><span>Antes de 15:00</span></div>
-              <span class="act-status pending">Pendiente</span>
+            <div class="prog-bar-header">
+              <span>Progreso de ejecuci&#243;n</span>
+              <b>42%</b>
             </div>
-            <div class="act-row">
-              <div class="act-num">4</div>
-              <div class="act-body"><small>D&#237;a 7</small><strong>Chequeo operativo breve</strong><p>Confirmar adaptaci&#243;n operativa y detectar barreras pr&#225;cticas.</p></div>
-              <div class="act-owner"><b>Jefe de turno</b><span>08/07/2026</span></div>
-              <span class="act-status scheduled">Programado</span>
+            <div class="prog-bar-track">
+              <div class="prog-bar-fill"></div>
             </div>
-            <div class="act-row">
-              <div class="act-num">5</div>
-              <div class="act-body"><small>D&#237;a 10</small><strong>Revisi&#243;n intermedia de riesgo</strong><p>Actualizar riesgo residual y comprobar desviaci&#243;n econ&#243;mica.</p></div>
-              <div class="act-owner"><b>Plataforma + RRHH</b><span>11/07/2026</span></div>
-              <span class="act-status scheduled">Programado</span>
-            </div>
-            <div class="act-row">
-              <div class="act-num">6</div>
-              <div class="act-body"><small>D&#237;a 14</small><strong>Cierre y ROI final</strong><p>Medir coste real, coste evitado, ROI y aprendizaje reutilizable.</p></div>
-              <div class="act-owner"><b>Plataforma</b><span>15/07/2026</span></div>
-              <span class="act-status scheduled">Programado</span>
+            <div class="prog-stats">
+              <div class="prog-stat">
+                <small>Acciones completadas</small>
+                <b class="green">2 de 6</b>
+                <span>Identificaci&#243;n + cuadrante</span>
+              </div>
+              <div class="prog-stat">
+                <small>Riesgo de ejecuci&#243;n</small>
+                <b class="blue">Medio</b>
+                <span>Acci&#243;n cr&#237;tica pendiente</span>
+              </div>
+              <div class="prog-stat">
+                <small>Pr&#243;xima acci&#243;n</small>
+                <b class="urgent">Hoy &middot; 15:00</b>
+                <span>Contacto preventivo 72h</span>
+              </div>
+              <div class="prog-stat">
+                <small>D&#237;as restantes</small>
+                <b>8 de 14</b>
+                <span>Ventana activa hasta 15/07</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- 6. ACORDEÓN: DESVIACIÓN ECONÓMICA -->
-      <details class="acc-details">
-        <summary class="acc-summary">
-          <div class="acc-summary-left">
-            <h3>Desviaci&#243;n econ&#243;mica</h3>
-            <p>Qu&#233; ha cambiado y por qu&#233; afecta al ahorro previsto</p>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;">
-            <span class="i-tag">&#8595;1.200&#8364; vs objetivo</span>
-            <svg class="acc-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </div>
-        </summary>
-        <div class="acc-body">
-          <div class="dev-grid">
-            <div class="dev-cell"><small>Objetivo inicial</small><b class="green">13.700&#8364;</b><span>Ahorro previsto al aprobar el plan.</span></div>
-            <div class="dev-cell"><small>Previsi&#243;n actual</small><b class="green">12.500&#8364;</b><span>Ahorro esperado con el microajuste.</span></div>
-            <div class="dev-cell"><small>Motivo</small><b class="blue" style="font-size:15px;">Mando no disponible</b><span>RRHH absorbe dos contactos para no retrasar el plan.</span></div>
-          </div>
-        </div>
-      </details>
+      </div><!-- /tab hoy -->
 
-      <!-- 7. ACORDEÓN: RIESGO DE EJECUCIÓN -->
-      <details class="acc-details">
-        <summary class="acc-summary">
-          <div class="acc-summary-left">
-            <h3>Riesgo de ejecuci&#243;n</h3>
-            <p>No solo mide avance; mide si el plan puede cumplirse</p>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;">
-            <span class="i-tag">Medio &middot; 56%</span>
-            <svg class="acc-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </div>
-        </summary>
-        <div class="acc-body">
-          <div class="risk-bar-block">
-            <span class="risk-bar-label">Riesgo de ejecuci&#243;n</span>
-            <div class="risk-bar-track"><div class="risk-bar-fill-blue"></div></div>
-            <span class="risk-bar-pct">56%</span>
-          </div>
-          <div class="acc-note">
-            <small>Motivo</small>
-            <p>Existe una acci&#243;n cr&#237;tica pendiente hoy y a&#250;n no est&#225; marcada como asignada.</p>
-          </div>
-          <div class="acc-note" style="margin-top:8px;">
-            <small>C&#243;mo bajarlo</small>
-            <p>Asignar a RRHH los 2 contactos antes de las 15:00. El riesgo bajar&#237;a a bajo (&lt;30%) al completar la acci&#243;n.</p>
-          </div>
-        </div>
-      </details>
+      <!-- ─────────────────────────────────────────── -->
+      <!-- TAB: ECONOMÍA                               -->
+      <!-- Resumen económico · Desviación · ROI final  -->
+      <!-- ─────────────────────────────────────────── -->
+      <div id="economia" class="tab-panel">
 
-      <!-- 8. ACORDEÓN: ROI FINAL -->
-      <details class="acc-details">
-        <summary class="acc-summary">
-          <div class="acc-summary-left">
-            <h3>ROI final</h3>
-            <p>Qu&#233; se calcular&#225; al cierre del plan el d&#237;a 14</p>
+        <!-- RESUMEN ECONÓMICO -->
+        <div class="i-card">
+          <div class="i-card-head">
+            <div><h3>Resumen econ&#243;mico</h3><p>Sin actuar vs. con plan activo</p></div>
+            <span class="i-tag green">Sigue compensando</span>
           </div>
-          <div style="display:flex;align-items:center;gap:10px;">
-            <span class="i-tag">D&#237;a 14</span>
-            <svg class="acc-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          <div class="econ-scenarios">
+            <div class="econ-scenario">
+              <small>Sin actuar</small>
+              <b class="red">24.000&#8364;</b>
+              <span>Coste esperado por nuevas ausencias, sustituci&#243;n y p&#233;rdida operativa.</span>
+            </div>
+            <div class="econ-scenario">
+              <small>Coste con plan activo</small>
+              <b>11.500&#8364;</b>
+              <span>Coste esperado actualizado con el plan ya en marcha.</span>
+            </div>
+            <div class="econ-scenario highlight">
+              <small>Ahorro previsto</small>
+              <b class="green">12.500&#8364;</b>
+              <span>ROI estimado: 8,0x sobre la inversi&#243;n operativa prevista.</span>
+            </div>
           </div>
-        </summary>
-        <div class="acc-body">
-          <div class="roi-grid">
-            <div class="roi-cell"><small>Se medir&#225;</small><p>Coste real, coste evitado, coste interno del plan y ROI final comparado con el objetivo inicial.</p></div>
-            <div class="roi-cell"><small>Aprendizaje</small><p>Qu&#233; acciones funcionaron, qu&#233; patr&#243;n se puede reutilizar y qu&#233; ajustar en pr&#243;ximos planes similares.</p></div>
+          <div class="econ-deviation">
+            <svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <p><strong>El ahorro baja 1.200&#8364; frente al objetivo inicial.</strong> Motivo: menor disponibilidad del mando para hacer dos contactos preventivos dentro de la ventana prevista.</p>
           </div>
         </div>
-      </details>
 
-      <!-- 9. ACORDEÓN: HISTORIAL -->
-      <details class="acc-details">
-        <summary class="acc-summary">
-          <div class="acc-summary-left">
-            <h3>Hist&#243;rico de cambios y trazabilidad</h3>
-            <p>Registro de eventos y ajustes desde la activaci&#243;n del plan</p>
+        <!-- ACORDEÓN: DESVIACIÓN ECONÓMICA -->
+        <details class="acc-details">
+          <summary class="acc-summary">
+            <div class="acc-summary-left">
+              <h3>Desviaci&#243;n econ&#243;mica</h3>
+              <p>Qu&#233; ha cambiado y por qu&#233; afecta al ahorro previsto</p>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span class="i-tag">&#8595;1.200&#8364; vs objetivo</span>
+              <svg class="acc-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </div>
+          </summary>
+          <div class="acc-body">
+            <div class="dev-grid">
+              <div class="dev-cell"><small>Objetivo inicial</small><b class="green">13.700&#8364;</b><span>Ahorro previsto al aprobar el plan.</span></div>
+              <div class="dev-cell"><small>Previsi&#243;n actual</small><b class="green">12.500&#8364;</b><span>Ahorro esperado con el microajuste.</span></div>
+              <div class="dev-cell"><small>Motivo</small><b class="blue" style="font-size:15px;">Mando no disponible</b><span>RRHH absorbe dos contactos para no retrasar el plan.</span></div>
+            </div>
           </div>
-          <div style="display:flex;align-items:center;gap:10px;">
-            <span class="i-tag">4 eventos</span>
-            <svg class="acc-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </details>
+
+        <!-- ACORDEÓN: ROI FINAL -->
+        <details class="acc-details">
+          <summary class="acc-summary">
+            <div class="acc-summary-left">
+              <h3>ROI final</h3>
+              <p>Qu&#233; se calcular&#225; al cierre del plan el d&#237;a 14</p>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span class="i-tag">D&#237;a 14</span>
+              <svg class="acc-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </div>
+          </summary>
+          <div class="acc-body">
+            <div class="roi-grid">
+              <div class="roi-cell"><small>Se medir&#225;</small><p>Coste real, coste evitado, coste interno del plan y ROI final comparado con el objetivo inicial.</p></div>
+              <div class="roi-cell"><small>Aprendizaje</small><p>Qu&#233; acciones funcionaron, qu&#233; patr&#243;n se puede reutilizar y qu&#233; ajustar en pr&#243;ximos planes similares.</p></div>
+            </div>
           </div>
-        </summary>
-        <div class="acc-body">
-          <div class="hist-list">
-            <div class="hist-row">
-              <div><small>D&#237;a 0</small></div>
-              <div><b>Plan aprobado</b><span class="desc">Objetivo econ&#243;mico 12K&#8211;15K&#8364; y riesgo inicial 72%.</span></div>
-              <span class="hist-status done">Cerrado</span>
-            </div>
-            <div class="hist-row">
-              <div><small>D&#237;a 3</small></div>
-              <div><b>Cuadrante revisado</b><span class="desc">No se detectan conflictos operativos relevantes.</span></div>
-              <span class="hist-status done">Cerrado</span>
-            </div>
-            <div class="hist-row">
-              <div><small>D&#237;a 6</small></div>
-              <div><b>Microajuste recomendado</b><span class="desc">RRHH asume dos contactos por indisponibilidad del mando.</span></div>
-              <span class="hist-status pending">Pendiente</span>
-            </div>
-            <div class="hist-row">
-              <div><small>D&#237;a 14</small></div>
-              <div><b>ROI final</b><span class="desc">Se calcular&#225; coste real, coste evitado, ROI y aprendizaje.</span></div>
-              <span class="hist-status scheduled">Programado</span>
+        </details>
+
+      </div><!-- /tab economia -->
+
+      <!-- ─────────────────────────────────────────── -->
+      <!-- TAB: PLAN                                   -->
+      <!-- Detalle · Riesgo de ejecución · Historial   -->
+      <!-- ─────────────────────────────────────────── -->
+      <div id="plan" class="tab-panel">
+
+        <!-- DETALLE DEL PLAN -->
+        <div class="i-card">
+          <div class="i-card-head">
+            <div><h3>Detalle del plan</h3><p>Acciones, responsables y estado de ejecuci&#243;n</p></div>
+            <span class="i-tag">6 acciones</span>
+          </div>
+          <div class="i-card-body">
+            <div class="act-list">
+              <div class="act-row">
+                <div class="act-num done">&#10003;</div>
+                <div class="act-body"><small>D&#237;a 0</small><strong>Identificar reincorporaciones cr&#237;ticas</strong><p>Lista priorizada por riesgo, centro y ventana temporal.</p></div>
+                <div class="act-owner"><b>RRHH</b><span>Completado d&#237;a 0</span></div>
+                <span class="act-status done">Hecho</span>
+              </div>
+              <div class="act-row">
+                <div class="act-num done">&#10003;</div>
+                <div class="act-body"><small>D&#237;a 3</small><strong>Revisar cuadrante y carga operativa</strong><p>Validar si hay conflictos de turno o sobrecarga.</p></div>
+                <div class="act-owner"><b>Operaciones</b><span>Hoy 09:20</span></div>
+                <span class="act-status done">Hecho</span>
+              </div>
+              <div class="act-row act-pending">
+                <div class="act-num">3</div>
+                <div class="act-body"><small class="urgent">Hoy &mdash; urgente</small><strong>Contacto preventivo 72h antes</strong><p>Contactar 2 reincorporaciones con mensaje de apoyo. Sin preguntas m&#233;dicas.</p></div>
+                <div class="act-owner"><b>RRHH Operaciones</b><span>Antes de 15:00</span></div>
+                <span class="act-status pending">Pendiente</span>
+              </div>
+              <div class="act-row">
+                <div class="act-num">4</div>
+                <div class="act-body"><small>D&#237;a 7</small><strong>Chequeo operativo breve</strong><p>Confirmar adaptaci&#243;n operativa y detectar barreras pr&#225;cticas.</p></div>
+                <div class="act-owner"><b>Jefe de turno</b><span>08/07/2026</span></div>
+                <span class="act-status scheduled">Programado</span>
+              </div>
+              <div class="act-row">
+                <div class="act-num">5</div>
+                <div class="act-body"><small>D&#237;a 10</small><strong>Revisi&#243;n intermedia de riesgo</strong><p>Actualizar riesgo residual y comprobar desviaci&#243;n econ&#243;mica.</p></div>
+                <div class="act-owner"><b>Plataforma + RRHH</b><span>11/07/2026</span></div>
+                <span class="act-status scheduled">Programado</span>
+              </div>
+              <div class="act-row">
+                <div class="act-num">6</div>
+                <div class="act-body"><small>D&#237;a 14</small><strong>Cierre y ROI final</strong><p>Medir coste real, coste evitado, ROI y aprendizaje reutilizable.</p></div>
+                <div class="act-owner"><b>Plataforma</b><span>15/07/2026</span></div>
+                <span class="act-status scheduled">Programado</span>
+              </div>
             </div>
           </div>
         </div>
-      </details>
+
+        <!-- ACORDEÓN: RIESGO DE EJECUCIÓN -->
+        <details class="acc-details">
+          <summary class="acc-summary">
+            <div class="acc-summary-left">
+              <h3>Riesgo de ejecuci&#243;n</h3>
+              <p>No solo mide avance; mide si el plan puede cumplirse</p>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span class="i-tag">Medio &middot; 56%</span>
+              <svg class="acc-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </div>
+          </summary>
+          <div class="acc-body">
+            <div class="risk-bar-block">
+              <span class="risk-bar-label">Riesgo de ejecuci&#243;n</span>
+              <div class="risk-bar-track"><div class="risk-bar-fill-blue"></div></div>
+              <span class="risk-bar-pct">56%</span>
+            </div>
+            <div class="acc-note">
+              <small>Motivo</small>
+              <p>Existe una acci&#243;n cr&#237;tica pendiente hoy y a&#250;n no est&#225; marcada como asignada.</p>
+            </div>
+            <div class="acc-note" style="margin-top:8px;">
+              <small>C&#243;mo bajarlo</small>
+              <p>Asignar a RRHH los 2 contactos antes de las 15:00. El riesgo bajar&#237;a a bajo (&lt;30%) al completar la acci&#243;n.</p>
+            </div>
+          </div>
+        </details>
+
+        <!-- ACORDEÓN: HISTORIAL -->
+        <details class="acc-details">
+          <summary class="acc-summary">
+            <div class="acc-summary-left">
+              <h3>Hist&#243;rico de cambios y trazabilidad</h3>
+              <p>Registro de eventos y ajustes desde la activaci&#243;n del plan</p>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span class="i-tag">4 eventos</span>
+              <svg class="acc-chev" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </div>
+          </summary>
+          <div class="acc-body">
+            <div class="hist-list">
+              <div class="hist-row">
+                <div><small>D&#237;a 0</small></div>
+                <div><b>Plan aprobado</b><span class="desc">Objetivo econ&#243;mico 12K&#8211;15K&#8364; y riesgo inicial 72%.</span></div>
+                <span class="hist-status done">Cerrado</span>
+              </div>
+              <div class="hist-row">
+                <div><small>D&#237;a 3</small></div>
+                <div><b>Cuadrante revisado</b><span class="desc">No se detectan conflictos operativos relevantes.</span></div>
+                <span class="hist-status done">Cerrado</span>
+              </div>
+              <div class="hist-row">
+                <div><small>D&#237;a 6</small></div>
+                <div><b>Microajuste recomendado</b><span class="desc">RRHH asume dos contactos por indisponibilidad del mando.</span></div>
+                <span class="hist-status pending">Pendiente</span>
+              </div>
+              <div class="hist-row">
+                <div><small>D&#237;a 14</small></div>
+                <div><b>ROI final</b><span class="desc">Se calcular&#225; coste real, coste evitado, ROI y aprendizaje.</span></div>
+                <span class="hist-status scheduled">Programado</span>
+              </div>
+            </div>
+          </div>
+        </details>
+
+      </div><!-- /tab plan -->
 
     </section>
   </div>
 
   <script src="../js/components/sidebar.js"></script>
-  <script>if(typeof SidebarComponent!=="undefined") SidebarComponent.render();</script>
+  <script>
+    if(typeof SidebarComponent!=="undefined") SidebarComponent.render();
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+      document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+      document.querySelector('.tab-btn[data-tab="' + tabId + '"]').classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+  </script>
 </body>
 </html>
