@@ -3,9 +3,17 @@
 
 const SidebarComponent = (() => {
 
+  const CI_TABS = [
+    { tabId: "situacion",    label: "Situación actual" },
+    { tabId: "segmentacion", label: "Segmentación" },
+    { tabId: "red",          label: "Red organizativa" },
+    { tabId: "costes",       label: "Costes" },
+    { tabId: "evolucion",    label: "Evolución" },
+    { tabId: "predicciones", label: "Predicciones" }
+  ];
+
   const NAV_ITEMS = [
-    { href: "/diagnostico",        label: "Diagnóstico",           icon: "chart-bar",   indent: false },
-    { href: "/diagnostico/costes", label: "Costes",                icon: "currency",    indent: true  },
+    { href: "/centro-inteligencia", link: "centro-inteligencia.html", label: "Centro de Inteligencia", icon: "chart-bar", indent: false, group: true },
     { href: "/patrones", link: "patrones.html", label: "Patrones", icon: "search", indent: false, badge: true },
     { href: "/prediccion", link: "prediccion.html", label: "Predicción", icon: "trending-up", indent: false },
     { href: "/impacto-liderazgo",  label: "Impacto del Liderazgo", icon: "users",       indent: false },
@@ -36,10 +44,43 @@ const SidebarComponent = (() => {
   function getActivePath() {
     var page = document.body.dataset.page || "";
     if (page === "patrones" || page === "pat-detail") return "/patrones";
+    if (page === "centro-inteligencia" || page === "diagnostico") return "/centro-inteligencia";
     return "/" + page;
   }
 
+  function getActiveTab() {
+    try {
+      return new URLSearchParams(window.location.search).get("tab") || "";
+    } catch(e) { return ""; }
+  }
+
+  function buildNavGroup(item, activePath) {
+    var isActive = item.href === activePath;
+    var activeTab = isActive ? getActiveTab() : "";
+    var btnClass = isActive
+      ? "text-white bg-white/20"
+      : "text-surface-300 hover:text-[#e2e8f0] hover:bg-white/20";
+
+    var subLinks = CI_TABS.map(function(child) {
+      var isActiveChild = isActive && (activeTab === child.tabId || (!activeTab && child.tabId === "situacion"));
+      var href = (item.link || "centro-inteligencia.html") + "?tab=" + child.tabId;
+      return '<a href="' + href + '" class="ci-subnav-link' + (isActiveChild ? " active" : "") + '">'
+        + child.label + "</a>";
+    }).join("");
+
+    var chevRot = isActive ? "rotate(180deg)" : "";
+    return '<div class="ci-nav-group">'
+      + '<button class="ci-nav-group-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ' + btnClass + ' transition-colors" onclick="SidebarComponent._toggleCI(this)">'
+      + svgIcon(item.icon)
+      + '<span class="flex-1 text-left">' + item.label + "</span>"
+      + '<svg class="ci-chev" style="width:12px;height:12px;flex-shrink:0;transition:transform .2s;transform:' + chevRot + '" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>'
+      + "</button>"
+      + '<div class="ci-subnav' + (isActive ? " open" : "") + '">' + subLinks + "</div>"
+      + "</div>";
+  }
+
   function buildNavLink(item, activePath) {
+    if (item.group) return buildNavGroup(item, activePath);
     var isActive = item.href === activePath;
     var mlClass  = item.indent ? " ml-7" : "";
     var stateClass = isActive
@@ -64,7 +105,8 @@ const SidebarComponent = (() => {
     var navLinks   = NAV_ITEMS.map(function(item) { return buildNavLink(item, activePath); }).join("");
 
     mount.innerHTML =
-      '<aside id="sidebar" class="fixed top-0 left-0 z-40 w-[260px] bg-surface-800 flex flex-col transition-all duration-300 ease-in-out" style="height:100vh;">'
+      '<style>.ci-nav-group{}.ci-nav-group-btn{background:none;border:none;cursor:pointer;font-family:inherit;}.ci-subnav{display:none;flex-direction:column;gap:1px;margin:2px 0 2px 14px;}.ci-subnav.open{display:flex;}.ci-subnav-link{display:block;padding:6px 10px 6px 18px;border-radius:7px;font-size:12px;font-weight:600;color:rgba(203,213,225,.65);text-decoration:none;transition:color .15s,background .15s;border-left:1px solid rgba(255,255,255,.08);margin-left:8px;}.ci-subnav-link:hover{color:#e2e8f0;background:rgba(255,255,255,.07);}.ci-subnav-link.active{color:#fff;background:rgba(255,255,255,.12);border-left-color:rgba(255,255,255,.3);}</style>'
+      + '<aside id="sidebar" class="fixed top-0 left-0 z-40 w-[260px] bg-surface-800 flex flex-col transition-all duration-300 ease-in-out" style="height:100vh;">'
 
       // Logo
       + '<div class="flex items-center gap-3 px-5 py-5 border-b border-white/[0.06]">'
@@ -108,5 +150,13 @@ const SidebarComponent = (() => {
     }
   }
 
-  return { render: render };
+  function _toggleCI(btn) {
+    var subnav = btn.parentElement.querySelector(".ci-subnav");
+    if (!subnav) return;
+    subnav.classList.toggle("open");
+    var chev = btn.querySelector(".ci-chev");
+    if (chev) chev.style.transform = subnav.classList.contains("open") ? "rotate(180deg)" : "";
+  }
+
+  return { render: render, _toggleCI: _toggleCI };
 })();

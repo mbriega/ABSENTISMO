@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Centro de Inteligencia &middot; Absentismo</title>
+  <link rel="stylesheet" href="../css/styles.css"/>
+  <style>
+    *{box-sizing:border-box;}
+    .ci-content{padding:22px 28px 80px;display:flex;flex-direction:column;gap:14px;}
+
+    /* HEADER */
+    .ci-header{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:20px 24px 0;overflow:hidden;}
+    .ci-header-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding-bottom:16px;}
+    .ci-title{font-size:22px;font-weight:800;color:#0f172a;margin:0 0 4px;letter-spacing:-.035em;}
+    .ci-meta{font-size:11.5px;color:#94a3b8;font-weight:600;display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+    .ci-pills{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end;flex-shrink:0;}
+    .ci-pill{display:inline-flex;height:24px;align-items:center;padding:0 10px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap;}
+    .ci-pill.green{background:#f0fdf4;color:#047857;border:1px solid #bbf7d0;}
+    .ci-pill.blue{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
+    .ci-pill.amber{background:#fffbeb;color:#b45309;border:1px solid #fde68a;}
+
+    /* KPI STRIP */
+    .ci-kpis{display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid #e2e8f0;margin:0 -24px;}
+    .ci-kpi{padding:14px 16px;border-right:1px solid #f1f5f9;}
+    .ci-kpi:last-child{border-right:none;}
+    .ci-kpi small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px;}
+    .ci-kpi b{display:block;font-size:22px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:4px;color:#0f172a;}
+    .ci-kpi span{display:block;font-size:11px;color:#64748b;font-weight:500;line-height:1.35;}
+    .ci-kpi.hot b{color:#dc2626;}
+    .ci-kpi.good b{color:#059669;}
+
+    /* TAB BAR */
+    .tab-bar{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);display:flex;padding:0 14px;overflow-x:auto;}
+    .tab-btn{height:48px;padding:0 18px;border:none;background:none;font-size:13px;font-weight:600;color:#94a3b8;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s;display:inline-flex;align-items:center;gap:7px;}
+    .tab-btn.active{color:#0f172a;border-bottom-color:#0f172a;}
+    .tab-btn:hover:not(.active){color:#334155;}
+    .tab-panel{display:none;flex-direction:column;gap:14px;}
+    .tab-panel.active{display:flex;}
+
+    /* CARDS */
+    .i-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);overflow:hidden;}
+    .i-card-head{padding:14px 18px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+    .i-card-head h3{font-size:13px;font-weight:700;color:#0f172a;margin:0;}
+    .i-card-head p{font-size:11.5px;color:#94a3b8;font-weight:500;margin:0;}
+    .i-card-body{padding:18px;}
+    .i-tag{display:inline-flex;height:22px;align-items:center;padding:0 9px;border-radius:999px;font-size:10.5px;font-weight:700;white-space:nowrap;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
+    .i-tag.green{background:#f0fdf4;color:#059669;border-color:#bbf7d0;}
+    .i-tag.red{background:#fef2f2;color:#dc2626;border-color:#fecaca;}
+    .i-tag.amber{background:#fffbeb;color:#b45309;border-color:#fde68a;}
+
+    /* SITUACIÓN ACTUAL */
+    .diag-card{background:linear-gradient(135deg,#0f172a,#18365d);border-radius:14px;padding:22px 24px;color:#fff;}
+    .diag-kicker{display:inline-flex;height:26px;align-items:center;border-radius:999px;padding:0 11px;background:rgba(16,185,129,.18);color:#6ee7b7;border:1px solid rgba(16,185,129,.3);font-size:10.5px;font-weight:800;margin-bottom:12px;}
+    .diag-headline{font-size:22px;font-weight:800;letter-spacing:-.04em;line-height:1.2;margin:0 0 10px;color:#fff;}
+    .diag-subline{font-size:13.5px;font-weight:600;color:#dbeafe;line-height:1.5;margin:0 0 18px;}
+    .diag-chain{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+    .chain-item{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:11px;}
+    .chain-item small{display:block;font-size:9.5px;font-weight:800;color:#93c5fd;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;}
+    .chain-item b{display:block;font-size:12.5px;font-weight:700;color:#fff;margin-bottom:4px;}
+    .chain-item span{display:block;font-size:11px;color:#bfdbfe;line-height:1.35;}
+
+    .score-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:18px;}
+    .score-top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid #f1f5f9;padding-bottom:14px;margin-bottom:14px;}
+    .score-val{font-size:42px;font-weight:800;letter-spacing:-.06em;color:#0f172a;line-height:1;}
+    .score-label{font-size:11px;color:#94a3b8;font-weight:700;margin-top:4px;}
+    .score-criteria{display:grid;gap:9px;}
+    .criterion{display:grid;grid-template-columns:120px 1fr 40px;gap:8px;align-items:center;}
+    .criterion b{font-size:11.5px;font-weight:600;color:#334155;}
+    .criterion span{font-size:11.5px;font-weight:700;color:#64748b;text-align:right;}
+    .critbar{height:7px;background:#e2e8f0;border-radius:999px;overflow:hidden;}
+    .critbar i{display:block;height:100%;background:#2563eb;border-radius:999px;}
+
+    .priority-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+    .priority-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:13px;cursor:pointer;transition:.15s ease;}
+    .priority-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08);}
+    .priority-card.active{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.12);}
+    .priority-card small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;}
+    .priority-card b{display:block;font-size:13.5px;font-weight:700;color:#0f172a;margin-bottom:4px;}
+    .priority-card p{font-size:11.5px;color:#64748b;font-weight:500;line-height:1.4;margin:0;}
+    .priority-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+
+    .diag-hero-grid{display:grid;grid-template-columns:1fr 340px;gap:14px;}
+    .diag-evidence-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;}
+    .evidence-box{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:13px;}
+    .evidence-box small{display:block;font-size:9.5px;font-weight:800;color:#93c5fd;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;}
+    .evidence-box b{display:block;font-size:14px;font-weight:700;color:#fff;margin-bottom:4px;}
+    .evidence-box p{font-size:12px;color:#bfdbfe;font-weight:500;line-height:1.4;margin:0;}
+
+    .action-note{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:12px 16px;display:flex;gap:10px;align-items:flex-start;}
+    .action-note p{font-size:12.5px;color:#1e40af;font-weight:600;line-height:1.5;margin:0;}
+
+    /* SEGMENTACIÓN */
+    .seg-chips{display:flex;gap:6px;flex-wrap:wrap;}
+    .seg-chip{height:32px;border:1px solid #e2e8f0;background:#f8fafc;border-radius:999px;color:#334155;padding:0 12px;font-size:11.5px;font-weight:700;cursor:pointer;white-space:nowrap;}
+    .seg-chip.active{background:#0f172a;color:#fff;border-color:#0f172a;}
+    .seg-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+    .seg-box{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:13px;}
+    .seg-box small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px;}
+    .seg-box b{display:block;font-size:20px;font-weight:800;letter-spacing:-.04em;color:#0f172a;margin-bottom:3px;}
+    .seg-box span{font-size:11.5px;color:#64748b;font-weight:500;}
+    .table-wrap{overflow-x:auto;background:#fff;border:1px solid #e2e8f0;border-radius:12px;}
+    table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;min-width:900px;}
+    th{background:#f8fafc;color:#64748b;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.06em;padding:10px 12px;border-bottom:1px solid #e2e8f0;font-weight:700;}
+    td{font-size:12px;color:#526b89;padding:10px 12px;border-bottom:1px solid #f1f5f9;vertical-align:middle;}
+    tr:last-child td{border-bottom:0;}
+    td b{color:#0f172a;font-weight:700;}
+    tbody tr{cursor:pointer;}
+    tbody tr:hover td{background:#f8fafc;}
+    .tbl-pill{display:inline-flex;border-radius:999px;padding:3px 8px;font-size:10.5px;font-weight:700;}
+    .tbl-pill.red{background:#fef2f2;color:#dc2626;}
+    .tbl-pill.amber{background:#fffbeb;color:#b45309;}
+    .tbl-pill.blue{background:#eff6ff;color:#1d4ed8;}
+    .tbl-pill.green{background:#f0fdf4;color:#059669;}
+    .tbl-pill.purple{background:#f5f3ff;color:#7c3aed;}
+    .deep-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    .deep-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px;}
+    .deep-card h3{font-size:13px;font-weight:700;color:#0f172a;margin:0 0 6px;}
+    .deep-card p{font-size:12.5px;color:#334155;font-weight:500;line-height:1.5;margin:0;}
+
+    /* RED ORGANIZATIVA */
+    .net-legend{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+    .legend-concept{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:13px;}
+    .legend-concept b{display:block;font-size:13px;font-weight:700;color:#0f172a;margin-bottom:4px;}
+    .legend-concept span{font-size:11.5px;color:#64748b;font-weight:500;line-height:1.35;}
+    .net-canvas{display:grid;grid-template-columns:1fr 320px;gap:14px;}
+    .net-map{position:relative;height:380px;background:radial-gradient(circle at 47% 44%,rgba(37,99,235,.06),transparent 24%),linear-gradient(135deg,#fbfcff,#f8fafc);border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;}
+    .net-ring{position:absolute;border:1px dashed #cbd5e1;border-radius:999px;left:50%;top:50%;transform:translate(-50%,-50%);}
+    .ring1{width:80%;height:80%;}
+    .ring2{width:55%;height:55%;}
+    .ring3{width:30%;height:30%;}
+    .net-line{position:absolute;height:2px;background:#cbd5e1;transform-origin:left center;opacity:.7;}
+    .line-a{left:26%;top:30%;width:185px;transform:rotate(22deg);}
+    .line-b{left:30%;top:70%;width:190px;transform:rotate(-22deg);}
+    .line-c{left:52%;top:42%;width:200px;transform:rotate(-16deg);}
+    .line-d{left:54%;top:52%;width:200px;transform:rotate(24deg);}
+    .net-node{position:absolute;border-radius:16px;background:#fff;border:1px solid #e2e8f0;box-shadow:0 8px 20px rgba(15,23,42,.08);padding:10px;min-width:115px;cursor:pointer;transition:.15s ease;}
+    .net-node:hover{outline:3px solid rgba(37,99,235,.18);}
+    .net-node small{display:block;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;margin-bottom:4px;}
+    .net-node b{display:block;font-size:12.5px;font-weight:700;color:#0f172a;}
+    .net-node span{display:block;font-size:10.5px;color:#64748b;margin-top:3px;}
+    .node-hub{left:40%;top:32%;background:#fff7f7;border-color:#fecaca;}
+    .node-prop{left:10%;top:16%;background:#fffbeb;border-color:#fde68a;}
+    .node-bridge{left:17%;top:64%;background:#f5f3ff;border-color:#ddd6fe;}
+    .node-cluster1{right:8%;top:14%;background:#eff6ff;border-color:#bfdbfe;}
+    .node-cluster2{right:10%;bottom:12%;background:#f0fdf4;border-color:#bbf7d0;}
+    .net-panel{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+    .net-panel h3{font-size:20px;font-weight:800;letter-spacing:-.04em;margin:6px 0 4px;color:#0f172a;}
+    .net-impact-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0;}
+    .net-impact{background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;padding:10px;}
+    .net-impact small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;}
+    .net-impact b{font-size:17px;font-weight:800;color:#0f172a;letter-spacing:-.03em;}
+    .net-explain-block{border:1px solid #f1f5f9;background:#f8fafc;border-radius:11px;padding:11px;margin-bottom:8px;}
+    .net-explain-block b{display:block;font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:4px;}
+    .net-explain-block span{display:block;font-size:11.5px;color:#64748b;font-weight:500;line-height:1.4;}
+
+    /* COSTES */
+    .cost-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+    .cost-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px;}
+    .cost-card small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;}
+    .cost-card b{display:block;font-size:22px;font-weight:800;letter-spacing:-.04em;color:#0f172a;margin-bottom:6px;}
+    .cost-card p{font-size:12px;color:#64748b;font-weight:500;line-height:1.4;margin:0 0 8px;}
+    .cost-source{font-size:10.5px;color:#94a3b8;font-weight:600;margin-top:4px;}
+    .cost-reduce{display:inline-flex;border-radius:999px;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;font-size:10px;font-weight:700;color:#334155;margin-top:6px;}
+    .compare-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+    .compare-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:13px;}
+    .compare-card small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px;}
+    .compare-card b{display:block;font-size:22px;font-weight:800;letter-spacing:-.04em;color:#0f172a;margin-bottom:4px;}
+    .compare-card p{font-size:12px;color:#64748b;font-weight:500;line-height:1.4;margin:0;}
+    .reading-box{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:14px;margin-bottom:2px;}
+    .reading-box h3{font-size:14px;font-weight:700;color:#047857;margin:0 0 6px;}
+    .reading-box p{font-size:13px;font-weight:600;color:#065f46;line-height:1.5;margin:0;}
+
+    /* EVOLUCIÓN */
+    .evo-mini{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+    .evo-box{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:13px;}
+    .evo-box small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px;}
+    .evo-box b{display:block;font-size:21px;font-weight:800;letter-spacing:-.04em;color:#0f172a;margin-bottom:3px;}
+    .evo-box span{font-size:11.5px;color:#64748b;font-weight:500;}
+    .evo-layout{display:grid;grid-template-columns:1fr 280px;gap:14px;}
+    .chart-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;}
+    .chart-title{display:flex;justify-content:space-between;gap:12px;padding:14px 16px;border-bottom:1px solid #f1f5f9;}
+    .chart-title b{font-size:13px;font-weight:700;color:#0f172a;}
+    .chart-title span{font-size:11.5px;color:#94a3b8;font-weight:500;}
+    .chart-wrap{height:240px;position:relative;padding:12px;}
+    .chart-legend{display:flex;gap:14px;padding:10px 16px 14px;flex-wrap:wrap;}
+    .chart-legend span{font-size:11.5px;color:#526b89;font-weight:700;}
+    .chart-dot{display:inline-block;width:8px;height:8px;border-radius:999px;margin-right:4px;}
+    .evo-side{display:flex;flex-direction:column;gap:9px;}
+    .month-signal{border:1px solid #f1f5f9;border-radius:12px;padding:11px;background:#f8fafc;}
+    .month-signal b{display:block;font-size:13px;font-weight:700;color:#0f172a;margin-bottom:3px;}
+    .month-signal span{display:block;font-size:11.5px;color:#64748b;font-weight:500;line-height:1.4;}
+    .signal-red{border-color:#fecaca;background:#fff7f7;}
+    .signal-amber{border-color:#fde68a;background:#fffbeb;}
+    .signal-blue{border-color:#bfdbfe;background:#eff6ff;}
+    .signal-green{border-color:#bbf7d0;background:#f0fdf4;}
+    .evo-consult{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px;}
+    .evo-consult h3{font-size:18px;font-weight:800;letter-spacing:-.04em;color:#0f172a;margin:8px 0 8px;}
+    .evo-consult p{font-size:13px;font-weight:600;color:#334155;line-height:1.5;margin:0 0 14px;}
+    .flow-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+    .flow-item{background:#f8fafc;border:1px solid #f1f5f9;border-radius:11px;padding:11px;}
+    .flow-item.decision{background:#f0fdf4;border-color:#bbf7d0;}
+    .flow-item small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;}
+    .flow-item.decision small{color:#059669;}
+    .flow-item b{display:block;font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:3px;}
+    .flow-item span{display:block;font-size:11.5px;color:#64748b;font-weight:500;line-height:1.4;}
+
+    /* PREDICCIONES */
+    .forecast-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+    .forecast-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px;}
+    .forecast-card small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;}
+    .forecast-card b{display:block;font-size:15px;font-weight:700;color:#0f172a;margin-bottom:6px;}
+    .forecast-card p{font-size:12.5px;color:#64748b;font-weight:500;line-height:1.4;margin:0 0 10px;}
+
+    /* DRAWER */
+    .ci-drawer{position:fixed;right:0;top:0;height:100vh;width:0;max-width:520px;background:#fff;z-index:90;border-left:1px solid #e2e8f0;box-shadow:-20px 0 55px rgba(15,23,42,.14);overflow:hidden;transition:.28s ease;}
+    .ci-drawer.open{width:520px;}
+    .drawer-inner{width:520px;height:100%;display:flex;flex-direction:column;}
+    .drawer-top{height:64px;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;padding:0 18px;flex-shrink:0;}
+    .drawer-top h2{font-size:17px;font-weight:800;color:#0f172a;margin:0;}
+    .drawer-close{width:32px;height:32px;border:1px solid #e2e8f0;border-radius:9px;background:#fff;color:#64748b;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;}
+    .drawer-body{padding:18px;overflow-y:auto;background:#f8fafc;display:flex;flex-direction:column;gap:12px;flex:1;}
+    .drawer-panel{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px;}
+    .drawer-panel h3{font-size:15px;font-weight:700;color:#0f172a;margin:0 0 8px;}
+    .drawer-panel p{font-size:12.5px;color:#334155;font-weight:500;line-height:1.5;margin:0;}
+    .drawer-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+    .drawer-metric{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:11px;}
+    .drawer-metric small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;}
+    .drawer-metric b{display:block;font-size:19px;font-weight:800;letter-spacing:-.04em;color:#0f172a;}
+    .drawer-metric span{display:block;font-size:11px;color:#64748b;font-weight:500;margin-top:2px;}
+    .drawer-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+
+    /* AI DOCK */
+    .ci-ai-dock{position:fixed;right:24px;bottom:22px;width:380px;z-index:60;}
+    .ci-ai-dock.minimized .ai-content,.ci-ai-dock.minimized .ai-input-row{display:none;}
+    .ci-ai-dock.minimized .ai-box{border-radius:999px;}
+    .ci-ai-dock.minimized .ai-dock-top{border-bottom:0;height:48px;}
+    .ai-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;box-shadow:0 20px 55px rgba(15,23,42,.16);overflow:hidden;}
+    .ai-dock-top{height:50px;background:#0f172a;display:flex;align-items:center;justify-content:space-between;padding:0 14px;}
+    .ai-dock-name{display:flex;align-items:center;gap:9px;}
+    .ai-dock-icon{width:30px;height:30px;border-radius:999px;background:#eff6ff;border:1px solid #bfdbfe;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .ai-dock-name strong{display:block;font-size:12.5px;font-weight:700;color:#fff;}
+    .ai-dock-name span{display:block;font-size:10.5px;color:#93c5fd;font-weight:500;}
+    .ai-min-btn{height:26px;width:26px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);border-radius:8px;color:#e2e8f0;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;}
+    .ai-min-btn:hover{background:rgba(255,255,255,.15);}
+    .ai-content{padding:12px;background:#f8fafc;display:flex;flex-direction:column;gap:8px;}
+    .ai-bubble{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:10px 12px;color:#334155;font-size:12.5px;line-height:1.45;font-weight:500;}
+    .ai-prompts{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+    .ai-prompts button{min-height:30px;border:1px solid #e2e8f0;background:#fff;border-radius:8px;font-size:11px;font-weight:700;color:#334155;padding:5px 8px;cursor:pointer;transition:.15s;}
+    .ai-prompts button:hover{background:#f1f5f9;}
+    .ai-input-row{height:46px;background:#fff;border-top:1px solid #f1f5f9;padding:6px 8px;display:grid;grid-template-columns:1fr 32px;gap:6px;}
+    .ai-input{border:1px solid #e2e8f0;border-radius:8px;padding:0 10px;font-size:12px;font-family:inherit;color:#334155;}
+    .ai-send{border:0;border-radius:8px;background:#0f172a;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  </style>
+</head>
+<body data-page="centro-inteligencia" class="bg-surface-50 text-surface-900 antialiased">
+  <div id="sidebar-mount"></div>
+  <div style="margin-left:260px;min-height:100vh;background:#f8fafc;max-width:calc(100vw - 260px);overflow-x:hidden;">
+
+    <!-- TOP BAR -->
+    <div style="background:#fff;border-bottom:1px solid #e2e8f0;padding:13px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:30;">
+      <div>
+        <h1 style="font-size:15px;font-weight:700;color:#0f172a;margin:0;">Centro de Inteligencia</h1>
+        <p style="font-size:11px;color:#94a3b8;margin:2px 0 0;">Industrias Mediterr&#225;neo S.A. &middot; <span id="period-label">Rolling 12</span></p>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <select id="global-period" onchange="changePeriod(this.value)" style="height:34px;border:1px solid #e2e8f0;background:#fff;border-radius:8px;color:#334155;font-size:12px;font-weight:600;padding:0 10px;outline:none;cursor:pointer;">
+          <option value="3m">Mes</option>
+          <option value="6m">Trimestre</option>
+          <option value="12m" selected>Rolling 12</option>
+          <option value="all">Hist&#243;rico</option>
+        </select>
+        <button style="height:34px;padding:0 14px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;color:#334155;font-size:12px;font-weight:600;cursor:pointer;">Exportar informe</button>
+        <div style="width:34px;height:34px;border-radius:50%;background:#0f172a;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;">AD</div>
+      </div>
+    </div>
+
+    <section class="ci-content">
+
+      <!-- HEADER CARD — siempre visible -->
+      <div class="ci-header">
+        <div class="ci-header-top">
+          <div>
+            <div class="ci-title">Situaci&#243;n del absentismo</div>
+            <div class="ci-meta">
+              <span id="kpi-period-label">Rolling 12</span>
+              <span style="color:#e2e8f0;">&middot;</span>
+              <span>&#218;lt. carga: hoy 08:40</span>
+              <span style="color:#e2e8f0;">&middot;</span>
+              <span>474 empleados</span>
+            </div>
+          </div>
+          <div class="ci-pills">
+            <span class="ci-pill green">Datos actualizados</span>
+            <span class="ci-pill amber">Coste modelado</span>
+            <span class="ci-pill blue">Consultor IA activo</span>
+          </div>
+        </div>
+        <div class="ci-kpis">
+          <div class="ci-kpi hot">
+            <small>Tasa absentismo</small>
+            <b id="kpi-rate">12,9%</b>
+            <span>IT + AT + otras ausencias</span>
+          </div>
+          <div class="ci-kpi hot">
+            <small>Coste total modelado</small>
+            <b id="kpi-cost">3,4M&#8364;</b>
+            <span>Directo + cobertura + operativo</span>
+          </div>
+          <div class="ci-kpi">
+            <small>Incidencia</small>
+            <b id="kpi-incidence">59,5%</b>
+            <span>Personas con episodio</span>
+          </div>
+          <div class="ci-kpi">
+            <small>Procesos / 100 empleados</small>
+            <b id="kpi-proc">18,4</b>
+            <span>Frecuencia normalizada</span>
+          </div>
+          <div class="ci-kpi">
+            <small>D&#237;as perdidos</small>
+            <b id="kpi-days">15.011</b>
+            <span>Acumulado del periodo</span>
+          </div>
+          <div class="ci-kpi good">
+            <small>Bradford</small>
+            <b id="kpi-bradford">545</b>
+            <span>Frecuencia disruptiva</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BARRA DE PESTAÑAS -->
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="situacion" onclick="switchTab('situacion')">Situaci&#243;n actual</button>
+        <button class="tab-btn" data-tab="segmentacion" onclick="switchTab('segmentacion')">Segmentaci&#243;n</button>
+        <button class="tab-btn" data-tab="red" onclick="switchTab('red')">Red organizativa</button>
+        <button class="tab-btn" data-tab="costes" onclick="switchTab('costes')">Costes</button>
+        <button class="tab-btn" data-tab="evolucion" onclick="switchTab('evolucion')">Evoluci&#243;n</button>
+        <button class="tab-btn" data-tab="predicciones" onclick="switchTab('predicciones')">Predicciones</button>
+      </div>
+
+      <!-- ═══════════════════════════════ TAB: SITUACIÓN ACTUAL ═══════════════════════════════ -->
+      <div id="situacion" class="tab-panel active">
+
+        <div class="diag-hero-grid">
+          <!-- DIAGNÓSTICO PRINCIPAL -->
+          <div class="diag-card">
+            <div class="diag-kicker">Lectura experta &middot; Rolling 12</div>
+            <div class="diag-headline" id="diag-headline">La recurrencia mejora, pero el coste sigue concentrado en focos cr&#237;ticos.</div>
+            <div class="diag-subline" id="diag-subline">Bajan los episodios recurrentes, pero el coste permanece tensionado porque los procesos abiertos duran m&#225;s y se concentran en focos operativamente cr&#237;ticos.</div>
+            <div class="diag-chain">
+              <div class="chain-item">
+                <small>Focos</small>
+                <b>3 centros + Turno Noche</b>
+                <span>Concentran el 72% del impacto económico</span>
+              </div>
+              <div class="chain-item">
+                <small>Tipo</small>
+                <b>Duración + recurrencia</b>
+                <span>Procesos largos y Bradford alto</span>
+              </div>
+              <div class="chain-item">
+                <small>Palancas activas</small>
+                <b>Retorno seguro</b>
+                <span>Estabilización preventiva</span>
+              </div>
+              <div class="chain-item">
+                <small>Horizonte</small>
+                <b>30&#8211;60 d&#237;as</b>
+                <span>Ventana de mayor impacto</span>
+              </div>
+              <div class="chain-item">
+                <small>Ahorro esperado</small>
+                <b>190K&#8211;250K&#8364;</b>
+                <span>Con plans activos</span>
+              </div>
+            </div>
+            <div class="diag-evidence-grid">
+              <div class="evidence-box">
+                <small>Qu&#233; ha cambiado</small>
+                <b>Menos disrupci&#243;n corta</b>
+                <p>El Bradford baja de forma relevante y los procesos por 100 empleados se moderan desde el pico de marzo.</p>
+              </div>
+              <div class="evidence-box">
+                <small>Qu&#233; lo explica</small>
+                <b>El coste se desacopla de la tasa</b>
+                <p>Julio mantiene coste alto aunque la frecuencia ya no est&#225; en m&#225;ximos. La explicaci&#243;n est&#225; en duraci&#243;n y cobertura.</p>
+              </div>
+              <div class="evidence-box">
+                <small>Decisi&#243;n operativa</small>
+                <b>No relajar medidas todav&#237;a</b>
+                <p>La mejora es real, pero parcial. El siguiente paso es actuar sobre procesos largos y turnos con cobertura dif&#237;cil.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- SCORE DE PRIORIDAD -->
+          <div class="score-card">
+            <div class="score-top">
+              <div>
+                <div class="score-val" id="score-val">78</div>
+                <div class="score-label">/ 100 &middot; Prioridad de acci&#243;n</div>
+              </div>
+              <span class="i-tag amber">Urgencia media-alta</span>
+            </div>
+            <div class="score-criteria">
+              <div class="criterion">
+                <b>Coste acumulado</b>
+                <div class="critbar"><i style="width:88%"></i></div>
+                <span>88</span>
+              </div>
+              <div class="criterion">
+                <b>Recurrencia</b>
+                <div class="critbar"><i style="width:74%"></i></div>
+                <span>74</span>
+              </div>
+              <div class="criterion">
+                <b>Criticidad operativa</b>
+                <div class="critbar"><i style="width:82%"></i></div>
+                <span>82</span>
+              </div>
+              <div class="criterion">
+                <b>Red organizativa</b>
+                <div class="critbar"><i style="width:71%"></i></div>
+                <span>71</span>
+              </div>
+              <div class="criterion">
+                <b>Capacidad de acci&#243;n</b>
+                <div class="critbar"><i style="width:65%"></i></div>
+                <span>65</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PRIORIDADES -->
+        <div class="i-card">
+          <div class="i-card-head">
+            <div><h3>Acciones prioritarias</h3><p>Qu&#233; hace m&#225;s sentido activar ahora mismo</p></div>
+            <span class="i-tag">4 prioridades</span>
+          </div>
+          <div class="i-card-body">
+            <div class="priority-grid">
+              <div class="priority-card active" onclick="setPriority(this)">
+                <small>Prioridad 1 &middot; Inmediata</small>
+                <b>Estabilizaci&#243;n preventiva de turnos</b>
+                <p>Actuar sobre Turno Noche y cobertura para reducir recurrencia y fricci&#243;n operativa.</p>
+                <div class="priority-meta">
+                  <span class="tbl-pill green">Ahorro 165K&#8364;</span>
+                  <span class="tbl-pill amber">Prioridad alta</span>
+                </div>
+              </div>
+              <div class="priority-card" onclick="setPriority(this)">
+                <small>Prioridad 2 &middot; Activo</small>
+                <b>Retorno seguro tras ausencia</b>
+                <p>Reducir duraci&#243;n en centros de mayor coste y procesos largos en seguimiento.</p>
+                <div class="priority-meta">
+                  <span class="tbl-pill green">ROI 8,0x</span>
+                  <span class="tbl-pill blue">En plazo</span>
+                </div>
+              </div>
+              <div class="priority-card" onclick="setPriority(this)">
+                <small>Prioridad 3 &middot; Pr&#243;ximo</small>
+                <b>Cobertura en ventana cr&#237;tica</b>
+                <p>Refuerzo en picos productivos con mayor impacto operativo durante cierre.</p>
+                <div class="priority-meta">
+                  <span class="tbl-pill green">Ahorro 82K&#8364;</span>
+                  <span class="tbl-pill blue">Producci&#243;n</span>
+                </div>
+              </div>
+              <div class="priority-card" onclick="setPriority(this)">
+                <small>Prioridad 4 &middot; Medio plazo</small>
+                <b>Diagn&#243;stico de duraci&#243;n prolongada</b>
+                <p>Revisar casos de IT larga en Made Este y Bonus Pontevedra antes de plan masivo.</p>
+                <div class="priority-meta">
+                  <span class="tbl-pill amber">Riesgo medio</span>
+                  <span class="tbl-pill blue">60 d&#237;as</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-note">
+          <svg width="14" height="14" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <p><strong>El consultor IA est&#225; activo abajo a la derecha.</strong> Puedes preguntarle sobre cualquier dato, foco o acci&#243;n. Tambi&#233;n puedes navegar a Segmentaci&#243;n para ver el detalle por centro, turno o causa.</p>
+        </div>
+
+      </div><!-- /tab situacion -->
+
+      <!-- ═══════════════════════════════ TAB: SEGMENTACIÓN ═══════════════════════════════ -->
+      <div id="segmentacion" class="tab-panel">
+
+        <div class="i-card">
+          <div class="i-card-head" style="flex-wrap:wrap;gap:10px;">
+            <div><h3>Segmentaci&#243;n</h3><p id="seg-hint">Vista: Centro &middot; click en una fila para abrir detalle</p></div>
+            <div class="seg-chips" id="seg-chips">
+              <button class="seg-chip active" data-dim="centro" onclick="switchDim(this,'centro')">Centro</button>
+              <button class="seg-chip" data-dim="linea" onclick="switchDim(this,'linea')">Departamento / l&#237;nea</button>
+              <button class="seg-chip" data-dim="equipo" onclick="switchDim(this,'equipo')">Equipo</button>
+              <button class="seg-chip" data-dim="turno" onclick="switchDim(this,'turno')">Turno</button>
+              <button class="seg-chip" data-dim="edad" onclick="switchDim(this,'edad')">Edad</button>
+              <button class="seg-chip" data-dim="genero" onclick="switchDim(this,'genero')">G&#233;nero</button>
+              <button class="seg-chip" data-dim="antiguedad" onclick="switchDim(this,'antiguedad')">Antig&#252;edad</button>
+              <button class="seg-chip" data-dim="causa" onclick="switchDim(this,'causa')">Causa</button>
+            </div>
+          </div>
+          <div class="i-card-body" style="padding:14px 18px;">
+            <div class="seg-summary">
+              <div class="seg-box"><small>Focos analizados</small><b id="seg-count">6</b><span id="seg-count-text">centros priorizados</span></div>
+              <div class="seg-box"><small>Mayor impacto</small><b id="seg-top">Perd&#243;n</b><span id="seg-top-text">25.316&#8364;/mes</span></div>
+              <div class="seg-box"><small>Patr&#243;n principal</small><b id="seg-pattern">Duraci&#243;n + recurrencia</b><span id="seg-pattern-text">coste y frecuencia</span></div>
+              <div class="seg-box"><small>Acci&#243;n sugerida</small><b id="seg-action">Revisar 3 focos</b><span id="seg-action-text">abrir ficha y validar</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Foco</th><th>Tipo</th><th>Tasa</th><th>Coste/mes</th><th>Coste/empl</th>
+                <th>Plantilla</th><th>Incidencia</th><th>Bradford</th><th>Reincidencia</th>
+                <th>Dur. media</th><th>Lectura</th>
+              </tr>
+            </thead>
+            <tbody id="seg-rows"></tbody>
+          </table>
+        </div>
+
+        <div class="deep-grid">
+          <div class="deep-card">
+            <h3 id="seg-how-title">C&#243;mo usar esta vista</h3>
+            <p id="seg-how-text">No es un ranking simple. La misma tasa puede significar cosas distintas si cambia coste, criticidad, recurrencia o capacidad de sustituci&#243;n.</p>
+          </div>
+          <div class="deep-card">
+            <h3 id="seg-avoid-title">Qu&#233; decisi&#243;n evita</h3>
+            <p id="seg-avoid-text">Evita activar planes gen&#233;ricos por centro cuando el problema real est&#225; en una l&#237;nea, equipo, turno o causa concreta.</p>
+          </div>
+        </div>
+
+      </div><!-- /tab segmentacion -->
+
+      <!-- ═══════════════════════════════ TAB: RED ORGANIZATIVA ═══════════════════════════════ -->
+      <div id="red" class="tab-panel">
+
+        <div class="i-card">
+          <div class="i-card-head">
+            <div><h3>La red responde lo que una tabla no puede</h3><p>Una tabla dice d&#243;nde hay m&#225;s absentismo. La red muestra si ese foco es origen, consecuencia, concentrador o propagador.</p></div>
+          </div>
+          <div class="i-card-body" style="padding:14px 18px;">
+            <div class="net-legend">
+              <div class="legend-concept">
+                <b>Hub</b>
+                <span>Concentra mucho impacto. Es el lugar donde el problema se ve grande.</span>
+              </div>
+              <div class="legend-concept">
+                <b>Propagador</b>
+                <span>Anticipa o amplifica tensi&#243;n en otros nodos. Puede ser m&#225;s accionable.</span>
+              </div>
+              <div class="legend-concept">
+                <b>Puente</b>
+                <span>Conecta &#225;reas. Si se rompe, traslada disrupci&#243;n entre grupos.</span>
+              </div>
+              <div class="legend-concept">
+                <b>Cl&#250;ster</b>
+                <span>Grupo de focos que se comportan de forma parecida y pueden requerir acci&#243;n com&#250;n.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="net-canvas">
+          <!-- MAPA -->
+          <div class="net-map">
+            <div class="net-ring ring1"></div>
+            <div class="net-ring ring2"></div>
+            <div class="net-ring ring3"></div>
+            <div class="net-line line-a"></div>
+            <div class="net-line line-b"></div>
+            <div class="net-line line-c"></div>
+            <div class="net-line line-d"></div>
+            <div class="net-node node-hub" onclick="selectNode('planta')">
+              <small>Hub</small><b>Planta Norte</b><span>680K&#8364; &middot; 5 conexiones</span>
+            </div>
+            <div class="net-node node-prop" onclick="selectNode('noche')">
+              <small>Propagador</small><b>Turno Noche</b><span>80% reincidencia</span>
+            </div>
+            <div class="net-node node-bridge" onclick="selectNode('garcia')">
+              <small>Puente</small><b>J.Garc&#237;a</b><span>94% relaci&#243;n</span>
+            </div>
+            <div class="net-node node-cluster1" onclick="selectNode('valencia')">
+              <small>Cl&#250;ster</small><b>Valencia</b><span>9 nodos</span>
+            </div>
+            <div class="net-node node-cluster2" onclick="selectNode('pontevedra')">
+              <small>Cl&#250;ster</small><b>Pontevedra</b><span>3 nodos</span>
+            </div>
+          </div>
+          <!-- PANEL DETALLE NODO -->
+          <div class="net-panel">
+            <span class="i-tag red" id="node-type">Hub concentrador</span>
+            <h3 id="node-title">Planta Norte</h3>
+            <p style="font-size:12px;color:#64748b;font-weight:500;margin:0 0 12px;" id="node-subtitle">Centro que concentra impacto econ&#243;mico, relaciones y patrones activos.</p>
+            <div class="net-impact-grid">
+              <div class="net-impact"><small>Riesgo</small><b id="node-risk">89%</b></div>
+              <div class="net-impact"><small>Exposici&#243;n</small><b id="node-exposure">680K&#8364;</b></div>
+              <div class="net-impact"><small>Centralidad</small><b id="node-centrality">92%</b></div>
+              <div class="net-impact"><small>Nodos afectados</small><b id="node-affected">5</b></div>
+            </div>
+            <div class="net-explain-block">
+              <b>Qu&#233; significa</b>
+              <span id="node-meaning">Planta Norte no solo tiene coste alto: concentra relaciones con otros focos. Si empeora, el impacto se amplifica en equipos conectados.</span>
+            </div>
+            <div class="net-explain-block">
+              <b>C&#243;mo actuar</b>
+              <span id="node-action">No empezar&#237;a con un plan gen&#233;rico de centro. Primero revisar&#237;a los propagadores conectados &#8212;Turno Noche y J.Garc&#237;a&#8212; para atacar el patr&#243;n con m&#225;s precisi&#243;n.</span>
+            </div>
+            <div class="net-explain-block" style="margin-bottom:0;">
+              <b>Lectura sencilla</b>
+              <span id="node-simple">Este nodo es donde el absentismo se ve grande. Antes de actuar, conviene comprobar si el origen est&#225; en un turno o equipo conectado.</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /tab red -->
+
+      <!-- ═══════════════════════════════ TAB: COSTES ═══════════════════════════════ -->
+      <div id="costes" class="tab-panel">
+
+        <div class="reading-box">
+          <h3>Lectura econ&#243;mica</h3>
+          <p>La capa m&#225;s accionable no es el coste directo laboral, sino la cobertura: sustituciones, turnos, horas extra y reorganizaci&#243;n. Ah&#237; se concentra casi la mitad del impacto modelado.</p>
+        </div>
+
+        <div class="cost-grid">
+          <div class="cost-card">
+            <small>Coste directo laboral</small>
+            <b>1.278.739&#8364;</b>
+            <p>37,2% del total. N&#243;mina, cotizaci&#243;n y complementos.</p>
+            <div class="cost-source">Calculado &middot; n&#243;mina real</div>
+            <div class="cost-reduce">Reducible: medio</div>
+          </div>
+          <div class="cost-card">
+            <small>Coste de cobertura</small>
+            <b>1.653.587&#8364;</b>
+            <p>48,1% del total. Sustituci&#243;n, turnos, horas extra y refuerzos.</p>
+            <div class="cost-source">Modelado + datos operativos</div>
+            <div class="cost-reduce" style="background:#f0fdf4;border-color:#bbf7d0;color:#059669;">Reducible: alto</div>
+          </div>
+          <div class="cost-card">
+            <small>Coste operativo</small>
+            <b>285.953&#8364;</b>
+            <p>8,3% del total. Impacto en producci&#243;n, servicio y capacidad.</p>
+            <div class="cost-source">Estimado</div>
+            <div class="cost-reduce" style="background:#f0fdf4;border-color:#bbf7d0;color:#059669;">Reducible: alto</div>
+          </div>
+          <div class="cost-card">
+            <small>Fricci&#243;n organizativa</small>
+            <b>218.730&#8364;</b>
+            <p>6,4% del total. Gesti&#243;n, coordinaci&#243;n y reorganizaci&#243;n interna.</p>
+            <div class="cost-source">Modelado</div>
+            <div class="cost-reduce">Reducible: medio</div>
+          </div>
+        </div>
+
+        <div class="compare-cards">
+          <div class="compare-card">
+            <small>Reducible a corto plazo</small>
+            <b>31%</b>
+            <p>Cobertura, reorganizaci&#243;n y refuerzos en turnos cr&#237;ticos.</p>
+          </div>
+          <div class="compare-card">
+            <small>Reducible a medio plazo</small>
+            <b>44%</b>
+            <p>Duraci&#243;n media, reincidencia y retorno seguro tras bajas largas.</p>
+          </div>
+          <div class="compare-card">
+            <small>No abordable solo con RRHH</small>
+            <b>25%</b>
+            <p>Requiere operaci&#243;n, producci&#243;n, turnos y mandos intermedios.</p>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Capa</th><th>Importe</th><th>% total</th><th>Driver</th><th>Dato necesario</th><th>Palanca</th><th>Plan conectado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><b>Directo laboral</b></td><td>1.278.739&#8364;</td><td>37,2%</td><td>D&#237;as perdidos y duraci&#243;n</td><td>N&#243;mina + convenio</td><td>Reducir duraci&#243;n en centros caros</td><td>Retorno seguro</td></tr>
+              <tr><td><b>Cobertura</b></td><td>1.653.587&#8364;</td><td>48,1%</td><td>Turnos y sustituciones</td><td>Turnos + refuerzos</td><td>Estabilizaci&#243;n preventiva</td><td>Plan turnos cr&#237;ticos</td></tr>
+              <tr><td><b>Operativo</b></td><td>285.953&#8364;</td><td>8,3%</td><td>Capacidad operativa</td><td>Producci&#243;n / servicio</td><td>Priorizar ventanas cr&#237;ticas</td><td>Plan cobertura campa&#241;a</td></tr>
+              <tr><td><b>Fricci&#243;n</b></td><td>218.730&#8364;</td><td>6,4%</td><td>Reorganizaci&#243;n interna</td><td>Reglas modeladas</td><td>Automatizar seguimiento</td><td>Plan gesti&#243;n reincorporaci&#243;n</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div><!-- /tab costes -->
+
+      <!-- ═══════════════════════════════ TAB: EVOLUCIÓN ═══════════════════════════════ -->
+      <div id="evolucion" class="tab-panel">
+
+        <div class="evo-mini">
+          <div class="evo-box"><small>Tasa actual</small><b id="evo-rate">12,9%</b><span>-1,8 p.p. desde el pico anual</span></div>
+          <div class="evo-box"><small>Incidencia</small><b id="evo-inc">59,5%</b><span>Personas con episodio en el periodo</span></div>
+          <div class="evo-box"><small>Procesos / 100 empleados</small><b id="evo-proc">18,4</b><span>Frecuencia normalizada</span></div>
+          <div class="evo-box"><small>Duraci&#243;n media</small><b>26,8 d</b><span>Principal driver de coste</span></div>
+        </div>
+
+        <div class="evo-layout">
+          <!-- GRÁFICO -->
+          <div>
+            <div class="chart-card">
+              <div class="chart-title">
+                <b>Evoluci&#243;n combinada &middot; tasa, coste e incidencia normalizada</b>
+                <span>Pasa por encima de cualquier punto para ver la cifra</span>
+              </div>
+              <div class="chart-wrap">
+                <svg viewBox="0 0 700 210" width="100%" height="100%" style="display:block;">
+                  <!-- grid lines -->
+                  <line x1="50" y1="20" x2="50" y2="185" stroke="#94a3b8" stroke-width="1.2"/>
+                  <line x1="50" y1="185" x2="690" y2="185" stroke="#94a3b8" stroke-width="1.2"/>
+                  <!-- h-gridlines -->
+                  <line x1="50" y1="185" x2="690" y2="185" stroke="#f1f5f9" stroke-width="1"/>
+                  <line x1="50" y1="150" x2="690" y2="150" stroke="#f1f5f9" stroke-width="1"/>
+                  <line x1="50" y1="115" x2="690" y2="115" stroke="#f1f5f9" stroke-width="1"/>
+                  <line x1="50" y1="80" x2="690" y2="80" stroke="#f1f5f9" stroke-width="1"/>
+                  <line x1="50" y1="45" x2="690" y2="45" stroke="#f1f5f9" stroke-width="1"/>
+                  <!-- y axis labels -->
+                  <text x="44" y="189" text-anchor="end" font-size="9" fill="#94a3b8">0</text>
+                  <text x="44" y="154" text-anchor="end" font-size="9" fill="#94a3b8">5</text>
+                  <text x="44" y="119" text-anchor="end" font-size="9" fill="#94a3b8">10</text>
+                  <text x="44" y="84" text-anchor="end" font-size="9" fill="#94a3b8">15</text>
+                  <text x="44" y="49" text-anchor="end" font-size="9" fill="#94a3b8">20</text>
+                  <!-- x axis labels -->
+                  <text x="54" y="198" font-size="9" fill="#94a3b8">Ene</text>
+                  <text x="106" y="198" font-size="9" fill="#94a3b8">Feb</text>
+                  <text x="158" y="198" font-size="9" fill="#94a3b8">Mar</text>
+                  <text x="210" y="198" font-size="9" fill="#94a3b8">Abr</text>
+                  <text x="262" y="198" font-size="9" fill="#94a3b8">May</text>
+                  <text x="314" y="198" font-size="9" fill="#94a3b8">Jun</text>
+                  <text x="366" y="198" font-size="9" fill="#94a3b8">Jul</text>
+                  <text x="418" y="198" font-size="9" fill="#94a3b8">Ago</text>
+                  <text x="470" y="198" font-size="9" fill="#94a3b8">Sep</text>
+                  <text x="522" y="198" font-size="9" fill="#94a3b8">Oct</text>
+                  <text x="574" y="198" font-size="9" fill="#94a3b8">Nov</text>
+                  <text x="626" y="198" font-size="9" fill="#94a3b8">Dic</text>
+                  <!-- Tasa line (blue) -->
+                  <polyline fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round" points="58,101 110,97 162,82 214,90 266,93 318,94 370,89 422,92 474,94 526,98 578,101 630,95"/>
+                  <!-- Coste line (red) -->
+                  <polyline fill="none" stroke="#dc2626" stroke-width="2.5" stroke-linejoin="round" points="58,78 110,70 162,59 214,63 266,55 318,47 370,32 422,42 474,52 526,55 578,63 630,47"/>
+                  <!-- Procesos line (green) -->
+                  <polyline fill="none" stroke="#059669" stroke-width="2.5" stroke-linejoin="round" points="58,69 110,64 162,34 214,50 266,57 318,62 370,59 422,63 474,66 526,70 578,75 630,59"/>
+                  <!-- dots -->
+                  <circle cx="58" cy="101" r="4" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+                  <circle cx="630" cy="95" r="4" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+                  <circle cx="370" cy="32" r="5" fill="#fff" stroke="#dc2626" stroke-width="2"/>
+                  <circle cx="162" cy="34" r="5" fill="#fff" stroke="#059669" stroke-width="2"/>
+                  <!-- peak labels -->
+                  <text x="370" y="26" text-anchor="middle" font-size="9.5" fill="#dc2626" font-weight="700">3,7M&#8364;</text>
+                  <text x="162" y="28" text-anchor="middle" font-size="9.5" fill="#059669" font-weight="700">21,9/100</text>
+                  <text x="636" y="91" font-size="9.5" fill="#2563eb" font-weight="700">12,9%</text>
+                </svg>
+              </div>
+              <div class="chart-legend">
+                <span><i class="chart-dot" style="background:#2563eb"></i>Tasa de absentismo</span>
+                <span><i class="chart-dot" style="background:#dc2626"></i>Coste mensual modelado</span>
+                <span><i class="chart-dot" style="background:#059669"></i>Procesos / 100 empleados</span>
+              </div>
+            </div>
+
+            <div class="table-wrap" style="margin-top:14px;">
+              <table>
+                <thead><tr><th>Mes</th><th>Tasa</th><th>Coste modelado</th><th>Procesos / 100</th><th>Lectura</th><th>Decisi&#243;n</th></tr></thead>
+                <tbody>
+                  <tr><td><b>Marzo</b></td><td>14,8%</td><td>3,1M&#8364;</td><td>21,9</td><td><span class="tbl-pill red">Pico de frecuencia</span></td><td>Analizar recurrencia corta y Bradford</td></tr>
+                  <tr><td><b>Julio</b></td><td>13,8%</td><td>3,7M&#8364;</td><td>18,4</td><td><span class="tbl-pill amber">Coste desacoplado</span></td><td>Revisar duraci&#243;n y cobertura</td></tr>
+                  <tr><td><b>Septiembre</b></td><td>13,1%</td><td>3,3M&#8364;</td><td>17,6</td><td><span class="tbl-pill blue">Estabilizaci&#243;n</span></td><td>Confirmar si baja coste por foco</td></tr>
+                  <tr><td><b>Diciembre</b></td><td>12,9%</td><td>3,4M&#8364;</td><td>18,4</td><td><span class="tbl-pill green">Mejora parcial</span></td><td>Consolidar medidas en turnos cr&#237;ticos</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ANÁLISIS LATERAL -->
+          <div class="evo-side">
+            <div class="evo-consult">
+              <span class="i-tag green">Lectura experta del periodo</span>
+              <h3>La evoluci&#243;n mejora en frecuencia, pero todav&#237;a no en impacto econ&#243;mico.</h3>
+              <p>Bajan los episodios recurrentes, pero el coste permanece tensionado porque los procesos abiertos duran m&#225;s.</p>
+              <div class="flow-grid">
+                <div class="flow-item">
+                  <small>1 &middot; Qu&#233; cambi&#243;</small>
+                  <b>Menos disrupci&#243;n corta</b>
+                  <span>Bradford baja y procesos/100 se moderan desde marzo.</span>
+                </div>
+                <div class="flow-item">
+                  <small>2 &middot; Qu&#233; lo explica</small>
+                  <b>Coste desacoplado</b>
+                  <span>Julio mantiene coste alto aunque frecuencia ya no est&#225; en m&#225;ximos.</span>
+                </div>
+                <div class="flow-item">
+                  <small>3 &middot; Qu&#233; mirar</small>
+                  <b>Duraci&#243;n y focos</b>
+                  <span>Si la tasa baja pero el coste no, hay que dejar de mirar solo volumen.</span>
+                </div>
+                <div class="flow-item decision">
+                  <small>4 &middot; Decisi&#243;n</small>
+                  <b>No relajar medidas</b>
+                  <span>La mejora es real, pero parcial.</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;">Meses clave</div>
+              <div class="month-signal signal-red"><b>Marzo</b><span>Pico de procesos / 100 empleados. El problema fue frecuencia y repetici&#243;n.</span></div>
+              <div class="month-signal signal-amber"><b>Julio</b><span>M&#225;ximo coste modelado. El problema se desplaza a duraci&#243;n y cobertura.</span></div>
+              <div class="month-signal signal-blue"><b>Septiembre</b><span>Estabilizaci&#243;n. La tasa baja, pero todav&#237;a no se captura todo el ahorro.</span></div>
+              <div class="month-signal signal-green"><b>Nov&#8211;Dic</b><span>Mejora visible. Buen momento para consolidar medidas, no para retirarlas.</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /tab evolucion -->
+
+      <!-- ═══════════════════════════════ TAB: PREDICCIONES ═══════════════════════════════ -->
+      <div id="predicciones" class="tab-panel">
+
+        <div class="forecast-grid">
+          <div class="forecast-card">
+            <small>Riesgo 30 d&#237;as</small>
+            <b>Turno Noche &middot; recurrencia corta</b>
+            <p>Probabilidad alta de nuevo pico de bajas cortas si no se estabiliza cobertura este mes.</p>
+            <span class="tbl-pill red">Alto &middot; 72%</span>
+          </div>
+          <div class="forecast-card">
+            <small>Riesgo 60 d&#237;as</small>
+            <b>Made Este &middot; duraci&#243;n media</b>
+            <p>Procesos largos con coste elevado y baja sustituibilidad en equipo cr&#237;tico.</p>
+            <span class="tbl-pill amber">Medio-alto &middot; 64%</span>
+          </div>
+          <div class="forecast-card">
+            <small>Riesgo campa&#241;a</small>
+            <b>Cierre de producci&#243;n</b>
+            <p>El impacto econ&#243;mico esperado aumenta por criticidad de ventana productiva comprometida.</p>
+            <span class="tbl-pill purple">Cr&#237;tico &middot; 58%</span>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Predicci&#243;n</th><th>Probabilidad</th><th>Impacto estimado</th><th>Foco</th><th>Evidencia</th><th>Plan sugerido</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><b>Pico de recurrencia corta</b></td><td>72%</td><td>48K&#8364;</td><td>Turno Noche</td><td>Bradford + reincidencia</td><td>Estabilizaci&#243;n turnos</td></tr>
+              <tr><td><b>Duraci&#243;n superior a objetivo</b></td><td>64%</td><td>91K&#8364;</td><td>Made Este</td><td>IT larga + coste/empleado</td><td>Retorno seguro</td></tr>
+              <tr><td><b>Tensi&#243;n en l&#237;nea cr&#237;tica</b></td><td>58%</td><td>36K&#8364;</td><td>L&#237;nea 3</td><td>Criticidad + cobertura</td><td>Cobertura preventiva</td></tr>
+              <tr><td><b>Reincorporaciones en riesgo</b></td><td>51%</td><td>22K&#8364;</td><td>Bonus Pontevedra</td><td>Alta tasa + duraci&#243;n</td><td>Retorno seguro</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="deep-grid">
+          <div class="deep-card">
+            <h3>C&#243;mo se calculan</h3>
+            <p>Cada predicci&#243;n combina el diagn&#243;stico actual (tasa, coste, Bradford, recurrencia) con la criticidad operativa del negocio y el rol del foco en la red organizativa.</p>
+          </div>
+          <div class="deep-card">
+            <h3>C&#243;mo usarlas</h3>
+            <p>Las predicciones no son certezas. Son la se&#241;al m&#225;s temprana disponible para decidir cu&#225;ndo actuar antes de que el problema se consolide y cueste m&#225;s.</p>
+          </div>
+        </div>
+
+      </div><!-- /tab predicciones -->
+
+    </section>
+  </div><!-- /main -->
+
+  <!-- DRAWER DETALLE SEGMENTO -->
+  <div id="seg-drawer" class="ci-drawer">
+    <div class="drawer-inner">
+      <div class="drawer-top">
+        <div>
+          <span class="i-tag" id="drawer-type">Centro</span>
+          <h2 style="margin-top:6px;" id="drawer-title">Bonus Pontevedra</h2>
+        </div>
+        <button class="drawer-close" onclick="closeDrawer()">&#215;</button>
+      </div>
+      <div class="drawer-body">
+        <div class="drawer-panel">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;">
+            <h3>Lectura del foco</h3>
+            <div class="drawer-pills" id="drawer-pills"></div>
+          </div>
+          <p id="drawer-intro">Centro con alta tasa, recurrencia elevada y coste por empleado relevante.</p>
+        </div>
+        <div class="drawer-metrics">
+          <div class="drawer-metric"><small>Tasa</small><b id="drawer-rate">21,0%</b><span id="drawer-rate-text">Superior a media</span></div>
+          <div class="drawer-metric"><small>Coste/empleado</small><b id="drawer-cost-emp">12.156&#8364;</b><span>Impacto unitario</span></div>
+          <div class="drawer-metric"><small>Duraci&#243;n media</small><b id="drawer-dur">42,4 d</b><span id="drawer-dur-text">Driver principal</span></div>
+          <div class="drawer-metric"><small>Bradford</small><b id="drawer-bradford">205</b><span id="drawer-bradford-text">Recurrencia moderada</span></div>
+        </div>
+        <div class="drawer-panel">
+          <h3>Desglose de costes</h3>
+          <div class="table-wrap"><table><thead><tr><th>Capa</th><th>Importe</th><th>Driver</th><th>Palanca</th></tr></thead><tbody id="drawer-cost-rows"></tbody></table></div>
+        </div>
+        <div class="drawer-panel">
+          <h3>Qu&#233; explica este foco</h3>
+          <div class="drawer-metrics">
+            <div class="drawer-metric"><small>Causa dominante</small><b id="drawer-cause">IT</b></div>
+            <div class="drawer-metric"><small>Turno / momento</small><b id="drawer-shift">Noche</b></div>
+            <div class="drawer-metric"><small>Rol en red</small><b id="drawer-network">Nodo local</b></div>
+            <div class="drawer-metric"><small>Riesgo pr&#243;ximo</small><b id="drawer-risk">Medio</b></div>
+          </div>
+        </div>
+        <div class="drawer-panel">
+          <h3>Conexi&#243;n con acci&#243;n</h3>
+          <p id="drawer-action">Plan recomendado: revisi&#243;n de cobertura y retorno seguro.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI CONSULTOR DOCK -->
+  <div class="ci-ai-dock" id="ai-dock">
+    <div class="ai-box">
+      <div class="ai-dock-top">
+        <div class="ai-dock-name">
+          <div class="ai-dock-icon">
+            <svg width="13" height="13" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <div>
+            <strong>Consultor IA</strong>
+            <span>Apoyo sobre datos visibles</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:7px;align-items:center;">
+          <span class="i-tag">Activo</span>
+          <button class="ai-min-btn" onclick="toggleAI()">
+            <svg width="10" height="10" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="ai-content">
+        <div class="ai-bubble" id="ai-bubble">Selecciona cualquier dato, foco o fila y te explico qu&#233; significa, qu&#233; evidencia lo soporta y qu&#233; acci&#243;n tiene m&#225;s sentido.</div>
+        <div class="ai-prompts">
+          <button onclick="switchTab('costes');updateAI('costes')">Explicar costes</button>
+          <button onclick="switchTab('segmentacion');updateAI('segmentacion')">D&#243;nde duele</button>
+          <button onclick="switchTab('red');updateAI('red')">Ver red</button>
+          <button onclick="switchTab('predicciones');updateAI('predicciones')">Ver predicciones</button>
+        </div>
+      </div>
+      <div class="ai-input-row">
+        <input class="ai-input" placeholder="Pregunta sobre el dato abierto&#8230;"/>
+        <button class="ai-send">
+          <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/components/sidebar.js"></script>
+  <script>
+    if (typeof SidebarComponent !== "undefined") SidebarComponent.render();
+
+    /* ─── TAB SWITCHING ─── */
+    var AI_MESSAGES = {
+      situacion: "Estoy en Situación actual. La tasa mejora desde octubre, pero el coste sigue tensionado por duración y focos críticos.",
+      segmentacion: "Estoy en Segmentación. Esta es la foto actual de cómo está cada foco. Puedes abrir cualquier fila para ver detalle completo.",
+      red: "Estoy en Red organizativa. La red muestra si el foco es origen, consecuencia, hub, propagador, puente o clúster.",
+      costes: "Estoy en Costes. La mayor capa accionable es cobertura: 1,65M€, 48,1% del total. Recomiendo revisar turnos y sustituciones.",
+      evolucion: "Estoy en Evolución. La tasa mejora desde octubre, pero el coste no baja al mismo ritmo porque la duración sigue alta.",
+      predicciones: "Estoy en Predicciones. Los riesgos próximos conectan diagnóstico, criticidad y red organizativa."
+    };
+
+    function switchTab(tabId) {
+      document.querySelectorAll(".tab-btn").forEach(function(b){ b.classList.remove("active"); });
+      document.querySelectorAll(".tab-panel").forEach(function(p){ p.classList.remove("active"); });
+      var btn = document.querySelector(".tab-btn[data-tab='" + tabId + "']");
+      var panel = document.getElementById(tabId);
+      if (btn) btn.classList.add("active");
+      if (panel) panel.classList.add("active");
+      updateAI(tabId);
+    }
+
+    function updateAI(tabId) {
+      var bubble = document.getElementById("ai-bubble");
+      if (bubble && AI_MESSAGES[tabId]) bubble.textContent = AI_MESSAGES[tabId];
+    }
+
+    function toggleAI() {
+      document.getElementById("ai-dock").classList.toggle("minimized");
+    }
+
+    /* ─── PRIORITY CARDS ─── */
+    function setPriority(el) {
+      document.querySelectorAll(".priority-card").forEach(function(c){ c.classList.remove("active"); });
+      el.classList.add("active");
+    }
+
+    /* ─── PERIOD SWITCHING ─── */
+    var PERIODS = {
+      "3m":  { rate:"10,8%", cost:"840K€", inc:"41,2%", proc:"15,2", days:"3.210", bradford:"298", label:"Últimos 3 meses" },
+      "6m":  { rate:"11,7%", cost:"1,8M€", inc:"50,4%", proc:"16,8", days:"7.980", bradford:"421", label:"Últimos 6 meses" },
+      "12m": { rate:"12,9%", cost:"3,4M€", inc:"59,5%", proc:"18,4", days:"15.011", bradford:"545", label:"Rolling 12" },
+      "all": { rate:"13,4%", cost:"8,9M€", inc:"63,8%", proc:"19,1", days:"42.870", bradford:"612", label:"Histórico completo" }
+    };
+
+    function changePeriod(val) {
+      var p = PERIODS[val] || PERIODS["12m"];
+      document.getElementById("period-label").textContent = p.label;
+      document.getElementById("kpi-period-label").textContent = p.label;
+      document.getElementById("kpi-rate").textContent = p.rate;
+      document.getElementById("kpi-cost").textContent = p.cost;
+      document.getElementById("kpi-incidence").textContent = p.inc;
+      document.getElementById("kpi-proc").textContent = p.proc;
+      document.getElementById("kpi-days").textContent = p.days;
+      document.getElementById("kpi-bradford").textContent = p.bradford;
+      document.getElementById("evo-rate").textContent = p.rate;
+      document.getElementById("evo-inc").textContent = p.inc;
+      document.getElementById("evo-proc").textContent = p.proc;
+      var bubble = document.getElementById("ai-bubble");
+      if (bubble) bubble.textContent = "Periodo actualizado: " + p.label + ". Diagnóstico, KPIs, focos y predicciones se recalculan para este rango.";
+    }
+
+    /* ─── SEGMENTATION DATA ─── */
+    var segData = {
+      centro: { label:"Centro", count:"6", countText:"centros priorizados", top:"Perdón", topText:"25.316€/mes", pattern:"Duración + recurrencia", patternText:"coste y frecuencia", action:"Revisar 3 focos", actionText:"abrir ficha y validar", how:"No es un ranking simple. La misma tasa puede significar cosas distintas si cambia coste, criticidad, recurrencia o capacidad de sustitución.", avoid:"Evita activar planes genéricos por centro cuando el problema real está en una línea, equipo, turno o causa concreta.",
+        rows:[
+          {name:"Bonus Pontevedra",type:"Centro",rate:"21,0%",cost:"23.298€",emp:"12.156€",size:"23",inc:"73,9%",brad:"205",rec:"80%",dur:"42,4 d",pill:"red",read:"Duración + recurrencia"},
+          {name:"Perdón",type:"Centro",rate:"29,6%",cost:"25.316€",emp:"20.253€",size:"15",inc:"100,0%",brad:"912",rec:"66,7%",dur:"38,1 d",pill:"red",read:"Coste crítico"},
+          {name:"Made Este",type:"Centro",rate:"36,4%",cost:"12.493€",emp:"18.740€",size:"8",inc:"50,0%",brad:"1128",rec:"50,0%",dur:"51,7 d",pill:"purple",read:"Hub en red"},
+          {name:"Torviscal",type:"Centro",rate:"21,3%",cost:"14.284€",emp:"9.018€",size:"19",inc:"73,7%",brad:"488",rec:"54,0%",dur:"17,3 d",pill:"amber",read:"Cobertura tensionada"},
+          {name:"Zona 10-12",type:"Centro",rate:"23,2%",cost:"17.826€",emp:"11.910€",size:"18",inc:"55,6%",brad:"622",rec:"61,0%",dur:"19,8 d",pill:"amber",read:"Foco medio-alto"},
+          {name:"Sos",type:"Centro",rate:"25,6%",cost:"9.249€",emp:"8.430€",size:"13",inc:"69,2%",brad:"505",rec:"44,0%",dur:"12,6 d",pill:"blue",read:"Vigilancia"}]},
+      linea: { label:"Departamento / línea", count:"7", countText:"líneas productivas", top:"Línea Prod. 3", topText:"18.420€/mes", pattern:"Cuello operativo", patternText:"baja sustituibilidad", action:"Priorizar líneas críticas", actionText:"validar mínimos de producción", how:"Aquí se ve si una tasa moderada afecta a una línea que condiciona toda la producción.", avoid:"Evita tratar la planta como un bloque único cuando el cuello real está en una línea concreta.",
+        rows:[
+          {name:"Línea Producción 3",type:"Línea",rate:"18,8%",cost:"18.420€",emp:"9.840€",size:"42",inc:"61,9%",brad:"684",rec:"72,0%",dur:"16,2 d",pill:"amber",read:"Cuello operativo"},
+          {name:"Expedición final",type:"Línea",rate:"15,4%",cost:"15.210€",emp:"10.120€",size:"31",inc:"48,4%",brad:"412",rec:"50,0%",dur:"18,9 d",pill:"amber",read:"Impacto en entregas"},
+          {name:"Embalaje automático",type:"Línea",rate:"13,8%",cost:"11.880€",emp:"7.540€",size:"38",inc:"42,1%",brad:"356",rec:"39,0%",dur:"14,1 d",pill:"blue",read:"Riesgo medio"},
+          {name:"Montaje manual",type:"Línea",rate:"19,7%",cost:"14.760€",emp:"8.330€",size:"46",inc:"67,4%",brad:"742",rec:"68,0%",dur:"10,4 d",pill:"purple",read:"Recurrencia corta"},
+          {name:"Control final",type:"Línea",rate:"11,9%",cost:"8.620€",emp:"9.980€",size:"18",inc:"33,3%",brad:"188",rec:"24,0%",dur:"22,8 d",pill:"amber",read:"Difícil sustitución"},
+          {name:"Prep. materia prima",type:"Línea",rate:"9,8%",cost:"6.410€",emp:"5.240€",size:"29",inc:"31,0%",brad:"142",rec:"18,0%",dur:"8,9 d",pill:"green",read:"Controlado"}]},
+      equipo: { label:"Equipo", count:"8", countText:"equipos operativos", top:"Mantenimiento crítico", topText:"14.660€/emp", pattern:"Baja sustituibilidad", patternText:"roles técnicos", action:"Proteger equipos clave", actionText:"crear cobertura específica", how:"Los equipos muestran dónde una ausencia pesa más por conocimiento técnico o dependencia operativa.", avoid:"Evita medir solo por volumen. Un equipo pequeño puede ser más crítico que un centro grande.",
+        rows:[
+          {name:"Mantenimiento crítico",type:"Equipo",rate:"14,2%",cost:"11.730€",emp:"14.660€",size:"12",inc:"58,3%",brad:"512",rec:"41,0%",dur:"22,6 d",pill:"amber",read:"Difícil sustitución"},
+          {name:"Equipo J.García",type:"Equipo",rate:"21,9%",cost:"9.520€",emp:"8.940€",size:"16",inc:"62,5%",brad:"688",rec:"73,0%",dur:"9,8 d",pill:"purple",read:"Nodo puente"},
+          {name:"Calidad turno tarde",type:"Equipo",rate:"16,4%",cost:"8.880€",emp:"10.310€",size:"14",inc:"50,0%",brad:"430",rec:"36,0%",dur:"18,1 d",pill:"amber",read:"Calidad crítica"},
+          {name:"Carretilleros nave 2",type:"Equipo",rate:"19,1%",cost:"7.960€",emp:"6.880€",size:"22",inc:"59,1%",brad:"702",rec:"66,0%",dur:"8,7 d",pill:"purple",read:"Cobertura difícil"},
+          {name:"Operarios línea A",type:"Equipo",rate:"12,7%",cost:"7.420€",emp:"4.880€",size:"36",inc:"41,7%",brad:"310",rec:"29,0%",dur:"11,3 d",pill:"blue",read:"Estable"},
+          {name:"Supervisores prod.",type:"Equipo",rate:"8,2%",cost:"5.870€",emp:"12.440€",size:"9",inc:"22,2%",brad:"96",rec:"10,0%",dur:"24,5 d",pill:"amber",read:"Impacto por rol"}]},
+      turno: { label:"Turno", count:"4", countText:"turnos analizados", top:"Noche", topText:"30,1% tasa", pattern:"Recurrencia + cobertura", patternText:"alta fricción operativa", action:"Estabilizar Noche", actionText:"pool de sustitución y carga", how:"El turno permite ver si el problema es operativo y no solo médico o administrativo.", avoid:"Evita planes de centro cuando el problema está concentrado en una franja horaria.",
+        rows:[
+          {name:"Noche",type:"Turno",rate:"30,1%",cost:"16.980€",emp:"8.210€",size:"64",inc:"69,3%",brad:"909",rec:"80,0%",dur:"7,4 d",pill:"purple",read:"Propagador"},
+          {name:"Rotativo",type:"Turno",rate:"13,7%",cost:"12.110€",emp:"6.920€",size:"88",inc:"47,7%",brad:"376",rec:"42,0%",dur:"11,8 d",pill:"amber",read:"Fatiga acumulada"},
+          {name:"Tarde",type:"Turno",rate:"11,9%",cost:"8.940€",emp:"5.780€",size:"74",inc:"39,2%",brad:"288",rec:"30,0%",dur:"10,6 d",pill:"blue",read:"Vigilancia"},
+          {name:"Mañana",type:"Turno",rate:"9,8%",cost:"6.720€",emp:"4.130€",size:"96",inc:"31,3%",brad:"162",rec:"18,0%",dur:"8,4 d",pill:"green",read:"Controlado"}]},
+      edad: { label:"Rango de edad", count:"5", countText:"tramos de edad", top:"55+", topText:"31,7 d duración", pattern:"Duración", patternText:"procesos más largos", action:"Plan retorno por tramo", actionText:"adaptar reincorporaciones", how:"Permite separar frecuencia de duración. Algunos tramos no faltan más, pero sus procesos duran más.", avoid:"Evita conclusiones simplistas: edad no es causa, es una dimensión para adaptar medidas.",
+        rows:[
+          {name:"18-29",type:"Edad",rate:"9,6%",cost:"8.420€",emp:"3.120€",size:"84",inc:"44,0%",brad:"520",rec:"62,0%",dur:"5,8 d",pill:"purple",read:"Baja corta"},
+          {name:"30-39",type:"Edad",rate:"11,2%",cost:"13.980€",emp:"4.670€",size:"126",inc:"52,4%",brad:"410",rec:"44,0%",dur:"9,2 d",pill:"blue",read:"Mixto"},
+          {name:"40-49",type:"Edad",rate:"13,4%",cost:"21.440€",emp:"7.260€",size:"118",inc:"58,5%",brad:"388",rec:"31,0%",dur:"17,6 d",pill:"amber",read:"Duración media"},
+          {name:"50-54",type:"Edad",rate:"14,8%",cost:"18.260€",emp:"9.830€",size:"72",inc:"50,0%",brad:"302",rec:"24,0%",dur:"23,4 d",pill:"amber",read:"Procesos largos"},
+          {name:"55+",type:"Edad",rate:"16,1%",cost:"24.810€",emp:"12.940€",size:"58",inc:"48,3%",brad:"244",rec:"18,0%",dur:"31,7 d",pill:"red",read:"Duración crítica"}]},
+      genero: { label:"Género", count:"3", countText:"grupos comparados", top:"Mujeres", topText:"14,6% tasa", pattern:"Duración y permisos", patternText:"analizar con contexto", action:"Cruzar con puesto/turno", actionText:"evitar lectura aislada", how:"El género nunca debe interpretarse aislado. Hay que cruzarlo con puesto, turno, edad, convenio y causa.", avoid:"Evita usar esta dimensión para conclusiones directas sin contexto operativo y legal.",
+        rows:[
+          {name:"Mujeres",type:"Género",rate:"14,6%",cost:"19.880€",emp:"7.240€",size:"182",inc:"62,1%",brad:"488",rec:"48,0%",dur:"18,7 d",pill:"amber",read:"Cruzar con causa"},
+          {name:"Hombres",type:"Género",rate:"11,8%",cost:"22.740€",emp:"6.880€",size:"274",inc:"55,8%",brad:"420",rec:"39,0%",dur:"15,3 d",pill:"blue",read:"Mayor volumen"},
+          {name:"No informado",type:"Género",rate:"8,1%",cost:"1.920€",emp:"3.100€",size:"18",inc:"22,2%",brad:"80",rec:"8,0%",dur:"6,1 d",pill:"green",read:"Dato incompleto"}]},
+      antiguedad: { label:"Antigüedad", count:"5", countText:"tramos de antigüedad", top:"0-6 meses", topText:"20,3% tasa", pattern:"Onboarding", patternText:"adaptación y rotación", action:"Revisar acogida", actionText:"mandos y curva", how:"La antigüedad ayuda a separar problemas de adaptación inicial de desgaste o procesos largos.", avoid:"Evita tratar igual a colectivos nuevos y veteranos: las palancas son distintas.",
+        rows:[
+          {name:"0-6 meses",type:"Antigüedad",rate:"20,3%",cost:"10.340€",emp:"5.910€",size:"44",inc:"70,5%",brad:"740",rec:"76,0%",dur:"6,8 d",pill:"purple",read:"Onboarding"},
+          {name:"6-24 meses",type:"Antigüedad",rate:"13,9%",cost:"15.780€",emp:"6.220€",size:"118",inc:"56,8%",brad:"512",rec:"48,0%",dur:"10,1 d",pill:"amber",read:"Adaptación"},
+          {name:"2-5 años",type:"Antigüedad",rate:"11,7%",cost:"18.440€",emp:"6.980€",size:"156",inc:"51,9%",brad:"376",rec:"36,0%",dur:"14,2 d",pill:"blue",read:"Estable"},
+          {name:"5-10 años",type:"Antigüedad",rate:"12,8%",cost:"20.310€",emp:"8.730€",size:"102",inc:"49,0%",brad:"322",rec:"28,0%",dur:"20,4 d",pill:"amber",read:"Duración"},
+          {name:"10+ años",type:"Antigüedad",rate:"15,2%",cost:"26.940€",emp:"12.110€",size:"86",inc:"45,3%",brad:"260",rec:"22,0%",dur:"29,1 d",pill:"red",read:"Procesos largos"}]},
+      causa: { label:"Causa", count:"6", countText:"tipologías", top:"IT", topText:"2,78M€", pattern:"Duración por contingencia", patternText:"coste concentrado", action:"Diferenciar causa y plan", actionText:"IT larga vs baja corta", how:"Las causas permiten separar volumen, duración y coste. La causa con más episodios no siempre es la que más cuesta.", avoid:"Evita hacer planes por causa sin cruzarla con centro, turno, duración y reincidencia.",
+        rows:[
+          {name:"IT",type:"Causa",rate:"73,0%",cost:"2.786.407€",emp:"—",size:"408 ep.",inc:"—",brad:"—",rec:"73,0%",dur:"26,8 d",pill:"red",read:"Mayor coste"},
+          {name:"Paternidad",type:"Causa",rate:"86,7%",cost:"389.487€",emp:"—",size:"75 ep.",inc:"—",brad:"—",rec:"86,7%",dur:"31,7 d",pill:"blue",read:"Permiso protegido"},
+          {name:"Justificada",type:"Causa",rate:"91,5%",cost:"157.601€",emp:"—",size:"82 ep.",inc:"—",brad:"—",rec:"91,5%",dur:"12,5 d",pill:"amber",read:"Volumen medio"},
+          {name:"AT",type:"Causa",rate:"63,6%",cost:"65.351€",emp:"—",size:"11 ep.",inc:"—",brad:"—",rec:"63,6%",dur:"45,9 d",pill:"red",read:"Pocos casos, larga duración"},
+          {name:"Maternidad",type:"Causa",rate:"100%",cost:"28.490€",emp:"—",size:"1 ep.",inc:"—",brad:"—",rec:"100%",dur:"108,0 d",pill:"blue",read:"Permiso protegido"},
+          {name:"Otra",type:"Causa",rate:"61,3%",cost:"9.672€",emp:"—",size:"31 ep.",inc:"—",brad:"—",rec:"61,3%",dur:"1,6 d",pill:"green",read:"Baja duración"}]}
+    };
+
+    var drawerData = {
+      "Bonus Pontevedra":{intro:"Centro con alta tasa, recurrencia elevada y coste por empleado relevante. Conviene revisar causas, turnos y coste de cobertura antes de decidir plan.",type:"Centro",rate:"21,0%",emp:"12.156€",dur:"42,4 d",brad:"205",cause:"Enfermedad común",shift:"Noche / rotativo",network:"Nodo local",risk:"Medio-alto",action:"Plan recomendado: revisar cobertura, duración media y retorno seguro.",pills:["Duración","Recurrencia"]},
+      "Perdón":{intro:"Centro pequeño con coste/mes y coste por empleado muy elevados. La incidencia del 100% exige revisar si responde a concentración real o a estructura de plantilla reducida.",type:"Centro",rate:"29,6%",emp:"20.253€",dur:"38,1 d",brad:"912",cause:"IT larga",shift:"Rotativo",network:"Foco crítico",risk:"Alto",action:"Plan recomendado: auditoría de casos largos, retorno seguro y revisión de cobertura.",pills:["Coste crítico","IT larga"]},
+      "Made Este":{intro:"Centro con tasa muy alta y rol relevante en red. Su coste por empleado y duración lo convierten en foco de alta prioridad.",type:"Centro",rate:"36,4%",emp:"18.740€",dur:"51,7 d",brad:"1128",cause:"IT larga",shift:"Mañana/tarde",network:"Hub",risk:"Alto",action:"Plan recomendado: retorno seguro y análisis de relaciones en red antes de plan masivo.",pills:["Hub","Duración"]},
+      "Noche":{intro:"Turno con recurrencia corta y alta fricción de cobertura. Puede actuar como propagador porque las ausencias obligan a mover recursos de otros equipos.",type:"Turno",rate:"30,1%",emp:"8.210€",dur:"7,4 d",brad:"909",cause:"Baja corta",shift:"Noche",network:"Propagador",risk:"Alto",action:"Plan recomendado: estabilización preventiva de turnos, pool de cobertura y revisión de cargas.",pills:["Propagador","Bradford"]},
+      "Línea Producción 3":{intro:"Línea cuello de botella. Una ausencia aquí puede desplazar carga, retrasar producción y tensionar otros turnos.",type:"Línea",rate:"18,8%",emp:"9.840€",dur:"16,2 d",brad:"684",cause:"Musculoesquelética",shift:"Tarde / noche",network:"Downstream",risk:"Alto",action:"Plan recomendado: cobertura mínima por línea, polivalencia y prevención en picos de carga.",pills:["Línea crítica","Cobertura"]}
+    };
+
+    function renderSegment(dim) {
+      var d = segData[dim] || segData.centro;
+      document.getElementById("seg-hint").textContent = "Vista: " + d.label + " · click en una fila para abrir detalle";
+      document.getElementById("seg-count").textContent = d.count;
+      document.getElementById("seg-count-text").textContent = d.countText;
+      document.getElementById("seg-top").textContent = d.top;
+      document.getElementById("seg-top-text").textContent = d.topText;
+      document.getElementById("seg-pattern").textContent = d.pattern;
+      document.getElementById("seg-pattern-text").textContent = d.patternText;
+      document.getElementById("seg-action").textContent = d.action;
+      document.getElementById("seg-action-text").textContent = d.actionText;
+      document.getElementById("seg-how-text").textContent = d.how;
+      document.getElementById("seg-avoid-text").textContent = d.avoid;
+      var tbody = document.getElementById("seg-rows");
+      tbody.innerHTML = d.rows.map(function(r){
+        return "<tr onclick=\"openDrawer('" + r.name.replace(/'/g,"\\'") + "')\">"
+          + "<td><b>" + r.name + "</b></td><td>" + r.type + "</td><td>" + r.rate + "</td><td>" + r.cost + "</td><td>" + r.emp + "</td>"
+          + "<td>" + r.size + "</td><td>" + r.inc + "</td><td>" + r.brad + "</td><td>" + r.rec + "</td><td>" + r.dur + "</td>"
+          + "<td><span class='tbl-pill " + r.pill + "'>" + r.read + "</span></td></tr>";
+      }).join("");
+    }
+
+    function switchDim(btn, dim) {
+      document.querySelectorAll(".seg-chip").forEach(function(c){ c.classList.remove("active"); });
+      btn.classList.add("active");
+      renderSegment(dim);
+      updateAI("segmentacion");
+    }
+
+    function openDrawer(name) {
+      var fallback = {intro:"Foco seleccionado para análisis detallado.",type:"Foco",rate:"—",emp:"—",dur:"—",brad:"—",cause:"Por analizar",shift:"Por analizar",network:"Por analizar",risk:"Medio",action:"Revisar datos del foco y validar palanca de actuación.",pills:["Detalle"]};
+      var d = drawerData[name] || fallback;
+      document.getElementById("drawer-title").textContent = name;
+      document.getElementById("drawer-type").textContent = d.type;
+      document.getElementById("drawer-intro").textContent = d.intro;
+      document.getElementById("drawer-rate").textContent = d.rate;
+      document.getElementById("drawer-cost-emp").textContent = d.emp;
+      document.getElementById("drawer-dur").textContent = d.dur;
+      document.getElementById("drawer-bradford").textContent = d.brad;
+      document.getElementById("drawer-cause").textContent = d.cause;
+      document.getElementById("drawer-shift").textContent = d.shift;
+      document.getElementById("drawer-network").textContent = d.network;
+      document.getElementById("drawer-risk").textContent = d.risk;
+      document.getElementById("drawer-action").textContent = d.action;
+      var pills = (d.pills || []).map(function(p,i){ return "<span class='tbl-pill " + (i===0?"red":i===1?"amber":"blue") + "'>" + p + "</span>"; }).join("");
+      document.getElementById("drawer-pills").innerHTML = pills;
+      document.getElementById("drawer-cost-rows").innerHTML = [
+        ["Directo laboral","92K€","Días no trabajados","Reducir duración"],
+        ["Cobertura","64K€","Turnos/refuerzos","Estabilizar cobertura"],
+        ["Operativo","18K€","Capacidad productiva","Plan preventivo"],
+        ["Fricción","9K€","Reorganización","Automatizar seguimiento"]
+      ].map(function(r){ return "<tr><td>" + r[0] + "</td><td>" + r[1] + "</td><td>" + r[2] + "</td><td>" + r[3] + "</td></tr>"; }).join("");
+      document.getElementById("seg-drawer").classList.add("open");
+    }
+
+    function closeDrawer() {
+      document.getElementById("seg-drawer").classList.remove("open");
+    }
+
+    /* ─── NETWORK NODE DATA ─── */
+    var nodeData = {
+      planta:{type:"Hub concentrador",title:"Planta Norte",sub:"Centro que concentra impacto económico, relaciones y patrones activos.",risk:"89%",exp:"680K€",cen:"92%",aff:"5",mean:"Planta Norte no solo tiene coste alto: concentra relaciones con otros focos. Si empeora, el impacto se amplifica en equipos conectados.",act:"No empezaría con un plan genérico de centro. Primero revisaría los propagadores conectados —Turno Noche y J.García— para atacar el patrón con más precisión.",simp:"Este nodo es donde el absentismo se ve grande. Antes de actuar, conviene comprobar si el origen está en un turno o equipo conectado.",tagClass:"red"},
+      noche:{type:"Propagador probable",title:"Turno Noche",sub:"Turno con recurrencia corta, alta fricción y señal temporal previa a otros focos.",risk:"84%",exp:"218K€",cen:"76%",aff:"4",mean:"Turno Noche puede no ser el mayor coste, pero sí el punto que anticipa tensión en otros nodos. Es un candidato fuerte para intervención temprana.",act:"Activaría estabilización preventiva de turnos: cobertura mínima, pool de sustitución, revisión de cargas y seguimiento de reincorporaciones.",simp:"Este nodo no es el mayor coste, pero puede ser el que mueve el riesgo.",tagClass:"amber"},
+      garcia:{type:"Nodo puente",title:"J.García",sub:"Equipo/mando que conecta varios focos y puede amplificar la disrupción entre áreas.",risk:"81%",exp:"95K€",cen:"88%",aff:"3",mean:"Un nodo puente no siempre tiene el mayor coste, pero conecta grupos. Si se tensiona, puede trasladar el patrón a otras áreas.",act:"Haría una intervención quirúrgica: revisión de carga, redistribución temporal y acompañamiento operativo del mando.",simp:"Este nodo conecta áreas. Si se tensiona, puede trasladar el problema a varios equipos.",tagClass:"blue"},
+      valencia:{type:"Clúster",title:"Cluster Valencia",sub:"Grupo de 9 nodos con comportamiento parecido y riesgo medio.",risk:"62%",exp:"101K€",cen:"54%",aff:"9",mean:"El clúster muestra comportamiento común. No conviene tratar cada nodo aislado si el patrón es compartido.",act:"Buscaría una acción común para el clúster y reservaría planes individuales solo para nodos críticos.",simp:"Este clúster muestra un comportamiento común. Puede requerir una acción por grupo, no una acción aislada.",tagClass:"blue"},
+      pontevedra:{type:"Clúster",title:"Cluster Pontevedra",sub:"Grupo de 3 nodos con coste por empleado elevado y recurrencia relevante.",risk:"68%",exp:"64K€",cen:"49%",aff:"3",mean:"Pocos nodos, pero con impacto unitario alto. Es más un problema de intensidad que de volumen.",act:"Revisaría coste por empleado, causas dominantes y duración media antes de activar un plan global.",simp:"Este clúster es pequeño pero intenso: pocos nodos, coste unitario alto y duración relevante.",tagClass:"green"}
+    };
+
+    function selectNode(key) {
+      var n = nodeData[key] || nodeData.planta;
+      var tag = document.getElementById("node-type");
+      tag.textContent = n.type;
+      tag.className = "i-tag " + n.tagClass;
+      document.getElementById("node-title").textContent = n.title;
+      document.getElementById("node-subtitle").textContent = n.sub;
+      document.getElementById("node-risk").textContent = n.risk;
+      document.getElementById("node-exposure").textContent = n.exp;
+      document.getElementById("node-centrality").textContent = n.cen;
+      document.getElementById("node-affected").textContent = n.aff;
+      document.getElementById("node-meaning").textContent = n.mean;
+      document.getElementById("node-action").textContent = n.act;
+      document.getElementById("node-simple").textContent = n.simp;
+    }
+
+    /* ─── INIT ─── */
+    renderSegment("centro");
+
+    // Read tab from URL param
+    (function(){
+      try {
+        var tab = new URLSearchParams(window.location.search).get("tab");
+        if (tab && document.getElementById(tab)) switchTab(tab);
+      } catch(e){}
+    })();
+  </script>
+</body>
+</html>
