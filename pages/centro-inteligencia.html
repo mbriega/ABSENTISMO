@@ -119,38 +119,38 @@
 
     /* RED ORGANIZATIVA */
     .net-legend{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
-    .legend-concept{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:13px;}
-    .legend-concept b{display:block;font-size:13px;font-weight:700;color:#0f172a;margin-bottom:4px;}
-    .legend-concept span{font-size:11px;color:#64748b;font-weight:500;line-height:1.35;}
-    .net-canvas{display:grid;grid-template-columns:1fr 320px;gap:14px;}
-    .net-map{position:relative;height:380px;background:radial-gradient(circle at 47% 44%,rgba(37,99,235,.06),transparent 24%),linear-gradient(135deg,#fbfcff,#f8fafc);border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;}
-    .net-ring{position:absolute;border:1px dashed #cbd5e1;border-radius:999px;left:50%;top:50%;transform:translate(-50%,-50%);}
-    .ring1{width:80%;height:80%;}
-    .ring2{width:55%;height:55%;}
-    .ring3{width:30%;height:30%;}
-    .net-line{position:absolute;height:2px;background:#cbd5e1;transform-origin:left center;opacity:.7;}
-    .line-a{left:26%;top:30%;width:185px;transform:rotate(22deg);}
-    .line-b{left:30%;top:70%;width:190px;transform:rotate(-22deg);}
-    .line-c{left:52%;top:42%;width:200px;transform:rotate(-16deg);}
-    .line-d{left:54%;top:52%;width:200px;transform:rotate(24deg);}
-    .net-node{position:absolute;border-radius:16px;background:#fff;border:1px solid #e2e8f0;box-shadow:0 8px 20px rgba(15,23,42,.08);padding:10px;min-width:115px;cursor:pointer;transition:.15s ease;}
-    .net-node:hover{outline:3px solid rgba(37,99,235,.18);}
-    .net-node small{display:block;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;margin-bottom:4px;}
-    .net-node b{display:block;font-size:12px;font-weight:700;color:#0f172a;}
-    .net-node span{display:block;font-size:11px;color:#64748b;margin-top:3px;}
-    .node-hub{left:40%;top:32%;background:#fff7f7;border-color:#fecaca;}
-    .node-prop{left:10%;top:16%;background:#fffbeb;border-color:#fde68a;}
-    .node-bridge{left:17%;top:64%;background:#f5f3ff;border-color:#ddd6fe;}
-    .node-cluster1{right:8%;top:14%;background:#eff6ff;border-color:#bfdbfe;}
-    .node-cluster2{right:10%;bottom:12%;background:#f0fdf4;border-color:#bbf7d0;}
-    .net-panel{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
-    .net-panel h3{font-size:19px;font-weight:800;letter-spacing:-.04em;margin:6px 0 4px;color:#0f172a;}
-    .net-impact-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0;}
-    .net-impact{background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;padding:10px;}
+    .legend-concept{background:#f8fafc;border:1px solid #f1f5f9;border-radius:11px;padding:13px 15px;}
+    .legend-concept-dot{display:inline-block;width:8px;height:8px;border-radius:999px;margin-right:6px;vertical-align:1px;}
+    .legend-concept b{display:block;font-size:12px;font-weight:700;color:#0f172a;margin-bottom:4px;}
+    .legend-concept span{font-size:11px;color:#64748b;font-weight:500;line-height:1.4;}
+    .net-canvas{display:flex;flex-direction:column;gap:14px;}
+    .net-map{position:relative;height:420px;background:#0f172a;border-radius:14px;overflow:hidden;border:1px solid #1e293b;}
+    .net-map-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+    .net-node{position:absolute;display:flex;flex-direction:column;align-items:center;cursor:pointer;transform:translate(-50%,-50%);}
+    .net-node-circle{border-radius:999px;display:flex;align-items:center;justify-content:center;transition:.18s ease;box-shadow:0 0 0 0 rgba(37,99,235,0);}
+    .net-node:hover .net-node-circle,.net-node.active .net-node-circle{box-shadow:0 0 0 5px rgba(255,255,255,.12);}
+    .net-node.active .net-node-circle{outline:2px solid #fff;}
+    .net-node-label{margin-top:7px;text-align:center;}
+    .net-node-label small{display:block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-bottom:2px;}
+    .net-node-label b{display:block;font-size:11px;font-weight:700;color:#fff;line-height:1.25;}
+    .net-node-label span{display:block;font-size:10px;color:rgba(255,255,255,.5);margin-top:1px;}
+    .net-node-hub .net-node-circle{width:62px;height:62px;background:#dc2626;border:2px solid rgba(255,255,255,.18);}
+    .net-node-prop .net-node-circle{width:46px;height:46px;background:#f59e0b;border:2px solid rgba(255,255,255,.12);}
+    .net-node-bridge .net-node-circle{width:40px;height:40px;background:#8b5cf6;border:2px solid rgba(255,255,255,.12);}
+    .net-node-cluster .net-node-circle{width:36px;height:36px;background:#2563eb;border:2px solid rgba(255,255,255,.12);}
+    @keyframes netpulse{0%{transform:scale(1);opacity:.5;}100%{transform:scale(2.2);opacity:0;}}
+    .net-pulse{position:absolute;border-radius:999px;background:#dc2626;animation:netpulse 2.2s ease-out infinite;pointer-events:none;}
+    .net-panel-below{background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;max-height:0;opacity:0;transition:max-height .32s ease,opacity .22s ease;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+    .net-panel-below.open{max-height:600px;opacity:1;}
+    .net-panel-inner{padding:18px 20px;}
+    .net-panel-below h3{font-size:19px;font-weight:800;letter-spacing:-.04em;margin:6px 0 4px;color:#0f172a;}
+    .net-impact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}
+    .net-impact{background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;padding:10px 13px;}
     .net-impact small{display:block;font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;}
     .net-impact b{font-size:17px;font-weight:800;color:#0f172a;letter-spacing:-.03em;}
-    .net-explain-block{border:1px solid #f1f5f9;background:#f8fafc;border-radius:11px;padding:11px;margin-bottom:8px;}
-    .net-explain-block b{display:block;font-size:12px;font-weight:700;color:#0f172a;margin-bottom:4px;}
+    .net-explain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:4px;}
+    .net-explain-block{border:1px solid #f1f5f9;background:#f8fafc;border-radius:11px;padding:11px;margin-bottom:0;}
+    .net-explain-block b{display:block;font-size:11px;font-weight:700;color:#0f172a;margin-bottom:4px;}
     .net-explain-block span{display:block;font-size:11px;color:#64748b;font-weight:500;line-height:1.4;}
 
     /* COSTES */
@@ -636,19 +636,19 @@
           <div class="i-card-body" style="padding:14px 18px;">
             <div class="net-legend">
               <div class="legend-concept">
-                <b>Hub</b>
+                <b><span class="legend-concept-dot" style="background:#dc2626;"></span>Hub</b>
                 <span>Concentra mucho impacto. Es el lugar donde el problema se ve grande.</span>
               </div>
               <div class="legend-concept">
-                <b>Propagador</b>
+                <b><span class="legend-concept-dot" style="background:#f59e0b;"></span>Propagador</b>
                 <span>Anticipa o amplifica tensi&#243;n en otros nodos. Puede ser m&#225;s accionable.</span>
               </div>
               <div class="legend-concept">
-                <b>Puente</b>
+                <b><span class="legend-concept-dot" style="background:#8b5cf6;"></span>Puente</b>
                 <span>Conecta &#225;reas. Si se rompe, traslada disrupci&#243;n entre grupos.</span>
               </div>
               <div class="legend-concept">
-                <b>Cl&#250;ster</b>
+                <b><span class="legend-concept-dot" style="background:#2563eb;"></span>Cl&#250;ster</b>
                 <span>Grupo de focos que se comportan de forma parecida y pueden requerir acci&#243;n com&#250;n.</span>
               </div>
             </div>
@@ -656,53 +656,89 @@
         </div>
 
         <div class="net-canvas">
-          <!-- MAPA -->
+          <!-- MAPA OSCURO -->
           <div class="net-map">
-            <div class="net-ring ring1"></div>
-            <div class="net-ring ring2"></div>
-            <div class="net-ring ring3"></div>
-            <div class="net-line line-a"></div>
-            <div class="net-line line-b"></div>
-            <div class="net-line line-c"></div>
-            <div class="net-line line-d"></div>
-            <div class="net-node node-hub" onclick="selectNode('planta')">
-              <small>Hub</small><b>Planta Norte</b><span>680K&#8364; &middot; 5 conexiones</span>
+            <svg class="net-map-svg" viewBox="0 0 800 420" preserveAspectRatio="none">
+              <defs>
+                <radialGradient id="bgGrad" cx="47%" cy="44%" r="55%">
+                  <stop offset="0%" stop-color="#1e3a5f" stop-opacity="0.4"/>
+                  <stop offset="100%" stop-color="#0f172a" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <rect width="800" height="420" fill="url(#bgGrad)"/>
+              <!-- conexiones SVG curvas -->
+              <path d="M400,155 Q290,120 180,90" stroke="rgba(220,38,38,.35)" stroke-width="1.5" fill="none" stroke-dasharray="5,4"/>
+              <path d="M400,155 Q310,200 200,270" stroke="rgba(139,92,246,.35)" stroke-width="1.5" fill="none" stroke-dasharray="5,4"/>
+              <path d="M400,155 Q520,110 610,80" stroke="rgba(37,99,235,.3)" stroke-width="1.5" fill="none" stroke-dasharray="5,4"/>
+              <path d="M400,155 Q530,210 630,320" stroke="rgba(37,99,235,.3)" stroke-width="1.5" fill="none" stroke-dasharray="5,4"/>
+              <path d="M180,90 Q200,180 200,270" stroke="rgba(255,255,255,.08)" stroke-width="1" fill="none"/>
+            </svg>
+            <!-- pulso en hub -->
+            <div class="net-pulse" style="width:62px;height:62px;left:calc(50% - 31px);top:calc(37% - 31px);"></div>
+            <!-- nodos -->
+            <div class="net-node net-node-hub" style="left:50%;top:37%;" onclick="selectNode('planta')">
+              <div class="net-node-circle">
+                <svg width="20" height="20" fill="none" stroke="rgba(255,255,255,.9)" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+              </div>
+              <div class="net-node-label"><small>Hub</small><b>Planta Norte</b><span>680K&#8364; &middot; 5 conexiones</span></div>
             </div>
-            <div class="net-node node-prop" onclick="selectNode('noche')">
-              <small>Propagador</small><b>Turno Noche</b><span>80% reincidencia</span>
+            <div class="net-node net-node-prop" style="left:22%;top:21%;" onclick="selectNode('noche')">
+              <div class="net-node-circle">
+                <svg width="14" height="14" fill="none" stroke="rgba(255,255,255,.9)" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <div class="net-node-label"><small>Propagador</small><b>Turno Noche</b><span>80% reincidencia</span></div>
             </div>
-            <div class="net-node node-bridge" onclick="selectNode('garcia')">
-              <small>Puente</small><b>J.Garc&#237;a</b><span>94% relaci&#243;n</span>
+            <div class="net-node net-node-bridge" style="left:25%;top:64%;" onclick="selectNode('garcia')">
+              <div class="net-node-circle">
+                <svg width="12" height="12" fill="none" stroke="rgba(255,255,255,.9)" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+              </div>
+              <div class="net-node-label"><small>Puente</small><b>J.Garc&#237;a</b><span>94% relaci&#243;n</span></div>
             </div>
-            <div class="net-node node-cluster1" onclick="selectNode('valencia')">
-              <small>Cl&#250;ster</small><b>Valencia</b><span>9 nodos</span>
+            <div class="net-node net-node-cluster" style="left:76%;top:19%;" onclick="selectNode('valencia')">
+              <div class="net-node-circle">
+                <svg width="11" height="11" fill="none" stroke="rgba(255,255,255,.9)" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </div>
+              <div class="net-node-label"><small>Cl&#250;ster</small><b>Valencia</b><span>9 nodos</span></div>
             </div>
-            <div class="net-node node-cluster2" onclick="selectNode('pontevedra')">
-              <small>Cl&#250;ster</small><b>Pontevedra</b><span>3 nodos</span>
+            <div class="net-node net-node-cluster" style="left:79%;top:76%;" onclick="selectNode('pontevedra')">
+              <div class="net-node-circle">
+                <svg width="11" height="11" fill="none" stroke="rgba(255,255,255,.9)" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </div>
+              <div class="net-node-label"><small>Cl&#250;ster</small><b>Pontevedra</b><span>3 nodos</span></div>
             </div>
+            <!-- hint -->
+            <div style="position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-size:10px;color:rgba(255,255,255,.3);font-weight:500;letter-spacing:.04em;pointer-events:none;">Haz clic en un nodo para ver el detalle</div>
           </div>
-          <!-- PANEL DETALLE NODO -->
-          <div class="net-panel">
-            <span class="i-tag red" id="node-type">Hub concentrador</span>
-            <h3 id="node-title">Planta Norte</h3>
-            <p style="font-size:12px;color:#64748b;font-weight:500;margin:0 0 12px;" id="node-subtitle">Centro que concentra impacto econ&#243;mico, relaciones y patrones activos.</p>
-            <div class="net-impact-grid">
-              <div class="net-impact"><small>Riesgo</small><b id="node-risk">89%</b></div>
-              <div class="net-impact"><small>Exposici&#243;n</small><b id="node-exposure">680K&#8364;</b></div>
-              <div class="net-impact"><small>Centralidad</small><b id="node-centrality">92%</b></div>
-              <div class="net-impact"><small>Nodos afectados</small><b id="node-affected">5</b></div>
-            </div>
-            <div class="net-explain-block">
-              <b>Qu&#233; significa</b>
-              <span id="node-meaning">Planta Norte no solo tiene coste alto: concentra relaciones con otros focos. Si empeora, el impacto se amplifica en equipos conectados.</span>
-            </div>
-            <div class="net-explain-block">
-              <b>C&#243;mo actuar</b>
-              <span id="node-action">No empezar&#237;a con un plan gen&#233;rico de centro. Primero revisar&#237;a los propagadores conectados &#8212;Turno Noche y J.Garc&#237;a&#8212; para atacar el patr&#243;n con m&#225;s precisi&#243;n.</span>
-            </div>
-            <div class="net-explain-block" style="margin-bottom:0;">
-              <b>Lectura sencilla</b>
-              <span id="node-simple">Este nodo es donde el absentismo se ve grande. Antes de actuar, conviene comprobar si el origen est&#225; en un turno o equipo conectado.</span>
+
+          <!-- PANEL DETALLE — ABAJO DEL MAPA -->
+          <div class="net-panel-below" id="net-panel-below">
+            <div class="net-panel-inner">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;">
+                <span class="i-tag red" id="node-type">Hub concentrador</span>
+                <button onclick="closeNetPanel()" style="background:none;border:none;cursor:pointer;font-size:18px;color:#94a3b8;line-height:1;padding:0;">&#215;</button>
+              </div>
+              <h3 id="node-title">Planta Norte</h3>
+              <p style="font-size:12px;color:#64748b;font-weight:500;margin:0 0 0;" id="node-subtitle">Centro que concentra impacto econ&#243;mico, relaciones y patrones activos.</p>
+              <div class="net-impact-grid">
+                <div class="net-impact"><small>Riesgo</small><b id="node-risk">89%</b></div>
+                <div class="net-impact"><small>Exposici&#243;n</small><b id="node-exposure">680K&#8364;</b></div>
+                <div class="net-impact"><small>Centralidad</small><b id="node-centrality">92%</b></div>
+                <div class="net-impact"><small>Nodos afectados</small><b id="node-affected">5</b></div>
+              </div>
+              <div class="net-explain-grid">
+                <div class="net-explain-block">
+                  <b>Qu&#233; significa</b>
+                  <span id="node-meaning">Planta Norte no solo tiene coste alto: concentra relaciones con otros focos. Si empeora, el impacto se amplifica en equipos conectados.</span>
+                </div>
+                <div class="net-explain-block">
+                  <b>C&#243;mo actuar</b>
+                  <span id="node-action">No empezar&#237;a con un plan gen&#233;rico de centro. Primero revisar&#237;a los propagadores conectados &#8212;Turno Noche y J.Garc&#237;a&#8212; para atacar el patr&#243;n con m&#225;s precisi&#243;n.</span>
+                </div>
+                <div class="net-explain-block">
+                  <b>Lectura sencilla</b>
+                  <span id="node-simple">Este nodo es donde el absentismo se ve grande. Antes de actuar, conviene comprobar si el origen est&#225; en un turno o equipo conectado.</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1565,6 +1601,21 @@
       document.getElementById("node-meaning").textContent = n.mean;
       document.getElementById("node-action").textContent = n.act;
       document.getElementById("node-simple").textContent = n.simp;
+      document.querySelectorAll(".net-node").forEach(function(el){ el.classList.remove("active"); });
+      document.querySelectorAll(".net-node").forEach(function(el){
+        if (el.getAttribute("onclick") && el.getAttribute("onclick").indexOf("'" + key + "'") !== -1) el.classList.add("active");
+      });
+      var panel = document.getElementById("net-panel-below");
+      if (panel) {
+        panel.classList.add("open");
+        setTimeout(function(){ panel.scrollIntoView({behavior:"smooth", block:"nearest"}); }, 80);
+      }
+    }
+
+    function closeNetPanel() {
+      var panel = document.getElementById("net-panel-below");
+      if (panel) panel.classList.remove("open");
+      document.querySelectorAll(".net-node").forEach(function(el){ el.classList.remove("active"); });
     }
 
     /* ─── INIT ─── */
