@@ -54,22 +54,24 @@
     .i-tag.red{background:#fef2f2;color:#dc2626;border-color:#fecaca;}
     .i-tag.amber{background:#fffbeb;color:#b45309;border-color:#fde68a;}
 
-    /* SITUACIÓN ACTUAL */
-    .sig-kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
-    .sig-kpi{background:#fff;border:1px solid #e2e8f0;border-radius:13px;padding:14px 15px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
-    .sig-kpi-top{display:flex;align-items:center;gap:7px;margin-bottom:9px;}
-    .sig-kpi-ico{width:24px;height:24px;border-radius:7px;background:#eff6ff;color:#1d4ed8;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-    .sig-kpi-lbl{font-size:11px;font-weight:700;color:#64748b;flex:1;line-height:1.3;}
-    .sig-kpi-val{font-size:22px;font-weight:800;letter-spacing:-.04em;color:#0f172a;margin-bottom:5px;}
-    .sig-kpi-bar{height:5px;background:#e2e8f0;border-radius:999px;margin-bottom:5px;overflow:hidden;}
-    .sig-kpi-bar i{display:block;height:100%;background:#2563eb;border-radius:999px;}
-    .sig-kpi-desc{font-size:10.5px;color:#94a3b8;font-weight:500;line-height:1.35;}
+    /* SITUACIÓN ACTUAL — tarjeta unificada señales + lectura */
+    .sit-card-kpis{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid #f1f5f9;}
+    .sit-kpi-cell{padding:16px 18px;border-right:1px solid #f1f5f9;}
+    .sit-kpi-cell:last-child{border-right:none;}
+    .sit-kpi-top{display:flex;align-items:center;gap:7px;margin-bottom:10px;}
+    .sit-kpi-ico{width:26px;height:26px;border-radius:8px;background:#eff6ff;color:#1d4ed8;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .sit-kpi-lbl{font-size:10.5px;font-weight:700;color:#64748b;flex:1;line-height:1.3;}
+    .sit-kpi-val{font-size:22px;font-weight:800;letter-spacing:-.04em;color:#0f172a;line-height:1;margin-bottom:6px;}
+    .sit-kpi-bar{height:4px;background:#e2e8f0;border-radius:999px;margin-bottom:5px;overflow:hidden;}
+    .sit-kpi-bar i{display:block;height:100%;background:#2563eb;border-radius:999px;}
+    .sit-kpi-desc{font-size:10px;color:#94a3b8;font-weight:500;line-height:1.35;}
 
-    .lectura-kicker{display:inline-flex;height:24px;align-items:center;border-radius:999px;padding:0 10px;background:#f0fdf4;color:#059669;border:1px solid #bbf7d0;font-size:10.5px;font-weight:800;margin-bottom:12px;}
-    .lectura-headline{font-size:19px;font-weight:800;letter-spacing:-.04em;line-height:1.25;color:#0f172a;margin:0 0 8px;}
+    .lectura-body{padding:18px 20px;}
+    .lectura-kicker{display:inline-flex;height:24px;align-items:center;border-radius:999px;padding:0 10px;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;font-size:10.5px;font-weight:800;margin-bottom:12px;}
+    .lectura-headline{font-size:19px;font-weight:800;letter-spacing:-.04em;line-height:1.25;color:#0f172a;margin:0 0 7px;}
     .lectura-subline{font-size:13px;font-weight:600;color:#334155;line-height:1.55;margin:0 0 16px;}
-    .evidence-row{display:flex;flex-wrap:wrap;gap:10px;}
-    .evidence-cell{flex:1 1 220px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:11px;padding:12px 14px;}
+    .evidence-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+    .evidence-cell{background:#f8fafc;border:1px solid #f1f5f9;border-radius:11px;padding:12px 14px;}
     .evidence-cell small{display:block;font-size:9.5px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;}
     .evidence-cell b{display:block;font-size:13px;font-weight:700;color:#0f172a;margin-bottom:4px;}
     .evidence-cell p{font-size:12px;color:#64748b;font-weight:500;line-height:1.4;margin:0;}
@@ -368,73 +370,73 @@
       <!-- ═══════════════════════════════ TAB: SITUACIÓN ACTUAL ═══════════════════════════════ -->
       <div id="situacion" class="tab-panel active">
 
-        <!-- SEÑALES DE SITUACIÓN -->
-        <div class="sig-kpi-grid">
-          <div class="sig-kpi">
-            <div class="sig-kpi-top">
-              <div class="sig-kpi-ico"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
-              <span class="sig-kpi-lbl">Coste acumulado</span>
-              <i class="kpi-info" data-tip="Nivel de coste total respecto al histrico. 88 indica coste alto pero no en mximo absoluto.">i</i>
-            </div>
-            <div class="sig-kpi-val">88<span style="font-size:13px;font-weight:600;color:#94a3b8;">/100</span></div>
-            <div class="sig-kpi-bar"><i style="width:88%;background:#dc2626;"></i></div>
-            <div class="sig-kpi-desc">Coste total en niveles altos del periodo</div>
-          </div>
-          <div class="sig-kpi">
-            <div class="sig-kpi-top">
-              <div class="sig-kpi-ico"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></div>
-              <span class="sig-kpi-lbl">Recurrencia</span>
-              <i class="kpi-info" data-tip="Proporci&#243;n de episodios repetidos. 74 se&#241;ala un patr&#243;n de reincidencia relevante que consume coste.">i</i>
-            </div>
-            <div class="sig-kpi-val">74<span style="font-size:13px;font-weight:600;color:#94a3b8;">/100</span></div>
-            <div class="sig-kpi-bar"><i style="width:74%;background:#f59e0b;"></i></div>
-            <div class="sig-kpi-desc">Reincidencia relevante en varios focos</div>
-          </div>
-          <div class="sig-kpi">
-            <div class="sig-kpi-top">
-              <div class="sig-kpi-ico"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-              <span class="sig-kpi-lbl">Criticidad operativa</span>
-              <i class="kpi-info" data-tip="Impacto en producci&#243;n y servicio. 82 indica que los focos activos afectan a &#225;reas con baja sustituibilidad.">i</i>
-            </div>
-            <div class="sig-kpi-val">82<span style="font-size:13px;font-weight:600;color:#94a3b8;">/100</span></div>
-            <div class="sig-kpi-bar"><i style="width:82%;background:#dc2626;"></i></div>
-            <div class="sig-kpi-desc">Focos en &#225;reas operativas clave</div>
-          </div>
-          <div class="sig-kpi">
-            <div class="sig-kpi-top">
-              <div class="sig-kpi-ico"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
-              <span class="sig-kpi-lbl">Red organizativa</span>
-              <i class="kpi-info" data-tip="Concentraci&#243;n y propagaci&#243;n en la red. 71 indica focos conectados que se refuerzan entre s&#237;.">i</i>
-            </div>
-            <div class="sig-kpi-val">71<span style="font-size:13px;font-weight:600;color:#94a3b8;">/100</span></div>
-            <div class="sig-kpi-bar"><i style="width:71%;background:#f59e0b;"></i></div>
-            <div class="sig-kpi-desc">Focos conectados con propagaci&#243;n activa</div>
-          </div>
-          <div class="sig-kpi">
-            <div class="sig-kpi-top">
-              <div class="sig-kpi-ico" style="background:#f0fdf4;color:#059669;"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
-              <span class="sig-kpi-lbl">Capacidad de acci&#243;n</span>
-              <i class="kpi-info" data-tip="Margen para intervenir con los recursos y palancas disponibles. 65 indica capacidad media-alta.">i</i>
-            </div>
-            <div class="sig-kpi-val">65<span style="font-size:13px;font-weight:600;color:#94a3b8;">/100</span></div>
-            <div class="sig-kpi-bar"><i style="width:65%;background:#2563eb;"></i></div>
-            <div class="sig-kpi-desc">Margen de actuaci&#243;n medio-alto</div>
-          </div>
-        </div>
-
-        <!-- LECTURA EXPERTA -->
+        <!-- TARJETA UNIFICADA: SEÑALES + LECTURA EXPERTA -->
         <div class="i-card">
           <div class="i-card-head">
             <div style="display:flex;align-items:center;gap:9px;">
               <div style="width:28px;height:28px;border-radius:8px;background:#eff6ff;border:1px solid #bfdbfe;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                 <svg width="13" height="13" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <div><h3 style="margin:0;">Lectura experta</h3><p style="margin:0;">Generada sobre los datos del periodo &middot; <span id="kpi-period-label">Rolling 12</span></p></div>
+              <div><h3 style="margin:0;">Lectura experta</h3><p style="margin:0;">Se&#241;ales y diagn&#243;stico &middot; <span id="kpi-period-label-sit">Rolling 12</span></p></div>
             </div>
             <span class="i-tag amber">Urgencia media-alta</span>
           </div>
-          <div class="i-card-body">
-            <div class="lectura-kicker">An&#225;lisis IA &middot; <span id="kpi-period-label2">Rolling 12</span></div>
+          <!-- KPI STRIP dentro de la tarjeta -->
+          <div class="sit-card-kpis">
+            <div class="sit-kpi-cell">
+              <div class="sit-kpi-top">
+                <div class="sit-kpi-ico"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+                <span class="sit-kpi-lbl">Coste acumulado</span>
+                <i class="kpi-info" data-tip="Nivel de coste total respecto al hist&#243;rico. 88 indica coste alto pero no en m&#225;ximo absoluto.">i</i>
+              </div>
+              <div class="sit-kpi-val">88<span style="font-size:12px;font-weight:600;color:#94a3b8;">/100</span></div>
+              <div class="sit-kpi-bar"><i style="width:88%;"></i></div>
+              <div class="sit-kpi-desc">Coste en niveles altos del periodo</div>
+            </div>
+            <div class="sit-kpi-cell">
+              <div class="sit-kpi-top">
+                <div class="sit-kpi-ico"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></div>
+                <span class="sit-kpi-lbl">Recurrencia</span>
+                <i class="kpi-info" data-tip="Proporci&#243;n de episodios repetidos. 74 se&#241;ala un patr&#243;n de reincidencia relevante.">i</i>
+              </div>
+              <div class="sit-kpi-val">74<span style="font-size:12px;font-weight:600;color:#94a3b8;">/100</span></div>
+              <div class="sit-kpi-bar"><i style="width:74%;"></i></div>
+              <div class="sit-kpi-desc">Reincidencia relevante en focos</div>
+            </div>
+            <div class="sit-kpi-cell">
+              <div class="sit-kpi-top">
+                <div class="sit-kpi-ico"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+                <span class="sit-kpi-lbl">Criticidad operativa</span>
+                <i class="kpi-info" data-tip="Impacto en producci&#243;n y servicio. 82 indica focos activos en &#225;reas con baja sustituibilidad.">i</i>
+              </div>
+              <div class="sit-kpi-val">82<span style="font-size:12px;font-weight:600;color:#94a3b8;">/100</span></div>
+              <div class="sit-kpi-bar"><i style="width:82%;"></i></div>
+              <div class="sit-kpi-desc">Focos en &#225;reas operativas clave</div>
+            </div>
+            <div class="sit-kpi-cell">
+              <div class="sit-kpi-top">
+                <div class="sit-kpi-ico"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+                <span class="sit-kpi-lbl">Red organizativa</span>
+                <i class="kpi-info" data-tip="Concentraci&#243;n y propagaci&#243;n en la red. 71 indica focos conectados que se refuerzan entre s&#237;.">i</i>
+              </div>
+              <div class="sit-kpi-val">71<span style="font-size:12px;font-weight:600;color:#94a3b8;">/100</span></div>
+              <div class="sit-kpi-bar"><i style="width:71%;"></i></div>
+              <div class="sit-kpi-desc">Focos conectados con propagaci&#243;n activa</div>
+            </div>
+            <div class="sit-kpi-cell">
+              <div class="sit-kpi-top">
+                <div class="sit-kpi-ico"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+                <span class="sit-kpi-lbl">Capacidad de acci&#243;n</span>
+                <i class="kpi-info" data-tip="Margen para intervenir con los recursos disponibles. 65 indica capacidad media-alta.">i</i>
+              </div>
+              <div class="sit-kpi-val">65<span style="font-size:12px;font-weight:600;color:#94a3b8;">/100</span></div>
+              <div class="sit-kpi-bar"><i style="width:65%;"></i></div>
+              <div class="sit-kpi-desc">Margen de actuaci&#243;n medio-alto</div>
+            </div>
+          </div>
+          <!-- LECTURA EXPERTA -->
+          <div class="lectura-body">
+            <div class="lectura-kicker">An&#225;lisis IA &middot; Rolling 12</div>
             <div class="lectura-headline" id="diag-headline">La recurrencia mejora, pero el coste sigue concentrado en focos cr&#237;ticos.</div>
             <div class="lectura-subline" id="diag-subline">Bajan los episodios recurrentes, pero el coste permanece tensionado porque los procesos abiertos duran m&#225;s y se concentran en focos operativamente cr&#237;ticos.</div>
             <div class="evidence-row">
