@@ -235,13 +235,19 @@
     .evo-consult{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px;}
     .evo-consult h3{font-size:17px;font-weight:800;letter-spacing:-.04em;color:#0f172a;margin:8px 0 8px;}
     .evo-consult p{font-size:13px;font-weight:600;color:#334155;line-height:1.5;margin:0 0 14px;}
-    .flow-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-    .flow-item{background:#f8fafc;border:1px solid #f1f5f9;border-radius:11px;padding:11px;}
-    .flow-item.decision{background:#f0fdf4;border-color:#bbf7d0;}
-    .flow-item small{display:block;font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;}
-    .flow-item.decision small{color:#059669;}
-    .flow-item b{display:block;font-size:12px;font-weight:700;color:#0f172a;margin-bottom:3px;}
-    .flow-item span{display:block;font-size:11px;color:#64748b;font-weight:500;line-height:1.4;}
+    .evo-timeline{display:flex;flex-direction:column;position:relative;}
+    .evo-timeline::before{content:"";position:absolute;left:7px;top:10px;bottom:10px;width:2px;background:#e2e8f0;border-radius:1px;}
+    .evo-tl-item{display:flex;gap:14px;padding-bottom:16px;position:relative;}
+    .evo-tl-item:last-child{padding-bottom:0;}
+    .evo-tl-dot{width:16px;height:16px;border-radius:50%;border:2px solid #e2e8f0;background:#fff;flex-shrink:0;margin-top:2px;position:relative;z-index:1;}
+    .evo-tl-body{flex:1;}
+    .evo-tl-period{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;}
+    .evo-tl-title{font-size:13px;font-weight:700;color:#0f172a;margin-bottom:3px;}
+    .evo-tl-desc{font-size:11px;color:#64748b;font-weight:500;line-height:1.45;}
+    .evo-tl-item.tl-current .evo-tl-dot{background:#059669;border-color:#059669;}
+    .evo-tl-item.tl-current .evo-tl-body{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:10px 12px;}
+    .evo-tl-item.tl-current .evo-tl-period{color:#059669;}
+    .evo-tl-item.tl-current .evo-tl-title{color:#065f46;}
 
     /* PREDICCIONES */
     .forecast-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
@@ -1131,26 +1137,38 @@
           <span class="i-tag">Trayectoria &middot; 12 meses</span>
           <h3>Tres fases distintas: escalada, desacople y moderaci&#243;n parcial.</h3>
           <p>El a&#241;o muestra un patr&#243;n claro: la frecuencia alcanz&#243; su pico en marzo, el coste lo alcanz&#243; en julio, y desde septiembre ambos mejoran a ritmos distintos.</p>
-          <div class="flow-grid">
-            <div class="flow-item">
-              <small>Ene&#8211;Mar &middot; Fase 1</small>
-              <b>Escalada de frecuencia</b>
-              <span>Bradford y procesos/100 suben de forma sostenida hasta el pico de marzo.</span>
+          <div class="evo-timeline">
+            <div class="evo-tl-item">
+              <div class="evo-tl-dot" style="border-color:#ef4444;background:#fef2f2;"></div>
+              <div class="evo-tl-body">
+                <div class="evo-tl-period">Ene&#8211;Mar &middot; Fase 1</div>
+                <div class="evo-tl-title">Escalada de frecuencia</div>
+                <div class="evo-tl-desc">Bradford y procesos/100 suben de forma sostenida hasta el pico de marzo.</div>
+              </div>
             </div>
-            <div class="flow-item">
-              <small>Abr&#8211;Jul &middot; Fase 2</small>
-              <b>Coste sin reducci&#243;n</b>
-              <span>La frecuencia baja, pero julio registra el m&#225;ximo de coste. La duraci&#243;n toma el relevo.</span>
+            <div class="evo-tl-item">
+              <div class="evo-tl-dot" style="border-color:#f59e0b;background:#fffbeb;"></div>
+              <div class="evo-tl-body">
+                <div class="evo-tl-period">Abr&#8211;Jul &middot; Fase 2</div>
+                <div class="evo-tl-title">Coste sin reducci&#243;n</div>
+                <div class="evo-tl-desc">La frecuencia baja, pero julio registra el m&#225;ximo de coste. La duraci&#243;n toma el relevo.</div>
+              </div>
             </div>
-            <div class="flow-item">
-              <small>Ago&#8211;Oct &middot; Fase 3</small>
-              <b>Estabilizaci&#243;n visible</b>
-              <span>Tasa e incidencia bajan. El coste cede, pero m&#225;s despacio que la frecuencia.</span>
+            <div class="evo-tl-item">
+              <div class="evo-tl-dot" style="border-color:#3b82f6;background:#eff6ff;"></div>
+              <div class="evo-tl-body">
+                <div class="evo-tl-period">Ago&#8211;Oct &middot; Fase 3</div>
+                <div class="evo-tl-title">Estabilizaci&#243;n visible</div>
+                <div class="evo-tl-desc">Tasa e incidencia bajan. El coste cede, pero m&#225;s despacio que la frecuencia.</div>
+              </div>
             </div>
-            <div class="flow-item decision">
-              <small>Nov&#8211;Dic &middot; Ahora</small>
-              <b>Mejora fr&#225;gil</b>
-              <span>Buen momento para consolidar. El riesgo es relajar medidas antes de que el coste confirme.</span>
+            <div class="evo-tl-item tl-current">
+              <div class="evo-tl-dot"></div>
+              <div class="evo-tl-body">
+                <div class="evo-tl-period">Nov&#8211;Dic &middot; Ahora</div>
+                <div class="evo-tl-title">Mejora fr&#225;gil</div>
+                <div class="evo-tl-desc">Buen momento para consolidar. El riesgo es relajar medidas antes de que el coste confirme.</div>
+              </div>
             </div>
           </div>
         </div>
