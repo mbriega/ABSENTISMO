@@ -10,7 +10,7 @@
     .ci-content{padding:22px 28px 80px;display:flex;flex-direction:column;gap:14px;}
 
     /* HEADER */
-    .ci-header{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:20px 24px 0;overflow:hidden;}
+    .ci-header{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:18px 24px;}
     .ci-header-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding-bottom:16px;}
     .ci-title{font-size:22px;font-weight:800;color:#0f172a;margin:0 0 4px;letter-spacing:-.035em;}
     .ci-meta{font-size:11.5px;color:#94a3b8;font-weight:600;display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
@@ -20,15 +20,20 @@
     .ci-pill.blue{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
     .ci-pill.amber{background:#fffbeb;color:#b45309;border:1px solid #fde68a;}
 
-    /* KPI STRIP */
-    .ci-kpis{display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid #e2e8f0;margin:0 -24px;}
-    .ci-kpi{padding:14px 16px;border-right:1px solid #f1f5f9;}
-    .ci-kpi:last-child{border-right:none;}
-    .ci-kpi small{display:block;font-size:9.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px;}
-    .ci-kpi b{display:block;font-size:22px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:4px;color:#0f172a;}
-    .ci-kpi span{display:block;font-size:11px;color:#64748b;font-weight:500;line-height:1.35;}
-    .ci-kpi.hot b{color:#dc2626;}
-    .ci-kpi.good b{color:#059669;}
+    /* KPI GRID */
+    .ci-kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;}
+    .nkpi{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:16px 18px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+    .nkpi-h{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+    .nkpi-ico{width:28px;height:28px;border-radius:8px;background:#eff6ff;color:#1d4ed8;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .nkpi-lbl{font-size:11px;font-weight:700;color:#64748b;line-height:1.3;flex:1;}
+    .nkpi-val{font-size:26px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:5px;color:#0f172a;}
+    .nkpi-val.hot{color:#dc2626;}
+    .nkpi-val.good{color:#059669;}
+    .nkpi-desc{font-size:11px;color:#94a3b8;line-height:1.4;}
+    .kpi-info{position:relative;display:inline-flex;width:15px;height:15px;border-radius:999px;background:#f1f5f9;border:1px solid #e2e8f0;color:#94a3b8;font-size:8.5px;font-weight:800;align-items:center;justify-content:center;cursor:default;flex-shrink:0;font-style:normal;}
+    .kpi-info::after{content:attr(data-tip);position:absolute;top:calc(100% + 7px);left:0;transform:none;background:#0f172a;color:#fff;font-size:11.5px;font-weight:500;padding:7px 11px;border-radius:9px;white-space:normal;z-index:100;pointer-events:none;line-height:1.45;width:200px;text-align:left;display:none;}
+    .kpi-info::before{content:"";position:absolute;top:calc(100% + 2px);left:6px;border:5px solid transparent;border-bottom-color:#0f172a;z-index:100;display:none;}
+    .kpi-info:hover::after,.kpi-info:hover::before{display:block;}
 
     /* TAB BAR */
     .tab-bar{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);display:flex;padding:0 14px;overflow-x:auto;}
@@ -50,26 +55,24 @@
     .i-tag.amber{background:#fffbeb;color:#b45309;border-color:#fde68a;}
 
     /* SITUACIÓN ACTUAL */
-    .diag-card{background:linear-gradient(135deg,#0f172a,#18365d);border-radius:14px;padding:22px 24px;color:#fff;}
-    .diag-kicker{display:inline-flex;height:26px;align-items:center;border-radius:999px;padding:0 11px;background:rgba(16,185,129,.18);color:#6ee7b7;border:1px solid rgba(16,185,129,.3);font-size:10.5px;font-weight:800;margin-bottom:12px;}
-    .diag-headline{font-size:22px;font-weight:800;letter-spacing:-.04em;line-height:1.2;margin:0 0 10px;color:#fff;}
-    .diag-subline{font-size:13.5px;font-weight:600;color:#dbeafe;line-height:1.5;margin:0 0 18px;}
-    .diag-chain{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
-    .chain-item{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:11px;}
-    .chain-item small{display:block;font-size:9.5px;font-weight:800;color:#93c5fd;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;}
-    .chain-item b{display:block;font-size:12.5px;font-weight:700;color:#fff;margin-bottom:4px;}
-    .chain-item span{display:block;font-size:11px;color:#bfdbfe;line-height:1.35;}
+    .sig-kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+    .sig-kpi{background:#fff;border:1px solid #e2e8f0;border-radius:13px;padding:14px 15px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+    .sig-kpi-top{display:flex;align-items:center;gap:7px;margin-bottom:9px;}
+    .sig-kpi-ico{width:24px;height:24px;border-radius:7px;background:#eff6ff;color:#1d4ed8;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .sig-kpi-lbl{font-size:11px;font-weight:700;color:#64748b;flex:1;line-height:1.3;}
+    .sig-kpi-val{font-size:22px;font-weight:800;letter-spacing:-.04em;color:#0f172a;margin-bottom:5px;}
+    .sig-kpi-bar{height:5px;background:#e2e8f0;border-radius:999px;margin-bottom:5px;overflow:hidden;}
+    .sig-kpi-bar i{display:block;height:100%;background:#2563eb;border-radius:999px;}
+    .sig-kpi-desc{font-size:10.5px;color:#94a3b8;font-weight:500;line-height:1.35;}
 
-    .score-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:18px;}
-    .score-top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid #f1f5f9;padding-bottom:14px;margin-bottom:14px;}
-    .score-val{font-size:42px;font-weight:800;letter-spacing:-.06em;color:#0f172a;line-height:1;}
-    .score-label{font-size:11px;color:#94a3b8;font-weight:700;margin-top:4px;}
-    .score-criteria{display:grid;gap:9px;}
-    .criterion{display:grid;grid-template-columns:120px 1fr 40px;gap:8px;align-items:center;}
-    .criterion b{font-size:11.5px;font-weight:600;color:#334155;}
-    .criterion span{font-size:11.5px;font-weight:700;color:#64748b;text-align:right;}
-    .critbar{height:7px;background:#e2e8f0;border-radius:999px;overflow:hidden;}
-    .critbar i{display:block;height:100%;background:#2563eb;border-radius:999px;}
+    .lectura-kicker{display:inline-flex;height:24px;align-items:center;border-radius:999px;padding:0 10px;background:#f0fdf4;color:#059669;border:1px solid #bbf7d0;font-size:10.5px;font-weight:800;margin-bottom:12px;}
+    .lectura-headline{font-size:19px;font-weight:800;letter-spacing:-.04em;line-height:1.25;color:#0f172a;margin:0 0 8px;}
+    .lectura-subline{font-size:13px;font-weight:600;color:#334155;line-height:1.55;margin:0 0 16px;}
+    .evidence-row{display:flex;flex-wrap:wrap;gap:10px;}
+    .evidence-cell{flex:1 1 220px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:11px;padding:12px 14px;}
+    .evidence-cell small{display:block;font-size:9.5px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;}
+    .evidence-cell b{display:block;font-size:13px;font-weight:700;color:#0f172a;margin-bottom:4px;}
+    .evidence-cell p{font-size:12px;color:#64748b;font-weight:500;line-height:1.4;margin:0;}
 
     .priority-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
     .priority-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:13px;cursor:pointer;transition:.15s ease;}
@@ -79,13 +82,6 @@
     .priority-card b{display:block;font-size:13.5px;font-weight:700;color:#0f172a;margin-bottom:4px;}
     .priority-card p{font-size:11.5px;color:#64748b;font-weight:500;line-height:1.4;margin:0;}
     .priority-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
-
-    .diag-hero-grid{display:grid;grid-template-columns:1fr 340px;gap:14px;}
-    .diag-evidence-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;}
-    .evidence-box{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:13px;}
-    .evidence-box small{display:block;font-size:9.5px;font-weight:800;color:#93c5fd;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;}
-    .evidence-box b{display:block;font-size:14px;font-weight:700;color:#fff;margin-bottom:4px;}
-    .evidence-box p{font-size:12px;color:#bfdbfe;font-weight:500;line-height:1.4;margin:0;}
 
     .action-note{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:12px 16px;display:flex;gap:10px;align-items:flex-start;}
     .action-note p{font-size:12.5px;color:#1e40af;font-weight:600;line-height:1.5;margin:0;}
@@ -230,27 +226,30 @@
     .drawer-metric span{display:block;font-size:11px;color:#64748b;font-weight:500;margin-top:2px;}
     .drawer-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
 
-    /* AI DOCK */
-    .ci-ai-dock{position:fixed;right:24px;bottom:22px;width:380px;z-index:60;}
-    .ci-ai-dock.minimized .ai-content,.ci-ai-dock.minimized .ai-input-row{display:none;}
-    .ci-ai-dock.minimized .ai-box{border-radius:999px;}
-    .ci-ai-dock.minimized .ai-dock-top{border-bottom:0;height:48px;}
-    .ai-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;box-shadow:0 20px 55px rgba(15,23,42,.16);overflow:hidden;}
-    .ai-dock-top{height:50px;background:#0f172a;display:flex;align-items:center;justify-content:space-between;padding:0 14px;}
-    .ai-dock-name{display:flex;align-items:center;gap:9px;}
-    .ai-dock-icon{width:30px;height:30px;border-radius:999px;background:#eff6ff;border:1px solid #bfdbfe;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-    .ai-dock-name strong{display:block;font-size:12.5px;font-weight:700;color:#fff;}
-    .ai-dock-name span{display:block;font-size:10.5px;color:#93c5fd;font-weight:500;}
-    .ai-min-btn{height:26px;width:26px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);border-radius:8px;color:#e2e8f0;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;}
-    .ai-min-btn:hover{background:rgba(255,255,255,.15);}
-    .ai-content{padding:12px;background:#f8fafc;display:flex;flex-direction:column;gap:8px;}
-    .ai-bubble{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:10px 12px;color:#334155;font-size:12.5px;line-height:1.45;font-weight:500;}
-    .ai-prompts{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
-    .ai-prompts button{min-height:30px;border:1px solid #e2e8f0;background:#fff;border-radius:8px;font-size:11px;font-weight:700;color:#334155;padding:5px 8px;cursor:pointer;transition:.15s;}
-    .ai-prompts button:hover{background:#f1f5f9;}
-    .ai-input-row{height:46px;background:#fff;border-top:1px solid #f1f5f9;padding:6px 8px;display:grid;grid-template-columns:1fr 32px;gap:6px;}
-    .ai-input{border:1px solid #e2e8f0;border-radius:8px;padding:0 10px;font-size:12px;font-family:inherit;color:#334155;}
-    .ai-send{border:0;border-radius:8px;background:#0f172a;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+    /* ORQUESTADOR DOCK */
+    .orch-dock{position:fixed;right:24px;bottom:22px;width:380px;z-index:60;}
+    .orch-dock.minimized .orch-dock-body,.orch-dock.minimized .orch-quick,.orch-dock.minimized .orch-input-row{display:none;}
+    .orch-dock.minimized .orch-dock-head{border-radius:14px;border-bottom:1px solid #e2e8f0;}
+    .orch-dock.minimized .orch-dock-wrap{display:none;}
+    .orch-dock-head{background:#fff;border:1px solid #e2e8f0;border-bottom:1px solid #f1f5f9;border-radius:14px 14px 0 0;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 -4px 20px rgba(15,23,42,.06);}
+    .orch-dock-wrap{background:#fff;border:1px solid #e2e8f0;border-top:0;border-radius:0 0 14px 14px;box-shadow:0 14px 40px rgba(15,23,42,.13);overflow:hidden;}
+    .orch-dock-hname{display:flex;align-items:center;gap:9px;}
+    .orch-dock-ico{width:28px;height:28px;border-radius:8px;background:#eff6ff;border:1px solid #bfdbfe;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .orch-dock-hname strong{font-size:13px;font-weight:700;color:#0f172a;}
+    .orch-dock-hname span{font-size:11px;color:#94a3b8;font-weight:500;}
+    .orch-min-btn{height:26px;width:26px;border:1px solid #e2e8f0;background:#f8fafc;border-radius:7px;color:#64748b;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;}
+    .orch-min-btn:hover{background:#f1f5f9;}
+    .orch-dock-body{padding:12px;background:#f8fafc;display:flex;flex-direction:column;gap:8px;}
+    .orch-bubble{border-radius:11px;padding:10px 12px;font-size:12.5px;line-height:1.45;font-weight:500;}
+    .orch-bubble.ai{background:#fff;border:1px solid #e2e8f0;color:#334155;}
+    .orch-ai-lbl{display:block;font-size:9px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+    .orch-quick{padding:8px 12px 10px;background:#fff;border-top:1px solid #f1f5f9;display:flex;flex-wrap:wrap;gap:6px;}
+    .orch-quick button{height:27px;border:1px solid #e2e8f0;background:#f8fafc;border-radius:999px;font-size:11px;font-weight:600;color:#334155;cursor:pointer;padding:0 11px;white-space:nowrap;}
+    .orch-quick button:hover{background:#f1f5f9;}
+    .orch-input-row{display:flex;gap:8px;padding:10px 12px;background:#fff;border-top:1px solid #f1f5f9;}
+    .orch-input{flex:1;height:34px;border:1px solid #e2e8f0;border-radius:8px;padding:0 12px;font-size:12.5px;color:#334155;font-family:inherit;outline:none;}
+    .orch-input:focus{border-color:#bfdbfe;}
+    .orch-send{width:34px;height:34px;border:none;border-radius:8px;background:#0f172a;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   </style>
 </head>
 <body data-page="centro-inteligencia" class="bg-surface-50 text-surface-900 antialiased">
@@ -296,37 +295,63 @@
             <span class="ci-pill blue">Consultor IA activo</span>
           </div>
         </div>
-        <div class="ci-kpis">
-          <div class="ci-kpi hot">
-            <small>Tasa absentismo</small>
-            <b id="kpi-rate">12,9%</b>
-            <span>IT + AT + otras ausencias</span>
+      </div>
+
+      <!-- KPI GRID -->
+      <div class="ci-kpi-grid">
+        <div class="nkpi">
+          <div class="nkpi-h">
+            <div class="nkpi-ico"><svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg></div>
+            <span class="nkpi-lbl">Tasa absentismo</span>
+            <i class="kpi-info" data-tip="% de días no trabajados sobre días disponibles. Incluye IT, AT, permisos y otras ausencias.">i</i>
           </div>
-          <div class="ci-kpi hot">
-            <small>Coste total modelado</small>
-            <b id="kpi-cost">3,4M&#8364;</b>
-            <span>Directo + cobertura + operativo</span>
+          <div class="nkpi-val hot" id="kpi-rate">12,9%</div>
+          <div class="nkpi-desc">IT + AT + otras ausencias</div>
+        </div>
+        <div class="nkpi">
+          <div class="nkpi-h">
+            <div class="nkpi-ico"><svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+            <span class="nkpi-lbl">Coste total modelado</span>
+            <i class="kpi-info" data-tip="Suma de coste directo, cobertura, operativo y fricción organizativa. Incluye estimaciones modeladas.">i</i>
           </div>
-          <div class="ci-kpi">
-            <small>Incidencia</small>
-            <b id="kpi-incidence">59,5%</b>
-            <span>Personas con episodio</span>
+          <div class="nkpi-val hot" id="kpi-cost">3,4M&#8364;</div>
+          <div class="nkpi-desc">Directo + cobertura + operativo</div>
+        </div>
+        <div class="nkpi">
+          <div class="nkpi-h">
+            <div class="nkpi-ico"><svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+            <span class="nkpi-lbl">Incidencia</span>
+            <i class="kpi-info" data-tip="Proporción de personas que han tenido al menos un episodio de ausencia durante el periodo.">i</i>
           </div>
-          <div class="ci-kpi">
-            <small>Procesos / 100 empleados</small>
-            <b id="kpi-proc">18,4</b>
-            <span>Frecuencia normalizada</span>
+          <div class="nkpi-val" id="kpi-incidence">59,5%</div>
+          <div class="nkpi-desc">Personas con algún episodio</div>
+        </div>
+        <div class="nkpi">
+          <div class="nkpi-h">
+            <div class="nkpi-ico"><svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div>
+            <span class="nkpi-lbl">Procesos / 100 empleados</span>
+            <i class="kpi-info" data-tip="Número de episodios de ausencia por cada 100 empleados. Normaliza el volumen por plantilla para comparar focos.">i</i>
           </div>
-          <div class="ci-kpi">
-            <small>D&#237;as perdidos</small>
-            <b id="kpi-days">15.011</b>
-            <span>Acumulado del periodo</span>
+          <div class="nkpi-val" id="kpi-proc">18,4</div>
+          <div class="nkpi-desc">Frecuencia normalizada</div>
+        </div>
+        <div class="nkpi">
+          <div class="nkpi-h">
+            <div class="nkpi-ico"><svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div>
+            <span class="nkpi-lbl">D&#237;as perdidos</span>
+            <i class="kpi-info" data-tip="Total de jornadas no trabajadas por ausencia en el periodo. Driver directo del coste laboral.">i</i>
           </div>
-          <div class="ci-kpi good">
-            <small>Bradford</small>
-            <b id="kpi-bradford">545</b>
-            <span>Frecuencia disruptiva</span>
+          <div class="nkpi-val" id="kpi-days">15.011</div>
+          <div class="nkpi-desc">Acumulado del periodo</div>
+        </div>
+        <div class="nkpi">
+          <div class="nkpi-h">
+            <div class="nkpi-ico" style="background:#f0fdf4;color:#059669;"><svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg></div>
+            <span class="nkpi-lbl">Bradford</span>
+            <i class="kpi-info" data-tip="Índice de frecuencia disruptiva: pondera más las ausencias cortas y repetidas que las largas. Cuanto mayor, más fricci&#243;n operativa.">i</i>
           </div>
+          <div class="nkpi-val good" id="kpi-bradford">545</div>
+          <div class="nkpi-desc">Frecuencia disruptiva</div>
         </div>
       </div>
 
@@ -343,92 +368,95 @@
       <!-- ═══════════════════════════════ TAB: SITUACIÓN ACTUAL ═══════════════════════════════ -->
       <div id="situacion" class="tab-panel active">
 
-        <div class="diag-hero-grid">
-          <!-- DIAGNÓSTICO PRINCIPAL -->
-          <div class="diag-card">
-            <div class="diag-kicker">Lectura experta &middot; Rolling 12</div>
-            <div class="diag-headline" id="diag-headline">La recurrencia mejora, pero el coste sigue concentrado en focos cr&#237;ticos.</div>
-            <div class="diag-subline" id="diag-subline">Bajan los episodios recurrentes, pero el coste permanece tensionado porque los procesos abiertos duran m&#225;s y se concentran en focos operativamente cr&#237;ticos.</div>
-            <div class="diag-chain">
-              <div class="chain-item">
-                <small>Focos</small>
-                <b>3 centros + Turno Noche</b>
-                <span>Concentran el 72% del impacto económico</span>
-              </div>
-              <div class="chain-item">
-                <small>Tipo</small>
-                <b>Duración + recurrencia</b>
-                <span>Procesos largos y Bradford alto</span>
-              </div>
-              <div class="chain-item">
-                <small>Palancas activas</small>
-                <b>Retorno seguro</b>
-                <span>Estabilización preventiva</span>
-              </div>
-              <div class="chain-item">
-                <small>Horizonte</small>
-                <b>30&#8211;60 d&#237;as</b>
-                <span>Ventana de mayor impacto</span>
-              </div>
-              <div class="chain-item">
-                <small>Ahorro esperado</small>
-                <b>190K&#8211;250K&#8364;</b>
-                <span>Con plans activos</span>
-              </div>
+        <!-- SEÑALES DE SITUACIÓN -->
+        <div class="sig-kpi-grid">
+          <div class="sig-kpi">
+            <div class="sig-kpi-top">
+              <div class="sig-kpi-ico"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+              <span class="sig-kpi-lbl">Coste acumulado</span>
+              <i class="kpi-info" data-tip="Nivel de coste total respecto al histrico. 88 indica coste alto pero no en mximo absoluto.">i</i>
             </div>
-            <div class="diag-evidence-grid">
-              <div class="evidence-box">
+            <div class="sig-kpi-val">88<span style="font-size:13px;font-weight:600;color:#94a3b8;">/100</span></div>
+            <div class="sig-kpi-bar"><i style="width:88%;background:#dc2626;"></i></div>
+            <div class="sig-kpi-desc">Coste total en niveles altos del periodo</div>
+          </div>
+          <div class="sig-kpi">
+            <div class="sig-kpi-top">
+              <div class="sig-kpi-ico"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></div>
+              <span class="sig-kpi-lbl">Recurrencia</span>
+              <i class="kpi-info" data-tip="Proporci&#243;n de episodios repetidos. 74 se&#241;ala un patr&#243;n de reincidencia relevante que consume coste.">i</i>
+            </div>
+            <div class="sig-kpi-val">74<span style="font-size:13px;font-weight:600;color:#94a3b8;">/100</span></div>
+            <div class="sig-kpi-bar"><i style="width:74%;background:#f59e0b;"></i></div>
+            <div class="sig-kpi-desc">Reincidencia relevante en varios focos</div>
+          </div>
+          <div class="sig-kpi">
+            <div class="sig-kpi-top">
+              <div class="sig-kpi-ico"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+              <span class="sig-kpi-lbl">Criticidad operativa</span>
+              <i class="kpi-info" data-tip="Impacto en producci&#243;n y servicio. 82 indica que los focos activos afectan a &#225;reas con baja sustituibilidad.">i</i>
+            </div>
+            <div class="sig-kpi-val">82<span style="font-size:13px;font-weight:600;color:#94a3b8;">/100</span></div>
+            <div class="sig-kpi-bar"><i style="width:82%;background:#dc2626;"></i></div>
+            <div class="sig-kpi-desc">Focos en &#225;reas operativas clave</div>
+          </div>
+          <div class="sig-kpi">
+            <div class="sig-kpi-top">
+              <div class="sig-kpi-ico"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+              <span class="sig-kpi-lbl">Red organizativa</span>
+              <i class="kpi-info" data-tip="Concentraci&#243;n y propagaci&#243;n en la red. 71 indica focos conectados que se refuerzan entre s&#237;.">i</i>
+            </div>
+            <div class="sig-kpi-val">71<span style="font-size:13px;font-weight:600;color:#94a3b8;">/100</span></div>
+            <div class="sig-kpi-bar"><i style="width:71%;background:#f59e0b;"></i></div>
+            <div class="sig-kpi-desc">Focos conectados con propagaci&#243;n activa</div>
+          </div>
+          <div class="sig-kpi">
+            <div class="sig-kpi-top">
+              <div class="sig-kpi-ico" style="background:#f0fdf4;color:#059669;"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+              <span class="sig-kpi-lbl">Capacidad de acci&#243;n</span>
+              <i class="kpi-info" data-tip="Margen para intervenir con los recursos y palancas disponibles. 65 indica capacidad media-alta.">i</i>
+            </div>
+            <div class="sig-kpi-val">65<span style="font-size:13px;font-weight:600;color:#94a3b8;">/100</span></div>
+            <div class="sig-kpi-bar"><i style="width:65%;background:#2563eb;"></i></div>
+            <div class="sig-kpi-desc">Margen de actuaci&#243;n medio-alto</div>
+          </div>
+        </div>
+
+        <!-- LECTURA EXPERTA -->
+        <div class="i-card">
+          <div class="i-card-head">
+            <div style="display:flex;align-items:center;gap:9px;">
+              <div style="width:28px;height:28px;border-radius:8px;background:#eff6ff;border:1px solid #bfdbfe;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="13" height="13" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <div><h3 style="margin:0;">Lectura experta</h3><p style="margin:0;">Generada sobre los datos del periodo &middot; <span id="kpi-period-label">Rolling 12</span></p></div>
+            </div>
+            <span class="i-tag amber">Urgencia media-alta</span>
+          </div>
+          <div class="i-card-body">
+            <div class="lectura-kicker">An&#225;lisis IA &middot; <span id="kpi-period-label2">Rolling 12</span></div>
+            <div class="lectura-headline" id="diag-headline">La recurrencia mejora, pero el coste sigue concentrado en focos cr&#237;ticos.</div>
+            <div class="lectura-subline" id="diag-subline">Bajan los episodios recurrentes, pero el coste permanece tensionado porque los procesos abiertos duran m&#225;s y se concentran en focos operativamente cr&#237;ticos.</div>
+            <div class="evidence-row">
+              <div class="evidence-cell">
                 <small>Qu&#233; ha cambiado</small>
                 <b>Menos disrupci&#243;n corta</b>
                 <p>El Bradford baja de forma relevante y los procesos por 100 empleados se moderan desde el pico de marzo.</p>
               </div>
-              <div class="evidence-box">
+              <div class="evidence-cell">
                 <small>Qu&#233; lo explica</small>
-                <b>El coste se desacopla de la tasa</b>
+                <b>Coste desacoplado de la tasa</b>
                 <p>Julio mantiene coste alto aunque la frecuencia ya no est&#225; en m&#225;ximos. La explicaci&#243;n est&#225; en duraci&#243;n y cobertura.</p>
               </div>
-              <div class="evidence-box">
+              <div class="evidence-cell">
+                <small>Focos principales</small>
+                <b>3 centros + Turno Noche</b>
+                <p>Concentran el 72% del impacto econ&#243;mico. Ahorro potencial con planes activos: 190K&#8211;250K&#8364;.</p>
+              </div>
+              <div class="evidence-cell">
                 <small>Decisi&#243;n operativa</small>
                 <b>No relajar medidas todav&#237;a</b>
-                <p>La mejora es real, pero parcial. El siguiente paso es actuar sobre procesos largos y turnos con cobertura dif&#237;cil.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- SCORE DE PRIORIDAD -->
-          <div class="score-card">
-            <div class="score-top">
-              <div>
-                <div class="score-val" id="score-val">78</div>
-                <div class="score-label">/ 100 &middot; Prioridad de acci&#243;n</div>
-              </div>
-              <span class="i-tag amber">Urgencia media-alta</span>
-            </div>
-            <div class="score-criteria">
-              <div class="criterion">
-                <b>Coste acumulado</b>
-                <div class="critbar"><i style="width:88%"></i></div>
-                <span>88</span>
-              </div>
-              <div class="criterion">
-                <b>Recurrencia</b>
-                <div class="critbar"><i style="width:74%"></i></div>
-                <span>74</span>
-              </div>
-              <div class="criterion">
-                <b>Criticidad operativa</b>
-                <div class="critbar"><i style="width:82%"></i></div>
-                <span>82</span>
-              </div>
-              <div class="criterion">
-                <b>Red organizativa</b>
-                <div class="critbar"><i style="width:71%"></i></div>
-                <span>71</span>
-              </div>
-              <div class="criterion">
-                <b>Capacidad de acci&#243;n</b>
-                <div class="critbar"><i style="width:65%"></i></div>
-                <span>65</span>
+                <p>La mejora es real, pero parcial. Actuar sobre procesos largos y turnos con cobertura dif&#237;cil.</p>
               </div>
             </div>
           </div>
@@ -925,39 +953,42 @@
     </div>
   </div>
 
-  <!-- AI CONSULTOR DOCK -->
-  <div class="ci-ai-dock" id="ai-dock">
-    <div class="ai-box">
-      <div class="ai-dock-top">
-        <div class="ai-dock-name">
-          <div class="ai-dock-icon">
-            <svg width="13" height="13" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-          </div>
-          <div>
-            <strong>Consultor IA</strong>
-            <span>Apoyo sobre datos visibles</span>
-          </div>
+  <!-- CONSULTOR IA DOCK -->
+  <div class="orch-dock" id="ai-dock">
+    <div class="orch-dock-head">
+      <div class="orch-dock-hname">
+        <div class="orch-dock-ico">
+          <svg width="13" height="13" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
         </div>
-        <div style="display:flex;gap:7px;align-items:center;">
-          <span class="i-tag">Activo</span>
-          <button class="ai-min-btn" onclick="toggleAI()">
-            <svg width="10" height="10" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-          </button>
+        <div>
+          <strong>Consultor IA</strong>
+          <span>Centro de Inteligencia &middot; datos visibles</span>
         </div>
       </div>
-      <div class="ai-content">
-        <div class="ai-bubble" id="ai-bubble">Selecciona cualquier dato, foco o fila y te explico qu&#233; significa, qu&#233; evidencia lo soporta y qu&#233; acci&#243;n tiene m&#225;s sentido.</div>
-        <div class="ai-prompts">
-          <button onclick="switchTab('costes');updateAI('costes')">Explicar costes</button>
-          <button onclick="switchTab('segmentacion');updateAI('segmentacion')">D&#243;nde duele</button>
-          <button onclick="switchTab('red');updateAI('red')">Ver red</button>
-          <button onclick="switchTab('predicciones');updateAI('predicciones')">Ver predicciones</button>
+      <div style="display:flex;gap:7px;align-items:center;">
+        <span class="i-tag green">Activo</span>
+        <button class="orch-min-btn" onclick="toggleAI()">
+          <svg width="10" height="10" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="orch-dock-wrap">
+      <div class="orch-dock-body">
+        <div class="orch-bubble ai">
+          <span class="orch-ai-lbl">Consultor IA</span>
+          <span id="ai-bubble">Selecciona cualquier dato, foco o fila y te explico qu&#233; significa, qu&#233; evidencia lo soporta y qu&#233; acci&#243;n tiene m&#225;s sentido.</span>
         </div>
       </div>
-      <div class="ai-input-row">
-        <input class="ai-input" placeholder="Pregunta sobre el dato abierto&#8230;"/>
-        <button class="ai-send">
-          <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+      <div class="orch-quick">
+        <button onclick="switchTab('costes');updateAI('costes')">Explicar costes</button>
+        <button onclick="switchTab('segmentacion');updateAI('segmentacion')">D&#243;nde duele m&#225;s</button>
+        <button onclick="switchTab('red');updateAI('red')">Ver red</button>
+        <button onclick="switchTab('predicciones');updateAI('predicciones')">Predicciones</button>
+      </div>
+      <div class="orch-input-row">
+        <input class="orch-input" placeholder="Pregunta sobre el dato abierto&#8230;" id="ai-input"/>
+        <button class="orch-send" onclick="sendAI()">
+          <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
         </button>
       </div>
     </div>
@@ -1004,7 +1035,20 @@
     }
 
     function toggleAI() {
-      document.getElementById("ai-dock").classList.toggle("minimized");
+      var dock = document.getElementById("ai-dock");
+      dock.classList.toggle("minimized");
+      var chev = dock.querySelector(".orch-min-btn svg path");
+      var isMin = dock.classList.contains("minimized");
+      var btn = dock.querySelector(".orch-min-btn");
+      if (btn) btn.querySelector("svg").style.transform = isMin ? "rotate(180deg)" : "";
+    }
+
+    function sendAI() {
+      var input = document.getElementById("ai-input");
+      if (!input || !input.value.trim()) return;
+      var bubble = document.getElementById("ai-bubble");
+      if (bubble) bubble.textContent = "Procesando tu consulta sobre: "" + input.value.trim() + ""…";
+      input.value = "";
     }
 
     /* ─── PRIORITY CARDS ─── */
