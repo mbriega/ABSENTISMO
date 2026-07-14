@@ -446,7 +446,6 @@
         <button class="tab-btn" data-tab="red" onclick="switchTab('red')">Red organizativa</button>
         <button class="tab-btn" data-tab="costes" onclick="switchTab('costes')">Costes</button>
         <button class="tab-btn" data-tab="evolucion" onclick="switchTab('evolucion')">Evoluci&#243;n</button>
-        <button class="tab-btn" data-tab="predicciones" onclick="switchTab('predicciones')">Predicciones</button>
       </div>
 
       <!-- AVISO PERIODO FIJO -->
@@ -1188,55 +1187,6 @@
       </div><!-- /tab evolucion -->
 
       <!-- ═══════════════════════════════ TAB: PREDICCIONES ═══════════════════════════════ -->
-      <div id="predicciones" class="tab-panel">
-
-        <div class="forecast-grid">
-          <div class="forecast-card">
-            <small>Riesgo 30 d&#237;as</small>
-            <b>Turno Noche &middot; recurrencia corta</b>
-            <p>Probabilidad alta de nuevo pico de bajas cortas si no se estabiliza cobertura este mes.</p>
-            <span class="tbl-pill red">Alto &middot; 72%</span>
-          </div>
-          <div class="forecast-card">
-            <small>Riesgo 60 d&#237;as</small>
-            <b>Made Este &middot; duraci&#243;n media</b>
-            <p>Procesos largos con coste elevado y baja sustituibilidad en equipo cr&#237;tico.</p>
-            <span class="tbl-pill amber">Medio-alto &middot; 64%</span>
-          </div>
-          <div class="forecast-card">
-            <small>Riesgo campa&#241;a</small>
-            <b>Cierre de producci&#243;n</b>
-            <p>El impacto econ&#243;mico esperado aumenta por criticidad de ventana productiva comprometida.</p>
-            <span class="tbl-pill purple">Cr&#237;tico &middot; 58%</span>
-          </div>
-        </div>
-
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr><th>Predicci&#243;n</th><th>Probabilidad</th><th>Impacto estimado</th><th>Foco</th><th>Evidencia</th><th>Plan sugerido</th></tr>
-            </thead>
-            <tbody>
-              <tr><td><b>Pico de recurrencia corta</b></td><td>72%</td><td>48K&#8364;</td><td>Turno Noche</td><td>Bradford + reincidencia</td><td>Estabilizaci&#243;n turnos</td></tr>
-              <tr><td><b>Duraci&#243;n superior a objetivo</b></td><td>64%</td><td>91K&#8364;</td><td>Made Este</td><td>IT larga + coste/empleado</td><td>Retorno seguro</td></tr>
-              <tr><td><b>Tensi&#243;n en l&#237;nea cr&#237;tica</b></td><td>58%</td><td>36K&#8364;</td><td>L&#237;nea 3</td><td>Criticidad + cobertura</td><td>Cobertura preventiva</td></tr>
-              <tr><td><b>Reincorporaciones en riesgo</b></td><td>51%</td><td>22K&#8364;</td><td>Bonus Pontevedra</td><td>Alta tasa + duraci&#243;n</td><td>Retorno seguro</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="deep-grid">
-          <div class="deep-card">
-            <h3>C&#243;mo se calculan</h3>
-            <p>Cada predicci&#243;n combina el diagn&#243;stico actual (tasa, coste, Bradford, recurrencia) con la criticidad operativa del negocio y el rol del foco en la red organizativa.</p>
-          </div>
-          <div class="deep-card">
-            <h3>C&#243;mo usarlas</h3>
-            <p>Las predicciones no son certezas. Son la se&#241;al m&#225;s temprana disponible para decidir cu&#225;ndo actuar antes de que el problema se consolide y cueste m&#225;s.</p>
-          </div>
-        </div>
-
-      </div><!-- /tab predicciones -->
 
     </section>
   </div><!-- /main -->
@@ -1353,7 +1303,6 @@
         <button onclick="switchTab('costes');updateAI('costes')">Explicar costes</button>
         <button onclick="switchTab('segmentacion');updateAI('segmentacion')">D&#243;nde duele m&#225;s</button>
         <button onclick="switchTab('red');updateAI('red')">Ver red</button>
-        <button onclick="switchTab('predicciones');updateAI('predicciones')">Predicciones</button>
       </div>
       <div class="orch-input-row">
         <input class="orch-input" placeholder="Pregunta sobre el dato abierto&#8230;" id="ai-input"/>
@@ -1374,8 +1323,7 @@
       segmentacion: "Estoy en Segmentación. Esta es la foto actual de cómo está cada foco. Puedes abrir cualquier fila para ver detalle completo.",
       red: "Estoy en Red organizativa. La red muestra si el foco es origen, consecuencia, hub, propagador, puente o clúster.",
       costes: "Estoy en Costes. La mayor capa accionable es cobertura: 1,65M€, 48,1% del total. Recomiendo revisar turnos y sustituciones.",
-      evolucion: "Estoy en Evolución. La tasa mejora desde octubre, pero el coste no baja al mismo ritmo porque la duración sigue alta.",
-      predicciones: "Estoy en Predicciones. Los riesgos próximos conectan diagnóstico, criticidad y red organizativa."
+      evolucion: "Estoy en Evolución. La tasa mejora desde octubre, pero el coste no baja al mismo ritmo porque la duración sigue alta."
     };
 
     function switchTab(tabId) {
