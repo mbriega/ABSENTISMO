@@ -176,27 +176,29 @@
     .reading-box h3{font-size:15px;font-weight:700;color:#047857;margin:0 0 6px;}
     .reading-box p{font-size:13px;font-weight:600;color:#065f46;line-height:1.5;margin:0;}
     /* COSTES — sub-tab layout */
-    .cost-kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px;}
-    .cost-total-box>b{color:#059669!important;}
     .cost-sub{display:none;}
     .cost-sub.active{display:block;}
-    .cost-sub-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
-    .cost-integral-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:14px;}
-    .cost-desglose{display:flex;flex-direction:column;gap:7px;margin-bottom:12px;}
+    .cost-integral-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:16px;}
+    .cost-desglose{display:flex;flex-direction:column;gap:7px;margin-top:10px;}
     .cost-desglose-row{display:flex;align-items:center;gap:8px;padding:8px 10px;background:#f8fafc;border-radius:8px;border:1px solid #f1f5f9;}
     .cost-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
     .cost-desglose-label{flex:1;font-size:12px;font-weight:600;color:#334155;}
     .cost-desglose-val{font-size:12px;font-weight:700;color:#0f172a;letter-spacing:-.01em;white-space:nowrap;}
-    .cost-desglose-total{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:#0f172a;border-radius:8px;margin-top:4px;}
+    .cost-desglose-total{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:#0f172a;border-radius:8px;margin-top:6px;}
     .cost-desglose-total>span:first-child{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;}
     .cost-total-val{font-size:15px;font-weight:800;color:#fff;letter-spacing:-.03em;}
-    .cost-pbar-wrap{margin-top:12px;}
-    .cost-pbar{display:flex;height:10px;border-radius:999px;overflow:hidden;}
+    .cost-pbar{display:flex;height:10px;border-radius:999px;overflow:hidden;margin-bottom:8px;}
     .cost-pbar-seg{height:100%;}
-    .cost-pbar-labels{display:flex;gap:14px;margin-top:8px;flex-wrap:wrap;}
+    .cost-pbar-labels{display:flex;gap:14px;flex-wrap:wrap;}
     .cost-pbar-leg{display:flex;align-items:center;gap:5px;}
     .cost-pbar-leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
     .cost-pbar-leg span{font-size:10px;color:#64748b;font-weight:500;}
+    .cost-head-stats{display:flex;align-items:center;gap:0;flex-shrink:0;}
+    .cost-head-stat{padding:0 16px;text-align:right;}
+    .cost-head-stat:first-child{padding-left:0;}
+    .cost-head-stat b{display:block;font-size:15px;font-weight:800;letter-spacing:-.025em;color:#0f172a;line-height:1.2;}
+    .cost-head-stat span{display:block;font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-top:2px;white-space:nowrap;}
+    .cost-head-stat-sep{width:1px;height:28px;background:#f1f5f9;}
 
     /* EVOLUCIÓN */
     .evo-mini{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
@@ -788,50 +790,53 @@
       <!-- ═══════════════════════════════ TAB: COSTES ═══════════════════════════════ -->
       <div id="costes" class="tab-panel">
 
-        <!-- 5 KPI siempre visibles -->
-        <div class="cost-kpi-grid">
-          <div class="seg-box">
-            <small>Coste directo laboral</small>
-            <b>1.278.739&#8364;</b>
-            <span>37,2% del total</span>
+        <!-- CARD PRINCIPAL — KPIs + chips (mismo patr&#243;n que Segmentaci&#243;n) -->
+        <div class="i-card">
+          <div class="i-card-head" style="flex-wrap:wrap;gap:10px;">
+            <div>
+              <h3>An&#225;lisis de Costes</h3>
+              <p>Modelo econ&#243;mico &middot; Rolling 12 &middot; 608 episodios</p>
+            </div>
+            <div class="seg-chips" id="cost-chips">
+              <button class="seg-chip active" onclick="switchCostTab(this,'integral')">Coste Integral</button>
+              <button class="seg-chip" onclick="switchCostTab(this,'reincidencia')">Reincidencia</button>
+              <button class="seg-chip" onclick="switchCostTab(this,'bradford')">Bradford y Frecuencia Disruptiva</button>
+              <button class="seg-chip" onclick="switchCostTab(this,'causas')">Causas y Tipolog&#237;as</button>
+            </div>
           </div>
-          <div class="seg-box">
-            <small>Coste de cobertura</small>
-            <b>1.653.587&#8364;</b>
-            <span>48,1% del total</span>
+          <div class="i-card-body" style="padding:14px 18px;">
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;">
+              <div class="seg-box"><small>Coste directo laboral</small><b>1.278.739&#8364;</b><span>37,2% del total</span></div>
+              <div class="seg-box"><small>Coste de cobertura</small><b>1.653.587&#8364;</b><span>48,1% del total</span></div>
+              <div class="seg-box"><small>Coste operativo</small><b>285.953&#8364;</b><span>8,3% del total</span></div>
+              <div class="seg-box"><small>Coste de fricci&#243;n organizativa</small><b>218.730&#8364;</b><span>6,4% del total</span></div>
+              <div class="seg-box" style="border-color:#bbf7d0;background:#f0fdf4;"><small style="color:#059669;">Coste total modelado</small><b style="color:#059669;">3.437.009&#8364;</b><span>608 episodios activos</span></div>
+            </div>
           </div>
-          <div class="seg-box">
-            <small>Coste operativo</small>
-            <b>285.953&#8364;</b>
-            <span>8,3% del total</span>
-          </div>
-          <div class="seg-box">
-            <small>Coste de fricci&#243;n organizativa</small>
-            <b>218.730&#8364;</b>
-            <span>6,4% del total</span>
-          </div>
-          <div class="seg-box cost-total-box">
-            <small>Coste total modelado</small>
-            <b>3.437.009&#8364;</b>
-            <span>608 episodios activos</span>
-          </div>
-        </div>
-
-        <!-- Sub-tab chips -->
-        <div class="seg-chips" id="cost-chips" style="margin-bottom:14px;">
-          <button class="seg-chip active" onclick="switchCostTab(this,'integral')">Coste Integral</button>
-          <button class="seg-chip" onclick="switchCostTab(this,'reincidencia')">Reincidencia</button>
-          <button class="seg-chip" onclick="switchCostTab(this,'bradford')">Bradford y Frecuencia Disruptiva</button>
-          <button class="seg-chip" onclick="switchCostTab(this,'causas')">Causas y Tipolog&#237;as</button>
         </div>
 
         <!-- ── SUB-PANEL: Coste Integral ── -->
         <div class="cost-sub active" id="cosub-integral">
-          <div class="cost-integral-grid">
-            <div>
-              <div class="i-card">
-                <div class="i-card-head"><b>Desglose integral &mdash; 4 capas</b></div>
-                <div class="i-card-body">
+          <div class="i-card">
+            <div class="i-card-head">
+              <div><h3>Desglose integral &mdash; 4 capas</h3><p>Distribuci&#243;n del coste por tipo</p></div>
+              <span style="font-size:11px;color:#94a3b8;font-weight:500;">2025 &#183; K&#8364;</span>
+            </div>
+            <div class="i-card-body">
+              <div class="cost-integral-grid">
+                <div>
+                  <div class="cost-pbar">
+                    <div class="cost-pbar-seg" style="width:37.2%;background:#2563eb;" title="Directo laboral 37,2%"></div>
+                    <div class="cost-pbar-seg" style="width:48.1%;background:#8b5cf6;" title="Cobertura 48,1%"></div>
+                    <div class="cost-pbar-seg" style="width:8.3%;background:#10b981;" title="Operativo 8,3%"></div>
+                    <div class="cost-pbar-seg" style="width:6.4%;background:#f59e0b;" title="Fricci&#243;n 6,4%"></div>
+                  </div>
+                  <div class="cost-pbar-labels">
+                    <div class="cost-pbar-leg"><span class="cost-pbar-leg-dot" style="background:#2563eb;"></span><span>Laboral 37,2%</span></div>
+                    <div class="cost-pbar-leg"><span class="cost-pbar-leg-dot" style="background:#8b5cf6;"></span><span>Cobertura 48,1%</span></div>
+                    <div class="cost-pbar-leg"><span class="cost-pbar-leg-dot" style="background:#10b981;"></span><span>Operativo 8,3%</span></div>
+                    <div class="cost-pbar-leg"><span class="cost-pbar-leg-dot" style="background:#f59e0b;"></span><span>Fricci&#243;n 6,4%</span></div>
+                  </div>
                   <div class="cost-desglose">
                     <div class="cost-desglose-row">
                       <span class="cost-dot" style="background:#2563eb;"></span>
@@ -862,31 +867,10 @@
                       <span class="cost-total-val">3.437.009&#8364;</span>
                     </div>
                   </div>
-                  <div class="cost-pbar-wrap">
-                    <div class="cost-pbar">
-                      <div class="cost-pbar-seg" style="width:37.2%;background:#2563eb;" title="Directo laboral 37,2%"></div>
-                      <div class="cost-pbar-seg" style="width:48.1%;background:#8b5cf6;" title="Cobertura 48,1%"></div>
-                      <div class="cost-pbar-seg" style="width:8.3%;background:#10b981;" title="Operativo 8,3%"></div>
-                      <div class="cost-pbar-seg" style="width:6.4%;background:#f59e0b;" title="Fricci&#243;n 6,4%"></div>
-                    </div>
-                    <div class="cost-pbar-labels">
-                      <div class="cost-pbar-leg"><span class="cost-pbar-leg-dot" style="background:#2563eb;"></span><span>Laboral</span></div>
-                      <div class="cost-pbar-leg"><span class="cost-pbar-leg-dot" style="background:#8b5cf6;"></span><span>Cobertura</span></div>
-                      <div class="cost-pbar-leg"><span class="cost-pbar-leg-dot" style="background:#10b981;"></span><span>Operativo</span></div>
-                      <div class="cost-pbar-leg"><span class="cost-pbar-leg-dot" style="background:#f59e0b;"></span><span>Fricci&#243;n</span></div>
-                    </div>
-                  </div>
                 </div>
-              </div>
-            </div>
-            <div>
-              <div class="i-card">
-                <div class="i-card-head" style="justify-content:space-between;">
-                  <b>Evoluci&#243;n mensual por capa</b>
-                  <span style="font-size:11px;color:#94a3b8;">2025 &#183; K&#8364;</span>
-                </div>
-                <div class="i-card-body" style="padding:10px 14px 14px;">
-                  <div id="cost-stacked-chart" style="line-height:0;"></div>
+                <div>
+                  <div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px;">Evoluci&#243;n mensual por capa <span style="font-weight:500;text-transform:none;color:#cbd5e1;">&middot; 2025 &middot; K&#8364;</span></div>
+                  <div id="cost-stacked-chart" style="line-height:0;background:#fafbfc;border:1px solid #f1f5f9;border-radius:10px;padding:8px 4px 2px;"></div>
                 </div>
               </div>
             </div>
@@ -895,132 +879,133 @@
 
         <!-- ── SUB-PANEL: Reincidencia ── -->
         <div class="cost-sub" id="cosub-reincidencia">
-          <div class="cost-sub-kpis">
-            <div class="seg-box">
-              <small>Tasa de reincidencia</small>
-              <b>44,3%</b>
-              <span>Personas con &#8805;2 episodios en 12m</span>
+          <div class="i-card">
+            <div class="i-card-head" style="flex-wrap:wrap;gap:10px;">
+              <div>
+                <h3>Reincidencia</h3>
+                <p>Concentraci&#243;n del coste en empleados con episodios repetidos</p>
+              </div>
+              <div class="cost-head-stats">
+                <div class="cost-head-stat"><b>44,3%</b><span>Tasa</span></div>
+                <div class="cost-head-stat-sep"></div>
+                <div class="cost-head-stat"><b style="color:#dc2626;">1.606.010&#8364;</b><span>Coste</span></div>
+                <div class="cost-head-stat-sep"></div>
+                <div class="cost-head-stat"><b>139</b><span>Personas</span></div>
+                <div class="cost-head-stat-sep"></div>
+                <div class="cost-head-stat"><b>11.554&#8364;</b><span>Por reincidente</span></div>
+              </div>
             </div>
-            <div class="seg-box">
-              <small>Coste de reincidencia</small>
-              <b style="color:#dc2626;">1.606.010&#8364;</b>
-              <span>46,7% del coste total modelado</span>
+            <div class="i-card-body" style="padding:0;">
+              <div class="table-wrap" style="border:0;border-radius:0;">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Centro</th>
+                      <th style="text-align:center;">Reincidentes</th>
+                      <th style="text-align:center;">Tasa reincidencia</th>
+                      <th style="text-align:right;">Coste</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td><b>Optimizaci&#243;n</b></td><td style="text-align:center;">2</td><td style="text-align:center;"><span class="tbl-pill red">100,0%</span></td><td style="text-align:right;">29.305&#8364;</td></tr>
+                    <tr><td><b>Grandes Correctivos Norte</b></td><td style="text-align:center;">4</td><td style="text-align:center;"><span class="tbl-pill red">100,0%</span></td><td style="text-align:right;">9.268&#8364;</td></tr>
+                    <tr><td><b>Alta Tensi&#243;n Noroeste</b></td><td style="text-align:center;">1</td><td style="text-align:center;"><span class="tbl-pill red">100,0%</span></td><td style="text-align:right;">7.122&#8364;</td></tr>
+                    <tr><td><b>Grandes Correctivos Levante</b></td><td style="text-align:center;">1</td><td style="text-align:center;"><span class="tbl-pill red">100,0%</span></td><td style="text-align:right;">922&#8364;</td></tr>
+                    <tr><td><b>Agrupaci&#243;n Levante</b></td><td style="text-align:center;">1</td><td style="text-align:center;"><span class="tbl-pill red">100,0%</span></td><td style="text-align:right;">1.518&#8364;</td></tr>
+                    <tr><td><b>Repotenciaci&#243;n Tahivilla</b></td><td style="text-align:center;">1</td><td style="text-align:center;"><span class="tbl-pill red">100,0%</span></td><td style="text-align:right;">3.472&#8364;</td></tr>
+                    <tr><td><b>Alaiz</b></td><td style="text-align:center;">10</td><td style="text-align:center;"><span class="tbl-pill amber">90,9%</span></td><td style="text-align:right;">62.383&#8364;</td></tr>
+                    <tr><td><b>Izco</b></td><td style="text-align:center;">8</td><td style="text-align:center;"><span class="tbl-pill amber">72,7%</span></td><td style="text-align:right;">115.336&#8364;</td></tr>
+                    <tr><td><b>Guerinda</b></td><td style="text-align:center;">8</td><td style="text-align:center;"><span class="tbl-pill amber">72,7%</span></td><td style="text-align:right;">119.187&#8364;</td></tr>
+                    <tr><td><b>Asturias</b></td><td style="text-align:center;">5</td><td style="text-align:center;"><span class="tbl-pill amber">71,4%</span></td><td style="text-align:right;">27.402&#8364;</td></tr>
+                    <tr><td><b>Experimentales</b></td><td style="text-align:center;">2</td><td style="text-align:center;"><span class="tbl-pill amber">66,7%</span></td><td style="text-align:right;">10.409&#8364;</td></tr>
+                    <tr><td><b>Perd&#243;n</b></td><td style="text-align:center;">10</td><td style="text-align:center;"><span class="tbl-pill amber">66,7%</span></td><td style="text-align:right;">57.137&#8364;</td></tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div class="seg-box">
-              <small>Personas reincidentes</small>
-              <b>139</b>
-              <span>2+ episodios / 12m</span>
-            </div>
-            <div class="seg-box">
-              <small>Coste por reincidente</small>
-              <b>11.554&#8364;</b>
-              <span>Media por empleado reincidente</span>
-            </div>
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Centro</th>
-                  <th style="text-align:center;">Reincidentes</th>
-                  <th style="text-align:center;">Tasa reincidencia</th>
-                  <th style="text-align:right;">Coste</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td><b>Optimizaci&#243;n</b></td><td style="text-align:center;">2</td><td style="text-align:center;"><span class="tbl-pill red">100,0%</span></td><td style="text-align:right;">29.305&#8364;</td></tr>
-                <tr><td><b>Grandes Correctivos Norte</b></td><td style="text-align:center;">4</td><td style="text-align:center;"><span class="tbl-pill red">100,0%</span></td><td style="text-align:right;">9.268&#8364;</td></tr>
-                <tr><td><b>Alta Tensi&#243;n Noroeste</b></td><td style="text-align:center;">1</td><td style="text-align:center;"><span class="tbl-pill red">100,0%</span></td><td style="text-align:right;">7.122&#8364;</td></tr>
-                <tr><td><b>Grandes Correctivos Levante</b></td><td style="text-align:center;">1</td><td style="text-align:center;"><span class="tbl-pill red">100,0%</span></td><td style="text-align:right;">922&#8364;</td></tr>
-                <tr><td><b>Agrupaci&#243;n Levante</b></td><td style="text-align:center;">1</td><td style="text-align:center;"><span class="tbl-pill red">100,0%</span></td><td style="text-align:right;">1.518&#8364;</td></tr>
-                <tr><td><b>Repotenciaci&#243;n Tahivilla</b></td><td style="text-align:center;">1</td><td style="text-align:center;"><span class="tbl-pill red">100,0%</span></td><td style="text-align:right;">3.472&#8364;</td></tr>
-                <tr><td><b>Alaiz</b></td><td style="text-align:center;">10</td><td style="text-align:center;"><span class="tbl-pill amber">90,9%</span></td><td style="text-align:right;">62.383&#8364;</td></tr>
-                <tr><td><b>Izco</b></td><td style="text-align:center;">8</td><td style="text-align:center;"><span class="tbl-pill amber">72,7%</span></td><td style="text-align:right;">115.336&#8364;</td></tr>
-                <tr><td><b>Guerinda</b></td><td style="text-align:center;">8</td><td style="text-align:center;"><span class="tbl-pill amber">72,7%</span></td><td style="text-align:right;">119.187&#8364;</td></tr>
-                <tr><td><b>Asturias</b></td><td style="text-align:center;">5</td><td style="text-align:center;"><span class="tbl-pill amber">71,4%</span></td><td style="text-align:right;">27.402&#8364;</td></tr>
-                <tr><td><b>Experimentales</b></td><td style="text-align:center;">2</td><td style="text-align:center;"><span class="tbl-pill amber">66,7%</span></td><td style="text-align:right;">10.409&#8364;</td></tr>
-                <tr><td><b>Perd&#243;n</b></td><td style="text-align:center;">10</td><td style="text-align:center;"><span class="tbl-pill amber">66,7%</span></td><td style="text-align:right;">57.137&#8364;</td></tr>
-              </tbody>
-            </table>
           </div>
         </div>
 
         <!-- ── SUB-PANEL: Bradford ── -->
         <div class="cost-sub" id="cosub-bradford">
-          <div class="cost-sub-kpis">
-            <div class="seg-box">
-              <small>Bradford medio</small>
-              <b>546</b>
-              <span>&#205;ndice de disrupci&#243;n organizativa</span>
+          <div class="i-card">
+            <div class="i-card-head" style="flex-wrap:wrap;gap:10px;">
+              <div>
+                <h3>Bradford y Frecuencia Disruptiva</h3>
+                <p>&#205;ndice de impacto operativo por ausencias cortas y recurrentes</p>
+              </div>
+              <div class="cost-head-stats">
+                <div class="cost-head-stat"><b>546</b><span>Bradford medio</span></div>
+                <div class="cost-head-stat-sep"></div>
+                <div class="cost-head-stat"><b>84</b><span>Alto (&gt;200)</span></div>
+                <div class="cost-head-stat-sep"></div>
+                <div class="cost-head-stat"><b>46</b><span>Cr&#237;tico (&gt;500)</span></div>
+                <div class="cost-head-stat-sep"></div>
+                <div class="cost-head-stat"><b style="color:#dc2626;">2.337.197&#8364;</b><span>Coste disrupci&#243;n</span></div>
+              </div>
             </div>
-            <div class="seg-box">
-              <small>Bradford alto (&gt;200)</small>
-              <b>84 personas</b>
-              <span>Nivel alto, impacto significativo</span>
+            <div class="i-card-body" style="padding:0;">
+              <div class="table-wrap" style="border:0;border-radius:0;">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Centro</th>
+                      <th style="text-align:center;">Bradford medio</th>
+                      <th style="text-align:center;">Empleados</th>
+                      <th style="text-align:center;">Cr&#237;ticos</th>
+                      <th style="text-align:right;">Coste</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td><b>Agrupaci&#243;n Centro-Sur</b></td><td style="text-align:center;"><span class="tbl-pill red">19.888</span></td><td style="text-align:center;">3</td><td style="text-align:center;">2</td><td style="text-align:right;">37.178&#8364;</td></tr>
+                    <tr><td><b>Guerinda</b></td><td style="text-align:center;"><span class="tbl-pill red">1.777</span></td><td style="text-align:center;">11</td><td style="text-align:center;">3</td><td style="text-align:right;">127.707&#8364;</td></tr>
+                    <tr><td><b>Burgos</b></td><td style="text-align:center;"><span class="tbl-pill red">1.470</span></td><td style="text-align:center;">7</td><td style="text-align:center;">3</td><td style="text-align:right;">107.020&#8364;</td></tr>
+                    <tr><td><b>Made Este</b></td><td style="text-align:center;"><span class="tbl-pill red">1.128</span></td><td style="text-align:center;">4</td><td style="text-align:center;">1</td><td style="text-align:right;">149.911&#8364;</td></tr>
+                    <tr><td><b>Alta Tensi&#243;n Norte</b></td><td style="text-align:center;"><span class="tbl-pill red">1.026</span></td><td style="text-align:center;">5</td><td style="text-align:center;">1</td><td style="text-align:right;">7.555&#8364;</td></tr>
+                    <tr><td><b>Repotenciaci&#243;n Tahivilla</b></td><td style="text-align:center;"><span class="tbl-pill amber">909</span></td><td style="text-align:center;">1</td><td style="text-align:center;">1</td><td style="text-align:right;">3.472&#8364;</td></tr>
+                    <tr><td><b>Ingenier&#237;a Global</b></td><td style="text-align:center;"><span class="tbl-pill amber">666</span></td><td style="text-align:center;">4</td><td style="text-align:center;">1</td><td style="text-align:right;">116.786&#8364;</td></tr>
+                    <tr><td><b>Made Centro</b></td><td style="text-align:center;"><span class="tbl-pill amber">659</span></td><td style="text-align:center;">6</td><td style="text-align:center;">2</td><td style="text-align:right;">51.947&#8364;</td></tr>
+                    <tr><td><b>Alta Tensi&#243;n Levante</b></td><td style="text-align:center;"><span class="tbl-pill amber">566</span></td><td style="text-align:center;">5</td><td style="text-align:center;">1</td><td style="text-align:right;">109.646&#8364;</td></tr>
+                    <tr><td><b>Codes</b></td><td style="text-align:center;"><span class="tbl-pill amber">512</span></td><td style="text-align:center;">10</td><td style="text-align:center;">1</td><td style="text-align:right;">62.234&#8364;</td></tr>
+                    <tr><td><b>Sos</b></td><td style="text-align:center;"><span class="tbl-pill amber">505</span></td><td style="text-align:center;">9</td><td style="text-align:center;">1</td><td style="text-align:right;">110.994&#8364;</td></tr>
+                    <tr><td><b>Alta Tensi&#243;n Centro-sur</b></td><td style="text-align:center;"><span class="tbl-pill blue">498</span></td><td style="text-align:center;">3</td><td style="text-align:center;">1</td><td style="text-align:right;">12.630&#8364;</td></tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div class="seg-box">
-              <small>Bradford cr&#237;tico (&gt;500)</small>
-              <b>46 personas</b>
-              <span>Nivel cr&#237;tico, prioridad m&#225;xima</span>
-            </div>
-            <div class="seg-box">
-              <small>Coste de disrupci&#243;n</small>
-              <b style="color:#dc2626;">2.337.197&#8364;</b>
-              <span>68% del coste total modelado</span>
-            </div>
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Centro</th>
-                  <th style="text-align:center;">Bradford medio</th>
-                  <th style="text-align:center;">Empleados</th>
-                  <th style="text-align:center;">Cr&#237;ticos</th>
-                  <th style="text-align:right;">Coste</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td><b>Agrupaci&#243;n Centro-Sur</b></td><td style="text-align:center;"><span class="tbl-pill red">19.888</span></td><td style="text-align:center;">3</td><td style="text-align:center;">2</td><td style="text-align:right;">37.178&#8364;</td></tr>
-                <tr><td><b>Guerinda</b></td><td style="text-align:center;"><span class="tbl-pill red">1.777</span></td><td style="text-align:center;">11</td><td style="text-align:center;">3</td><td style="text-align:right;">127.707&#8364;</td></tr>
-                <tr><td><b>Burgos</b></td><td style="text-align:center;"><span class="tbl-pill red">1.470</span></td><td style="text-align:center;">7</td><td style="text-align:center;">3</td><td style="text-align:right;">107.020&#8364;</td></tr>
-                <tr><td><b>Made Este</b></td><td style="text-align:center;"><span class="tbl-pill red">1.128</span></td><td style="text-align:center;">4</td><td style="text-align:center;">1</td><td style="text-align:right;">149.911&#8364;</td></tr>
-                <tr><td><b>Alta Tensi&#243;n Norte</b></td><td style="text-align:center;"><span class="tbl-pill red">1.026</span></td><td style="text-align:center;">5</td><td style="text-align:center;">1</td><td style="text-align:right;">7.555&#8364;</td></tr>
-                <tr><td><b>Repotenciaci&#243;n Tahivilla</b></td><td style="text-align:center;"><span class="tbl-pill amber">909</span></td><td style="text-align:center;">1</td><td style="text-align:center;">1</td><td style="text-align:right;">3.472&#8364;</td></tr>
-                <tr><td><b>Ingenier&#237;a Global</b></td><td style="text-align:center;"><span class="tbl-pill amber">666</span></td><td style="text-align:center;">4</td><td style="text-align:center;">1</td><td style="text-align:right;">116.786&#8364;</td></tr>
-                <tr><td><b>Made Centro</b></td><td style="text-align:center;"><span class="tbl-pill amber">659</span></td><td style="text-align:center;">6</td><td style="text-align:center;">2</td><td style="text-align:right;">51.947&#8364;</td></tr>
-                <tr><td><b>Alta Tensi&#243;n Levante</b></td><td style="text-align:center;"><span class="tbl-pill amber">566</span></td><td style="text-align:center;">5</td><td style="text-align:center;">1</td><td style="text-align:right;">109.646&#8364;</td></tr>
-                <tr><td><b>Codes</b></td><td style="text-align:center;"><span class="tbl-pill amber">512</span></td><td style="text-align:center;">10</td><td style="text-align:center;">1</td><td style="text-align:right;">62.234&#8364;</td></tr>
-                <tr><td><b>Sos</b></td><td style="text-align:center;"><span class="tbl-pill amber">505</span></td><td style="text-align:center;">9</td><td style="text-align:center;">1</td><td style="text-align:right;">110.994&#8364;</td></tr>
-                <tr><td><b>Alta Tensi&#243;n Centro-sur</b></td><td style="text-align:center;"><span class="tbl-pill blue">498</span></td><td style="text-align:center;">3</td><td style="text-align:center;">1</td><td style="text-align:right;">12.630&#8364;</td></tr>
-              </tbody>
-            </table>
           </div>
         </div>
 
         <!-- ── SUB-PANEL: Causas ── -->
         <div class="cost-sub" id="cosub-causas">
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Tipo de contingencia</th>
-                  <th style="text-align:center;">Episodios</th>
-                  <th style="text-align:center;">D&#237;as perdidos</th>
-                  <th style="text-align:center;">Duraci&#243;n media</th>
-                  <th style="text-align:right;">Coste</th>
-                  <th style="text-align:center;">Tasa reincidencia</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td><b>IT</b> <span style="font-size:11px;color:#94a3b8;font-weight:400;">Incapacidad temporal</span></td><td style="text-align:center;">408</td><td style="text-align:center;">10.943</td><td style="text-align:center;">26,8d</td><td style="text-align:right;font-weight:700;">2.786.407&#8364;</td><td style="text-align:center;"><span class="tbl-pill amber">73,0%</span></td></tr>
-                <tr><td><b>Paternidad</b></td><td style="text-align:center;">75</td><td style="text-align:center;">2.376</td><td style="text-align:center;">31,7d</td><td style="text-align:right;font-weight:700;">389.487&#8364;</td><td style="text-align:center;"><span class="tbl-pill red">86,7%</span></td></tr>
-                <tr><td><b>Justificada</b></td><td style="text-align:center;">82</td><td style="text-align:center;">1.028</td><td style="text-align:center;">12,5d</td><td style="text-align:right;font-weight:700;">157.601&#8364;</td><td style="text-align:center;"><span class="tbl-pill red">91,5%</span></td></tr>
-                <tr><td><b>AT</b> <span style="font-size:11px;color:#94a3b8;font-weight:400;">Accidente de trabajo</span></td><td style="text-align:center;">11</td><td style="text-align:center;">505</td><td style="text-align:center;">45,9d</td><td style="text-align:right;font-weight:700;">65.351&#8364;</td><td style="text-align:center;"><span class="tbl-pill amber">63,6%</span></td></tr>
-                <tr><td><b>Maternidad</b></td><td style="text-align:center;">1</td><td style="text-align:center;">108</td><td style="text-align:center;">108,0d</td><td style="text-align:right;font-weight:700;">28.490&#8364;</td><td style="text-align:center;"><span class="tbl-pill red">100,0%</span></td></tr>
-                <tr><td><b>Otra</b></td><td style="text-align:center;">31</td><td style="text-align:center;">51</td><td style="text-align:center;">1,6d</td><td style="text-align:right;font-weight:700;">9.672&#8364;</td><td style="text-align:center;"><span class="tbl-pill amber">61,3%</span></td></tr>
-              </tbody>
-            </table>
+          <div class="i-card">
+            <div class="i-card-head">
+              <div><h3>Causas y Tipolog&#237;as</h3><p>Distribuci&#243;n del coste por tipo de contingencia</p></div>
+            </div>
+            <div class="i-card-body" style="padding:0;">
+              <div class="table-wrap" style="border:0;border-radius:0;">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Tipo de contingencia</th>
+                      <th style="text-align:center;">Episodios</th>
+                      <th style="text-align:center;">D&#237;as perdidos</th>
+                      <th style="text-align:center;">Duraci&#243;n media</th>
+                      <th style="text-align:right;">Coste</th>
+                      <th style="text-align:center;">Tasa reincidencia</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td><b>IT</b> <span style="font-size:11px;color:#94a3b8;font-weight:400;">Incapacidad temporal</span></td><td style="text-align:center;">408</td><td style="text-align:center;">10.943</td><td style="text-align:center;">26,8d</td><td style="text-align:right;font-weight:700;">2.786.407&#8364;</td><td style="text-align:center;"><span class="tbl-pill amber">73,0%</span></td></tr>
+                    <tr><td><b>Paternidad</b></td><td style="text-align:center;">75</td><td style="text-align:center;">2.376</td><td style="text-align:center;">31,7d</td><td style="text-align:right;font-weight:700;">389.487&#8364;</td><td style="text-align:center;"><span class="tbl-pill red">86,7%</span></td></tr>
+                    <tr><td><b>Justificada</b></td><td style="text-align:center;">82</td><td style="text-align:center;">1.028</td><td style="text-align:center;">12,5d</td><td style="text-align:right;font-weight:700;">157.601&#8364;</td><td style="text-align:center;"><span class="tbl-pill red">91,5%</span></td></tr>
+                    <tr><td><b>AT</b> <span style="font-size:11px;color:#94a3b8;font-weight:400;">Accidente de trabajo</span></td><td style="text-align:center;">11</td><td style="text-align:center;">505</td><td style="text-align:center;">45,9d</td><td style="text-align:right;font-weight:700;">65.351&#8364;</td><td style="text-align:center;"><span class="tbl-pill amber">63,6%</span></td></tr>
+                    <tr><td><b>Maternidad</b></td><td style="text-align:center;">1</td><td style="text-align:center;">108</td><td style="text-align:center;">108,0d</td><td style="text-align:right;font-weight:700;">28.490&#8364;</td><td style="text-align:center;"><span class="tbl-pill red">100,0%</span></td></tr>
+                    <tr><td><b>Otra</b></td><td style="text-align:center;">31</td><td style="text-align:center;">51</td><td style="text-align:center;">1,6d</td><td style="text-align:right;font-weight:700;">9.672&#8364;</td><td style="text-align:center;"><span class="tbl-pill amber">61,3%</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
 
