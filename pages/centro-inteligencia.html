@@ -54,17 +54,27 @@
     .i-tag.red{background:#fef2f2;color:#dc2626;border-color:#fecaca;}
     .i-tag.amber{background:#fffbeb;color:#b45309;border-color:#fde68a;}
 
-    /* SITUACIÓN ACTUAL — tarjeta unificada señales + lectura */
-    .sit-card-kpis{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid #f1f5f9;}
-    .sit-kpi-cell{padding:16px 18px;border-right:1px solid #f1f5f9;}
-    .sit-kpi-cell:last-child{border-right:none;}
-    .sit-kpi-top{display:flex;align-items:center;gap:7px;margin-bottom:10px;}
-    .sit-kpi-ico{width:26px;height:26px;border-radius:8px;background:#eff6ff;color:#1d4ed8;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-    .sit-kpi-lbl{font-size:11px;font-weight:700;color:#64748b;flex:1;line-height:1.3;}
-    .sit-kpi-val{font-size:22px;font-weight:800;letter-spacing:-.04em;color:#0f172a;line-height:1;margin-bottom:6px;}
-    .sit-kpi-bar{height:4px;background:#e2e8f0;border-radius:999px;margin-bottom:5px;overflow:hidden;}
-    .sit-kpi-bar i{display:block;height:100%;background:#2563eb;border-radius:999px;}
-    .sit-kpi-desc{font-size:10px;color:#94a3b8;font-weight:500;line-height:1.35;}
+    /* SITUACIÓN ACTUAL — estado general */
+    .sit-estado-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:14px 20px 18px;}
+    .sit-estado-stat{background:#f8fafc;border:1px solid #f1f5f9;border-radius:11px;padding:13px 15px;}
+    .sit-estado-stat small{display:block;font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;}
+    .sit-estado-stat b{display:block;font-size:22px;font-weight:800;letter-spacing:-.04em;color:#0f172a;margin-bottom:3px;}
+    .sit-estado-stat span{font-size:11px;color:#64748b;font-weight:500;}
+    .vs-bad{color:#dc2626;font-weight:700;}
+    .vs-good{color:#059669;font-weight:700;}
+    /* SITUACIONES ACTIVAS */
+    .sit-case-list{display:flex;flex-direction:column;}
+    .sit-case{display:grid;grid-template-columns:4px 1fr 200px;gap:16px;padding:16px 20px;border-bottom:1px solid #f1f5f9;align-items:flex-start;}
+    .sit-case:last-child{border-bottom:none;}
+    .sit-case-bar{border-radius:999px;align-self:stretch;min-height:44px;}
+    .sit-case-bar.red{background:#dc2626;}
+    .sit-case-bar.amber{background:#f59e0b;}
+    .sit-case-bar.blue{background:#2563eb;}
+    .sit-case-who{font-size:13px;font-weight:700;color:#0f172a;margin-bottom:6px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+    .sit-case-what{font-size:13px;font-weight:500;color:#334155;line-height:1.55;margin-bottom:8px;}
+    .sit-case-data{display:flex;gap:5px;flex-wrap:wrap;}
+    .sit-case-action-lbl{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;}
+    .sit-case-action-txt{font-size:12px;font-weight:700;color:#0f172a;line-height:1.45;}
 
     .lectura-body{padding:18px 20px;}
     .lectura-kicker{display:inline-flex;height:24px;align-items:center;border-radius:999px;padding:0 10px;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;font-size:11px;font-weight:800;margin-bottom:12px;}
@@ -75,15 +85,6 @@
     .evidence-cell small{display:block;font-size:10px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;}
     .evidence-cell b{display:block;font-size:13px;font-weight:700;color:#0f172a;margin-bottom:4px;}
     .evidence-cell p{font-size:12px;color:#64748b;font-weight:500;line-height:1.4;margin:0;}
-
-    .priority-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
-    .priority-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:13px;cursor:pointer;transition:.15s ease;}
-    .priority-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08);}
-    .priority-card.active{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.12);}
-    .priority-card small{display:block;font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;}
-    .priority-card b{display:block;font-size:13px;font-weight:700;color:#0f172a;margin-bottom:4px;}
-    .priority-card p{font-size:11px;color:#64748b;font-weight:500;line-height:1.4;margin:0;}
-    .priority-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
 
     .period-static-banner{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:10px 16px;display:flex;gap:9px;align-items:flex-start;font-size:12px;font-weight:600;color:#b45309;line-height:1.5;}
 
@@ -227,8 +228,7 @@
     .drawer-metric span{display:block;font-size:11px;color:#64748b;font-weight:500;margin-top:2px;}
     .drawer-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
 
-    /* SEÑALES SECTION LABEL */
-    .sit-kpi-section-label{padding:10px 20px 6px;font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;border-top:1px solid #f1f5f9;}
+
 
     /* ORQUESTADOR DOCK */
     .orch-dock{position:fixed;right:24px;bottom:22px;width:380px;z-index:60;}
@@ -384,152 +384,156 @@
       <!-- ═══════════════════════════════ TAB: SITUACIÓN ACTUAL ═══════════════════════════════ -->
       <div id="situacion" class="tab-panel active">
 
-        <!-- TARJETA UNIFICADA: SEÑALES + LECTURA EXPERTA -->
+        <!-- ESTADO GENERAL -->
+        <div class="i-card">
+          <div class="i-card-head">
+            <div><h3>Qu&#233; est&#225; pasando ahora mismo</h3><p>Resumen global &middot; Rolling 12</p></div>
+            <span class="i-tag red">Atenci&#243;n necesaria</span>
+          </div>
+          <div style="padding:16px 20px 4px;">
+            <p style="font-size:13px;font-weight:600;color:#334155;line-height:1.6;margin:0 0 2px;">La empresa lleva 12 meses por encima del objetivo de absentismo. El coste total es de 3,4M&#8364;&thinsp;&mdash;&thinsp;un 21% m&#225;s de lo previsto. Hay cuatro situaciones concretas que explican la mayor parte del problema. Si se act&#250;a sobre ellas, el ahorro potencial est&#225; entre 190.000 y 250.000&#8364;.</p>
+          </div>
+          <div class="sit-estado-stats">
+            <div class="sit-estado-stat">
+              <small>Tasa de absentismo</small>
+              <b>12,9%</b>
+              <span>Objetivo: 9% &middot; <span class="vs-bad">+43% sobre meta</span></span>
+            </div>
+            <div class="sit-estado-stat">
+              <small>Coste total estimado</small>
+              <b>3,4M&#8364;</b>
+              <span>Previsto: 2,8M&#8364; &middot; <span class="vs-bad">+21% sobre presupuesto</span></span>
+            </div>
+            <div class="sit-estado-stat">
+              <small>Situaciones activas</small>
+              <b>4</b>
+              <span>2 urgentes &middot; 2 en seguimiento</span>
+            </div>
+            <div class="sit-estado-stat">
+              <small>Tendencia</small>
+              <b style="color:#059669;">Mejorando</b>
+              <span><span class="vs-good">&#8595;&#160;&#8722;1,8 p.p.</span> desde el pico de marzo</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SITUACIONES ACTIVAS -->
+        <div class="i-card">
+          <div class="i-card-head">
+            <div><h3>Situaciones activas</h3><p>Qu&#233; est&#225; pasando, d&#243;nde y qu&#233; hay que hacer</p></div>
+            <span class="i-tag">4 casos</span>
+          </div>
+          <div class="sit-case-list">
+
+            <div class="sit-case">
+              <div class="sit-case-bar red"></div>
+              <div>
+                <div class="sit-case-who">Turno de Noche <span style="color:#94a3b8;font-weight:500;">&#183; 64 personas</span> <span class="tbl-pill red" style="font-size:10px;">Urgente</span></div>
+                <div class="sit-case-what">8 de cada 10 trabajadores que se ponen de baja en este turno ya hab&#237;an estado de baja antes. Cada vez que alguien falta, hay que reorganizar otros turnos para cubrir el hueco.</div>
+                <div class="sit-case-data">
+                  <span class="tbl-pill red">Tasa 30,1%</span>
+                  <span class="tbl-pill amber">Recurrencia 80%</span>
+                  <span class="tbl-pill blue">Cobertura tensionada</span>
+                </div>
+              </div>
+              <div>
+                <div class="sit-case-action-lbl">Qu&#233; hacer</div>
+                <div class="sit-case-action-txt">Revisar la carga y cobertura de este turno antes de fin de mes</div>
+              </div>
+            </div>
+
+            <div class="sit-case">
+              <div class="sit-case-bar red"></div>
+              <div>
+                <div class="sit-case-who">Made Este <span style="color:#94a3b8;font-weight:500;">&#183; 8 personas</span> <span class="tbl-pill red" style="font-size:10px;">Urgente</span></div>
+                <div class="sit-case-what">Las bajas aqu&#237; duran casi el doble que en el resto de la empresa&thinsp;&mdash;&thinsp;52 d&#237;as de media frente a 27. Son pocos casos, pero muy caros porque la gente tarda mucho en volver.</div>
+                <div class="sit-case-data">
+                  <span class="tbl-pill red">Tasa 36,4%</span>
+                  <span class="tbl-pill amber">Duraci&#243;n media 51,7&#160;d</span>
+                  <span class="tbl-pill blue">Coste/persona 18.740&#8364;</span>
+                </div>
+              </div>
+              <div>
+                <div class="sit-case-action-lbl">Qu&#233; hacer</div>
+                <div class="sit-case-action-txt">Acompa&#241;ar el retorno de las personas que llevan m&#225;s tiempo de baja</div>
+              </div>
+            </div>
+
+            <div class="sit-case">
+              <div class="sit-case-bar amber"></div>
+              <div>
+                <div class="sit-case-who">Bonus Pontevedra <span style="color:#94a3b8;font-weight:500;">&#183; 23 personas</span> <span class="tbl-pill amber" style="font-size:10px;">En seguimiento</span></div>
+                <div class="sit-case-what">Tiene una de las tasas m&#225;s altas de la empresa y el coste por persona supera los 12.000&#8364;. La combinaci&#243;n de muchas bajas y larga duraci&#243;n lo hace especialmente caro.</div>
+                <div class="sit-case-data">
+                  <span class="tbl-pill amber">Tasa 21%</span>
+                  <span class="tbl-pill amber">Duraci&#243;n 42,4&#160;d</span>
+                  <span class="tbl-pill blue">Coste/persona 12.156&#8364;</span>
+                </div>
+              </div>
+              <div>
+                <div class="sit-case-action-lbl">Qu&#233; hacer</div>
+                <div class="sit-case-action-txt">Entender qu&#233; est&#225; pasando aqu&#237; antes de decidir qu&#233; hacer</div>
+              </div>
+            </div>
+
+            <div class="sit-case">
+              <div class="sit-case-bar amber"></div>
+              <div>
+                <div class="sit-case-who">Planta Norte <span style="color:#94a3b8;font-weight:500;">&#183; foco central</span> <span class="tbl-pill blue" style="font-size:10px;">Vigilar</span></div>
+                <div class="sit-case-what">Es el punto con m&#225;s impacto econ&#243;mico de toda la empresa y est&#225; conectado con otros focos. Si empeora, arrastra a los equipos que dependen de &#233;l.</div>
+                <div class="sit-case-data">
+                  <span class="tbl-pill red">680K&#8364;/a&#241;o</span>
+                  <span class="tbl-pill blue">5 focos conectados</span>
+                  <span class="tbl-pill amber">Riesgo 89%</span>
+                </div>
+              </div>
+              <div>
+                <div class="sit-case-action-lbl">Qu&#233; hacer</div>
+                <div class="sit-case-action-txt">No actuar de forma aislada&thinsp;&mdash;&thinsp;coordinar con los focos conectados primero</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- QUÉ SIGNIFICA TODO ESTO -->
         <div class="i-card">
           <div class="i-card-head">
             <div style="display:flex;align-items:center;gap:9px;">
               <div style="width:28px;height:28px;border-radius:8px;background:#eff6ff;border:1px solid #bfdbfe;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                 <svg width="13" height="13" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <div><h3 style="margin:0;">Lectura experta</h3><p style="margin:0;">Se&#241;ales y diagn&#243;stico &middot; <span id="kpi-period-label-sit">Rolling 12</span></p></div>
+              <div><h3 style="margin:0;">Qu&#233; significa todo esto</h3><p style="margin:0;">S&#237;ntesis &middot; An&#225;lisis IA &middot; Rolling 12</p></div>
             </div>
-            <div style="display:flex;gap:7px;align-items:center;">
-              <span id="signal-period-note" class="i-tag amber" style="display:none;font-size:10px;">&#205;ndices &middot; Rolling 12 &middot; fijo</span>
-              <span class="i-tag amber">Urgencia media-alta</span>
-            </div>
+            <span class="i-tag amber">Urgencia media-alta</span>
           </div>
-          <!-- KPI STRIP dentro de la tarjeta -->
-          <div class="sit-kpi-section-label">Se&#241;ales compuestas &middot; &#205;ndices IA</div>
-          <div class="sit-card-kpis">
-            <div class="sit-kpi-cell">
-              <div class="sit-kpi-top">
-                <div class="sit-kpi-ico"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
-                <span class="sit-kpi-lbl">Coste acumulado</span>
-                <i class="kpi-info" data-tip="Nivel de coste total respecto al hist&#243;rico. 88 indica coste alto pero no en m&#225;ximo absoluto.">i</i>
-              </div>
-              <div class="sit-kpi-val">88<span style="font-size:12px;font-weight:600;color:#94a3b8;">/100</span></div>
-              <div class="sit-kpi-bar"><i style="width:88%;"></i></div>
-              <div class="sit-kpi-desc">Coste en niveles altos del periodo</div>
-            </div>
-            <div class="sit-kpi-cell">
-              <div class="sit-kpi-top">
-                <div class="sit-kpi-ico"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></div>
-                <span class="sit-kpi-lbl">Recurrencia</span>
-                <i class="kpi-info" data-tip="Proporci&#243;n de episodios repetidos. 74 se&#241;ala un patr&#243;n de reincidencia relevante.">i</i>
-              </div>
-              <div class="sit-kpi-val">74<span style="font-size:12px;font-weight:600;color:#94a3b8;">/100</span></div>
-              <div class="sit-kpi-bar"><i style="width:74%;"></i></div>
-              <div class="sit-kpi-desc">Reincidencia relevante en focos</div>
-            </div>
-            <div class="sit-kpi-cell">
-              <div class="sit-kpi-top">
-                <div class="sit-kpi-ico"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-                <span class="sit-kpi-lbl">Criticidad operativa</span>
-                <i class="kpi-info" data-tip="Impacto en producci&#243;n y servicio. 82 indica focos activos en &#225;reas con baja sustituibilidad.">i</i>
-              </div>
-              <div class="sit-kpi-val">82<span style="font-size:12px;font-weight:600;color:#94a3b8;">/100</span></div>
-              <div class="sit-kpi-bar"><i style="width:82%;"></i></div>
-              <div class="sit-kpi-desc">Focos en &#225;reas operativas clave</div>
-            </div>
-            <div class="sit-kpi-cell">
-              <div class="sit-kpi-top">
-                <div class="sit-kpi-ico"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
-                <span class="sit-kpi-lbl">Red organizativa</span>
-                <i class="kpi-info" data-tip="Concentraci&#243;n y propagaci&#243;n en la red. 71 indica focos conectados que se refuerzan entre s&#237;.">i</i>
-              </div>
-              <div class="sit-kpi-val">71<span style="font-size:12px;font-weight:600;color:#94a3b8;">/100</span></div>
-              <div class="sit-kpi-bar"><i style="width:71%;"></i></div>
-              <div class="sit-kpi-desc">Focos conectados con propagaci&#243;n activa</div>
-            </div>
-            <div class="sit-kpi-cell">
-              <div class="sit-kpi-top">
-                <div class="sit-kpi-ico"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
-                <span class="sit-kpi-lbl">Capacidad de acci&#243;n</span>
-                <i class="kpi-info" data-tip="Margen para intervenir con los recursos disponibles. 65 indica capacidad media-alta.">i</i>
-              </div>
-              <div class="sit-kpi-val">65<span style="font-size:12px;font-weight:600;color:#94a3b8;">/100</span></div>
-              <div class="sit-kpi-bar"><i style="width:65%;"></i></div>
-              <div class="sit-kpi-desc">Margen de actuaci&#243;n medio-alto</div>
-            </div>
-          </div>
-          <!-- LECTURA EXPERTA -->
           <div class="lectura-body">
-            <div class="lectura-kicker">An&#225;lisis IA &middot; Rolling 12</div>
-            <div class="lectura-headline" id="diag-headline">La recurrencia mejora, pero el coste sigue concentrado en focos cr&#237;ticos.</div>
-            <div class="lectura-subline" id="diag-subline">Bajan los episodios recurrentes, pero el coste permanece tensionado porque los procesos abiertos duran m&#225;s y se concentran en focos operativamente cr&#237;ticos.</div>
+            <div class="lectura-headline" id="diag-headline">La recurrencia mejora, pero el coste sigue concentrado en los mismos focos.</div>
+            <div class="lectura-subline" id="diag-subline">Hay menos bajas cortas y repetidas que hace unos meses, pero el dinero que cuesta el absentismo no baja igual de r&#225;pido. Los casos que quedan son m&#225;s largos y est&#225;n en zonas donde es dif&#237;cil cubrir las ausencias.</div>
             <div class="evidence-row">
               <div class="evidence-cell">
-                <small>Qu&#233; ha cambiado</small>
-                <b>Menos disrupci&#243;n corta</b>
-                <p>El Bradford baja de forma relevante y los procesos por 100 empleados se moderan desde el pico de marzo.</p>
+                <small>Qu&#233; ha mejorado</small>
+                <b>Menos bajas cortas repetidas</b>
+                <p>El n&#250;mero de personas que repiten baja varias veces seguidas ha bajado desde marzo.</p>
               </div>
               <div class="evidence-cell">
-                <small>Qu&#233; lo explica</small>
-                <b>Coste desacoplado de la tasa</b>
-                <p>Julio mantiene coste alto aunque la frecuencia ya no est&#225; en m&#225;ximos. La explicaci&#243;n est&#225; en duraci&#243;n y cobertura.</p>
+                <small>Qu&#233; sigue igual</small>
+                <b>El coste no baja al mismo ritmo</b>
+                <p>Aunque hay menos episodios, los que quedan duran m&#225;s y est&#225;n en zonas con cobertura cara.</p>
               </div>
               <div class="evidence-cell">
-                <small>Focos principales</small>
-                <b>3 centros + Turno Noche</b>
-                <p>Concentran el 72% del impacto econ&#243;mico. Ahorro potencial con planes activos: 190K&#8211;250K&#8364;.</p>
+                <small>D&#243;nde est&#225; el problema</small>
+                <b>3 centros + Turno de Noche</b>
+                <p>Concentran el 72% del coste total. Son los mismos que aparecen en las situaciones activas de arriba.</p>
               </div>
               <div class="evidence-cell">
-                <small>Decisi&#243;n operativa</small>
-                <b>No relajar medidas todav&#237;a</b>
-                <p>La mejora es real, pero parcial. Actuar sobre procesos largos y turnos con cobertura dif&#237;cil.</p>
+                <small>Qu&#233; no hay que hacer</small>
+                <b>Relajar las medidas ahora</b>
+                <p>La mejora es real pero parcial. Si se retiran las medidas antes de tiempo, el problema puede volver.</p>
               </div>
             </div>
           </div>
         </div>
-
-        <!-- PRIORIDADES -->
-        <div class="i-card">
-          <div class="i-card-head">
-            <div><h3>Acciones prioritarias</h3><p>Qu&#233; hace m&#225;s sentido activar ahora mismo</p></div>
-            <span class="i-tag">4 prioridades</span>
-          </div>
-          <div class="i-card-body">
-            <div class="priority-grid">
-              <div class="priority-card active" onclick="setPriority(this)">
-                <small>Prioridad 1 &middot; Inmediata</small>
-                <b>Estabilizaci&#243;n preventiva de turnos</b>
-                <p>Actuar sobre Turno Noche y cobertura para reducir recurrencia y fricci&#243;n operativa.</p>
-                <div class="priority-meta">
-                  <span class="tbl-pill green">Ahorro 165K&#8364;</span>
-                  <span class="tbl-pill amber">Prioridad alta</span>
-                </div>
-              </div>
-              <div class="priority-card" onclick="setPriority(this)">
-                <small>Prioridad 2 &middot; Activo</small>
-                <b>Retorno seguro tras ausencia</b>
-                <p>Reducir duraci&#243;n en centros de mayor coste y procesos largos en seguimiento.</p>
-                <div class="priority-meta">
-                  <span class="tbl-pill green">ROI 8,0x</span>
-                  <span class="tbl-pill blue">En plazo</span>
-                </div>
-              </div>
-              <div class="priority-card" onclick="setPriority(this)">
-                <small>Prioridad 3 &middot; Pr&#243;ximo</small>
-                <b>Cobertura en ventana cr&#237;tica</b>
-                <p>Refuerzo en picos productivos con mayor impacto operativo durante cierre.</p>
-                <div class="priority-meta">
-                  <span class="tbl-pill green">Ahorro 82K&#8364;</span>
-                  <span class="tbl-pill blue">Producci&#243;n</span>
-                </div>
-              </div>
-              <div class="priority-card" onclick="setPriority(this)">
-                <small>Prioridad 4 &middot; Medio plazo</small>
-                <b>Diagn&#243;stico de duraci&#243;n prolongada</b>
-                <p>Revisar casos de IT larga en Made Este y Bonus Pontevedra antes de plan masivo.</p>
-                <div class="priority-meta">
-                  <span class="tbl-pill amber">Riesgo medio</span>
-                  <span class="tbl-pill blue">60 d&#237;as</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
 
       </div><!-- /tab situacion -->
 
@@ -1062,22 +1066,6 @@
       input.value = "";
     }
 
-    /* ─── PRIORITY CARDS ─── */
-    var PRIORITY_MESSAGES = [
-      "Prioridad 1: Estabilización preventiva de turnos. Actuar sobre Turno Noche y cobertura. Ahorro estimado 165K€. ¿Analizo los turnos implicados?",
-      "Prioridad 2: Retorno seguro tras ausencia. Reducir duración en centros de mayor coste. ROI estimado 8,0x. ¿Veo los focos con procesos largos?",
-      "Prioridad 3: Cobertura en ventana crítica. Refuerzo en picos productivos de mayor impacto operativo. Ahorro estimado 82K€.",
-      "Prioridad 4: Diagnóstico de duración prolongada. Revisar IT larga en Made Este y Bonus Pontevedra antes de activar plan masivo."
-    ];
-    function setPriority(el) {
-      var cards = document.querySelectorAll(".priority-card");
-      cards.forEach(function(c){ c.classList.remove("active"); });
-      el.classList.add("active");
-      var idx = Array.from(cards).indexOf(el);
-      var bubble = document.getElementById("ai-bubble");
-      if (bubble && PRIORITY_MESSAGES[idx] !== undefined) bubble.textContent = PRIORITY_MESSAGES[idx];
-    }
-
     /* ─── PERIOD SWITCHING ─── */
     var PERIODS = {
       "3m":  { rate:"10,8%", cost:"840K€", inc:"41,2%", proc:"15,2", days:"3.210", bradford:"298", label:"Últimos 3 meses" },
@@ -1101,8 +1089,6 @@
       document.getElementById("evo-proc").textContent = p.proc;
       var bubble = document.getElementById("ai-bubble");
       if (bubble) bubble.textContent = "Periodo actualizado: " + p.label + ". Los KPIs principales se actualizan. Los índices de señales y la lectura experta están fijados en Rolling 12.";
-      var note = document.getElementById("signal-period-note");
-      if (note) note.style.display = (val !== "12m") ? "inline-flex" : "none";
       var banner = document.getElementById("period-static-banner");
       if (banner) banner.style.display = (val !== "12m") ? "flex" : "none";
     }
