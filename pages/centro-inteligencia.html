@@ -233,8 +233,14 @@
     /* ORQUESTADOR DOCK */
     .orch-dock{position:fixed;right:24px;bottom:22px;width:380px;z-index:60;}
     .orch-dock.minimized .orch-dock-body,.orch-dock.minimized .orch-quick,.orch-dock.minimized .orch-input-row{display:none;}
-    .orch-dock.minimized .orch-dock-head{border-radius:14px;border-bottom:1px solid #e2e8f0;}
     .orch-dock.minimized .orch-dock-wrap{display:none;}
+    .orch-dock.minimized .orch-dock-head{background:#2563eb;border-radius:999px;padding:12px 20px;border:none;box-shadow:0 4px 16px rgba(37,99,235,.35);cursor:pointer;}
+    .orch-dock.minimized .orch-dock-ico{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.25);}
+    .orch-dock.minimized .orch-dock-ico svg{stroke:#fff;}
+    .orch-dock.minimized .orch-dock-hname strong{color:#fff;}
+    .orch-dock.minimized .orch-dock-hname span{display:none;}
+    .orch-dock.minimized .i-tag{display:none;}
+    .orch-dock.minimized .orch-min-btn{display:none;}
     .orch-dock-head{background:#fff;border:1px solid #e2e8f0;border-bottom:1px solid #f1f5f9;border-radius:14px 14px 0 0;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 -4px 20px rgba(15,23,42,.06);}
     .orch-dock-wrap{background:#fff;border:1px solid #e2e8f0;border-top:0;border-radius:0 0 14px 14px;box-shadow:0 14px 40px rgba(15,23,42,.13);overflow:hidden;}
     .orch-dock-hname{display:flex;align-items:center;gap:9px;}
@@ -964,8 +970,8 @@
   </div>
 
   <!-- CONSULTOR IA DOCK -->
-  <div class="orch-dock" id="ai-dock">
-    <div class="orch-dock-head">
+  <div class="orch-dock minimized" id="ai-dock">
+    <div class="orch-dock-head" onclick="toggleAI()">
       <div class="orch-dock-hname">
         <div class="orch-dock-ico">
           <svg width="13" height="13" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
@@ -1045,12 +1051,7 @@
     }
 
     function toggleAI() {
-      var dock = document.getElementById("ai-dock");
-      dock.classList.toggle("minimized");
-      var chev = dock.querySelector(".orch-min-btn svg path");
-      var isMin = dock.classList.contains("minimized");
-      var btn = dock.querySelector(".orch-min-btn");
-      if (btn) btn.querySelector("svg").style.transform = isMin ? "rotate(180deg)" : "";
+      document.getElementById("ai-dock").classList.toggle("minimized");
     }
 
     function sendAI() {
