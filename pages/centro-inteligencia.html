@@ -118,31 +118,34 @@
     .deep-card p{font-size:12px;color:#334155;font-weight:500;line-height:1.5;margin:0;}
 
     /* RED ORGANIZATIVA */
-    .net-legend{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
-    .legend-concept{background:#f8fafc;border:1px solid #f1f5f9;border-radius:11px;padding:13px 15px;}
-    .legend-concept-dot{display:inline-block;width:8px;height:8px;border-radius:999px;margin-right:6px;vertical-align:1px;}
-    .legend-concept b{display:block;font-size:12px;font-weight:700;color:#0f172a;margin-bottom:4px;}
-    .legend-concept span{font-size:11px;color:#64748b;font-weight:500;line-height:1.4;}
     .net-canvas{display:flex;flex-direction:column;gap:14px;}
-    .net-map{position:relative;height:420px;background:#0f172a;border-radius:14px;overflow:hidden;border:1px solid #1e293b;}
+    .net-map{position:relative;height:440px;background:#0f172a;border-radius:14px;overflow:hidden;border:1px solid #1e293b;}
     .net-map-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
     .net-node{position:absolute;display:flex;flex-direction:column;align-items:center;cursor:pointer;transform:translate(-50%,-50%);}
-    .net-node-circle{border-radius:999px;display:flex;align-items:center;justify-content:center;transition:.18s ease;box-shadow:0 0 0 0 rgba(37,99,235,0);}
-    .net-node:hover .net-node-circle,.net-node.active .net-node-circle{box-shadow:0 0 0 5px rgba(255,255,255,.12);}
-    .net-node.active .net-node-circle{outline:2px solid #fff;}
-    .net-node-label{margin-top:7px;text-align:center;}
-    .net-node-label small{display:block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-bottom:2px;}
+    .net-node-circle{border-radius:999px;display:flex;align-items:center;justify-content:center;transition:.18s ease;}
+    .net-node:hover .net-node-circle{box-shadow:0 0 0 6px rgba(255,255,255,.1);}
+    .net-node.active .net-node-circle{outline:2px solid #fff;outline-offset:3px;}
+    .net-node-label{margin-top:8px;text-align:center;}
+    .net-node-label small{display:block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.55);margin-bottom:2px;}
     .net-node-label b{display:block;font-size:11px;font-weight:700;color:#fff;line-height:1.25;}
-    .net-node-label span{display:block;font-size:10px;color:rgba(255,255,255,.5);margin-top:1px;}
-    .net-node-hub .net-node-circle{width:62px;height:62px;background:#dc2626;border:2px solid rgba(255,255,255,.18);}
-    .net-node-prop .net-node-circle{width:46px;height:46px;background:#f59e0b;border:2px solid rgba(255,255,255,.12);}
-    .net-node-bridge .net-node-circle{width:40px;height:40px;background:#8b5cf6;border:2px solid rgba(255,255,255,.12);}
-    .net-node-cluster .net-node-circle{width:36px;height:36px;background:#2563eb;border:2px solid rgba(255,255,255,.12);}
-    @keyframes netpulse{0%{transform:scale(1);opacity:.5;}100%{transform:scale(2.2);opacity:0;}}
-    .net-pulse{position:absolute;border-radius:999px;background:#dc2626;animation:netpulse 2.2s ease-out infinite;pointer-events:none;}
-    .net-panel-below{background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;max-height:0;opacity:0;transition:max-height .32s ease,opacity .22s ease;box-shadow:0 1px 3px rgba(0,0,0,.04);}
-    .net-panel-below.open{max-height:600px;opacity:1;}
-    .net-panel-inner{padding:18px 20px;}
+    .net-node-label span{display:block;font-size:10px;color:rgba(255,255,255,.72);margin-top:2px;font-weight:600;}
+    .net-node-hub .net-node-circle{width:64px;height:64px;background:#dc2626;border:2px solid rgba(255,255,255,.2);}
+    .net-node-prop .net-node-circle{width:48px;height:48px;background:#f59e0b;border:2px solid rgba(255,255,255,.14);}
+    .net-node-bridge .net-node-circle{width:42px;height:42px;background:#8b5cf6;border:2px solid rgba(255,255,255,.14);}
+    .net-node-cluster .net-node-circle{width:38px;height:38px;background:#2563eb;border:2px solid rgba(255,255,255,.14);}
+    @keyframes netpulse{0%{transform:scale(1);opacity:.45;}100%{transform:scale(2.4);opacity:0;}}
+    .net-pulse{position:absolute;border-radius:999px;background:#dc2626;animation:netpulse 2.4s ease-out infinite;pointer-events:none;}
+    .net-map-legend{position:absolute;bottom:14px;left:14px;background:rgba(15,23,42,.72);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;pointer-events:none;}
+    .net-map-legend-row{display:flex;align-items:center;gap:7px;margin-bottom:5px;}
+    .net-map-legend-row:last-child{margin-bottom:0;}
+    .net-map-legend-dot{width:8px;height:8px;border-radius:999px;flex-shrink:0;}
+    .net-map-legend-label{font-size:10px;color:rgba(255,255,255,.7);font-weight:600;}
+    .net-panel-below{background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+    .net-panel-placeholder{padding:22px 24px;display:flex;align-items:center;gap:14px;}
+    .net-panel-placeholder svg{flex-shrink:0;opacity:.3;}
+    .net-panel-placeholder p{font-size:13px;color:#94a3b8;font-weight:500;margin:0;line-height:1.5;}
+    .net-panel-content{display:none;padding:18px 20px;}
+    .net-panel-content.visible{display:block;}
     .net-panel-below h3{font-size:19px;font-weight:800;letter-spacing:-.04em;margin:6px 0 4px;color:#0f172a;}
     .net-impact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}
     .net-impact{background:#f8fafc;border:1px solid #f1f5f9;border-radius:10px;padding:10px 13px;}
@@ -150,8 +153,11 @@
     .net-impact b{font-size:17px;font-weight:800;color:#0f172a;letter-spacing:-.03em;}
     .net-explain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:4px;}
     .net-explain-block{border:1px solid #f1f5f9;background:#f8fafc;border-radius:11px;padding:11px;margin-bottom:0;}
+    .net-explain-block--action{border-color:#bfdbfe;background:#eff6ff;border-left:3px solid #2563eb;}
     .net-explain-block b{display:block;font-size:11px;font-weight:700;color:#0f172a;margin-bottom:4px;}
+    .net-explain-block--action b{color:#1d4ed8;}
     .net-explain-block span{display:block;font-size:11px;color:#64748b;font-weight:500;line-height:1.4;}
+    .net-explain-block--action span{color:#1e40af;}
 
     /* COSTES */
     .cost-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
@@ -631,94 +637,106 @@
 
         <div class="i-card">
           <div class="i-card-head">
-            <div><h3>La red responde lo que una tabla no puede</h3><p>Una tabla dice d&#243;nde hay m&#225;s absentismo. La red muestra si ese foco es origen, consecuencia, concentrador o propagador.</p></div>
-          </div>
-          <div class="i-card-body" style="padding:14px 18px;">
-            <div class="net-legend">
-              <div class="legend-concept">
-                <b><span class="legend-concept-dot" style="background:#dc2626;"></span>Hub</b>
-                <span>Concentra mucho impacto. Es el lugar donde el problema se ve grande.</span>
-              </div>
-              <div class="legend-concept">
-                <b><span class="legend-concept-dot" style="background:#f59e0b;"></span>Propagador</b>
-                <span>Anticipa o amplifica tensi&#243;n en otros nodos. Puede ser m&#225;s accionable.</span>
-              </div>
-              <div class="legend-concept">
-                <b><span class="legend-concept-dot" style="background:#8b5cf6;"></span>Puente</b>
-                <span>Conecta &#225;reas. Si se rompe, traslada disrupci&#243;n entre grupos.</span>
-              </div>
-              <div class="legend-concept">
-                <b><span class="legend-concept-dot" style="background:#2563eb;"></span>Cl&#250;ster</b>
-                <span>Grupo de focos que se comportan de forma parecida y pueden requerir acci&#243;n com&#250;n.</span>
-              </div>
-            </div>
+            <div><h3>La red responde lo que una tabla no puede</h3><p>Una tabla dice d&#243;nde hay m&#225;s absentismo. La red muestra si ese foco es origen, consecuencia, concentrador o propagador. Haz clic en cualquier nodo para ver su an&#225;lisis.</p></div>
           </div>
         </div>
 
         <div class="net-canvas">
           <!-- MAPA OSCURO -->
           <div class="net-map">
-            <svg class="net-map-svg" viewBox="0 0 800 420" preserveAspectRatio="none">
+            <svg class="net-map-svg" viewBox="0 0 800 440" preserveAspectRatio="none">
               <defs>
-                <radialGradient id="bgGrad" cx="47%" cy="44%" r="55%">
-                  <stop offset="0%" stop-color="#1e3a5f" stop-opacity="0.4"/>
+                <radialGradient id="bgGrad" cx="50%" cy="47%" r="52%">
+                  <stop offset="0%" stop-color="#1e3a5f" stop-opacity="0.45"/>
                   <stop offset="100%" stop-color="#0f172a" stop-opacity="0"/>
                 </radialGradient>
+                <!-- marcador flecha: rojo (hub-prop) -->
+                <marker id="arr-red" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+                  <polygon points="0 0, 7 3.5, 0 7" fill="rgba(220,38,38,.55)"/>
+                </marker>
+                <!-- marcador flecha: púrpura (hub-bridge) -->
+                <marker id="arr-purple" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+                  <polygon points="0 0, 7 3.5, 0 7" fill="rgba(139,92,246,.55)"/>
+                </marker>
+                <!-- marcador flecha: azul (hub-cluster) -->
+                <marker id="arr-blue" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+                  <polygon points="0 0, 7 3.5, 0 7" fill="rgba(37,99,235,.5)"/>
+                </marker>
+                <!-- marcador flecha: blanco tenue (prop-bridge) -->
+                <marker id="arr-dim" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+                  <polygon points="0 0, 7 3.5, 0 7" fill="rgba(255,255,255,.2)"/>
+                </marker>
               </defs>
-              <rect width="800" height="420" fill="url(#bgGrad)"/>
-              <!-- conexiones SVG curvas -->
-              <path d="M400,155 Q290,120 180,90" stroke="rgba(220,38,38,.35)" stroke-width="1.5" fill="none" stroke-dasharray="5,4"/>
-              <path d="M400,155 Q310,200 200,270" stroke="rgba(139,92,246,.35)" stroke-width="1.5" fill="none" stroke-dasharray="5,4"/>
-              <path d="M400,155 Q520,110 610,80" stroke="rgba(37,99,235,.3)" stroke-width="1.5" fill="none" stroke-dasharray="5,4"/>
-              <path d="M400,155 Q530,210 630,320" stroke="rgba(37,99,235,.3)" stroke-width="1.5" fill="none" stroke-dasharray="5,4"/>
-              <path d="M180,90 Q200,180 200,270" stroke="rgba(255,255,255,.08)" stroke-width="1" fill="none"/>
+              <rect width="800" height="440" fill="url(#bgGrad)"/>
+              <!-- conexiones: Hub(400,207) → Prop(200,97), Bridge(224,316), Valencia(576,79), Pontevedra(592,326) -->
+              <!-- Hub → Propagador: relación fuerte, grosor 2.5 -->
+              <path d="M376,195 Q288,146 220,110" stroke="rgba(220,38,38,.5)" stroke-width="2.5" fill="none" marker-end="url(#arr-red)"/>
+              <!-- Hub → Puente: relación media, grosor 2 -->
+              <path d="M378,220 Q300,268 242,305" stroke="rgba(139,92,246,.45)" stroke-width="2" fill="none" marker-end="url(#arr-purple)"/>
+              <!-- Hub → Valencia: relación de clúster, grosor 1.5 -->
+              <path d="M424,195 Q510,137 558,95" stroke="rgba(37,99,235,.4)" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+              <!-- Hub → Pontevedra: relación de clúster, grosor 1.5 -->
+              <path d="M422,218 Q512,272 570,310" stroke="rgba(37,99,235,.4)" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+              <!-- Propagador → Puente: relación secundaria, grosor 1 -->
+              <path d="M200,121 Q212,218 222,293" stroke="rgba(255,255,255,.15)" stroke-width="1" fill="none" marker-end="url(#arr-dim)"/>
             </svg>
             <!-- pulso en hub -->
-            <div class="net-pulse" style="width:62px;height:62px;left:calc(50% - 31px);top:calc(37% - 31px);"></div>
-            <!-- nodos -->
-            <div class="net-node net-node-hub" style="left:50%;top:37%;" onclick="selectNode('planta')">
+            <div class="net-pulse" style="width:64px;height:64px;left:calc(50% - 32px);top:calc(47% - 32px);"></div>
+            <!-- nodos: Hub al centro, Prop y Bridge en anillo medio, Clústeres en periferia -->
+            <div class="net-node net-node-hub" style="left:50%;top:47%;" onclick="selectNode('planta')">
               <div class="net-node-circle">
                 <svg width="20" height="20" fill="none" stroke="rgba(255,255,255,.9)" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
               </div>
-              <div class="net-node-label"><small>Hub</small><b>Planta Norte</b><span>680K&#8364; &middot; 5 conexiones</span></div>
+              <div class="net-node-label"><small>Hub</small><b>Planta Norte</b><span>680K&#8364; &middot; 5 nodos</span></div>
             </div>
-            <div class="net-node net-node-prop" style="left:22%;top:21%;" onclick="selectNode('noche')">
+            <div class="net-node net-node-prop" style="left:25%;top:22%;" onclick="selectNode('noche')">
               <div class="net-node-circle">
                 <svg width="14" height="14" fill="none" stroke="rgba(255,255,255,.9)" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
               <div class="net-node-label"><small>Propagador</small><b>Turno Noche</b><span>80% reincidencia</span></div>
             </div>
-            <div class="net-node net-node-bridge" style="left:25%;top:64%;" onclick="selectNode('garcia')">
+            <div class="net-node net-node-bridge" style="left:28%;top:72%;" onclick="selectNode('garcia')">
               <div class="net-node-circle">
                 <svg width="12" height="12" fill="none" stroke="rgba(255,255,255,.9)" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
               </div>
               <div class="net-node-label"><small>Puente</small><b>J.Garc&#237;a</b><span>94% relaci&#243;n</span></div>
             </div>
-            <div class="net-node net-node-cluster" style="left:76%;top:19%;" onclick="selectNode('valencia')">
+            <div class="net-node net-node-cluster" style="left:72%;top:18%;" onclick="selectNode('valencia')">
               <div class="net-node-circle">
                 <svg width="11" height="11" fill="none" stroke="rgba(255,255,255,.9)" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
               </div>
               <div class="net-node-label"><small>Cl&#250;ster</small><b>Valencia</b><span>9 nodos</span></div>
             </div>
-            <div class="net-node net-node-cluster" style="left:79%;top:76%;" onclick="selectNode('pontevedra')">
+            <div class="net-node net-node-cluster" style="left:74%;top:74%;" onclick="selectNode('pontevedra')">
               <div class="net-node-circle">
                 <svg width="11" height="11" fill="none" stroke="rgba(255,255,255,.9)" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
               </div>
               <div class="net-node-label"><small>Cl&#250;ster</small><b>Pontevedra</b><span>3 nodos</span></div>
             </div>
-            <!-- hint -->
-            <div style="position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-size:10px;color:rgba(255,255,255,.3);font-weight:500;letter-spacing:.04em;pointer-events:none;">Haz clic en un nodo para ver el detalle</div>
+            <!-- leyenda overlay -->
+            <div class="net-map-legend">
+              <div class="net-map-legend-row"><div class="net-map-legend-dot" style="background:#dc2626;"></div><span class="net-map-legend-label">Hub — concentra impacto</span></div>
+              <div class="net-map-legend-row"><div class="net-map-legend-dot" style="background:#f59e0b;"></div><span class="net-map-legend-label">Propagador — amplifica</span></div>
+              <div class="net-map-legend-row"><div class="net-map-legend-dot" style="background:#8b5cf6;"></div><span class="net-map-legend-label">Puente — conecta &#225;reas</span></div>
+              <div class="net-map-legend-row"><div class="net-map-legend-dot" style="background:#2563eb;"></div><span class="net-map-legend-label">Cl&#250;ster — patr&#243;n com&#250;n</span></div>
+            </div>
           </div>
 
-          <!-- PANEL DETALLE — ABAJO DEL MAPA -->
+          <!-- PANEL DETALLE — ABAJO DEL MAPA, siempre visible -->
           <div class="net-panel-below" id="net-panel-below">
-            <div class="net-panel-inner">
+            <!-- placeholder: visible por defecto -->
+            <div class="net-panel-placeholder" id="net-panel-placeholder">
+              <svg width="28" height="28" fill="none" stroke="#94a3b8" viewBox="0 0 24 24" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
+              <p>Selecciona un nodo en el mapa para ver su an&#225;lisis: qu&#233; significa, c&#243;mo actuar y cu&#225;l es el riesgo asociado.</p>
+            </div>
+            <!-- contenido: oculto hasta click -->
+            <div class="net-panel-content" id="net-panel-content">
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;">
                 <span class="i-tag red" id="node-type">Hub concentrador</span>
                 <button onclick="closeNetPanel()" style="background:none;border:none;cursor:pointer;font-size:18px;color:#94a3b8;line-height:1;padding:0;">&#215;</button>
               </div>
               <h3 id="node-title">Planta Norte</h3>
-              <p style="font-size:12px;color:#64748b;font-weight:500;margin:0 0 0;" id="node-subtitle">Centro que concentra impacto econ&#243;mico, relaciones y patrones activos.</p>
+              <p style="font-size:12px;color:#64748b;font-weight:500;margin:0;" id="node-subtitle">Centro que concentra impacto econ&#243;mico, relaciones y patrones activos.</p>
               <div class="net-impact-grid">
                 <div class="net-impact"><small>Riesgo</small><b id="node-risk">89%</b></div>
                 <div class="net-impact"><small>Exposici&#243;n</small><b id="node-exposure">680K&#8364;</b></div>
@@ -730,7 +748,7 @@
                   <b>Qu&#233; significa</b>
                   <span id="node-meaning">Planta Norte no solo tiene coste alto: concentra relaciones con otros focos. Si empeora, el impacto se amplifica en equipos conectados.</span>
                 </div>
-                <div class="net-explain-block">
+                <div class="net-explain-block net-explain-block--action">
                   <b>C&#243;mo actuar</b>
                   <span id="node-action">No empezar&#237;a con un plan gen&#233;rico de centro. Primero revisar&#237;a los propagadores conectados &#8212;Turno Noche y J.Garc&#237;a&#8212; para atacar el patr&#243;n con m&#225;s precisi&#243;n.</span>
                 </div>
@@ -1605,16 +1623,21 @@
       document.querySelectorAll(".net-node").forEach(function(el){
         if (el.getAttribute("onclick") && el.getAttribute("onclick").indexOf("'" + key + "'") !== -1) el.classList.add("active");
       });
-      var panel = document.getElementById("net-panel-below");
-      if (panel) {
-        panel.classList.add("open");
-        setTimeout(function(){ panel.scrollIntoView({behavior:"smooth", block:"nearest"}); }, 80);
-      }
+      var ph = document.getElementById("net-panel-placeholder");
+      var ct = document.getElementById("net-panel-content");
+      if (ph) ph.style.display = "none";
+      if (ct) ct.classList.add("visible");
+      setTimeout(function(){
+        var panel = document.getElementById("net-panel-below");
+        if (panel) panel.scrollIntoView({behavior:"smooth", block:"nearest"});
+      }, 60);
     }
 
     function closeNetPanel() {
-      var panel = document.getElementById("net-panel-below");
-      if (panel) panel.classList.remove("open");
+      var ph = document.getElementById("net-panel-placeholder");
+      var ct = document.getElementById("net-panel-content");
+      if (ph) ph.style.display = "";
+      if (ct) ct.classList.remove("visible");
       document.querySelectorAll(".net-node").forEach(function(el){ el.classList.remove("active"); });
     }
 
