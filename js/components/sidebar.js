@@ -16,10 +16,7 @@ const SidebarComponent = (() => {
     { href: "/centro-inteligencia", link: "centro-inteligencia.html", label: "Centro de Inteligencia", icon: "chart-bar", indent: false, group: true },
     { href: "/patrones", link: "patrones.html", label: "Patrones", icon: "search", indent: false, badge: true },
     { href: "/prediccion", link: "prediccion.html", label: "Predicción", icon: "trending-up", indent: false },
-    { href: "/impacto-liderazgo",  label: "Impacto del Liderazgo", icon: "users",       indent: false },
-    { href: "/red-organizativa",   label: "Red Organizativa",      icon: "lightning",   indent: false },
     { href: "/planes-accion", link: "planes-accion.html", label: "Planes de Acción", icon: "clipboard", indent: false },
-    { href: "/implantacion",       label: "Implantación",          icon: "shield",      indent: false },
     { href: "/datos",              label: "Fuente de datos",       icon: "database",    indent: false }
   ];
 
