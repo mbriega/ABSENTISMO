@@ -88,10 +88,10 @@
     .seg-chip{height:32px;border:1px solid #e2e8f0;background:#f8fafc;border-radius:999px;color:#334155;padding:0 12px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;}
     .seg-chip.active{background:#0f172a;color:#fff;border-color:#0f172a;}
     .seg-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
-    .seg-box{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:13px;}
-    .seg-box small{display:block;font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px;}
-    .seg-box b{display:block;font-size:19px;font-weight:800;letter-spacing:-.04em;color:#0f172a;margin-bottom:3px;}
-    .seg-box span{font-size:11px;color:#64748b;font-weight:500;}
+    .seg-box{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:16px 18px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+    .seg-box small{display:block;font-size:11px;font-weight:700;color:#64748b;line-height:1.3;margin-bottom:8px;}
+    .seg-box b{display:block;font-size:17px;font-weight:800;letter-spacing:-.03em;color:#0f172a;margin-bottom:3px;}
+    .seg-box span{display:block;font-size:11px;color:#64748b;font-weight:500;}
     .table-wrap{overflow-x:auto;background:#fff;border:1px solid #e2e8f0;border-radius:12px;}
     table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;min-width:900px;}
     th{background:#f8fafc;color:#64748b;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.06em;padding:10px 12px;border-bottom:1px solid #e2e8f0;font-weight:700;}
@@ -206,22 +206,37 @@
     .forecast-card p{font-size:12px;color:#64748b;font-weight:500;line-height:1.4;margin:0 0 10px;}
 
     /* DRAWER */
-    .ci-drawer{position:fixed;right:0;top:0;height:100vh;width:0;max-width:520px;background:#fff;z-index:90;border-left:1px solid #e2e8f0;box-shadow:-20px 0 55px rgba(15,23,42,.14);overflow:hidden;transition:.28s ease;}
-    .ci-drawer.open{width:520px;}
-    .drawer-inner{width:520px;height:100%;display:flex;flex-direction:column;}
-    .drawer-top{height:64px;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;padding:0 18px;flex-shrink:0;}
-    .drawer-top h2{font-size:17px;font-weight:800;color:#0f172a;margin:0;}
-    .drawer-close{width:32px;height:32px;border:1px solid #e2e8f0;border-radius:9px;background:#fff;color:#64748b;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;}
-    .drawer-body{padding:18px;overflow-y:auto;background:#f8fafc;display:flex;flex-direction:column;gap:12px;flex:1;}
-    .drawer-panel{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px;}
-    .drawer-panel h3{font-size:15px;font-weight:700;color:#0f172a;margin:0 0 8px;}
-    .drawer-panel p{font-size:12px;color:#334155;font-weight:500;line-height:1.5;margin:0;}
-    .drawer-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-    .drawer-metric{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:11px;}
-    .drawer-metric small{display:block;font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;}
-    .drawer-metric b{display:block;font-size:19px;font-weight:800;letter-spacing:-.04em;color:#0f172a;}
-    .drawer-metric span{display:block;font-size:11px;color:#64748b;font-weight:500;margin-top:2px;}
-    .drawer-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+    .ci-drawer{position:fixed;right:0;top:0;height:100vh;width:0;max-width:560px;background:#fff;z-index:90;border-left:1px solid #e2e8f0;box-shadow:-4px 0 24px rgba(15,23,42,.12);overflow:hidden;transition:.28s ease;display:flex;flex-direction:column;}
+    .ci-drawer.open{width:560px;}
+    .drawer-inner{width:560px;height:100%;display:flex;flex-direction:column;}
+    .drawer-top{padding:16px 20px 14px;border-bottom:1px solid #e2e8f0;flex-shrink:0;background:#fff;}
+    .drawer-top-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+    .drawer-close{width:32px;height:32px;border:1px solid #e2e8f0;border-radius:9px;background:#f8fafc;color:#64748b;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .drawer-close:hover{background:#f1f5f9;}
+    .drawer-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;}
+    .drawer-kpi{background:#f8fafc;border:1px solid #f1f5f9;border-radius:11px;padding:12px 14px;}
+    .drawer-kpi small{display:block;font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+    .drawer-kpi b{display:block;font-size:22px;font-weight:800;letter-spacing:-.04em;color:#0f172a;}
+    .drawer-body{padding:14px 16px;overflow-y:auto;background:#f8fafc;display:flex;flex-direction:column;gap:10px;flex:1;}
+    .drawer-section{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:13px 14px;}
+    .drawer-section-title{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px;}
+    .drawer-metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;}
+    .drawer-metric-cell{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f1f5f9;}
+    .drawer-metric-cell:nth-last-child(-n+2){border-bottom:none;}
+    .drawer-metric-cell span{font-size:12px;color:#64748b;font-weight:500;}
+    .drawer-metric-cell b{font-size:13px;font-weight:700;color:#0f172a;}
+    .drawer-hbar-row{display:flex;align-items:center;gap:10px;margin-bottom:7px;}
+    .drawer-hbar-row:last-child{margin-bottom:0;}
+    .drawer-hbar-label{font-size:11px;color:#64748b;font-weight:500;width:120px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .drawer-hbar-track{flex:1;height:7px;background:#f1f5f9;border-radius:999px;overflow:hidden;}
+    .drawer-hbar-fill{height:100%;border-radius:999px;background:#2563eb;}
+    .drawer-hbar-pct{font-size:11px;font-weight:700;color:#0f172a;width:32px;text-align:right;flex-shrink:0;}
+    .drawer-mini-chart{height:76px;}
+    .drawer-mini-chart svg{width:100%;height:100%;}
+    .drawer-chips{display:flex;gap:5px;flex-wrap:wrap;}
+    .drawer-risk{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:12px 14px;}
+    .drawer-risk-title{font-size:11px;font-weight:700;color:#b45309;margin:0 0 5px;}
+    .drawer-risk-text{font-size:12px;color:#92400e;font-weight:500;line-height:1.5;margin:0;}
 
 
 
@@ -558,9 +573,8 @@
           <table>
             <thead>
               <tr>
-                <th>Foco</th><th>Tipo</th><th>Tasa</th><th>Coste/mes</th><th>Coste/empl</th>
-                <th>Plantilla</th><th>Incidencia</th><th>Bradford</th><th>Reincidencia</th>
-                <th>Dur. media</th><th>Lectura</th>
+                <th>Centro / foco</th><th>Tasa IT</th><th>Costes/mes</th><th>Empleados</th>
+                <th>Incidencia</th><th>Reincidencia</th><th>Bradford</th><th>Ahorro pot.</th>
               </tr>
             </thead>
             <tbody id="seg-rows"></tbody>
@@ -922,42 +936,61 @@
   <div id="seg-drawer" class="ci-drawer">
     <div class="drawer-inner">
       <div class="drawer-top">
-        <div>
-          <span class="i-tag" id="drawer-type">Centro</span>
-          <h2 style="margin-top:6px;" id="drawer-title">Bonus Pontevedra</h2>
+        <div class="drawer-top-row">
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <div style="width:32px;height:32px;border-radius:9px;background:#eff6ff;border:1px solid #bfdbfe;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">
+              <svg width="13" height="13" fill="none" stroke="#2563eb" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <div>
+              <p style="font-size:11px;color:#94a3b8;font-weight:600;margin:0 0 2px;" id="drawer-type-sub">N/D &middot; Centro de trabajo</p>
+              <h2 style="font-size:17px;font-weight:800;color:#0f172a;margin:0;line-height:1.25;" id="drawer-title">Bonus Pontevedra</h2>
+            </div>
+          </div>
+          <button class="drawer-close" onclick="closeDrawer()">&#215;</button>
         </div>
-        <button class="drawer-close" onclick="closeDrawer()">&#215;</button>
+        <div class="drawer-kpis">
+          <div class="drawer-kpi"><small>Tasa</small><b id="drawer-rate">21,0%</b></div>
+          <div class="drawer-kpi"><small>Coste anual</small><b id="drawer-cost-anual">278K&#8364;</b></div>
+          <div class="drawer-kpi"><small>Plantilla</small><b id="drawer-size">23</b></div>
+        </div>
       </div>
       <div class="drawer-body">
-        <div class="drawer-panel">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;">
-            <h3>Lectura del foco</h3>
-            <div class="drawer-pills" id="drawer-pills"></div>
-          </div>
-          <p id="drawer-intro">Centro con alta tasa, recurrencia elevada y coste por empleado relevante.</p>
-        </div>
-        <div class="drawer-metrics">
-          <div class="drawer-metric"><small>Tasa</small><b id="drawer-rate">21,0%</b><span id="drawer-rate-text">Superior a media</span></div>
-          <div class="drawer-metric"><small>Coste/empleado</small><b id="drawer-cost-emp">12.156&#8364;</b><span>Impacto unitario</span></div>
-          <div class="drawer-metric"><small>Duraci&#243;n media</small><b id="drawer-dur">42,4 d</b><span id="drawer-dur-text">Driver principal</span></div>
-          <div class="drawer-metric"><small>Bradford</small><b id="drawer-bradford">205</b><span id="drawer-bradford-text">Recurrencia moderada</span></div>
-        </div>
-        <div class="drawer-panel">
-          <h3>Desglose de costes</h3>
-          <div class="table-wrap"><table><thead><tr><th>Capa</th><th>Importe</th><th>Driver</th><th>Palanca</th></tr></thead><tbody id="drawer-cost-rows"></tbody></table></div>
-        </div>
-        <div class="drawer-panel">
-          <h3>Qu&#233; explica este foco</h3>
-          <div class="drawer-metrics">
-            <div class="drawer-metric"><small>Causa dominante</small><b id="drawer-cause">IT</b></div>
-            <div class="drawer-metric"><small>Turno / momento</small><b id="drawer-shift">Noche</b></div>
-            <div class="drawer-metric"><small>Rol en red</small><b id="drawer-network">Nodo local</b></div>
-            <div class="drawer-metric"><small>Riesgo pr&#243;ximo</small><b id="drawer-risk">Medio</b></div>
+        <div class="drawer-section">
+          <div class="drawer-section-title">M&#233;tricas detalladas</div>
+          <div class="drawer-metrics-grid">
+            <div class="drawer-metric-cell"><span>Incidencia</span><b id="dm-inc">73,9%</b></div>
+            <div class="drawer-metric-cell"><span>Bradford</span><b id="dm-brad">205</b></div>
+            <div class="drawer-metric-cell"><span>Recurrencia</span><b id="dm-rec">80%</b></div>
+            <div class="drawer-metric-cell"><span>Ep. cortos</span><b id="dm-short">12</b></div>
+            <div class="drawer-metric-cell"><span>Duraci&#243;n media</span><b id="dm-dur">42,4 d</b></div>
+            <div class="drawer-metric-cell"><span>Coste/empleado</span><b id="dm-cost-emp">12.156&#8364;</b></div>
           </div>
         </div>
-        <div class="drawer-panel">
-          <h3>Conexi&#243;n con acci&#243;n</h3>
-          <p id="drawer-action">Plan recomendado: revisi&#243;n de cobertura y retorno seguro.</p>
+        <div class="drawer-section">
+          <div class="drawer-section-title">Principales causas</div>
+          <div id="drawer-causes"></div>
+        </div>
+        <div class="drawer-section">
+          <div class="drawer-section-title">Evoluci&#243;n reciente</div>
+          <div class="drawer-mini-chart" id="drawer-chart"></div>
+        </div>
+        <div class="drawer-section">
+          <div class="drawer-section-title">Desglose por turno</div>
+          <div id="drawer-shifts"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div class="drawer-section">
+            <div class="drawer-section-title">Patrones activos</div>
+            <div class="drawer-chips" id="drawer-patterns"></div>
+          </div>
+          <div class="drawer-section">
+            <div class="drawer-section-title">Planes activos</div>
+            <div class="drawer-chips" id="drawer-plans"></div>
+          </div>
+        </div>
+        <div class="drawer-risk">
+          <p class="drawer-risk-title">&#9888; Riesgo predictivo</p>
+          <p class="drawer-risk-text" id="drawer-risk-text">El modelo predictivo estima un incremento del 12% en la tasa de absentismo para el pr&#243;ximo trimestre si no se implementan las medidas correctivas propuestas.</p>
         </div>
       </div>
     </div>
@@ -1085,72 +1118,144 @@
 
     /* ─── SEGMENTATION DATA ─── */
     var segData = {
-      centro: { label:"Centro", count:"6", countText:"centros priorizados", top:"Perdón", topText:"25.316€/mes", pattern:"Duración + recurrencia", patternText:"coste y frecuencia", action:"Revisar 3 focos", actionText:"abrir ficha y validar", how:"No es un ranking simple. La misma tasa puede significar cosas distintas si cambia coste, criticidad, recurrencia o capacidad de sustitución.", avoid:"Evita activar planes genéricos por centro cuando el problema real está en una línea, equipo, turno o causa concreta.",
+      centro: { label:"Centro", count:"49", countText:"centros analizados", top:"Perdón", topText:"25.316€/mes", pattern:"Duración + recurrencia", patternText:"coste y frecuencia", action:"Revisar 6 focos clave", actionText:"abrir ficha y validar",
+        how:"No es un ranking simple. La misma tasa puede significar cosas distintas si cambia coste, criticidad, recurrencia o capacidad de sustitución.",
+        avoid:"Evita activar planes genéricos por centro cuando el problema real está en una línea, equipo, turno o causa concreta.",
         rows:[
-          {name:"Bonus Pontevedra",type:"Centro",rate:"21,0%",cost:"23.298€",emp:"12.156€",size:"23",inc:"73,9%",brad:"205",rec:"80%",dur:"42,4 d",pill:"red",read:"Duración + recurrencia"},
-          {name:"Perdón",type:"Centro",rate:"29,6%",cost:"25.316€",emp:"20.253€",size:"15",inc:"100,0%",brad:"912",rec:"66,7%",dur:"38,1 d",pill:"red",read:"Coste crítico"},
-          {name:"Made Este",type:"Centro",rate:"36,4%",cost:"12.493€",emp:"18.740€",size:"8",inc:"50,0%",brad:"1128",rec:"50,0%",dur:"51,7 d",pill:"purple",read:"Hub en red"},
-          {name:"Torviscal",type:"Centro",rate:"21,3%",cost:"14.284€",emp:"9.018€",size:"19",inc:"73,7%",brad:"488",rec:"54,0%",dur:"17,3 d",pill:"amber",read:"Cobertura tensionada"},
-          {name:"Zona 10-12",type:"Centro",rate:"23,2%",cost:"17.826€",emp:"11.910€",size:"18",inc:"55,6%",brad:"622",rec:"61,0%",dur:"19,8 d",pill:"amber",read:"Foco medio-alto"},
-          {name:"Sos",type:"Centro",rate:"25,6%",cost:"9.249€",emp:"8.430€",size:"13",inc:"69,2%",brad:"505",rec:"44,0%",dur:"12,6 d",pill:"blue",read:"Vigilancia"}]},
-      linea: { label:"Departamento / línea", count:"7", countText:"líneas productivas", top:"Línea Prod. 3", topText:"18.420€/mes", pattern:"Cuello operativo", patternText:"baja sustituibilidad", action:"Priorizar líneas críticas", actionText:"validar mínimos de producción", how:"Aquí se ve si una tasa moderada afecta a una línea que condiciona toda la producción.", avoid:"Evita tratar la planta como un bloque único cuando el cuello real está en una línea concreta.",
+          {name:"Bonus Pontevedra",province:"Pontevedra",rate:"21,0%",cost:"23.298€",size:"23",inc:"73,9%",rec:"80,0%",brad:"205",ahorro:"55.990€"},
+          {name:"Perdón",province:"Navarra",rate:"29,6%",cost:"25.316€",size:"15",inc:"100,0%",rec:"94,4%",brad:"268",ahorro:"60.759€"},
+          {name:"Zona 10-12",province:"Valencia",rate:"23,2%",cost:"17.826€",size:"18",inc:"55,6%",rec:"83,3%",brad:"484",ahorro:"42.783€"},
+          {name:"Torviscal",province:"Albacete",rate:"21,3%",cost:"14.284€",size:"19",inc:"73,7%",rec:"65,0%",brad:"227",ahorro:"34.281€"},
+          {name:"Sos",province:"Navarra",rate:"25,6%",cost:"9.249€",size:"13",inc:"69,2%",rec:"95,0%",brad:"505",ahorro:"22.199€"},
+          {name:"Made Este",province:"Lugo",rate:"36,4%",cost:"12.493€",size:"8",inc:"50,0%",rec:"71,4%",brad:"1128",ahorro:"29.982€"},
+          {name:"Villobi Tallat",province:"Lérida",rate:"27,1%",cost:"12.432€",size:"10",inc:"80,0%",rec:"75,0%",brad:"330",ahorro:"29.837€"},
+          {name:"Ing. Opt&Control",province:"Navarra",rate:"14,0%",cost:"10.534€",size:"19",inc:"79,0%",rec:"89,3%",brad:"422",ahorro:"25.280€"},
+          {name:"Bonus Lugo",province:"Lugo",rate:"18,4%",cost:"12.856€",size:"14",inc:"71,4%",rec:"33,3%",brad:"67",ahorro:"30.855€"},
+          {name:"Bonus Coruña",province:"Coruña AI",rate:"13,2%",cost:"11.244€",size:"19",inc:"57,9%",rec:"94,4%",brad:"263",ahorro:"26.985€"},
+          {name:"Guerinda",province:"Navarra",rate:"14,9%",cost:"10.642€",size:"16",inc:"88,8%",rec:"96,9%",brad:"1777",ahorro:"25.541€"},
+          {name:"Izco",province:"Navarra",rate:"17,0%",cost:"13.062€",size:"14",inc:"78,6%",rec:"88,5%",brad:"229",ahorro:"32.790€"},
+          {name:"Burgos",province:"Burgos",rate:"13,2%",cost:"8.918€",size:"17",inc:"41,2%",rec:"64,7%",brad:"1470",ahorro:"21.404€"},
+          {name:"Zona 3",province:"Castellón",rate:"11,0%",cost:"2.475€",size:"20",inc:"55,0%",rec:"55,6%",brad:"125",ahorro:"5.940€"},
+          {name:"Zona 8",province:"Valencia",rate:"23,8%",cost:"12.452€",size:"8",inc:"62,5%",rec:"40,0%",brad:"84",ahorro:"29.885€"},
+          {name:"Agrupación Centro-Sur",province:"Cádiz",rate:"36,0%",cost:"3.098€",size:"5",inc:"60,0%",rec:"93,7%",brad:"19.888",ahorro:"7.436€"},
+          {name:"Grandes Correctivos Noroeste",province:"Lugo",rate:"20,5%",cost:"9.322€",size:"8",inc:"75,0%",rec:"60,0%",brad:"229",ahorro:"22.372€"},
+          {name:"Made Centro",province:"Lugo",rate:"20,2%",cost:"4.329€",size:"8",inc:"75,0%",rec:"85,7%",brad:"659",ahorro:"10.389€"},
+          {name:"Alta Tensión Levante",province:"Valencia",rate:"15,6%",cost:"9.137€",size:"10",inc:"50,0%",rec:"55,6%",brad:"566",ahorro:"21.929€"},
+          {name:"Ingeniería Global",province:"Navarra",rate:"18,7%",cost:"9.732€",size:"7",inc:"57,1%",rec:"62,5%",brad:"666",ahorro:"23.357€"},
+          {name:"Made Oeste",province:"Lugo",rate:"10,0%",cost:"5.673€",size:"13",inc:"69,2%",rec:"61,5%",brad:"242",ahorro:"13.615€"},
+          {name:"Rubio",province:"Barcelona",rate:"13,2%",cost:"6.312€",size:"9",inc:"77,8%",rec:"76,5%",brad:"339",ahorro:"15.150€"},
+          {name:"Zona 2",province:"Castellón",rate:"9,8%",cost:"1.089€",size:"11",inc:"72,7%",rec:"50,0%",brad:"178",ahorro:"2.614€"},
+          {name:"Falces",province:"Navarra",rate:"8,8%",cost:"4.812€",size:"12",inc:"75,0%",rec:"84,2%",brad:"328",ahorro:"11.500€"},
+          {name:"Codes",province:"Navarra",rate:"6,0%",cost:"5.186€",size:"17",inc:"58,8%",rec:"88,4%",brad:"912",ahorro:"12.447€"},
+          {name:"Alaiz",province:"Navarra",rate:"7,0%",cost:"5.224€",size:"14",inc:"78,6%",rec:"92,9%",brad:"220",ahorro:"12.538€"},
+          {name:"Asturias",province:"Asturias",rate:"9,7%",cost:"5.128€",size:"9",inc:"77,8%",rec:"62,5%",brad:"158",ahorro:"12.307€"},
+          {name:"Alta Tensión Norte",province:"Navarra",rate:"11,5%",cost:"630€",size:"7",inc:"71,4%",rec:"81,8%",brad:"1026",ahorro:"1.511€"},
+          {name:"Alta Tensión Centro-sur",province:"Sevilla",rate:"8,8%",cost:"1.053€",size:"9",inc:"33,3%",rec:"80,0%",brad:"498",ahorro:"2.526€"},
+          {name:"Up Towwer Levante",province:"Valencia",rate:"32,3%",cost:"1.815€",size:"2",inc:"100,0%",rec:"50,0%",brad:"71",ahorro:"4.357€"},
+          {name:"Grandes Correctivos Norte",province:"Navarra",rate:"10,6%",cost:"772€",size:"5",inc:"80,0%",rec:"81,8%",brad:"194",ahorro:"1.854€"},
+          {name:"Cádiz AW Sevilla",province:"Cádiz",rate:"3,9%",cost:"2.667€",size:"12",inc:"33,3%",rec:"40,0%",brad:"49",ahorro:"6.401€"},
+          {name:"Repotenciación Tahivilla",province:"Cádiz",rate:"11,5%",cost:"289€",size:"4",inc:"25,0%",rec:"66,7%",brad:"909",ahorro:"694€"},
+          {name:"Alta Tensión Noroeste",province:"Coruña AI",rate:"5,7%",cost:"593€",size:"8",inc:"12,5%",rec:"100,0%",brad:"400",ahorro:"1.424€"},
+          {name:"Escambrons Tortosa",province:"Lérida",rate:"6,0%",cost:"1.970€",size:"5",inc:"100,0%",rec:"50,0%",brad:"124",ahorro:"4.728€"},
+          {name:"Zamora",province:"Zamora",rate:"2,5%",cost:"1.034€",size:"17",inc:"23,5%",rec:"0,0%",brad:"23",ahorro:"2.482€"},
+          {name:"Optimización",province:"Lugo",rate:"13,3%",cost:"2.442€",size:"9",inc:"88,7%",rec:"83,3%",brad:"212",ahorro:"5.861€"},
+          {name:"Expatriados Green Pastures",province:"Navarra",rate:"2,3%",cost:"2.174€",size:"17",inc:"41,1%",rec:"25,0%",brad:"11",ahorro:"5.217€"},
+          {name:"Gdes. Correctivos Centro-sur",province:"Ávila",rate:"12,4%",cost:"1.186€",size:"3",inc:"33,3%",rec:"0,0%",brad:"82",ahorro:"2.852€"},
+          {name:"Ávila/Segovia/Soria",province:"Segovia",rate:"3,3%",cost:"227€",size:"9",inc:"33,3%",rec:"33,3%",brad:"22",ahorro:"544€"},
+          {name:"Experimentales",province:"Navarra",rate:"3,3%",cost:"956€",size:"9",inc:"33,3%",rec:"90,0%",brad:"283",ahorro:"2.294€"},
+          {name:"Palencia",province:"Palencia",rate:"6,9%",cost:"261€",size:"24",inc:"29,2%",rec:"57,1%",brad:"7",ahorro:"626€"},
+          {name:"Agrupación norte",province:"Navarra",rate:"4,9%",cost:"488€",size:"3",inc:"100,0%",rec:"85,7%",brad:"45",ahorro:"1.168€"},
+          {name:"Palas y Videoend. Noroeste",province:"Lugo",rate:"1,4%",cost:"108€",size:"10",inc:"10,0%",rec:"100,0%",brad:"31",ahorro:"260€"},
+          {name:"Recursos Centrales",province:"Coruña AI",rate:"5,7%",cost:"500€",size:"2",inc:"100,0%",rec:"80,0%",brad:"42",ahorro:"1.083€"},
+          {name:"Zona 1",province:"Castellón",rate:"0,8%",cost:"176€",size:"5",inc:"60,0%",rec:"28,6%",brad:"6",ahorro:"422€"},
+          {name:"Agrupación Levante",province:"Castellón",rate:"9,8%",cost:"127€",size:"5",inc:"20,0%",rec:"0,0%",brad:"38",ahorro:"304€"},
+          {name:"Grandes Correctivos Levante",province:"Castellón",rate:"2,3%",cost:"77€",size:"2",inc:"50,0%",rec:"100,0%",brad:"81",ahorro:"184€"},
+          {name:"Agrupación noroeste",province:"Lugo",rate:"0,3%",cost:"47€",size:"20",inc:"50,0%",rec:"0,0%",brad:"1",ahorro:"113€"}]},
+      linea: { label:"Departamento / línea", count:"7", countText:"líneas productivas", top:"Línea Prod. 3", topText:"18.420€/mes", pattern:"Cuello operativo", patternText:"baja sustituibilidad", action:"Priorizar líneas críticas", actionText:"validar mínimos de producción",
+        how:"Aquí se ve si una tasa moderada afecta a una línea que condiciona toda la producción.",
+        avoid:"Evita tratar la planta como un bloque único cuando el cuello real está en una línea concreta.",
         rows:[
-          {name:"Línea Producción 3",type:"Línea",rate:"18,8%",cost:"18.420€",emp:"9.840€",size:"42",inc:"61,9%",brad:"684",rec:"72,0%",dur:"16,2 d",pill:"amber",read:"Cuello operativo"},
-          {name:"Expedición final",type:"Línea",rate:"15,4%",cost:"15.210€",emp:"10.120€",size:"31",inc:"48,4%",brad:"412",rec:"50,0%",dur:"18,9 d",pill:"amber",read:"Impacto en entregas"},
-          {name:"Embalaje automático",type:"Línea",rate:"13,8%",cost:"11.880€",emp:"7.540€",size:"38",inc:"42,1%",brad:"356",rec:"39,0%",dur:"14,1 d",pill:"blue",read:"Riesgo medio"},
-          {name:"Montaje manual",type:"Línea",rate:"19,7%",cost:"14.760€",emp:"8.330€",size:"46",inc:"67,4%",brad:"742",rec:"68,0%",dur:"10,4 d",pill:"purple",read:"Recurrencia corta"},
-          {name:"Control final",type:"Línea",rate:"11,9%",cost:"8.620€",emp:"9.980€",size:"18",inc:"33,3%",brad:"188",rec:"24,0%",dur:"22,8 d",pill:"amber",read:"Difícil sustitución"},
-          {name:"Prep. materia prima",type:"Línea",rate:"9,8%",cost:"6.410€",emp:"5.240€",size:"29",inc:"31,0%",brad:"142",rec:"18,0%",dur:"8,9 d",pill:"green",read:"Controlado"}]},
-      equipo: { label:"Equipo", count:"8", countText:"equipos operativos", top:"Mantenimiento crítico", topText:"14.660€/emp", pattern:"Baja sustituibilidad", patternText:"roles técnicos", action:"Proteger equipos clave", actionText:"crear cobertura específica", how:"Los equipos muestran dónde una ausencia pesa más por conocimiento técnico o dependencia operativa.", avoid:"Evita medir solo por volumen. Un equipo pequeño puede ser más crítico que un centro grande.",
+          {name:"Línea Producción 3",rate:"18,8%",cost:"18.420€",size:"42",inc:"61,9%",rec:"72,0%",brad:"684",ahorro:"44.208€"},
+          {name:"Expedición final",rate:"15,4%",cost:"15.210€",size:"31",inc:"48,4%",rec:"50,0%",brad:"412",ahorro:"36.504€"},
+          {name:"Embalaje automático",rate:"13,8%",cost:"11.880€",size:"38",inc:"42,1%",rec:"39,0%",brad:"356",ahorro:"28.512€"},
+          {name:"Montaje manual",rate:"19,7%",cost:"14.760€",size:"46",inc:"67,4%",rec:"68,0%",brad:"742",ahorro:"35.424€"},
+          {name:"Control final",rate:"11,9%",cost:"8.620€",size:"18",inc:"33,3%",rec:"24,0%",brad:"188",ahorro:"20.688€"},
+          {name:"Prep. materia prima",rate:"9,8%",cost:"6.410€",size:"29",inc:"31,0%",rec:"18,0%",brad:"142",ahorro:"15.384€"}]},
+      equipo: { label:"Equipo", count:"8", countText:"equipos operativos", top:"Mantenimiento crítico", topText:"14.660€/emp", pattern:"Baja sustituibilidad", patternText:"roles técnicos", action:"Proteger equipos clave", actionText:"crear cobertura específica",
+        how:"Los equipos muestran dónde una ausencia pesa más por conocimiento técnico o dependencia operativa.",
+        avoid:"Evita medir solo por volumen. Un equipo pequeño puede ser más crítico que un centro grande.",
         rows:[
-          {name:"Mantenimiento crítico",type:"Equipo",rate:"14,2%",cost:"11.730€",emp:"14.660€",size:"12",inc:"58,3%",brad:"512",rec:"41,0%",dur:"22,6 d",pill:"amber",read:"Difícil sustitución"},
-          {name:"Equipo J.García",type:"Equipo",rate:"21,9%",cost:"9.520€",emp:"8.940€",size:"16",inc:"62,5%",brad:"688",rec:"73,0%",dur:"9,8 d",pill:"purple",read:"Nodo puente"},
-          {name:"Calidad turno tarde",type:"Equipo",rate:"16,4%",cost:"8.880€",emp:"10.310€",size:"14",inc:"50,0%",brad:"430",rec:"36,0%",dur:"18,1 d",pill:"amber",read:"Calidad crítica"},
-          {name:"Carretilleros nave 2",type:"Equipo",rate:"19,1%",cost:"7.960€",emp:"6.880€",size:"22",inc:"59,1%",brad:"702",rec:"66,0%",dur:"8,7 d",pill:"purple",read:"Cobertura difícil"},
-          {name:"Operarios línea A",type:"Equipo",rate:"12,7%",cost:"7.420€",emp:"4.880€",size:"36",inc:"41,7%",brad:"310",rec:"29,0%",dur:"11,3 d",pill:"blue",read:"Estable"},
-          {name:"Supervisores prod.",type:"Equipo",rate:"8,2%",cost:"5.870€",emp:"12.440€",size:"9",inc:"22,2%",brad:"96",rec:"10,0%",dur:"24,5 d",pill:"amber",read:"Impacto por rol"}]},
-      turno: { label:"Turno", count:"4", countText:"turnos analizados", top:"Noche", topText:"30,1% tasa", pattern:"Recurrencia + cobertura", patternText:"alta fricción operativa", action:"Estabilizar Noche", actionText:"pool de sustitución y carga", how:"El turno permite ver si el problema es operativo y no solo médico o administrativo.", avoid:"Evita planes de centro cuando el problema está concentrado en una franja horaria.",
+          {name:"Mantenimiento crítico",rate:"14,2%",cost:"11.730€",size:"12",inc:"58,3%",rec:"41,0%",brad:"512",ahorro:"28.152€"},
+          {name:"Equipo J.García",rate:"21,9%",cost:"9.520€",size:"16",inc:"62,5%",rec:"73,0%",brad:"688",ahorro:"22.848€"},
+          {name:"Calidad turno tarde",rate:"16,4%",cost:"8.880€",size:"14",inc:"50,0%",rec:"36,0%",brad:"430",ahorro:"21.312€"},
+          {name:"Carretilleros nave 2",rate:"19,1%",cost:"7.960€",size:"22",inc:"59,1%",rec:"66,0%",brad:"702",ahorro:"19.104€"},
+          {name:"Operarios línea A",rate:"12,7%",cost:"7.420€",size:"36",inc:"41,7%",rec:"29,0%",brad:"310",ahorro:"17.808€"},
+          {name:"Supervisores prod.",rate:"8,2%",cost:"5.870€",size:"9",inc:"22,2%",rec:"10,0%",brad:"96",ahorro:"14.088€"}]},
+      turno: { label:"Turno", count:"4", countText:"turnos analizados", top:"Noche", topText:"30,1% tasa", pattern:"Recurrencia + cobertura", patternText:"alta fricción operativa", action:"Estabilizar Noche", actionText:"pool de sustitución y carga",
+        how:"El turno permite ver si el problema es operativo y no solo médico o administrativo.",
+        avoid:"Evita planes de centro cuando el problema está concentrado en una franja horaria.",
         rows:[
-          {name:"Noche",type:"Turno",rate:"30,1%",cost:"16.980€",emp:"8.210€",size:"64",inc:"69,3%",brad:"909",rec:"80,0%",dur:"7,4 d",pill:"purple",read:"Propagador"},
-          {name:"Rotativo",type:"Turno",rate:"13,7%",cost:"12.110€",emp:"6.920€",size:"88",inc:"47,7%",brad:"376",rec:"42,0%",dur:"11,8 d",pill:"amber",read:"Fatiga acumulada"},
-          {name:"Tarde",type:"Turno",rate:"11,9%",cost:"8.940€",emp:"5.780€",size:"74",inc:"39,2%",brad:"288",rec:"30,0%",dur:"10,6 d",pill:"blue",read:"Vigilancia"},
-          {name:"Mañana",type:"Turno",rate:"9,8%",cost:"6.720€",emp:"4.130€",size:"96",inc:"31,3%",brad:"162",rec:"18,0%",dur:"8,4 d",pill:"green",read:"Controlado"}]},
-      edad: { label:"Rango de edad", count:"5", countText:"tramos de edad", top:"55+", topText:"31,7 d duración", pattern:"Duración", patternText:"procesos más largos", action:"Plan retorno por tramo", actionText:"adaptar reincorporaciones", how:"Permite separar frecuencia de duración. Algunos tramos no faltan más, pero sus procesos duran más.", avoid:"Evita conclusiones simplistas: edad no es causa, es una dimensión para adaptar medidas.",
+          {name:"Noche",rate:"30,1%",cost:"16.980€",size:"64",inc:"69,3%",rec:"80,0%",brad:"909",ahorro:"40.752€"},
+          {name:"Rotativo",rate:"13,7%",cost:"12.110€",size:"88",inc:"47,7%",rec:"42,0%",brad:"376",ahorro:"29.064€"},
+          {name:"Tarde",rate:"11,9%",cost:"8.940€",size:"74",inc:"39,2%",rec:"30,0%",brad:"288",ahorro:"21.456€"},
+          {name:"Mañana",rate:"9,8%",cost:"6.720€",size:"96",inc:"31,3%",rec:"18,0%",brad:"162",ahorro:"16.128€"}]},
+      edad: { label:"Rango de edad", count:"5", countText:"tramos de edad", top:"55+", topText:"31,7 d duración", pattern:"Duración", patternText:"procesos más largos", action:"Plan retorno por tramo", actionText:"adaptar reincorporaciones",
+        how:"Permite separar frecuencia de duración. Algunos tramos no faltan más, pero sus procesos duran más.",
+        avoid:"Evita conclusiones simplistas: edad no es causa, es una dimensión para adaptar medidas.",
         rows:[
-          {name:"18-29",type:"Edad",rate:"9,6%",cost:"8.420€",emp:"3.120€",size:"84",inc:"44,0%",brad:"520",rec:"62,0%",dur:"5,8 d",pill:"purple",read:"Baja corta"},
-          {name:"30-39",type:"Edad",rate:"11,2%",cost:"13.980€",emp:"4.670€",size:"126",inc:"52,4%",brad:"410",rec:"44,0%",dur:"9,2 d",pill:"blue",read:"Mixto"},
-          {name:"40-49",type:"Edad",rate:"13,4%",cost:"21.440€",emp:"7.260€",size:"118",inc:"58,5%",brad:"388",rec:"31,0%",dur:"17,6 d",pill:"amber",read:"Duración media"},
-          {name:"50-54",type:"Edad",rate:"14,8%",cost:"18.260€",emp:"9.830€",size:"72",inc:"50,0%",brad:"302",rec:"24,0%",dur:"23,4 d",pill:"amber",read:"Procesos largos"},
-          {name:"55+",type:"Edad",rate:"16,1%",cost:"24.810€",emp:"12.940€",size:"58",inc:"48,3%",brad:"244",rec:"18,0%",dur:"31,7 d",pill:"red",read:"Duración crítica"}]},
-      genero: { label:"Género", count:"3", countText:"grupos comparados", top:"Mujeres", topText:"14,6% tasa", pattern:"Duración y permisos", patternText:"analizar con contexto", action:"Cruzar con puesto/turno", actionText:"evitar lectura aislada", how:"El género nunca debe interpretarse aislado. Hay que cruzarlo con puesto, turno, edad, convenio y causa.", avoid:"Evita usar esta dimensión para conclusiones directas sin contexto operativo y legal.",
+          {name:"18-29",rate:"9,6%",cost:"8.420€",size:"84",inc:"44,0%",rec:"62,0%",brad:"520",ahorro:"20.208€"},
+          {name:"30-39",rate:"11,2%",cost:"13.980€",size:"126",inc:"52,4%",rec:"44,0%",brad:"410",ahorro:"33.552€"},
+          {name:"40-49",rate:"13,4%",cost:"21.440€",size:"118",inc:"58,5%",rec:"31,0%",brad:"388",ahorro:"51.456€"},
+          {name:"50-54",rate:"14,8%",cost:"18.260€",size:"72",inc:"50,0%",rec:"24,0%",brad:"302",ahorro:"43.824€"},
+          {name:"55+",rate:"16,1%",cost:"24.810€",size:"58",inc:"48,3%",rec:"18,0%",brad:"244",ahorro:"59.544€"}]},
+      genero: { label:"Género", count:"3", countText:"grupos comparados", top:"Mujeres", topText:"14,6% tasa", pattern:"Duración y permisos", patternText:"analizar con contexto", action:"Cruzar con puesto/turno", actionText:"evitar lectura aislada",
+        how:"El género nunca debe interpretarse aislado. Hay que cruzarlo con puesto, turno, edad, convenio y causa.",
+        avoid:"Evita usar esta dimensión para conclusiones directas sin contexto operativo y legal.",
         rows:[
-          {name:"Mujeres",type:"Género",rate:"14,6%",cost:"19.880€",emp:"7.240€",size:"182",inc:"62,1%",brad:"488",rec:"48,0%",dur:"18,7 d",pill:"amber",read:"Cruzar con causa"},
-          {name:"Hombres",type:"Género",rate:"11,8%",cost:"22.740€",emp:"6.880€",size:"274",inc:"55,8%",brad:"420",rec:"39,0%",dur:"15,3 d",pill:"blue",read:"Mayor volumen"},
-          {name:"No informado",type:"Género",rate:"8,1%",cost:"1.920€",emp:"3.100€",size:"18",inc:"22,2%",brad:"80",rec:"8,0%",dur:"6,1 d",pill:"green",read:"Dato incompleto"}]},
-      antiguedad: { label:"Antigüedad", count:"5", countText:"tramos de antigüedad", top:"0-6 meses", topText:"20,3% tasa", pattern:"Onboarding", patternText:"adaptación y rotación", action:"Revisar acogida", actionText:"mandos y curva", how:"La antigüedad ayuda a separar problemas de adaptación inicial de desgaste o procesos largos.", avoid:"Evita tratar igual a colectivos nuevos y veteranos: las palancas son distintas.",
+          {name:"Mujeres",rate:"14,6%",cost:"19.880€",size:"182",inc:"62,1%",rec:"48,0%",brad:"488",ahorro:"47.712€"},
+          {name:"Hombres",rate:"11,8%",cost:"22.740€",size:"274",inc:"55,8%",rec:"39,0%",brad:"420",ahorro:"54.576€"},
+          {name:"No informado",rate:"8,1%",cost:"1.920€",size:"18",inc:"22,2%",rec:"8,0%",brad:"80",ahorro:"4.608€"}]},
+      antiguedad: { label:"Antigüedad", count:"5", countText:"tramos de antigüedad", top:"0-6 meses", topText:"20,3% tasa", pattern:"Onboarding", patternText:"adaptación y rotación", action:"Revisar acogida", actionText:"mandos y curva",
+        how:"La antigüedad ayuda a separar problemas de adaptación inicial de desgaste o procesos largos.",
+        avoid:"Evita tratar igual a colectivos nuevos y veteranos: las palancas son distintas.",
         rows:[
-          {name:"0-6 meses",type:"Antigüedad",rate:"20,3%",cost:"10.340€",emp:"5.910€",size:"44",inc:"70,5%",brad:"740",rec:"76,0%",dur:"6,8 d",pill:"purple",read:"Onboarding"},
-          {name:"6-24 meses",type:"Antigüedad",rate:"13,9%",cost:"15.780€",emp:"6.220€",size:"118",inc:"56,8%",brad:"512",rec:"48,0%",dur:"10,1 d",pill:"amber",read:"Adaptación"},
-          {name:"2-5 años",type:"Antigüedad",rate:"11,7%",cost:"18.440€",emp:"6.980€",size:"156",inc:"51,9%",brad:"376",rec:"36,0%",dur:"14,2 d",pill:"blue",read:"Estable"},
-          {name:"5-10 años",type:"Antigüedad",rate:"12,8%",cost:"20.310€",emp:"8.730€",size:"102",inc:"49,0%",brad:"322",rec:"28,0%",dur:"20,4 d",pill:"amber",read:"Duración"},
-          {name:"10+ años",type:"Antigüedad",rate:"15,2%",cost:"26.940€",emp:"12.110€",size:"86",inc:"45,3%",brad:"260",rec:"22,0%",dur:"29,1 d",pill:"red",read:"Procesos largos"}]},
-      causa: { label:"Causa", count:"6", countText:"tipologías", top:"IT", topText:"2,78M€", pattern:"Duración por contingencia", patternText:"coste concentrado", action:"Diferenciar causa y plan", actionText:"IT larga vs baja corta", how:"Las causas permiten separar volumen, duración y coste. La causa con más episodios no siempre es la que más cuesta.", avoid:"Evita hacer planes por causa sin cruzarla con centro, turno, duración y reincidencia.",
+          {name:"0-6 meses",rate:"20,3%",cost:"10.340€",size:"44",inc:"70,5%",rec:"76,0%",brad:"740",ahorro:"24.816€"},
+          {name:"6-24 meses",rate:"13,9%",cost:"15.780€",size:"118",inc:"56,8%",rec:"48,0%",brad:"512",ahorro:"37.872€"},
+          {name:"2-5 años",rate:"11,7%",cost:"18.440€",size:"156",inc:"51,9%",rec:"36,0%",brad:"376",ahorro:"44.256€"},
+          {name:"5-10 años",rate:"12,8%",cost:"20.310€",size:"102",inc:"49,0%",rec:"28,0%",brad:"322",ahorro:"48.744€"},
+          {name:"10+ años",rate:"15,2%",cost:"26.940€",size:"86",inc:"45,3%",rec:"22,0%",brad:"260",ahorro:"64.656€"}]},
+      causa: { label:"Causa", count:"6", countText:"tipologías", top:"IT", topText:"2,78M€", pattern:"Duración por contingencia", patternText:"coste concentrado", action:"Diferenciar causa y plan", actionText:"IT larga vs baja corta",
+        how:"Las causas permiten separar volumen, duración y coste. La causa con más episodios no siempre es la que más cuesta.",
+        avoid:"Evita hacer planes por causa sin cruzarla con centro, turno, duración y reincidencia.",
         rows:[
-          {name:"IT",type:"Causa",rate:"73,0%",cost:"2.786.407€",emp:"—",size:"408 ep.",inc:"—",brad:"—",rec:"73,0%",dur:"26,8 d",pill:"red",read:"Mayor coste"},
-          {name:"Paternidad",type:"Causa",rate:"86,7%",cost:"389.487€",emp:"—",size:"75 ep.",inc:"—",brad:"—",rec:"86,7%",dur:"31,7 d",pill:"blue",read:"Permiso protegido"},
-          {name:"Justificada",type:"Causa",rate:"91,5%",cost:"157.601€",emp:"—",size:"82 ep.",inc:"—",brad:"—",rec:"91,5%",dur:"12,5 d",pill:"amber",read:"Volumen medio"},
-          {name:"AT",type:"Causa",rate:"63,6%",cost:"65.351€",emp:"—",size:"11 ep.",inc:"—",brad:"—",rec:"63,6%",dur:"45,9 d",pill:"red",read:"Pocos casos, larga duración"},
-          {name:"Maternidad",type:"Causa",rate:"100%",cost:"28.490€",emp:"—",size:"1 ep.",inc:"—",brad:"—",rec:"100%",dur:"108,0 d",pill:"blue",read:"Permiso protegido"},
-          {name:"Otra",type:"Causa",rate:"61,3%",cost:"9.672€",emp:"—",size:"31 ep.",inc:"—",brad:"—",rec:"61,3%",dur:"1,6 d",pill:"green",read:"Baja duración"}]}
+          {name:"IT",rate:"73,0%",cost:"2.786.407€",size:"408 ep.",inc:"—",rec:"73,0%",brad:"—",ahorro:"668.738€"},
+          {name:"Paternidad",rate:"86,7%",cost:"389.487€",size:"75 ep.",inc:"—",rec:"86,7%",brad:"—",ahorro:"93.477€"},
+          {name:"Justificada",rate:"91,5%",cost:"157.601€",size:"82 ep.",inc:"—",rec:"91,5%",brad:"—",ahorro:"37.824€"},
+          {name:"AT",rate:"63,6%",cost:"65.351€",size:"11 ep.",inc:"—",rec:"63,6%",brad:"—",ahorro:"15.684€"},
+          {name:"Maternidad",rate:"100%",cost:"28.490€",size:"1 ep.",inc:"—",rec:"100%",brad:"—",ahorro:"—"},
+          {name:"Otra",rate:"61,3%",cost:"9.672€",size:"31 ep.",inc:"—",rec:"61,3%",brad:"—",ahorro:"2.321€"}]}
     };
 
     var drawerData = {
-      "Bonus Pontevedra":{intro:"Centro con alta tasa, recurrencia elevada y coste por empleado relevante. Conviene revisar causas, turnos y coste de cobertura antes de decidir plan.",type:"Centro",rate:"21,0%",emp:"12.156€",dur:"42,4 d",brad:"205",cause:"Enfermedad común",shift:"Noche / rotativo",network:"Nodo local",risk:"Medio-alto",action:"Plan recomendado: revisar cobertura, duración media y retorno seguro.",pills:["Duración","Recurrencia"]},
-      "Perdón":{intro:"Centro pequeño con coste/mes y coste por empleado muy elevados. La incidencia del 100% exige revisar si responde a concentración real o a estructura de plantilla reducida.",type:"Centro",rate:"29,6%",emp:"20.253€",dur:"38,1 d",brad:"912",cause:"IT larga",shift:"Rotativo",network:"Foco crítico",risk:"Alto",action:"Plan recomendado: auditoría de casos largos, retorno seguro y revisión de cobertura.",pills:["Coste crítico","IT larga"]},
-      "Made Este":{intro:"Centro con tasa muy alta y rol relevante en red. Su coste por empleado y duración lo convierten en foco de alta prioridad.",type:"Centro",rate:"36,4%",emp:"18.740€",dur:"51,7 d",brad:"1128",cause:"IT larga",shift:"Mañana/tarde",network:"Hub",risk:"Alto",action:"Plan recomendado: retorno seguro y análisis de relaciones en red antes de plan masivo.",pills:["Hub","Duración"]},
-      "Noche":{intro:"Turno con recurrencia corta y alta fricción de cobertura. Puede actuar como propagador porque las ausencias obligan a mover recursos de otros equipos.",type:"Turno",rate:"30,1%",emp:"8.210€",dur:"7,4 d",brad:"909",cause:"Baja corta",shift:"Noche",network:"Propagador",risk:"Alto",action:"Plan recomendado: estabilización preventiva de turnos, pool de cobertura y revisión de cargas.",pills:["Propagador","Bradford"]},
-      "Línea Producción 3":{intro:"Línea cuello de botella. Una ausencia aquí puede desplazar carga, retrasar producción y tensionar otros turnos.",type:"Línea",rate:"18,8%",emp:"9.840€",dur:"16,2 d",brad:"684",cause:"Musculoesquelética",shift:"Tarde / noche",network:"Downstream",risk:"Alto",action:"Plan recomendado: cobertura mínima por línea, polivalencia y prevención en picos de carga.",pills:["Línea crítica","Cobertura"]}
+      "Bonus Pontevedra":{typeSub:"Pontevedra · Centro",rate:"21,0%",size:"23",costAnual:"278K€",inc:"73,9%",brad:"205",rec:"80%",short:"14",dur:"42,4 d",costEmp:"12.156€",causes:[{label:"IT común",pct:68},{label:"Musculoesquelética",pct:44},{label:"Psicológica",pct:22}],chartPoints:[18,20,19,22,24,23,21,22,20,21,20,21],shifts:[{label:"Noche",pers:"8",pct:"30,1%"},{label:"Rotativo",pers:"11",pct:"18,4%"},{label:"Mañana",pers:"4",pct:"9,2%"}],patterns:["Lunes recurrente","Post-vacacional"],plans:["Plan presencia","Retorno seguro"],risk:"El modelo estima un incremento del 8% si no se interviene en el turno de noche antes del cierre del trimestre."},
+      "Perdón":{typeSub:"Navarra · Centro",rate:"29,6%",size:"15",costAnual:"303K€",inc:"100,0%",brad:"268",rec:"94,4%",short:"0",dur:"38,1 d",costEmp:"20.253€",causes:[{label:"IT larga",pct:88},{label:"AT",pct:34},{label:"Otras",pct:12}],chartPoints:[24,26,28,30,31,28,26,29,30,27,25,30],shifts:[{label:"Rotativo",pers:"9",pct:"33,4%"},{label:"Tarde",pers:"6",pct:"24,8%"}],patterns:["IT larga recurrente","Post-vacacional"],plans:["Auditoría casos","Retorno seguro"],risk:"Incidencia del 100%. Riesgo muy alto de continuidad si no se activa retorno acompañado en los próximos 30 días."},
+      "Made Este":{typeSub:"Lugo · Centro",rate:"36,4%",size:"8",costAnual:"149K€",inc:"50,0%",brad:"1128",rec:"71,4%",short:"0",dur:"51,7 d",costEmp:"18.740€",causes:[{label:"IT larga",pct:92},{label:"Psicológica",pct:48},{label:"AT",pct:18}],chartPoints:[30,32,34,38,40,36,34,36,38,34,32,36],shifts:[{label:"Mañana",pers:"5",pct:"40,0%"},{label:"Tarde",pers:"3",pct:"30,0%"}],patterns:["Duración prolongada","Estacional"],plans:["Retorno seguro","Plan psicosocial"],risk:"Duración media 51,7 días. Sin intervención en retorno, la duración media superará 60 días en el Q2."},
+      "Noche":{typeSub:"Turno · Empresa",rate:"30,1%",size:"64",costAnual:"203K€",inc:"69,3%",brad:"909",rec:"80,0%",short:"18",dur:"7,4 d",costEmp:"8.210€",causes:[{label:"IT corta",pct:78},{label:"Musculoesquelética",pct:42},{label:"Otras",pct:15}],chartPoints:[22,24,28,32,30,28,26,28,30,27,25,30],shifts:[{label:"Noche",pers:"64",pct:"30,1%"}],patterns:["Lunes recurrente","Post-vacacional","Estacional"],plans:["Plan presencia","Ergonomía"],risk:"El modelo predictivo estima un incremento del 12% en la tasa para el próximo trimestre si no se implementan las medidas correctivas propuestas."},
+      "Línea Producción 3":{typeSub:"Línea productiva",rate:"18,8%",size:"42",costAnual:"220K€",inc:"61,9%",brad:"684",rec:"72,0%",short:"8",dur:"16,2 d",costEmp:"9.840€",causes:[{label:"Musculoesquelética",pct:72},{label:"IT común",pct:44},{label:"AT",pct:28}],chartPoints:[14,16,18,20,22,20,18,19,18,17,16,19],shifts:[{label:"Tarde/Noche",pers:"28",pct:"22,4%"},{label:"Mañana",pers:"14",pct:"12,0%"}],patterns:["Carga física","Musculoesquelética"],plans:["Ergonomía","Plan cobertura"],risk:"Línea cuello de botella. Una ausencia adicional puede parar producción. Riesgo operativo alto en Q2."},
+      "Repotenciación Tahivilla":{typeSub:"Cádiz · Centro",rate:"11,5%",size:"4",costAnual:"N/D",inc:"25,0%",brad:"909",rec:"66,7%",short:"0",dur:"33,7 d",costEmp:"868€",causes:[{label:"otros_prognosis",pct:100}],chartPoints:[40,35,38,42,46,44,40,38,35,36,34,33],shifts:[{label:"Rotativo",pers:"4",pct:"11,5%"}],patterns:["Lunes recurrente","Post-vacacional","Estacional"],plans:["Plan presencia","Ergonomía"],risk:"El modelo predictivo estima un incremento del 12% en la tasa si no se implementan las medidas correctivas propuestas."}
     };
+
+    function buildMiniChart(points) {
+      var w = 500, h = 76, pad = 3;
+      var min = Math.min.apply(null, points), max = Math.max.apply(null, points), range = max - min || 1;
+      var step = (w - pad * 2) / (points.length - 1);
+      var coords = points.map(function(v, i) {
+        return (pad + i * step).toFixed(1) + "," + (pad + (h - pad * 2) * (1 - (v - min) / range)).toFixed(1);
+      });
+      var path = "M" + coords.join(" L");
+      var area = path + " L" + (pad + (points.length - 1) * step).toFixed(1) + "," + (h - pad) + " L" + pad + "," + (h - pad) + " Z";
+      return '<svg viewBox="0 0 ' + w + " " + h + '" preserveAspectRatio="none"><defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2563eb" stop-opacity="0.12"/><stop offset="100%" stop-color="#2563eb" stop-opacity="0"/></linearGradient></defs><path d="' + area + '" fill="url(#cg)"/><path d="' + path + '" fill="none" stroke="#2563eb" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>';
+    }
 
     function renderSegment(dim) {
       var d = segData[dim] || segData.centro;
@@ -1166,11 +1271,18 @@
       document.getElementById("seg-how-text").textContent = d.how;
       document.getElementById("seg-avoid-text").textContent = d.avoid;
       var tbody = document.getElementById("seg-rows");
-      tbody.innerHTML = d.rows.map(function(r){
-        return "<tr onclick=\"openDrawer('" + r.name.replace(/'/g,"\\'") + "')\">"
-          + "<td><b>" + r.name + "</b></td><td>" + r.type + "</td><td>" + r.rate + "</td><td>" + r.cost + "</td><td>" + r.emp + "</td>"
-          + "<td>" + r.size + "</td><td>" + r.inc + "</td><td>" + r.brad + "</td><td>" + r.rec + "</td><td>" + r.dur + "</td>"
-          + "<td><span class='tbl-pill " + r.pill + "'>" + r.read + "</span></td></tr>";
+      tbody.innerHTML = d.rows.map(function(r) {
+        var rn = parseFloat(r.rate);
+        var pillC = rn >= 25 ? "red" : rn >= 15 ? "amber" : rn >= 10 ? "blue" : "green";
+        var nameCell = "<b>" + r.name + "</b>" + (r.province ? "<br><span style='font-size:10px;color:#94a3b8;font-weight:500;'>" + r.province + "</span>" : "");
+        return "<tr onclick=\"openDrawer('" + r.name.replace(/'/g, "\\'") + "')\">"
+          + "<td>" + nameCell + "</td>"
+          + "<td><span class='tbl-pill " + pillC + "'>" + r.rate + "</span></td>"
+          + "<td>" + r.cost + "</td><td>" + r.size + "</td>"
+          + "<td>" + (r.inc || "—") + "</td><td>" + (r.rec || "—") + "</td>"
+          + "<td>" + r.brad + "</td>"
+          + "<td style='font-weight:700;color:#059669;'>" + (r.ahorro || "—") + "</td>"
+          + "</tr>";
       }).join("");
     }
 
@@ -1182,28 +1294,33 @@
     }
 
     function openDrawer(name) {
-      var fallback = {intro:"Foco seleccionado para análisis detallado.",type:"Foco",rate:"—",emp:"—",dur:"—",brad:"—",cause:"Por analizar",shift:"Por analizar",network:"Por analizar",risk:"Medio",action:"Revisar datos del foco y validar palanca de actuación.",pills:["Detalle"]};
-      var d = drawerData[name] || fallback;
+      var fb = {typeSub:"Foco · Detalle",rate:"—",size:"—",costAnual:"—",inc:"—",brad:"—",rec:"—",short:"—",dur:"—",costEmp:"—",causes:[{label:"Sin datos",pct:100}],chartPoints:[30,32,28,34,36,33,31,30,29,31,30,28],shifts:[{label:"Por analizar",pers:"—",pct:"—"}],patterns:["Por analizar"],plans:["Por definir"],risk:"El modelo no tiene suficientes datos para estimar riesgo en este periodo."};
+      var d = drawerData[name] || fb;
       document.getElementById("drawer-title").textContent = name;
-      document.getElementById("drawer-type").textContent = d.type;
-      document.getElementById("drawer-intro").textContent = d.intro;
+      document.getElementById("drawer-type-sub").textContent = d.typeSub || "Foco · Detalle";
       document.getElementById("drawer-rate").textContent = d.rate;
-      document.getElementById("drawer-cost-emp").textContent = d.emp;
-      document.getElementById("drawer-dur").textContent = d.dur;
-      document.getElementById("drawer-bradford").textContent = d.brad;
-      document.getElementById("drawer-cause").textContent = d.cause;
-      document.getElementById("drawer-shift").textContent = d.shift;
-      document.getElementById("drawer-network").textContent = d.network;
-      document.getElementById("drawer-risk").textContent = d.risk;
-      document.getElementById("drawer-action").textContent = d.action;
-      var pills = (d.pills || []).map(function(p,i){ return "<span class='tbl-pill " + (i===0?"red":i===1?"amber":"blue") + "'>" + p + "</span>"; }).join("");
-      document.getElementById("drawer-pills").innerHTML = pills;
-      document.getElementById("drawer-cost-rows").innerHTML = [
-        ["Directo laboral","92K€","Días no trabajados","Reducir duración"],
-        ["Cobertura","64K€","Turnos/refuerzos","Estabilizar cobertura"],
-        ["Operativo","18K€","Capacidad productiva","Plan preventivo"],
-        ["Fricción","9K€","Reorganización","Automatizar seguimiento"]
-      ].map(function(r){ return "<tr><td>" + r[0] + "</td><td>" + r[1] + "</td><td>" + r[2] + "</td><td>" + r[3] + "</td></tr>"; }).join("");
+      document.getElementById("drawer-cost-anual").textContent = d.costAnual || "—";
+      document.getElementById("drawer-size").textContent = d.size || "—";
+      document.getElementById("dm-inc").textContent = d.inc || "—";
+      document.getElementById("dm-brad").textContent = d.brad || "—";
+      document.getElementById("dm-rec").textContent = d.rec || "—";
+      document.getElementById("dm-short").textContent = d.short || "—";
+      document.getElementById("dm-dur").textContent = d.dur || "—";
+      document.getElementById("dm-cost-emp").textContent = d.costEmp || "—";
+      document.getElementById("drawer-causes").innerHTML = (d.causes || []).map(function(c) {
+        return "<div class='drawer-hbar-row'><span class='drawer-hbar-label'>" + c.label + "</span><div class='drawer-hbar-track'><div class='drawer-hbar-fill' style='width:" + c.pct + "%'></div></div><span class='drawer-hbar-pct'>" + c.pct + "%</span></div>";
+      }).join("");
+      document.getElementById("drawer-chart").innerHTML = buildMiniChart(d.chartPoints || [30,32,28,34,36,33,31,30,29,31,30,28]);
+      document.getElementById("drawer-shifts").innerHTML = (d.shifts || []).map(function(s) {
+        return "<div style='display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid #f1f5f9;font-size:13px;'><span style='color:#334155;font-weight:500;'>" + s.label + " <span style='color:#94a3b8;font-size:11px;'>" + s.pers + " pers.</span></span><b style='color:#dc2626;'>" + s.pct + "</b></div>";
+      }).join("");
+      document.getElementById("drawer-patterns").innerHTML = (d.patterns || []).map(function(p) {
+        return "<span class='tbl-pill amber'>" + p + "</span>";
+      }).join("");
+      document.getElementById("drawer-plans").innerHTML = (d.plans || []).map(function(p) {
+        return "<span class='tbl-pill blue'>" + p + "</span>";
+      }).join("");
+      document.getElementById("drawer-risk-text").textContent = d.risk || "";
       document.getElementById("seg-drawer").classList.add("open");
     }
 
