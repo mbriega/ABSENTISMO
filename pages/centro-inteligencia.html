@@ -242,6 +242,17 @@
     .seg-info-box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 14px;flex:1;min-width:200px;}
     .seg-info-box-label{font-size:10px;font-weight:800;color:#1d4ed8;text-transform:uppercase;letter-spacing:.06em;margin:0 0 4px;}
     .seg-info-box-text{font-size:11px;color:#1e40af;font-weight:500;line-height:1.55;margin:0;}
+    .seg-info-row{padding:0 20px 14px;display:flex;gap:10px;flex-wrap:wrap;border-bottom:1px solid #f1f5f9;transition:all .2s;}
+    .seg-info-row.collapsed{padding-bottom:0;border-bottom:none;}
+    .seg-info-row.collapsed .seg-info-box{display:none;}
+    .seg-info-toggle{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:#64748b;cursor:pointer;padding:0 20px 10px;border-bottom:1px solid #f1f5f9;user-select:none;}
+    .seg-info-toggle:hover{color:#2563eb;}
+    .seg-info-toggle svg{transition:transform .2s;}
+    .seg-info-toggle.open svg{transform:rotate(180deg);}
+    tr.row-critical{border-left:3px solid #dc2626;}
+    tr.row-warning{border-left:3px solid #f59e0b;}
+    tr.row-active{background:#eff6ff !important;}
+    tr.row-active td:first-child{font-weight:700;}
     .drawer-chips{display:flex;gap:5px;flex-wrap:wrap;}
     .drawer-risk{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:12px 14px;}
     .drawer-risk-title{font-size:11px;font-weight:700;color:#b45309;margin:0 0 5px;}
@@ -571,7 +582,7 @@
               <button class="seg-chip" data-dim="causa" onclick="switchDim(this,'causa')">Causa</button>
             </div>
           </div>
-          <div style="padding:0 20px 14px;display:flex;gap:10px;flex-wrap:wrap;border-bottom:1px solid #f1f5f9;">
+          <div class="seg-info-row" id="seg-info-row">
             <div class="seg-info-box">
               <p class="seg-info-box-label"><svg style="display:inline-block;vertical-align:-2px;margin-right:5px;" width="11" height="11" fill="none" stroke="#1d4ed8" viewBox="0 0 24 24" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4M12 8h.01"/></svg>C&#243;mo usarlo</p>
               <p class="seg-info-box-text" id="seg-how-text">No es un ranking simple. La misma tasa puede significar cosas distintas seg&#250;n coste, criticidad y recurrencia.</p>
@@ -580,6 +591,10 @@
               <p class="seg-info-box-label"><svg style="display:inline-block;vertical-align:-2px;margin-right:5px;" width="11" height="11" fill="none" stroke="#1d4ed8" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>Qu&#233; evita</p>
               <p class="seg-info-box-text" id="seg-avoid-text">Activar planes gen&#233;ricos por centro cuando el problema real est&#225; en una l&#237;nea, turno o causa concreta.</p>
             </div>
+          </div>
+          <div class="seg-info-toggle open" id="seg-info-toggle" onclick="toggleSegInfo()">
+            <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+            Ocultar gu&#237;a de uso
           </div>
           <div class="i-card-body" style="padding:14px 18px;">
             <div class="seg-summary">
@@ -597,12 +612,12 @@
               <tr>
                 <th onclick="sortTable(0)">Centro / foco <span class="sort-arrow" id="sa-0">&#8597;</span><i class="th-info kpi-info" data-tip="Nombre del centro, l&#237;nea, equipo, turno o dimensi&#243;n analizada.">i</i></th>
                 <th onclick="sortTable(1)">Tasa IT <span class="sort-arrow" id="sa-1">&#8597;</span><i class="th-info kpi-info" data-tip="% de d&#237;as no trabajados sobre d&#237;as disponibles en el periodo.">i</i></th>
-                <th onclick="sortTable(2)">Costes/mes <span class="sort-arrow" id="sa-2">&#8597;</span><i class="th-info kpi-info" data-tip="Coste mensual estimado de las ausencias: directo + cobertura + operativo.">i</i></th>
-                <th onclick="sortTable(3)">Empleados <span class="sort-arrow" id="sa-3">&#8597;</span><i class="th-info kpi-info" data-tip="Plantilla del foco en el periodo analizado.">i</i></th>
-                <th onclick="sortTable(4)">Incidencia <span class="sort-arrow" id="sa-4">&#8597;</span><i class="th-info kpi-info" data-tip="% de personas con al menos un episodio de ausencia en el periodo.">i</i></th>
-                <th onclick="sortTable(5)">Reincidencia <span class="sort-arrow" id="sa-5">&#8597;</span><i class="th-info kpi-info" data-tip="% de episodios sobre personas que ya hab&#237;an tenido una baja anterior.">i</i></th>
-                <th onclick="sortTable(6)">Bradford <span class="sort-arrow" id="sa-6">&#8597;</span><i class="th-info kpi-info" data-tip="&#205;ndice de frecuencia disruptiva: pondera ausencias cortas y repetidas. Cuanto m&#225;s alto, m&#225;s fricci&#243;n operativa.">i</i></th>
-                <th onclick="sortTable(7)">Ahorro pot. <span class="sort-arrow" id="sa-7">&#8597;</span><i class="th-info kpi-info" data-tip="Estimaci&#243;n del ahorro anual posible si se act&#250;a sobre este foco con las palancas recomendadas.">i</i></th>
+                <th onclick="sortTable(2)">Ahorro anual pot. <span class="sort-arrow" id="sa-2">&#8597;</span><i class="th-info kpi-info" data-tip="Estimaci&#243;n del ahorro anual posible si se act&#250;a sobre este foco con las palancas recomendadas.">i</i></th>
+                <th onclick="sortTable(3)">Coste/mes <span class="sort-arrow" id="sa-3">&#8597;</span><i class="th-info kpi-info" data-tip="Coste mensual estimado de las ausencias: directo + cobertura + operativo.">i</i></th>
+                <th onclick="sortTable(4)">Empleados <span class="sort-arrow" id="sa-4">&#8597;</span><i class="th-info kpi-info" data-tip="Plantilla del foco en el periodo analizado.">i</i></th>
+                <th onclick="sortTable(5)">Incidencia <span class="sort-arrow" id="sa-5">&#8597;</span><i class="th-info kpi-info" data-tip="% de personas con al menos un episodio de ausencia en el periodo.">i</i></th>
+                <th onclick="sortTable(6)">Reincidencia <span class="sort-arrow" id="sa-6">&#8597;</span><i class="th-info kpi-info" data-tip="% de episodios sobre personas que ya hab&#237;an tenido una baja anterior.">i</i></th>
+                <th onclick="sortTable(7)">Bradford <span class="sort-arrow" id="sa-7">&#8597;</span><i class="th-info kpi-info" data-tip="&#205;ndice de frecuencia disruptiva: pondera ausencias cortas y repetidas. Cuanto m&#225;s alto, m&#225;s fricci&#243;n operativa.">i</i></th>
               </tr>
             </thead>
             <tbody id="seg-rows"></tbody>
@@ -963,7 +978,16 @@
               <h2 style="font-size:17px;font-weight:800;color:#0f172a;margin:0;line-height:1.25;" id="drawer-title">Bonus Pontevedra</h2>
             </div>
           </div>
-          <button class="drawer-close" onclick="closeDrawer()">&#215;</button>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <button id="drawer-prev" onclick="navigateDrawer(-1)" style="width:28px;height:28px;border:1px solid #e2e8f0;border-radius:7px;background:#f8fafc;cursor:pointer;display:flex;align-items:center;justify-content:center;" title="Foco anterior">
+              <svg width="12" height="12" fill="none" stroke="#64748b" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <span id="drawer-nav-pos" style="font-size:10px;color:#94a3b8;font-weight:600;min-width:32px;text-align:center;">1/49</span>
+            <button id="drawer-next" onclick="navigateDrawer(1)" style="width:28px;height:28px;border:1px solid #e2e8f0;border-radius:7px;background:#f8fafc;cursor:pointer;display:flex;align-items:center;justify-content:center;" title="Foco siguiente">
+              <svg width="12" height="12" fill="none" stroke="#64748b" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button class="drawer-close" onclick="closeDrawer()" style="margin-left:4px;">&#215;</button>
+          </div>
         </div>
         <div class="drawer-kpis">
           <div class="drawer-kpi"><small>Tasa</small><b id="drawer-rate">21,0%</b></div>
@@ -982,6 +1006,10 @@
             <div class="drawer-metric-cell"><span>Duraci&#243;n media</span><b id="dm-dur">42,4 d</b></div>
             <div class="drawer-metric-cell"><span>Coste/empleado</span><b id="dm-cost-emp">12.156&#8364;</b></div>
           </div>
+        </div>
+        <div class="drawer-risk" style="margin:0 0 4px;">
+          <p class="drawer-risk-title">&#9888; Riesgo predictivo</p>
+          <p class="drawer-risk-text" id="drawer-risk-text">El modelo predictivo estima un incremento del 12% en la tasa de absentismo para el pr&#243;ximo trimestre si no se implementan las medidas correctivas propuestas.</p>
         </div>
         <div class="drawer-section">
           <div class="drawer-section-title">Desglose de costes</div>
@@ -1013,10 +1041,6 @@
             <div class="drawer-section-title">Planes activos</div>
             <div class="drawer-chips" id="drawer-plans"></div>
           </div>
-        </div>
-        <div class="drawer-risk">
-          <p class="drawer-risk-title">&#9888; Riesgo predictivo</p>
-          <p class="drawer-risk-text" id="drawer-risk-text">El modelo predictivo estima un incremento del 12% en la tasa de absentismo para el pr&#243;ximo trimestre si no se implementan las medidas correctivas propuestas.</p>
         </div>
       </div>
     </div>
@@ -1323,22 +1347,37 @@
 
     var currentDim = "centro";
     var segSort = {col: -1, dir: 1};
+    var lastRows = [];
+    var activeRowIdx = -1;
 
     function renderRows(rows) {
+      lastRows = rows;
       var tbody = document.getElementById("seg-rows");
-      tbody.innerHTML = rows.map(function(r) {
+      tbody.innerHTML = rows.map(function(r, idx) {
         var rn = parseFloat((r.rate || "0").replace(",", "."));
         var pillC = rn >= 25 ? "red" : rn >= 15 ? "amber" : rn >= 10 ? "blue" : "green";
+        var rowClass = rn >= 25 ? "row-critical" : rn >= 15 ? "row-warning" : "";
         var nameCell = "<b>" + r.name + "</b>" + (r.province ? "<br><span style='font-size:10px;color:#94a3b8;font-weight:500;'>" + r.province + "</span>" : "");
-        return "<tr onclick=\"openDrawer('" + r.name.replace(/'/g, "\\'") + "')\">"
+        return "<tr class='" + rowClass + "' id='seg-row-" + idx + "' onclick=\"openDrawer('" + r.name.replace(/'/g, "\\'") + "'," + idx + ")\">"
           + "<td>" + nameCell + "</td>"
           + "<td><span class='tbl-pill " + pillC + "'>" + r.rate + "</span></td>"
+          + "<td style='font-weight:700;color:#059669;'>" + (r.ahorro || "—") + "</td>"
           + "<td>" + r.cost + "</td><td>" + r.size + "</td>"
           + "<td>" + (r.inc || "—") + "</td><td>" + (r.rec || "—") + "</td>"
           + "<td>" + r.brad + "</td>"
-          + "<td style='font-weight:700;color:#059669;'>" + (r.ahorro || "—") + "</td>"
           + "</tr>";
       }).join("");
+    }
+
+    function toggleSegInfo() {
+      var row = document.getElementById("seg-info-row");
+      var toggle = document.getElementById("seg-info-toggle");
+      if (!row || !toggle) return;
+      var collapsed = row.classList.toggle("collapsed");
+      toggle.classList.toggle("open", !collapsed);
+      toggle.innerHTML = (collapsed
+        ? '<svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg> Mostrar gu&#237;a de uso'
+        : '<svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg> Ocultar gu&#237;a de uso');
     }
 
     function updateSortArrows() {
@@ -1359,7 +1398,7 @@
       if (segSort.col === colIdx) { segSort.dir *= -1; }
       else { segSort.col = colIdx; segSort.dir = 1; }
       var d = segData[currentDim] || segData.centro;
-      var colKeys = ["name", "rate", "cost", "size", "inc", "rec", "brad", "ahorro"];
+      var colKeys = ["name", "rate", "ahorro", "cost", "size", "inc", "rec", "brad"];
       var key = colKeys[colIdx];
       var sorted = d.rows.slice().sort(function(a, b) {
         var va = (a[key] || "").toString(), vb = (b[key] || "").toString();
@@ -1387,7 +1426,13 @@
       document.getElementById("seg-action-text").textContent = d.actionText;
       document.getElementById("seg-how-text").textContent = d.how;
       document.getElementById("seg-avoid-text").textContent = d.avoid;
-      renderRows(d.rows);
+      var defaultSorted = d.rows.slice().sort(function(a, b) {
+        var na = parseFloat((a.rate || "0").replace(",", "."));
+        var nb = parseFloat((b.rate || "0").replace(",", "."));
+        return nb - na;
+      });
+      segSort = {col: 1, dir: -1};
+      renderRows(defaultSorted);
       updateSortArrows();
     }
 
@@ -1398,6 +1443,13 @@
       updateAI("segmentacion");
     }
 
+    function navigateDrawer(delta) {
+      if (!lastRows.length) return;
+      var newIdx = activeRowIdx + delta;
+      if (newIdx < 0 || newIdx >= lastRows.length) return;
+      openDrawer(lastRows[newIdx].name, newIdx);
+    }
+
     var DEFAULT_COSTS = [
       ["Directo laboral","—","Días no trabajados","Reducir duración"],
       ["Cobertura","—","Turnos / refuerzos","Estabilizar cobertura"],
@@ -1405,7 +1457,24 @@
       ["Fricción","—","Reorganización","Automatizar seguimiento"]
     ];
 
-    function openDrawer(name) {
+    function openDrawer(name, idx) {
+      if (idx === undefined) {
+        for (var li = 0; li < lastRows.length; li++) {
+          if (lastRows[li].name === name) { idx = li; break; }
+        }
+        if (idx === undefined) idx = 0;
+      }
+      activeRowIdx = idx;
+      document.querySelectorAll("#seg-rows tr").forEach(function(tr) { tr.classList.remove("row-active"); });
+      var activeRow = document.getElementById("seg-row-" + idx);
+      if (activeRow) activeRow.classList.add("row-active");
+      var navPos = document.getElementById("drawer-nav-pos");
+      if (navPos) navPos.textContent = (idx + 1) + "/" + lastRows.length;
+      var prevBtn = document.getElementById("drawer-prev");
+      var nextBtn = document.getElementById("drawer-next");
+      if (prevBtn) prevBtn.style.opacity = idx <= 0 ? ".35" : "1";
+      if (nextBtn) nextBtn.style.opacity = idx >= lastRows.length - 1 ? ".35" : "1";
+
       var rowFallback = null;
       var dimData = segData[currentDim] || segData.centro;
       for (var ri = 0; ri < dimData.rows.length; ri++) {
@@ -1469,6 +1538,8 @@
 
     function closeDrawer() {
       document.getElementById("seg-drawer").classList.remove("open");
+      document.querySelectorAll("#seg-rows tr").forEach(function(tr) { tr.classList.remove("row-active"); });
+      activeRowIdx = -1;
     }
 
     /* ─── NETWORK NODE DATA ─── */
