@@ -11,9 +11,8 @@
 
     /* HEADER */
     .ci-header{background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:18px 24px;}
-    .ci-header-top{padding-bottom:16px;}
+    .ci-header-top{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-bottom:16px;}
     .ci-title{font-size:22px;font-weight:800;color:#0f172a;margin:0 0 4px;letter-spacing:-.035em;}
-    .ci-meta{font-size:11px;color:#94a3b8;font-weight:600;display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
 
 
     /* KPI GRID */
@@ -288,12 +287,12 @@
         <div class="ci-header-top">
           <div>
             <div class="ci-title">Situaci&#243;n del absentismo</div>
-            <p style="font-size:12px;color:#64748b;font-weight:500;margin:3px 0 10px;line-height:1.5;">Estado real del absentismo: costes, focos activos, tendencias y qu&#233; hacer con cada uno.</p>
-            <div class="ci-meta">
-              <span class="tbl-pill blue" id="kpi-period-label">Rolling 12</span>
-              <span class="tbl-pill green">&#218;lt. carga: hoy 08:40</span>
-              <span class="tbl-pill" style="background:#f8fafc;color:#64748b;border:1px solid #e2e8f0;">474 empleados</span>
-            </div>
+            <p style="font-size:12px;color:#64748b;font-weight:500;margin:3px 0 0;line-height:1.5;">Estado real del absentismo: costes, focos activos, tendencias y qu&#233; hacer con cada uno.</p>
+          </div>
+          <div style="display:flex;gap:7px;flex-shrink:0;">
+            <span class="tbl-pill blue" id="kpi-period-label">Rolling 12</span>
+            <span class="tbl-pill green">&#218;lt. carga: hoy 08:40</span>
+            <span class="tbl-pill" style="background:#f8fafc;color:#64748b;border:1px solid #e2e8f0;">474 empleados</span>
           </div>
         </div>
       </div>
