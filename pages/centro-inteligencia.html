@@ -210,6 +210,10 @@
     .evo-metric-btn{padding:6px 12px;font-size:12px;font-weight:600;border-radius:7px;border:none;cursor:pointer;background:transparent;color:#64748b;transition:all .15s;font-family:inherit;}
     .evo-metric-btn.active{background:#fff;color:#0f172a;box-shadow:0 1px 3px rgba(0,0,0,.08);}
     .evo-metric-btn:hover:not(.active){color:#334155;}
+    .evo-box[data-metric]{cursor:pointer;transition:border-left-color .2s,border-left-width .15s;}
+    .evo-box[data-metric]:hover{background:#f8fafc;}
+    .evo-tl-badge{display:inline-flex;align-items:center;height:17px;padding:0 7px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:999px;font-size:9px;font-weight:700;color:#475569;margin-top:5px;letter-spacing:.01em;}
+    .evo-tl-item.tl-current .evo-tl-badge{background:#dcfce7;border-color:#bbf7d0;color:#059669;}
     .evo-key-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:11px;font-weight:600;color:#475569;background:#fff;cursor:pointer;font-family:inherit;transition:all .15s;flex-shrink:0;}
     .evo-key-btn:hover{background:#f8fafc;border-color:#cbd5e1;}
     .evo-key-btn.active{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8;}
@@ -1106,10 +1110,10 @@
       <div id="evolucion" class="tab-panel">
 
         <div class="evo-mini">
-          <div class="evo-box"><small>Tasa actual <i class="kpi-info" data-tip="% de d&#237;as no trabajados sobre d&#237;as disponibles. Baja cuando mejoran duraci&#243;n o incidencia, no s&#243;lo cuando hay menos bajas.">i</i></small><b id="evo-rate">12,9%</b><span>-1,8 p.p. desde el pico anual</span></div>
-          <div class="evo-box"><small>Incidencia <i class="kpi-info" data-tip="Proporci&#243;n de personas con al menos un episodio en el periodo. Alta incidencia indica problema de frecuencia, no de duraci&#243;n.">i</i></small><b id="evo-inc">59,5%</b><span>Personas con episodio en el periodo</span></div>
-          <div class="evo-box"><small>Procesos / 100 <i class="kpi-info" data-tip="Episodios de ausencia por cada 100 empleados. Normaliza el volumen por plantilla y permite comparar periodos y focos de distinto tama&#241;o.">i</i></small><b id="evo-proc">18,4</b><span>Frecuencia normalizada</span></div>
-          <div class="evo-box"><small>Duraci&#243;n media <i class="kpi-info" data-tip="D&#237;as medios por episodio. Driver principal del coste de cobertura: a m&#225;s duraci&#243;n, m&#225;s sustituciones y coste operativo acumulado.">i</i></small><b>26,8 d</b><span>Principal driver de coste</span></div>
+          <div class="evo-box" data-metric="tasa" onclick="activateEvoMetric('tasa')"><small>Tasa actual <i class="kpi-info" data-tip="% de d&#237;as no trabajados sobre d&#237;as disponibles. Baja cuando mejoran duraci&#243;n o incidencia, no s&#243;lo cuando hay menos bajas.">i</i></small><b id="evo-rate">12,9%</b><div style="margin:2px 0 3px;"><span class="tbl-pill green" style="font-size:9px;padding:2px 6px;font-weight:700;">&#8595; mejorando</span></div><span>-1,8 p.p. desde el pico anual</span></div>
+          <div class="evo-box" data-metric="incidencia" onclick="activateEvoMetric('incidencia')"><small>Incidencia <i class="kpi-info" data-tip="Proporci&#243;n de personas con al menos un episodio en el periodo. Alta incidencia indica problema de frecuencia, no de duraci&#243;n.">i</i></small><b id="evo-inc">59,5%</b><div style="margin:2px 0 3px;"><span class="tbl-pill blue" style="font-size:9px;padding:2px 6px;font-weight:700;">&#8594; estable</span></div><span>Personas con episodio en el periodo</span></div>
+          <div class="evo-box" data-metric="procesos" onclick="activateEvoMetric('procesos')"><small>Procesos / 100 <i class="kpi-info" data-tip="Episodios de ausencia por cada 100 empleados. Normaliza el volumen por plantilla y permite comparar periodos y focos de distinto tama&#241;o.">i</i></small><b id="evo-proc">18,4</b><div style="margin:2px 0 3px;"><span class="tbl-pill green" style="font-size:9px;padding:2px 6px;font-weight:700;">&#8595; mejorando</span></div><span>Frecuencia normalizada</span></div>
+          <div class="evo-box" data-metric="duracion" onclick="activateEvoMetric('duracion')"><small>Duraci&#243;n media <i class="kpi-info" data-tip="D&#237;as medios por episodio. Driver principal del coste de cobertura: a m&#225;s duraci&#243;n, m&#225;s sustituciones y coste operativo acumulado.">i</i></small><b>26,8 d</b><div style="margin:2px 0 3px;"><span class="tbl-pill amber" style="font-size:9px;padding:2px 6px;font-weight:700;">&#8594; monitorizar</span></div><span>Principal driver de coste</span></div>
         </div>
 
         <div class="i-card">
@@ -1121,22 +1125,26 @@
             </button>
           </div>
           <div class="i-card-body">
-            <div style="display:flex;align-items:center;gap:4px;margin-bottom:16px;padding:4px;background:#f1f5f9;border-radius:10px;width:fit-content;">
-              <button class="evo-metric-btn active" onclick="switchEvoMetric(this,'tasa')">Tasa</button>
-              <button class="evo-metric-btn" onclick="switchEvoMetric(this,'coste')">Coste</button>
-              <button class="evo-metric-btn" onclick="switchEvoMetric(this,'incidencia')">Incidencia</button>
-              <button class="evo-metric-btn" onclick="switchEvoMetric(this,'dias')">D&#237;as</button>
-              <button class="evo-metric-btn" onclick="switchEvoMetric(this,'duracion')">Duraci&#243;n</button>
-              <button class="evo-metric-btn" onclick="switchEvoMetric(this,'bradford')">Bradford</button>
+            <div style="display:flex;align-items:center;gap:4px;margin-bottom:10px;padding:4px;background:#f1f5f9;border-radius:10px;width:fit-content;">
+              <button class="evo-metric-btn active" data-metric="tasa" onclick="activateEvoMetric('tasa')">Tasa</button>
+              <button class="evo-metric-btn" data-metric="coste" onclick="activateEvoMetric('coste')">Coste</button>
+              <button class="evo-metric-btn" data-metric="incidencia" onclick="activateEvoMetric('incidencia')">Incidencia</button>
+              <button class="evo-metric-btn" data-metric="procesos" onclick="activateEvoMetric('procesos')">Proc/100</button>
+              <button class="evo-metric-btn" data-metric="duracion" onclick="activateEvoMetric('duracion')">Duraci&#243;n</button>
+              <button class="evo-metric-btn" data-metric="bradford" onclick="activateEvoMetric('bradford')">Bradford</button>
+            </div>
+            <div id="evo-metric-label" style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+              <span id="evo-metric-dot" style="width:8px;height:8px;border-radius:50%;background:#2563eb;display:inline-block;flex-shrink:0;"></span>
+              <span id="evo-metric-name" style="font-size:12px;font-weight:700;color:#2563eb;">Tasa de absentismo</span>
+              <span id="evo-metric-val" style="font-size:11px;font-weight:500;color:#64748b;">&middot; actual 12,9%</span>
             </div>
             <div id="evo-chart-container" style="line-height:0;"></div>
           </div>
         </div>
 
         <div class="evo-consult">
-          <span class="i-tag">Trayectoria &middot; 12 meses</span>
-          <h3>Tres fases distintas: escalada, desacople y moderaci&#243;n parcial.</h3>
-          <p>El a&#241;o muestra un patr&#243;n claro: la frecuencia alcanz&#243; su pico en marzo, el coste lo alcanz&#243; en julio, y desde septiembre ambos mejoran a ritmos distintos.</p>
+          <span class="i-tag">Trayectoria &middot; 2025</span>
+          <h3>Tres fases &middot; 2025</h3>
           <div class="evo-timeline">
             <div class="evo-tl-item">
               <div class="evo-tl-dot" style="border-color:#ef4444;background:#fef2f2;"></div>
@@ -1144,6 +1152,7 @@
                 <div class="evo-tl-period">Ene&#8211;Mar &middot; Fase 1</div>
                 <div class="evo-tl-title">Escalada de frecuencia</div>
                 <div class="evo-tl-desc">Bradford y procesos/100 suben de forma sostenida hasta el pico de marzo.</div>
+                <div class="evo-tl-badge">Pico 21,9/100 &middot; Mar</div>
               </div>
             </div>
             <div class="evo-tl-item">
@@ -1152,6 +1161,7 @@
                 <div class="evo-tl-period">Abr&#8211;Jul &middot; Fase 2</div>
                 <div class="evo-tl-title">Coste sin reducci&#243;n</div>
                 <div class="evo-tl-desc">La frecuencia baja, pero julio registra el m&#225;ximo de coste. La duraci&#243;n toma el relevo.</div>
+                <div class="evo-tl-badge">3,7M&#8364; m&#225;ximo &middot; Jul</div>
               </div>
             </div>
             <div class="evo-tl-item">
@@ -1160,6 +1170,7 @@
                 <div class="evo-tl-period">Ago&#8211;Oct &middot; Fase 3</div>
                 <div class="evo-tl-title">Estabilizaci&#243;n visible</div>
                 <div class="evo-tl-desc">Tasa e incidencia bajan. El coste cede, pero m&#225;s despacio que la frecuencia.</div>
+                <div class="evo-tl-badge">Tasa &#8722;2,8 p.p. desde pico</div>
               </div>
             </div>
             <div class="evo-tl-item tl-current">
@@ -1168,6 +1179,7 @@
                 <div class="evo-tl-period">Nov&#8211;Dic &middot; Ahora</div>
                 <div class="evo-tl-title">Mejora fr&#225;gil</div>
                 <div class="evo-tl-desc">Buen momento para consolidar. El riesgo es relajar medidas antes de que el coste confirme.</div>
+                <div class="evo-tl-badge">12,9% &middot; Dic 25</div>
               </div>
             </div>
           </div>
@@ -1918,12 +1930,12 @@
 
     /* ─── EVOLUCIÓN: gráfica interactiva ─── */
     var EVO_DATASETS = {
-      tasa:      { color:'#2563eb', fmt:function(v){ return v.toFixed(1)+'%'; }, data:[13.5,14.2,14.8,13.9,13.7,13.5,13.8,13.2,13.1,13.3,13.6,12.9] },
-      coste:     { color:'#dc2626', fmt:function(v){ return (v/1000).toFixed(1)+'M€'; }, data:[2800,2900,3100,3050,2950,3200,3700,3400,3300,3200,3200,3400] },
-      incidencia:{ color:'#8b5cf6', fmt:function(v){ return v.toFixed(1)+'%'; }, data:[54.0,57.0,62.0,59.0,58.0,57.0,60.0,56.0,55.0,57.0,58.0,59.5] },
-      dias:      { color:'#059669', fmt:function(v){ return Math.round(v).toLocaleString('es-ES'); }, data:[8400,8900,9600,9100,8800,9200,9800,9400,9100,8900,9100,8800] },
-      duracion:  { color:'#f59e0b', fmt:function(v){ return v.toFixed(1)+'d'; }, data:[25.1,25.8,26.8,26.2,25.9,26.1,27.3,26.8,26.1,26.0,26.3,26.8] },
-      bradford:  { color:'#64748b', fmt:function(v){ return Math.round(v).toString(); }, data:[480,510,560,520,510,500,546,520,510,515,530,546] }
+      tasa:      { label:'Tasa de absentismo',   color:'#2563eb', fmt:function(v){ return v.toFixed(1)+'%'; },          data:[13.5,14.2,14.8,13.9,13.7,13.5,13.8,13.2,13.1,13.3,13.6,12.9] },
+      coste:     { label:'Coste total',           color:'#dc2626', fmt:function(v){ return (v/1000).toFixed(1)+'M€'; }, data:[2800,2900,3100,3050,2950,3200,3700,3400,3300,3200,3200,3400] },
+      incidencia:{ label:'Incidencia',            color:'#8b5cf6', fmt:function(v){ return v.toFixed(1)+'%'; },          data:[54.0,57.0,62.0,59.0,58.0,57.0,60.0,56.0,55.0,57.0,58.0,59.5] },
+      procesos:  { label:'Procesos / 100 empleados', color:'#059669', fmt:function(v){ return v.toFixed(1)+'/100'; },    data:[18.1,19.4,21.9,19.8,19.1,18.8,18.4,17.9,17.6,17.8,18.1,18.4] },
+      duracion:  { label:'Duración media',  color:'#f59e0b', fmt:function(v){ return v.toFixed(1)+'d'; },           data:[25.1,25.8,26.8,26.2,25.9,26.1,27.3,26.8,26.1,26.0,26.3,26.8] },
+      bradford:  { label:'Índice Bradford', color:'#64748b', fmt:function(v){ return Math.round(v).toString(); },   data:[480,510,560,520,510,500,546,520,510,515,530,546] }
     };
 
     function buildEvoChart(metric) {
@@ -1933,14 +1945,14 @@
       var months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
       var data = ds.data;
       var color = ds.color;
-      var W = 700, H = 200, pL = 60, pR = 20, pT = 16, pB = 30;
+      var W = 700, H = 200, pL = 60, pR = 20, pT = 22, pB = 30;
       var chartW = W - pL - pR;
       var chartH = H - pT - pB;
       var minVal = Math.min.apply(null, data);
       var maxVal = Math.max.apply(null, data);
       var span = maxVal - minVal || 1;
       var yMin = minVal - span * 0.18;
-      var yMax = maxVal + span * 0.22;
+      var yMax = maxVal + span * 0.28;
       function sx(i) { return pL + (i / (months.length - 1)) * chartW; }
       function sy(v) { return pT + chartH - ((v - yMin) / (yMax - yMin)) * chartH; }
       var yticks = [];
@@ -1957,16 +1969,32 @@
       var xLabels = months.map(function(m, i) {
         return '<text x="'+sx(i).toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle" font-size="10" fill="#94a3b8">'+m+' 25</text>';
       }).join('');
+      /* key month reference lines: Mar(2)=red, Jul(6)=amber, Sep(8)=blue */
+      var refLines = [
+        {idx:2, c:'#ef4444', label:'Mar'},
+        {idx:6, c:'#f59e0b', label:'Jul'},
+        {idx:8, c:'#3b82f6', label:'Sep'}
+      ].map(function(r) {
+        var x = sx(r.idx).toFixed(1);
+        var y1 = pT.toFixed(1);
+        var y2 = (pT + chartH).toFixed(1);
+        return '<line x1="'+x+'" y1="'+y1+'" x2="'+x+'" y2="'+y2+'" stroke="'+r.c+'" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.4"/>';
+      }).join('');
       var polyPts = data.map(function(v, i) { return sx(i).toFixed(1)+','+sy(v).toFixed(1); }).join(' ');
       var areaD = 'M'+sx(0).toFixed(1)+','+sy(data[0]).toFixed(1);
       for (var ai = 1; ai < data.length; ai++) { areaD += ' L'+sx(ai).toFixed(1)+','+sy(data[ai]).toFixed(1); }
       areaD += ' L'+sx(data.length-1).toFixed(1)+','+(pT+chartH)+' L'+sx(0).toFixed(1)+','+(pT+chartH)+' Z';
+      var lastIdx = data.length - 1;
       var maxIdx = 0;
       for (var mi = 1; mi < data.length; mi++) { if (data[mi] > data[maxIdx]) maxIdx = mi; }
       var dots = data.map(function(v, i) {
-        var r = (i === maxIdx) ? 5 : 3.5;
+        if (i === lastIdx) {
+          return '<circle cx="'+sx(i).toFixed(1)+'" cy="'+sy(v).toFixed(1)+'" r="5" fill="'+color+'" stroke="#fff" stroke-width="1.5"/>';
+        }
+        var r = (i === maxIdx) ? 4.5 : 3;
         return '<circle cx="'+sx(i).toFixed(1)+'" cy="'+sy(v).toFixed(1)+'" r="'+r+'" fill="#fff" stroke="'+color+'" stroke-width="2"/>';
       }).join('');
+      var actualLabel = '<text x="'+sx(lastIdx).toFixed(1)+'" y="'+(sy(data[lastIdx])-10).toFixed(1)+'" text-anchor="middle" font-size="9" font-weight="700" fill="'+color+'" letter-spacing="0.03em">actual</text>';
       var gradId = 'evo-g-'+metric;
       var svg = '<svg viewBox="0 0 '+W+' '+H+'" width="100%" style="display:block;">'
         +'<defs><linearGradient id="'+gradId+'" x1="0" y1="0" x2="0" y2="1">'
@@ -1974,11 +2002,13 @@
         +'<stop offset="100%" stop-color="'+color+'" stop-opacity="0.01"/>'
         +'</linearGradient></defs>'
         +gridLines
+        +refLines
         +'<line x1="'+pL+'" y1="'+pT+'" x2="'+pL+'" y2="'+(pT+chartH)+'" stroke="#e2e8f0" fill="none"/>'
         +'<line x1="'+pL+'" y1="'+(pT+chartH)+'" x2="'+(W-pR)+'" y2="'+(pT+chartH)+'" stroke="#e2e8f0" fill="none"/>'
         +'<path d="'+areaD+'" fill="url(#'+gradId+')" stroke="none"/>'
         +'<polyline fill="none" stroke="'+color+'" stroke-width="2.5" stroke-linejoin="round" points="'+polyPts+'"/>'
         +dots
+        +actualLabel
         +yLabels
         +xLabels
         +'<text x="'+sx(maxIdx).toFixed(1)+'" y="'+(sy(data[maxIdx])-9).toFixed(1)+'" text-anchor="middle" font-size="10" font-weight="700" fill="'+color+'">'+ds.fmt(data[maxIdx])+'</text>'
@@ -1986,10 +2016,25 @@
       container.innerHTML = svg;
     }
 
-    function switchEvoMetric(btn, metric) {
-      var btns = btn.parentNode.querySelectorAll('.evo-metric-btn');
-      for (var bi = 0; bi < btns.length; bi++) { btns[bi].classList.remove('active'); }
-      btn.classList.add('active');
+    function activateEvoMetric(metric) {
+      var ds = EVO_DATASETS[metric];
+      if (!ds) return;
+      var allBtns = document.querySelectorAll('.evo-metric-btn');
+      for (var bi = 0; bi < allBtns.length; bi++) {
+        allBtns[bi].classList.toggle('active', allBtns[bi].getAttribute('data-metric') === metric);
+      }
+      var allCards = document.querySelectorAll('.evo-box[data-metric]');
+      for (var ci = 0; ci < allCards.length; ci++) {
+        var isActive = allCards[ci].getAttribute('data-metric') === metric;
+        allCards[ci].style.borderLeftColor = isActive ? ds.color : '';
+        allCards[ci].style.borderLeftWidth = isActive ? '3px' : '';
+      }
+      var dotEl  = document.getElementById('evo-metric-dot');
+      var nameEl = document.getElementById('evo-metric-name');
+      var valEl  = document.getElementById('evo-metric-val');
+      if (dotEl)  dotEl.style.background = ds.color;
+      if (nameEl) { nameEl.textContent = ds.label; nameEl.style.color = ds.color; }
+      if (valEl)  valEl.textContent = '· actual ' + ds.fmt(ds.data[ds.data.length - 1]);
       buildEvoChart(metric);
     }
 
@@ -2022,7 +2067,7 @@
     /* ─── INIT ─── */
     renderSegment("centro");
     buildCostStackedChart();
-    buildEvoChart('tasa');
+    activateEvoMetric('tasa');
 
     // Read tab from URL param
     (function(){
