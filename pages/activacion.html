@@ -195,9 +195,10 @@
     .know-type-pill.inactive{opacity:.35;transform:none;}
     .know-status{font-size:10px;color:#64748b;font-weight:600;margin-bottom:8px;}
     .know-status b{color:#b45309;}
-    .know-pending-cta{width:100%;height:30px;border:1px solid #bfdbfe;background:#eff6ff;border-radius:7px;font-size:10.5px;font-weight:700;color:#1d4ed8;cursor:pointer;font:inherit;margin-bottom:14px;transition:.12s;display:flex;align-items:center;justify-content:center;gap:5px;}
-    .know-pending-cta:hover{background:#dbeafe;}
-    .mem-step-chip{display:inline-flex;align-items:center;gap:4px;height:20px;border:1px solid #bfdbfe;background:#eff6ff;border-radius:5px;padding:0 7px;font-size:9px;font-weight:700;color:#1d4ed8;cursor:pointer;font:inherit;margin-top:6px;transition:.12s;}
+    .know-filter-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+    .know-reset{border:0;background:transparent;color:#94a3b8;font-size:9px;font-weight:700;cursor:pointer;font:inherit;padding:0;text-decoration:underline;text-underline-offset:2px;}
+    .know-reset:hover{color:#475569;}
+    .mem-step-chip{display:inline-flex;align-items:center;gap:3px;height:17px;border:1px solid #bfdbfe;background:#eff6ff;border-radius:4px;padding:0 6px;font-size:8px;font-weight:700;color:#1d4ed8;cursor:pointer;font:inherit;margin-top:5px;transition:.12s;}
     .mem-step-chip:hover{background:#dbeafe;border-color:#93c5fd;}
     /* memory groups */
     .mem-group{margin-bottom:6px;}
@@ -800,15 +801,12 @@ function renderKnowledgeSummary() {
     return '<button class="know-type-pill ' + g.cls + '" data-type="' + g.type + '" onclick="filterByType(\'' + g.type + '\')">'
       + '<b>' + n + '</b><span>' + g.label + '</span></button>';
   }).join('');
-  var firstPending = null;
-  for (var i = 0; i < memory.length; i++) { if (memory[i].bc === 'amber' && memory[i].step) { firstPending = memory[i]; break; } }
-  var cta = firstPending
-    ? '<button class="know-pending-cta" onclick="goToStep(' + firstPending.step + ')">Ir al primer pendiente &rarr; Paso ' + firstPending.step + ' &middot; ' + stepLabel(firstPending.step) + '</button>'
-    : '';
   document.getElementById('knowSummary').innerHTML =
     '<div class="know-summary">' + pills + '</div>'
+    + '<div class="know-filter-bar">'
     + '<p class="know-status">' + total + ' ítems · <b>' + pending + ' pendiente' + (pending !== 1 ? 's' : '') + ' de validar</b></p>'
-    + cta;
+    + '<button class="know-reset" id="knowReset" onclick="resetFilter()" style="display:none">&#10005; Ver todos</button>'
+    + '</div>';
 }
 function renderMemory() {
   var groups = [
@@ -856,6 +854,15 @@ function filterByType(type) {
   document.querySelectorAll('.mem-group').forEach(function(g) {
     g.style.display = (!activeFilter || g.dataset.type === activeFilter) ? '' : 'none';
   });
+  var r = document.getElementById('knowReset');
+  if (r) r.style.display = activeFilter ? '' : 'none';
+}
+function resetFilter() {
+  activeFilter = null;
+  document.querySelectorAll('.know-type-pill').forEach(function(p) { p.classList.remove('active','inactive'); });
+  document.querySelectorAll('.mem-group').forEach(function(g) { g.style.display = ''; });
+  var r = document.getElementById('knowReset');
+  if (r) r.style.display = 'none';
 }
 
 // ── Modals ────────────────────────────────────────────────────
