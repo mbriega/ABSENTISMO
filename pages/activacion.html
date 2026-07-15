@@ -264,6 +264,23 @@
     .ai-send svg{width:15px;height:15px;}
     .ai-disc{display:flex;align-items:center;gap:4px;margin-top:5px;color:#94a3b8;font-size:7.5px;}
     .ai-disc i{width:5px;height:5px;border-radius:50%;background:#059669;flex:0 0 auto;}
+
+    /* ── ACCORDIONS ── */
+    .wiz-acc-toggle{width:100%;background:none;border:none;cursor:pointer;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left;font:inherit;}
+    .wiz-acc-toggle:hover{background:#fafbfd;}
+    .wiz-acc-title{flex:1;}
+    .wiz-acc-title span{display:block;font-size:12.5px;font-weight:700;color:#0f172a;}
+    .wiz-acc-title small{display:block;font-size:10px;color:#94a3b8;font-weight:500;line-height:1.4;margin-top:2px;}
+    .wiz-acc-chev{width:14px;height:14px;color:#94a3b8;flex-shrink:0;transition:transform .2s;}
+    .wiz-acc-toggle.open .wiz-acc-chev{transform:rotate(180deg);}
+    .wiz-acc-body{display:none;border-top:1px solid #f1f5f9;}
+    .wiz-acc-body.open{display:block;}
+
+    /* ── COMPACT AUTO STRIP ── */
+    .auto-strip{display:flex;align-items:center;gap:10px;}
+    .auto-strip > span{font-size:10.5px;font-weight:600;color:#334155;flex:1;min-width:0;}
+    .auto-strip .auto-track{flex:0 0 130px;height:8px;}
+    .auto-strip > b{font-size:12px;font-weight:800;color:#059669;white-space:nowrap;flex-shrink:0;}
   </style>
 </head>
 <body class="bg-surface-50 text-surface-900 antialiased" data-page="activacion">
@@ -303,18 +320,21 @@
       <!-- Bottom panels -->
       <div class="wiz-bottom">
 
-        <!-- Qué mejora -->
+        <!-- Qué mejora (acordeón, cerrado por defecto) -->
         <section class="wiz-bp">
-          <div class="wiz-bp-inner">
-            <div class="wiz-bp-head">
-              <h3>Qu&#233; mejora al completar este paso</h3>
-              <p>Impacto directo sobre la plataforma.</p>
+          <button class="wiz-acc-toggle" onclick="toggleAcc(this)">
+            <div class="wiz-acc-title">
+              <span>Qu&#233; mejora al completar este paso</span>
+              <small>Impacto directo sobre la plataforma.</small>
             </div>
+            <svg class="wiz-acc-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="wiz-acc-body">
             <div class="wiz-bp-body" id="impactBody"></div>
           </div>
         </section>
 
-        <!-- Automatización -->
+        <!-- Automatización (tira compacta) -->
         <section class="wiz-bp">
           <div class="wiz-bp-inner">
             <div class="wiz-bp-head">
@@ -322,29 +342,25 @@
               <p>Trabajo resuelto por la plataforma frente a decisiones humanas.</p>
             </div>
             <div class="wiz-bp-body">
-              <div class="auto-header">
-                <b id="automationTitle">Configuraci&#243;n precompletada</b>
-                <span id="automationScore">82%</span>
-              </div>
-              <div class="auto-bar-wrap">
-                <div class="auto-bar-label">
-                  <span id="automationText">La plataforma ha resuelto lo que puede inferir con seguridad</span>
-                  <b id="autoBarPct">82%</b>
-                </div>
+              <div class="auto-strip">
+                <span id="automationText">La plataforma resuelve primero lo que puede inferir</span>
                 <div class="auto-track"><div class="auto-fill" id="autoFill" style="width:82%"></div></div>
+                <b id="autoBarPct">82%</b>
               </div>
-              <div class="auto-list" id="autoList"></div>
             </div>
           </div>
         </section>
 
-        <!-- Preparación por módulo -->
+        <!-- Preparación por módulo (acordeón, cerrado por defecto) -->
         <section class="wiz-bp">
-          <div class="wiz-bp-inner">
-            <div class="wiz-bp-head">
-              <h3>Preparaci&#243;n por m&#243;dulo</h3>
-              <p>No todos los m&#243;dulos requieren el mismo nivel de configuraci&#243;n.</p>
+          <button class="wiz-acc-toggle" onclick="toggleAcc(this)">
+            <div class="wiz-acc-title">
+              <span>Preparaci&#243;n por m&#243;dulo</span>
+              <small>No todos los m&#243;dulos requieren el mismo nivel de configuraci&#243;n.</small>
             </div>
+            <svg class="wiz-acc-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="wiz-acc-body">
             <div class="wiz-bp-body">
               <div class="readiness-list">
                 <div class="ready-item">
@@ -376,7 +392,7 @@
     <div class="wiz-footer">
       <div style="display:flex;align-items:center;gap:14px;">
         <button class="w-btn soft" onclick="toast('Progreso guardado. Puedes continuar m&#225;s tarde.')">Guardar y salir</button>
-        <span class="wiz-meta">Paso <b id="footStep">5</b> de 8 &middot; <b id="footTitle">Contexto operativo</b></span>
+        <span class="wiz-meta"><b id="footTitle">Contexto operativo</b></span>
       </div>
       <div class="wiz-nav">
         <button class="wiz-btn-back" id="btnBack" onclick="goBack()">&#8592; Anterior</button>
@@ -606,7 +622,6 @@ function renderStep() {
   var isActivate = activeStep === 8;
 
   // Footer
-  document.getElementById('footStep').textContent = activeStep;
   document.getElementById('footTitle').textContent = s.title;
   document.getElementById('assignOwner').textContent = s.owner;
 
@@ -618,16 +633,11 @@ function renderStep() {
 
   // Automation bar
   var pct = st.auto;
-  document.getElementById('automationScore').textContent = pct + '%';
   document.getElementById('autoBarPct').textContent = pct + '%';
   document.getElementById('autoFill').style.width = pct + '%';
-  document.getElementById('automationTitle').textContent = isActivate ? 'Verificación automatizada' : 'Configuración precompletada';
   document.getElementById('automationText').textContent = isActivate
     ? 'La plataforma ha comprobado consistencia y permisos'
     : 'La plataforma resuelve primero lo que puede inferir';
-  document.getElementById('autoList').innerHTML = s.auto.map(function(x, i) {
-    return '<div class="auto-item"><span class="auto-chk ' + (i === 2 ? 'usr' : 'ok') + '">' + (i === 2 ? '!' : '✓') + '</span>' + x + '</div>';
-  }).join('');
 
   // Impact
   document.getElementById('impactBody').innerHTML = s.impact.map(function(x) {
@@ -663,17 +673,17 @@ function renderStep() {
     + '<div class="quick-opts">' + s.options.map(function(o, i) {
         return '<button class="quick-opt' + (i === 1 && activeStep === 5 ? ' selected' : '') + '" onclick="chooseOpt(this,\'' + o.replace(/'/g, "\\'") + '\')">' + o + '</button>';
       }).join('') + '</div>'
-    + ctxRow
     + '<div class="answer-box"><textarea id="answerText">' + s.answer + '</textarea>'
     + '<button class="send-btn" onclick="interpretAnswer()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 14-8-4 16-3-6-7-2Z"/></svg></button></div>'
-    + '<div class="interp-box" id="interpretation">'
+    + ctxRow
+    + '<div class="interp-box" id="interpretation" style="display:none">'
     + '<div class="interp-head"><b>' + (isActivate ? 'Versión que se activará' : 'Interpretación estructurada') + '</b>'
     + '<span class="a-tag blue" id="ruleBadge">' + (isActivate ? 'Lista para activar' : 'Pendiente de confirmar') + '</span></div>'
     + '<div class="interp-body"><div class="rule-grid">' + fieldsHtml + '</div>'
     + '<p class="interp-note">' + (isActivate ? 'Al activar se guardará esta versión, sus responsables, limitaciones y fecha de vigencia.' : 'La regla no se aplicará hasta que confirmes esta interpretación. Podrás modificarla o revertirla después.') + '</p>'
     + '<div class="confirm-row"><small>' + (isActivate ? 'El setup continuará actualizándose con cambios y resultados reales.' : 'Afectará únicamente a los módulos y ámbitos indicados.') + '</small>'
     + '<div class="confirm-actions">'
-    + '<button class="w-btn" onclick="document.getElementById(\'answerText\').focus()">Corregir</button>'
+    + '<button class="w-btn" onclick="document.getElementById(\'answerText\').focus()">Editar respuesta</button>'
     + '<button class="w-btn primary" id="confirmBtn" onclick="' + (isActivate ? 'activatePlatform()' : 'applyRule()') + '">'
     + (isActivate ? 'Activar plataforma' : 'Confirmar y aplicar') + '</button>'
     + '</div></div></div></div>';
@@ -691,13 +701,26 @@ function chooseOpt(btn, text) {
   btn.classList.add('selected');
   document.getElementById('answerText').value = text;
   document.getElementById('answerText').focus();
+  showInterp();
 }
 
 function interpretAnswer() {
   var t = document.getElementById('answerText').value.trim();
   if (!t) { toast('Escribe una respuesta antes de continuar'); return; }
+  showInterp();
   document.getElementById('interpretation').scrollIntoView({behavior: 'smooth', block: 'nearest'});
   toast('Respuesta interpretada. Revisa la regla antes de aplicarla');
+}
+
+function showInterp() {
+  var box = document.getElementById('interpretation');
+  if (box && box.style.display === 'none') { box.style.display = ''; }
+}
+
+function toggleAcc(btn) {
+  var body = btn.nextElementSibling;
+  var open = body.classList.toggle('open');
+  btn.classList.toggle('open', open);
 }
 
 function applyRule() {
