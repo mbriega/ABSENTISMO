@@ -24,14 +24,6 @@
     /* ── LAYOUT ── */
     .wiz-wrap{margin-left:260px;min-height:100vh;background:#f8fafc;max-width:calc(100vw - 260px);overflow-x:hidden;}
 
-    /* ── INFO STRIP ── */
-    .wiz-info-strip{border-bottom:1px solid #e2e8f0;background:#fff;padding:16px 32px;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;}
-    .wiz-info-left{flex:1;min-width:0;}
-    .wiz-info-eyebrow{font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
-    .wiz-info-eyebrow b{color:#475569;font-weight:800;}
-    .wiz-info-title{font-size:17px;font-weight:800;color:#0f172a;letter-spacing:-.03em;margin:0 0 4px;line-height:1.2;}
-    .wiz-info-desc{font-size:12px;color:#64748b;line-height:1.55;font-weight:500;margin:0;max-width:640px;}
-    .wiz-info-actions{display:flex;flex-direction:column;gap:7px;flex-shrink:0;align-items:flex-end;padding-top:2px;}
 
     /* ── CONTENT AREA ── */
     .wiz-content{padding:20px 32px 100px;}
@@ -73,9 +65,9 @@
     .quick-opt.selected{border-color:#93c5fd;background:#eff6ff;color:#1d4ed8;box-shadow:inset 0 0 0 1px #bfdbfe;}
 
     /* secondary actions row (Asignar / No lo sé / Más tarde) */
-    .step-ctx-row{display:flex;align-items:center;gap:6px;margin-bottom:14px;padding:9px 12px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:9px;}
-    .step-ctx-row span{font-size:10px;color:#3b82f6;font-weight:700;flex-shrink:0;margin-right:4px;}
-    .step-ctx-row button{height:27px;border:1px solid #bfdbfe;background:#fff;border-radius:6px;padding:0 10px;font-size:10.5px;font-weight:700;color:#1d4ed8;cursor:pointer;font:inherit;transition:.12s;white-space:nowrap;}
+    .step-ctx-row{display:flex;align-items:center;gap:6px;margin-bottom:14px;}
+    .step-ctx-row span{font-size:10px;color:#94a3b8;font-weight:600;flex-shrink:0;margin-right:2px;}
+    .step-ctx-row button{height:27px;border:1px solid #bfdbfe;background:#eff6ff;border-radius:6px;padding:0 10px;font-size:10.5px;font-weight:700;color:#1d4ed8;cursor:pointer;font:inherit;transition:.12s;white-space:nowrap;}
     .step-ctx-row button:hover{background:#dbeafe;border-color:#93c5fd;}
 
     .answer-box{display:flex;gap:8px;margin-bottom:14px;}
@@ -291,25 +283,15 @@
           <p style="font-size:11px;color:#94a3b8;margin:2px 0 0;">Configuraci&#243;n inicial &middot; Grupo Atlas &middot; Espa&#241;a</p>
         </div>
       </div>
-      <div style="width:34px;height:34px;border-radius:50%;background:#0f172a;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;">MB</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button class="w-btn soft" onclick="toggleDrawer(true)">Conocimiento de empresa</button>
+        <div style="width:34px;height:34px;border-radius:50%;background:#0f172a;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;">MB</div>
+      </div>
     </div>
 
     <!-- Progress bar -->
     <div class="wiz-bar">
       <div class="wiz-steps" id="wizSteps"></div>
-    </div>
-
-    <!-- Permanent step context strip -->
-    <div class="wiz-info-strip">
-      <div class="wiz-info-left">
-        <div class="wiz-info-eyebrow">Activaci&#243;n &middot; <b>Conocimiento de la empresa</b></div>
-        <h2 class="wiz-info-title" id="infoTitle">Contexto operativo</h2>
-        <p class="wiz-info-desc" id="infoDesc">Valida las decisiones que determinan c&#243;mo interpretar el impacto del absentismo, priorizar el riesgo y recomendar acciones en tu organizaci&#243;n.</p>
-      </div>
-      <div class="wiz-info-actions">
-        <button class="w-btn" onclick="toast('Progreso guardado. Puedes continuar m&#225;s tarde.')">Guardar y salir</button>
-        <button class="w-btn soft" onclick="toggleDrawer(true)">Conocimiento de empresa</button>
-      </div>
     </div>
 
     <!-- Content -->
@@ -392,7 +374,10 @@
 
     <!-- Footer nav -->
     <div class="wiz-footer">
-      <span class="wiz-meta">Paso <b id="footStep">5</b> de 8 &middot; <b id="footTitle">Contexto operativo</b></span>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <button class="w-btn" onclick="toast('Progreso guardado. Puedes continuar m&#225;s tarde.')">Guardar y salir</button>
+        <span class="wiz-meta">Paso <b id="footStep">5</b> de 8 &middot; <b id="footTitle">Contexto operativo</b></span>
+      </div>
       <div class="wiz-nav">
         <button class="wiz-btn-back" id="btnBack" onclick="goBack()">&#8592; Anterior</button>
         <button class="wiz-btn-next" id="btnNext" onclick="goNext()">
@@ -619,10 +604,6 @@ function renderStep() {
   if (!s) return;
   var st = steps[activeStep - 1];
   var isActivate = activeStep === 8;
-
-  // Update info strip
-  var el = document.getElementById('infoTitle'); if (el) el.textContent = s.title;
-  var el2 = document.getElementById('infoDesc'); if (el2) el2.textContent = s.desc;
 
   // Footer
   document.getElementById('footStep').textContent = activeStep;
