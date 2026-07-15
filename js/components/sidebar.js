@@ -8,11 +8,11 @@ const SidebarComponent = (() => {
     { tabId: "segmentacion", label: "Segmentación" },
     { tabId: "red",          label: "Red organizativa" },
     { tabId: "costes",       label: "Costes" },
-    { tabId: "evolucion",    label: "Evolución" },
-    { tabId: "predicciones", label: "Predicciones" }
+    { tabId: "evolucion",    label: "Evolución" }
   ];
 
   const NAV_ITEMS = [
+    { href: "/activacion",   link: "activacion.html",          label: "Activación",             icon: "lightning",   indent: false },
     { href: "/centro-inteligencia", link: "centro-inteligencia.html", label: "Centro de Inteligencia", icon: "chart-bar", indent: false, group: true },
     { href: "/patrones", link: "patrones.html", label: "Patrones", icon: "search", indent: false, badge: true },
     { href: "/prediccion", link: "prediccion.html", label: "Predicción", icon: "trending-up", indent: false },
@@ -42,6 +42,7 @@ const SidebarComponent = (() => {
     var page = document.body.dataset.page || "";
     if (page === "patrones" || page === "pat-detail") return "/patrones";
     if (page === "centro-inteligencia" || page === "diagnostico") return "/centro-inteligencia";
+    if (page === "activacion") return "/activacion";
     return "/" + page;
   }
 
