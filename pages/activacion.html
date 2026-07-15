@@ -7,503 +7,407 @@
   <link rel="stylesheet" href="../css/styles.css"/>
   <style>
     *{box-sizing:border-box}
-    :root{
-      --ab:#2563eb;--ab-s:#eff6ff;--ab2:#1d4ed8;
-      --ag:#059669;--ag-s:#ecfdf5;
-      --aa:#b45309;--aa-s:#fffbeb;
-      --ar:#dc2626;--ar-s:#fef2f2;
-      --ac:#0891b2;--ac-s:#ecfeff;
-      --ln:#e2e8f0;--tx:#334155;--mu:#94a3b8;--ink:#0f172a;
-      --sh:0 1px 3px rgba(0,0,0,.04);--sh2:0 4px 16px rgba(15,23,42,.08);
-    }
-    /* Layout */
-    .act-wrap{flex:1;display:flex;flex-direction:column;padding-left:260px;min-height:100vh}
-    .act-topbar{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--ln);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .act-company{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700;color:#293650}
-    .act-chip{width:30px;height:30px;border-radius:8px;background:var(--ab-s);color:var(--ab);display:grid;place-items:center;font-size:10px;font-weight:800}
-    .act-top-actions{display:flex;align-items:center;gap:10px}
-    .act-icon{width:33px;height:33px;border:1px solid var(--ln);background:#fff;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:#596782}
-    .act-icon svg{width:16px;height:16px}
-    .act-avatar{width:32px;height:32px;border-radius:50%;background:var(--ab);color:#fff;display:grid;place-items:center;font-size:10px;font-weight:800}
-    .act-ai-btn{height:35px;border:1px solid #bfdbfe;background:linear-gradient(135deg,#fff,#f5f9ff);border-radius:9px;padding:0 10px 0 7px;display:flex;align-items:center;gap:7px;color:var(--ab);cursor:pointer;font:inherit;box-shadow:0 2px 8px rgba(37,99,235,.08)}
-    .act-ai-btn:hover{border-color:var(--ab);box-shadow:0 4px 14px rgba(37,99,235,.14)}
-    .act-ai-mini{width:24px;height:24px;border-radius:7px;background:var(--ab);color:#fff;display:grid;place-items:center;font-size:8px;font-weight:900}
-    .act-ai-btn b{display:block;font-size:10px;line-height:1}
-    .act-ai-btn small{display:block;font-size:7.5px;color:#7c9ec9;margin-top:1px}
-    .act-online{position:absolute;right:6px;top:5px;width:6px;height:6px;border-radius:50%;background:#20a66a;box-shadow:0 0 0 2px #fff}
-    .act-ai-btn{position:relative}
-    /* Content */
-    .act-content{padding:20px 24px 60px}
-    /* Page head */
-    .act-head{background:#fff;border:1px solid var(--ln);border-radius:14px;padding:18px 20px;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;box-shadow:var(--sh);margin-bottom:12px}
-    .act-eyebrow{display:flex;align-items:center;gap:6px;color:var(--ab);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
-    .act-eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--ab);box-shadow:0 0 0 4px rgba(37,99,235,.1)}
-    .act-head h1{font-size:26px;line-height:1.1;letter-spacing:-.04em;color:var(--ink);font-weight:800}
-    .act-head>div>p{margin-top:7px;color:#586984;font-size:12.5px;line-height:1.5;max-width:780px}
-    .act-head-actions{display:flex;gap:7px;flex-shrink:0}
-    /* Buttons */
-    .a-btn{height:35px;border:1px solid var(--ln);background:#fff;border-radius:9px;padding:0 12px;display:inline-flex;align-items:center;gap:6px;color:#35435e;font-size:11px;font-weight:700;cursor:pointer;font:inherit;transition:.15s}
-    .a-btn:hover{border-color:#bfdbfe}
-    .a-btn svg{width:14px;height:14px}
-    .a-btn.soft{background:var(--ab-s);border-color:#bfdbfe;color:var(--ab2)}
-    .a-btn.primary{background:var(--ab);border-color:var(--ab);color:#fff;box-shadow:0 4px 12px rgba(37,99,235,.2)}
-    .a-btn.primary:hover{background:var(--ab2)}
-    .a-btn.sm{height:29px;padding:0 9px;font-size:10px}
-    .a-btn:disabled{opacity:.5;cursor:default}
-    /* Status strip */
-    .act-status{background:#fff;border:1px solid var(--ln);border-radius:13px;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:var(--sh);margin-bottom:12px}
-    .act-status-main{display:flex;align-items:center;gap:11px;min-width:0}
-    .act-status-ico{width:37px;height:37px;border-radius:10px;background:var(--aa-s);color:var(--aa);display:grid;place-items:center;flex:0 0 auto}
-    .act-status-ico svg{width:18px;height:18px}
-    .act-status-main b{display:block;font-size:12px}
-    .act-status-main span{display:block;margin-top:2px;color:var(--mu);font-size:10.2px;line-height:1.38}
-    .act-pills{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
-    .a-pill{height:25px;border-radius:999px;border:1px solid var(--ln);padding:0 8px;display:inline-flex;align-items:center;gap:4px;font-size:9.5px;font-weight:800;white-space:nowrap}
-    .a-pill.green{background:var(--ag-s);border-color:#a7f3d0;color:var(--ag)}
-    .a-pill.amber{background:var(--aa-s);border-color:#fcd34d;color:var(--aa)}
-    .a-pill.blue{background:var(--ab-s);border-color:#bfdbfe;color:var(--ab)}
-    /* Workspace */
-    .act-workspace{display:grid;grid-template-columns:260px minmax(520px,1fr) 280px;gap:12px;align-items:start}
-    /* Panel base */
-    .a-panel{background:#fff;border:1px solid var(--ln);border-radius:14px;box-shadow:var(--sh);overflow:hidden}
-    .a-panel-head{padding:13px 14px;border-bottom:1px solid var(--ln);display:flex;align-items:flex-start;justify-content:space-between;gap:9px}
-    .a-panel-head h2{font-size:13px;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
-    .a-panel-head p{margin-top:3px;font-size:9.5px;line-height:1.35;color:var(--mu)}
-    .a-tag{height:22px;border-radius:999px;padding:0 8px;display:inline-flex;align-items:center;font-size:9px;font-weight:800;white-space:nowrap}
-    .a-tag.blue{background:var(--ab-s);color:var(--ab)}
-    .a-tag.green{background:var(--ag-s);color:var(--ag)}
-    .a-tag.amber{background:var(--aa-s);color:var(--aa)}
-    /* Route panel */
-    .route-body{padding:8px}
-    .route-step{position:relative;display:grid;grid-template-columns:29px 1fr;gap:8px;padding:8px 7px;border-radius:9px;cursor:pointer;transition:.15s}
-    .route-step:hover{background:#f8fafc}
-    .route-step.active{background:#f0f7ff;outline:1px solid #bfdbfe}
-    .route-step+.route-step:before{content:"";position:absolute;left:21px;top:-7px;height:14px;width:1px;background:#dde3ed}
-    .route-num{width:27px;height:27px;border-radius:7px;border:1px solid #dde3ed;background:#f3f5f8;color:#758199;display:grid;place-items:center;font-size:9.5px;font-weight:800}
-    .route-step.done .route-num{background:var(--ag-s);border-color:#a7f3d0;color:var(--ag)}
-    .route-step.active .route-num{background:var(--ab);border-color:var(--ab);color:#fff;box-shadow:0 4px 10px rgba(37,99,235,.2)}
-    .route-copy b{display:block;font-size:10.8px;color:#2e3a54;line-height:1.25;font-weight:700}
-    .route-copy span{display:block;font-size:9px;color:var(--mu);line-height:1.25;margin-top:2px}
-    .route-progress{display:flex;align-items:center;gap:5px;margin-top:4px}
-    .route-track{width:64px;height:3px;background:#e9edf3;border-radius:99px;overflow:hidden}
-    .route-track i{display:block;height:100%;border-radius:99px;background:#a7b0c0;transition:width .3s}
-    .route-step.done .route-track i{background:var(--ag)}
-    .route-step.active .route-track i{background:var(--ab)}
-    .route-progress em{font-style:normal;font-size:8.5px;color:#8791a6;font-weight:800}
-    .route-foot{padding:9px;margin:5px 7px 6px;border:1px solid #e9edf3;border-radius:9px;background:#f8fafc;color:#66778f;font-size:9.4px;line-height:1.4}
-    .route-foot b{color:#33415a}
-    /* Task panel */
-    .task-topbar{padding:13px 16px;border-bottom:1px solid var(--ln);display:flex;align-items:center;justify-content:space-between;gap:11px}
-    .agent-head{display:flex;align-items:center;gap:9px;cursor:pointer;border-radius:8px;padding:4px 6px;margin:-4px -6px;transition:.15s}
-    .agent-head:hover{background:var(--ab-s)}
-    .agent-av{width:32px;height:32px;border-radius:9px;background:var(--ab-s);border:1px solid #bfdbfe;color:var(--ab);display:grid;place-items:center;font-size:9px;font-weight:800;position:relative}
-    .agent-av:after{content:"";position:absolute;right:-2px;bottom:-2px;width:7px;height:7px;border-radius:50%;background:#20a66a;border:2px solid #fff}
-    .agent-head b{display:block;font-size:11.5px;font-weight:700;color:var(--ink)}
-    .agent-head span{display:block;font-size:9.2px;color:var(--mu);margin-top:1px}
-    .task-actions{display:flex;gap:5px}
-    .task-body{padding:16px;background:linear-gradient(180deg,#fbfcfe,#f6f8fc);min-height:560px}
-    .intro-line{border:1px solid #e4eaf1;background:#fff;border-radius:11px;padding:10px 12px;color:#455669;font-size:11px;line-height:1.5;margin-bottom:11px}
-    .intro-line strong{color:#1d2940}
-    .question-card{background:#fff;border:1px solid var(--ln);border-radius:14px;padding:15px;box-shadow:var(--sh2)}
-    .question-head{display:flex;align-items:flex-start;justify-content:space-between;gap:11px}
-    .question-head h2{font-size:18px;line-height:1.2;letter-spacing:-.025em;color:var(--ink);font-weight:800}
-    .question-head .owner{font-size:9px;color:var(--ar);font-weight:800;background:var(--ar-s);border:1px solid #fca5a5;border-radius:999px;padding:4px 8px;white-space:nowrap}
-    .question-card>p{font-size:11px;color:#596981;line-height:1.48;margin-top:7px}
-    .evidence-card{border:1px solid #dde5ef;background:#fbfcfe;border-radius:11px;padding:11px;margin-top:12px}
-    .evidence-head{display:flex;align-items:center;justify-content:space-between;gap:9px}
-    .evidence-head b{font-size:10.5px;font-weight:700;color:var(--ink)}
-    .evidence-head span{font-size:8.8px;color:#768197;font-weight:800}
-    .evidence-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
-    .evidence{background:#fff;border:1px solid #e5ebf2;border-radius:8px;padding:8px}
-    .evidence strong{display:block;font-size:16px;letter-spacing:-.04em;color:var(--ink);font-weight:800}
-    .evidence span{display:block;font-size:8.5px;line-height:1.3;color:#6b7890;margin-top:3px}
-    .evidence.warn{border-color:#fcd34d;background:#fffdf5}
-    .big-q{margin-top:13px!important;color:#1d2a43!important;font-size:12.2px!important;font-weight:800}
-    .quick-opts{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px}
-    .quick{min-height:36px;border:1px solid #dde3ec;background:#fff;border-radius:8px;color:#43516a;text-align:left;padding:7px 9px;font-size:9.8px;font-weight:700;line-height:1.28;cursor:pointer;transition:.12s;font:inherit}
-    .quick:hover{border-color:#bfdbfe}
-    .quick.selected{border-color:#93c5fd;background:var(--ab-s);color:var(--ab2);box-shadow:inset 0 0 0 1px #bfdbfe}
-    .answer-box{display:flex;gap:7px;margin-top:9px}
-    .answer-box textarea{flex:1;min-height:62px;resize:vertical;border:1px solid #dde3ec;border-radius:9px;background:#fff;padding:9px 10px;color:#35435d;font-size:10.5px;line-height:1.45;outline:none;font:inherit}
-    .answer-box textarea:focus{border-color:#93c5fd;box-shadow:0 0 0 3px rgba(37,99,235,.08)}
-    .send-btn{width:40px;border:0;border-radius:9px;background:var(--ab);color:#fff;display:grid;place-items:center;cursor:pointer;flex-shrink:0}
-    .send-btn svg{width:17px;height:17px}
-    .interpretation{margin-top:10px;border:1px solid #fde68a;background:#fffdf5;border-radius:12px;overflow:hidden}
-    .interp-head{padding:9px 11px;border-bottom:1px solid #fde68a;display:flex;align-items:center;justify-content:space-between;gap:9px}
-    .interp-head b{font-size:10.5px;font-weight:700;color:var(--ink)}
-    .interp-body{padding:10px}
-    .rule-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-    .rule-field{border:1px solid #ede8d6;background:#fff;border-radius:7px;padding:7px}
-    .rule-field label{display:block;font-size:7.5px;text-transform:uppercase;letter-spacing:.05em;color:#8b765c;font-weight:800}
-    .rule-field strong{display:block;font-size:9.5px;line-height:1.35;color:#3c342b;margin-top:3px}
-    .rule-field.full{grid-column:1/-1}
-    .interp-note{font-size:9px!important;color:#756b5d!important;margin-top:7px!important;line-height:1.4}
-    .confirm-row{display:flex;align-items:center;justify-content:space-between;gap:11px;margin-top:9px}
-    .confirm-row small{font-size:8.8px;color:#766d62;line-height:1.35}
-    .confirm-actions{display:flex;gap:5px;flex-shrink:0}
-    .composer-foot{padding:10px 16px;border-top:1px solid var(--ln);display:flex;justify-content:space-between;align-items:center;gap:9px;background:#fff}
-    .composer-foot span{font-size:9px;color:var(--mu)}
-    /* Side */
-    .side-stack{display:grid;gap:11px}
-    .side-title{padding:11px 12px;border-bottom:1px solid var(--ln)}
-    .side-title h3{font-size:11.5px;font-weight:700;color:var(--ink)}
-    .side-title p{margin-top:2px;font-size:9px;color:var(--mu);line-height:1.35}
-    .side-body{padding:11px}
-    .impact-row{display:flex;gap:8px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #edf1f5}
-    .impact-row:last-child{border-bottom:0}
-    .impact-ico{width:27px;height:27px;border-radius:7px;display:grid;place-items:center;flex:0 0 auto}
-    .impact-ico svg{width:13px;height:13px}
-    .impact-ico.blue{background:var(--ab-s);color:var(--ab)}
-    .impact-ico.green{background:var(--ag-s);color:var(--ag)}
-    .impact-ico.amber{background:var(--aa-s);color:var(--aa)}
-    .impact-copy b{display:block;font-size:9.8px;font-weight:700}
-    .impact-copy span{display:block;font-size:8.8px;line-height:1.35;color:var(--mu);margin-top:2px}
-    .auto-score{display:grid;grid-template-columns:60px 1fr;gap:9px;align-items:center}
-    .score-ring{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;position:relative}
-    .score-ring:before{content:"";position:absolute;inset:6px;border-radius:50%;background:#fff}
-    .score-ring b{position:relative;font-size:14px;color:var(--ag);font-weight:800}
-    .auto-copy b{display:block;font-size:10px;font-weight:700}
-    .auto-copy span{display:block;font-size:8.8px;color:var(--mu);line-height:1.38;margin-top:2px}
-    .auto-list{display:grid;gap:5px;margin-top:9px}
-    .auto-item{display:flex;align-items:center;gap:5px;font-size:8.8px;color:#4d5c74}
-    .auto-item i{width:16px;height:16px;border-radius:50%;display:grid;place-items:center;background:var(--ag-s);color:var(--ag);font-style:normal;font-size:8.5px;font-weight:900}
-    .auto-item.user i{background:var(--aa-s);color:var(--aa)}
-    .readiness-mini{display:grid;gap:7px}
-    .ready-row{display:grid;grid-template-columns:1fr auto;gap:7px;align-items:center}
-    .ready-row b{font-size:9.4px;font-weight:700}
-    .ready-row span{font-size:8.5px;font-weight:800}
-    .ready-track{grid-column:1/-1;height:4px;background:#ebeff4;border-radius:99px;overflow:hidden;margin-top:-3px}
-    .ready-track i{display:block;height:100%;border-radius:99px;transition:width .3s}
-    .ready-track .green{background:var(--ag)}
-    .ready-track .amber{background:var(--aa)}
-    .ready-track .blue{background:var(--ab)}
-    /* Continuous */
-    .act-continuous{margin-top:12px;background:#fff;border:1px solid var(--ln);border-radius:14px;box-shadow:var(--sh);overflow:hidden}
-    .continuous-head{padding:14px 15px;border-bottom:1px solid var(--ln);display:flex;align-items:flex-start;justify-content:space-between;gap:13px}
-    .continuous-head h2{font-size:13.5px;font-weight:700;color:var(--ink)}
-    .continuous-head p{margin-top:3px;color:var(--mu);font-size:10px;line-height:1.38}
-    .continuous-grid{display:grid;grid-template-columns:1.25fr .75fr}
-    .feed{padding:12px 14px}
-    .feed-item{display:grid;grid-template-columns:30px 1fr auto;gap:8px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #edf1f5}
-    .feed-item:last-child{border-bottom:0}
-    .feed-ico{width:29px;height:29px;border-radius:8px;display:grid;place-items:center}
-    .feed-ico svg{width:14px;height:14px}
-    .feed-ico.green{background:var(--ag-s);color:var(--ag)}
-    .feed-ico.blue{background:var(--ab-s);color:var(--ab)}
-    .feed-ico.amber{background:var(--aa-s);color:var(--aa)}
-    .feed-ico.purple{background:#f5f3ff;color:#7c3aed}
-    .feed-copy b{display:block;font-size:10px;line-height:1.35;font-weight:700}
-    .feed-copy span{display:block;font-size:8.8px;color:var(--mu);line-height:1.35;margin-top:2px}
-    .feed-time{font-size:8px;color:#8993a6;white-space:nowrap}
-    .capital{border-left:1px solid var(--ln);padding:15px;background:linear-gradient(145deg,#0f172a,#1e3a5f);color:#fff}
-    .capital small{display:block;color:#93b4d4;font-size:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:800}
-    .capital h3{font-size:17px;letter-spacing:-.03em;margin-top:5px;font-weight:800}
-    .capital>p{margin-top:5px;color:#c2cfe0;font-size:9.5px;line-height:1.45}
-    .capital-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:12px}
-    .capital-kpi{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);border-radius:9px;padding:9px}
-    .capital-kpi b{display:block;font-size:17px;font-weight:800}
-    .capital-kpi span{display:block;font-size:8px;line-height:1.3;color:#b9cde0;margin-top:2px}
-    .capital-value{margin-top:9px;border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:9px;background:rgba(255,255,255,.04)}
-    .capital-value b{display:block;font-size:9.5px;font-weight:700}
-    .capital-value span{display:block;font-size:8.5px;line-height:1.4;color:#c6d2e2;margin-top:3px}
-    /* Drawer */
-    .act-backdrop{position:fixed;inset:0;background:rgba(6,14,29,.42);z-index:100;opacity:0;pointer-events:none;transition:.2s}
-    .act-backdrop.open{opacity:1;pointer-events:auto}
-    .act-drawer{position:fixed;right:0;top:0;height:100%;width:min(600px,94vw);background:#f7f9fc;transform:translateX(100%);transition:.22s;display:flex;flex-direction:column;box-shadow:-16px 0 40px rgba(15,23,42,.16);z-index:101}
-    .act-backdrop.open .act-drawer{transform:translateX(0)}
-    .drawer-head{padding:17px 18px;border-bottom:1px solid var(--ln);background:#fff;display:flex;align-items:flex-start;justify-content:space-between;gap:11px}
-    .drawer-head h2{font-size:18px;font-weight:800;color:var(--ink)}
-    .drawer-head p{margin-top:3px;font-size:9.5px;color:var(--mu)}
-    .close-btn{width:30px;height:30px;border:1px solid var(--ln);background:#fff;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:#56637a;font-size:14px}
-    .drawer-tabs{padding:9px 15px 0;background:#fff;display:flex;gap:5px;flex-wrap:wrap}
-    .drawer-tab{height:27px;border:1px solid var(--ln);background:#fff;border-radius:999px;padding:0 9px;font-size:9px;font-weight:800;color:#5e6b83;cursor:pointer;font:inherit;transition:.12s}
-    .drawer-tab.active{background:var(--ab);border-color:var(--ab);color:#fff}
-    .drawer-body{padding:14px 15px 24px;overflow-y:auto;flex:1}
-    .value-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:11px}
-    .value-kpi{background:#fff;border:1px solid var(--ln);border-radius:10px;padding:10px}
-    .value-kpi b{display:block;font-size:18px;font-weight:800;color:var(--ink)}
-    .value-kpi span{display:block;font-size:8.5px;color:var(--mu);line-height:1.3;margin-top:2px}
-    .memory-item{background:#fff;border:1px solid var(--ln);border-radius:11px;padding:11px;margin-bottom:7px}
-    .memory-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
-    .memory-top h3{font-size:10.5px;font-weight:700;line-height:1.35;color:var(--ink)}
-    .memory-item p{margin-top:4px;color:#5f6f86;font-size:9px;line-height:1.42}
-    .memory-meta{display:flex;gap:4px;flex-wrap:wrap;margin-top:7px;color:#8791a5;font-size:8px;font-weight:800}
-    .memory-actions{display:flex;gap:5px;margin-top:8px}
-    .memory-actions button{height:24px;border:1px solid var(--ln);background:#fff;border-radius:6px;padding:0 7px;font-size:8.5px;font-weight:800;color:#55637a;cursor:pointer;font:inherit}
-    /* Knowledge agent search (in drawer) */
-    .know-agent{margin:11px 15px 2px;border:1px solid #bfdbfe;background:linear-gradient(135deg,#fff,#f5f9ff);border-radius:12px;padding:10px}
-    .know-agent-head{display:flex;align-items:flex-start;gap:8px}
-    .know-ico{width:29px;height:29px;border-radius:8px;background:var(--ab);color:#fff;display:grid;place-items:center;font-size:7.5px;font-weight:900;flex:0 0 auto}
-    .know-agent-head b{display:block;font-size:10px;color:#2e3a54;font-weight:700}
-    .know-agent-head span{display:block;font-size:8.5px;color:#666e80;line-height:1.38;margin-top:2px}
-    .know-search{display:grid;grid-template-columns:1fr auto;gap:5px;margin-top:8px}
-    .know-search input{height:32px;border:1px solid #bfdbfe;border-radius:8px;padding:0 9px;font-size:9px;outline:0;color:#46536a;background:#fff;font:inherit}
-    .know-search input:focus{border-color:var(--ab);box-shadow:0 0 0 3px rgba(37,99,235,.08)}
-    .know-search button{height:32px;border:0;border-radius:8px;background:var(--ab);color:#fff;padding:0 10px;font-size:8.5px;font-weight:800;cursor:pointer;font:inherit}
-    .know-examples{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
-    .know-examples button{border:0;background:transparent;color:#3b64ab;font-size:7.8px;font-weight:800;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:2px;font:inherit}
-    /* Modal */
-    .act-modal-bg{position:fixed;inset:0;background:rgba(6,14,29,.42);z-index:120;display:none;align-items:center;justify-content:center;padding:18px}
-    .act-modal-bg.open{display:flex}
-    .act-modal{width:min(540px,96vw);background:#fff;border-radius:14px;box-shadow:0 20px 50px rgba(15,23,42,.22);overflow:hidden}
-    .modal-head{padding:14px 15px;border-bottom:1px solid var(--ln);display:flex;justify-content:space-between;gap:11px}
-    .modal-head h3{font-size:14px;font-weight:800;color:var(--ink)}
-    .modal-head p{font-size:9px;color:var(--mu);margin-top:3px}
-    .modal-body{padding:14px}
-    .modal-note{border:1px solid #e4eaf1;background:#f8fafc;border-radius:9px;padding:9px;font-size:9.5px;color:#53617a;line-height:1.45}
-    .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}
-    .modal-field{border:1px solid var(--ln);border-radius:8px;padding:8px}
-    .modal-field label{display:block;font-size:7.5px;text-transform:uppercase;letter-spacing:.05em;color:#7b879c;font-weight:800}
-    .modal-field b{display:block;font-size:9.5px;margin-top:3px;font-weight:700}
-    .modal-actions{padding:11px 14px;border-top:1px solid var(--ln);display:flex;justify-content:flex-end;gap:6px}
-    /* Toast */
-    .act-toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);background:#0f172a;color:#fff;border-radius:9px;padding:10px 13px;display:flex;align-items:center;gap:7px;font-size:10px;font-weight:800;opacity:0;pointer-events:none;transition:.2s;z-index:200;box-shadow:0 12px 30px rgba(15,23,42,.25)}
-    .act-toast.show{opacity:1;transform:translate(-50%,0)}
-    .act-toast i{width:17px;height:17px;border-radius:50%;display:grid;place-items:center;background:#d1fae5;color:var(--ag);font-style:normal;font-weight:900;font-size:9px}
-    /* AI panel */
-    .act-launcher{position:fixed;right:20px;bottom:20px;z-index:96;border:0;background:linear-gradient(135deg,#1e40af,#2563eb);color:#fff;border-radius:14px;padding:8px 12px 8px 8px;display:flex;align-items:center;gap:9px;box-shadow:0 14px 30px rgba(37,99,235,.28);cursor:pointer;transition:.2s;min-width:195px;font:inherit}
-    .act-launcher:hover{transform:translateY(-2px);box-shadow:0 18px 38px rgba(37,99,235,.34)}
-    .act-launcher-ico{width:37px;height:37px;border-radius:11px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18);display:grid;place-items:center;font-size:9px;font-weight:900;position:relative;flex:0 0 auto}
-    .act-launcher-ico i{position:absolute;right:-2px;bottom:-2px;width:8px;height:8px;border-radius:50%;background:#42d08b;border:2px solid #2563eb}
-    .act-launcher b{display:block;font-size:11px}
-    .act-launcher span{display:block;font-size:8.5px;color:#bfdbfe;margin-top:2px}
-    .act-launcher.open{opacity:0;pointer-events:none;transform:translateY(6px)}
-    .ai-panel{position:fixed;right:18px;top:68px;bottom:18px;width:min(420px,calc(100vw - 32px));z-index:145;background:#fff;border:1px solid #d1dde8;border-radius:18px;box-shadow:0 20px 55px rgba(15,23,42,.22);display:flex;flex-direction:column;overflow:hidden;transform:translateX(calc(100% + 40px));opacity:0;pointer-events:none;transition:.22s ease}
-    .ai-panel.open{transform:translateX(0);opacity:1;pointer-events:auto}
-    .ai-panel-head{padding:13px 14px;border-bottom:1px solid var(--ln);background:linear-gradient(125deg,#0f172a,#1e3a5f);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:11px}
-    .ai-panel-title{display:flex;align-items:center;gap:9px}
-    .ai-panel-av{width:33px;height:33px;border-radius:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);display:grid;place-items:center;font-size:8.5px;font-weight:900;position:relative}
-    .ai-panel-av:after{content:"";position:absolute;right:-2px;bottom:-2px;width:7px;height:7px;border-radius:50%;background:#42d08b;border:2px solid #1b2d4a}
-    .ai-panel-title b{display:block;font-size:11.5px;font-weight:700}
-    .ai-panel-title span{display:block;font-size:8.5px;color:#c8d3e5;margin-top:2px}
-    .ai-panel-close{width:29px;height:29px;border-radius:50%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff;cursor:pointer;font-size:14px;display:grid;place-items:center}
-    .ai-ctx{padding:8px 12px;border-bottom:1px solid var(--ln);background:#f8fafe;display:flex;align-items:center;justify-content:space-between;gap:8px}
-    .ai-ctx div{min-width:0}
-    .ai-ctx small{display:block;font-size:7.5px;text-transform:uppercase;letter-spacing:.06em;color:#8a9bb5;font-weight:800}
-    .ai-ctx b{display:block;font-size:9.2px;color:#2d4265;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .ai-ctx span{font-size:7.5px;color:var(--ag);background:var(--ag-s);border-radius:999px;padding:3px 6px;font-weight:800;white-space:nowrap}
-    .ai-chat{flex:1;overflow:auto;padding:12px;background:linear-gradient(180deg,#fbfcfe,#f5f7fb);display:flex;flex-direction:column;gap:9px}
-    .ai-msg{display:flex;gap:7px;align-items:flex-start}
-    .ai-msg.user{justify-content:flex-end}
-    .ai-msg-av{width:24px;height:24px;border-radius:7px;background:var(--ab-s);color:var(--ab);display:grid;place-items:center;font-size:7px;font-weight:900;flex:0 0 auto;margin-top:2px}
-    .ai-msg.user .ai-msg-av{display:none}
-    .ai-bubble{max-width:88%;border:1px solid #dde5ef;background:#fff;border-radius:12px 12px 12px 3px;padding:9px 10px;color:#43516a;font-size:9.8px;line-height:1.48;box-shadow:0 1px 6px rgba(15,23,42,.04)}
-    .ai-msg.user .ai-bubble{background:var(--ab);border-color:var(--ab);color:#fff;border-radius:12px 12px 3px 12px}
-    .ai-bubble b{color:#1d2940}
-    .ai-msg.user .ai-bubble b{color:#fff}
-    .ai-answer-title{font-size:10.5px!important;color:#1d2940!important;display:block;margin-bottom:4px;font-weight:700}
-    .ai-answer-list{display:grid;gap:5px;margin-top:6px}
-    .ai-answer-row{border:1px solid #e4e9f0;background:#fafbfd;border-radius:8px;padding:6px 7px}
-    .ai-answer-row b{display:block;font-size:9px;font-weight:700}
-    .ai-answer-row span{display:block;font-size:8.5px;color:#68758d;line-height:1.38;margin-top:2px}
-    .ai-sources{display:flex;gap:4px;flex-wrap:wrap;margin-top:7px}
-    .ai-source{height:20px;border:1px solid #bfdbfe;background:var(--ab-s);color:var(--ab2);border-radius:999px;padding:0 6px;font-size:7.5px;font-weight:800;display:inline-flex;align-items:center;gap:3px}
-    .ai-source:before{content:"&#10003;";color:var(--ag)}
-    .ai-note{margin-top:6px;padding-top:6px;border-top:1px solid #e5ebf1;font-size:8px;color:#7a8699;line-height:1.38}
-    .ai-prompts{padding:9px 11px 0;background:#fff;border-top:1px solid var(--ln)}
-    .ai-prompts small{display:block;font-size:7.5px;text-transform:uppercase;letter-spacing:.05em;color:#8390a3;font-weight:800;margin-bottom:5px}
-    .ai-prompt-grid{display:flex;gap:4px;flex-wrap:wrap}
-    .ai-prompt{min-height:24px;border:1px solid #dde3ec;background:#fff;border-radius:999px;padding:4px 7px;color:#56637a;font-size:8px;font-weight:800;cursor:pointer;font:inherit;transition:.1s}
-    .ai-prompt:hover{border-color:#bfdbfe;color:var(--ab);background:var(--ab-s)}
-    .ai-composer{padding:9px 11px 11px;background:#fff}
-    .ai-input-wrap{display:grid;grid-template-columns:1fr 35px;gap:6px;border:1px solid #d1dde8;background:#fff;border-radius:11px;padding:5px 5px 5px 9px;box-shadow:0 2px 10px rgba(15,23,42,.04)}
-    .ai-input-wrap textarea{border:0;outline:0;resize:none;min-height:36px;max-height:82px;padding:4px 0;color:#34435e;font-size:9.5px;line-height:1.38;background:transparent;font:inherit}
-    .ai-send{border:0;border-radius:8px;background:var(--ab);color:#fff;display:grid;place-items:center;cursor:pointer}
-    .ai-send svg{width:15px;height:15px}
-    .ai-disc{display:flex;align-items:center;gap:4px;margin-top:5px;color:#8a95a7;font-size:7.5px;line-height:1.3}
-    .ai-disc i{width:5px;height:5px;border-radius:50%;background:var(--ag);flex:0 0 auto}
+
+    /* ── PROGRESS BAR ── */
+    .wiz-bar{padding:14px 32px 0;height:56px;display:flex;align-items:flex-start;position:sticky;top:56px;z-index:9;background:#f8fafc;border-bottom:1px solid #e2e8f0;}
+    .wiz-steps{display:flex;align-items:center;margin:0 auto;}
+    .wiz-step-item{display:flex;align-items:center;gap:6px;}
+    .wiz-dot{width:24px;height:24px;border-radius:50%;border:2px solid #e2e8f0;background:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#94a3b8;transition:.2s;flex-shrink:0;}
+    .wiz-dot.done{background:#eff6ff;border-color:#2563eb;color:#2563eb;}
+    .wiz-dot.active{background:#2563eb;border-color:#2563eb;color:#fff;box-shadow:0 0 0 3px #dbeafe;}
+    .wiz-step-label{font-size:11.5px;font-weight:600;color:#94a3b8;white-space:nowrap;}
+    .wiz-step-item.active .wiz-step-label{color:#2563eb;font-weight:700;}
+    .wiz-step-item.done .wiz-step-label{color:#2563eb;}
+    .wiz-line{width:36px;flex:none;height:2px;background:#e2e8f0;margin:0 6px;transition:.3s;}
+    .wiz-line.done{background:#2563eb;}
+
+    /* ── LAYOUT ── */
+    .wiz-wrap{margin-left:260px;min-height:100vh;background:#f8fafc;max-width:calc(100vw - 260px);overflow-x:hidden;}
+    .wiz-topbar{background:#fff;border-bottom:1px solid #e2e8f0;padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
+    .wiz-company{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700;color:#293650;}
+    .wiz-chip{width:30px;height:30px;border-radius:8px;background:#eff6ff;color:#2563eb;display:grid;place-items:center;font-size:10px;font-weight:800;}
+    .wiz-top-right{display:flex;align-items:center;gap:10px;}
+    .wiz-avatar{width:32px;height:32px;border-radius:50%;background:#0f172a;color:#fff;display:grid;place-items:center;font-size:10px;font-weight:700;}
+    .wiz-ai-btn{height:35px;border:1px solid #bfdbfe;background:linear-gradient(135deg,#fff,#f5f9ff);border-radius:9px;padding:0 10px 0 7px;display:flex;align-items:center;gap:7px;color:#2563eb;cursor:pointer;font:inherit;box-shadow:0 2px 8px rgba(37,99,235,.08);position:relative;}
+    .wiz-ai-btn:hover{border-color:#2563eb;}
+    .wiz-ai-mini{width:23px;height:23px;border-radius:7px;background:#2563eb;color:#fff;display:grid;place-items:center;font-size:8px;font-weight:900;}
+    .wiz-ai-btn b{display:block;font-size:10px;line-height:1;}
+    .wiz-ai-btn small{display:block;font-size:7.5px;color:#7c9ec9;margin-top:1px;}
+    .wiz-online{position:absolute;right:6px;top:5px;width:6px;height:6px;border-radius:50%;background:#20a66a;box-shadow:0 0 0 2px #fff;}
+
+    /* ── CONTENT AREA ── */
+    .wiz-content{padding:24px 32px 100px;}
+    .sec-title{font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin:0 0 14px;}
+
+    /* ── AGENT BAR ── */
+    .wiz-agent-bar{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:11px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+    .wiz-agent-info{display:flex;align-items:center;gap:9px;cursor:pointer;border-radius:8px;padding:3px 6px;margin:-3px -6px;transition:.15s;}
+    .wiz-agent-info:hover{background:#eff6ff;}
+    .wiz-agent-av{width:30px;height:30px;border-radius:8px;background:#eff6ff;border:1px solid #bfdbfe;color:#2563eb;display:grid;place-items:center;font-size:8.5px;font-weight:900;position:relative;}
+    .wiz-agent-av:after{content:"";position:absolute;right:-2px;bottom:-2px;width:7px;height:7px;border-radius:50%;background:#20a66a;border:2px solid #fff;}
+    .wiz-agent-info b{font-size:12px;font-weight:700;color:#0f172a;}
+    .wiz-agent-info span{display:block;font-size:9.2px;color:#94a3b8;margin-top:1px;}
+    .wiz-task-btns{display:flex;gap:6px;}
+    .w-btn{height:30px;border:1px solid #e2e8f0;background:#fff;border-radius:7px;padding:0 10px;font-size:11px;font-weight:600;color:#475569;cursor:pointer;font:inherit;transition:.12s;}
+    .w-btn:hover{background:#f8fafc;border-color:#cbd5e1;}
+    .w-btn.soft{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8;}
+    .w-btn.primary{background:#2563eb;border-color:#2563eb;color:#fff;}
+    .w-btn.primary:hover{background:#1d4ed8;}
+    .w-btn:disabled{opacity:.5;cursor:default;}
+
+    /* ── MAIN CARD ── */
+    .wiz-main-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+    .wiz-kicker{display:inline-flex;height:22px;align-items:center;padding:0 10px;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:999px;font-size:10.5px;font-weight:700;letter-spacing:.04em;margin-bottom:12px;}
+    .wiz-main-card h2{font-size:20px;font-weight:800;color:#0f172a;letter-spacing:-.03em;margin:0 0 6px;line-height:1.22;}
+    .wiz-main-card > p.wiz-desc{font-size:13px;color:#64748b;line-height:1.6;font-weight:500;margin:0 0 18px;}
+
+    /* intro line */
+    .intro-line{border:1px solid #e5eaf1;background:#f8fafc;border-radius:11px;padding:10px 14px;color:#455669;font-size:12px;line-height:1.5;margin-bottom:16px;}
+    .intro-line strong{color:#1d2940;}
+
+    /* evidence */
+    .evidence-card{border:1px solid #e2e8f0;background:#f8fafc;border-radius:12px;padding:14px;margin-bottom:16px;}
+    .evidence-head{display:flex;align-items:center;justify-content:space-between;gap:9px;margin-bottom:10px;}
+    .evidence-head b{font-size:11px;font-weight:700;color:#0f172a;}
+    .evidence-head span{font-size:9px;color:#94a3b8;font-weight:700;}
+    .evidence-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+    .evidence{background:#fff;border:1px solid #e2e8f0;border-radius:9px;padding:10px;}
+    .evidence strong{display:block;font-size:17px;font-weight:800;letter-spacing:-.04em;color:#0f172a;}
+    .evidence span{display:block;font-size:9px;color:#94a3b8;font-weight:600;line-height:1.3;margin-top:3px;}
+    .evidence.warn{border-color:#fde68a;background:#fffdf5;}
+
+    /* question */
+    .big-q{font-size:14px;font-weight:700;color:#0f172a;margin:0 0 10px;letter-spacing:-.01em;}
+    .quick-opts{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px;}
+    .quick-opt{min-height:38px;border:1px solid #e2e8f0;background:#fff;border-radius:9px;color:#334155;text-align:left;padding:8px 12px;font-size:11px;font-weight:600;line-height:1.3;cursor:pointer;font:inherit;transition:.12s;}
+    .quick-opt:hover{border-color:#bfdbfe;}
+    .quick-opt.selected{border-color:#93c5fd;background:#eff6ff;color:#1d4ed8;box-shadow:inset 0 0 0 1px #bfdbfe;}
+    .answer-box{display:flex;gap:8px;margin-bottom:14px;}
+    .answer-box textarea{flex:1;min-height:66px;resize:vertical;border:1px solid #e2e8f0;border-radius:10px;background:#fff;padding:10px 12px;color:#334155;font-size:12px;line-height:1.5;outline:none;font:inherit;}
+    .answer-box textarea:focus{border-color:#93c5fd;box-shadow:0 0 0 3px rgba(37,99,235,.08);}
+    .send-btn{width:40px;border:0;border-radius:10px;background:#2563eb;color:#fff;display:grid;place-items:center;cursor:pointer;flex-shrink:0;}
+    .send-btn svg{width:17px;height:17px;}
+
+    /* interpretation */
+    .interp-box{background:#fffdf5;border:1px solid #fde68a;border-radius:13px;overflow:hidden;}
+    .interp-head{padding:10px 14px;border-bottom:1px solid #fde68a;display:flex;align-items:center;justify-content:space-between;}
+    .interp-head b{font-size:11px;font-weight:700;color:#0f172a;}
+    .interp-body{padding:12px 14px;}
+    .rule-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;}
+    .rule-field{border:1px solid #ede8d6;background:#fff;border-radius:8px;padding:8px 10px;}
+    .rule-field label{display:block;font-size:7.5px;text-transform:uppercase;letter-spacing:.05em;color:#8b765c;font-weight:800;}
+    .rule-field strong{display:block;font-size:10px;line-height:1.35;color:#3c342b;margin-top:3px;font-weight:700;}
+    .rule-field.full{grid-column:1/-1;}
+    .interp-note{font-size:9.5px;color:#756b5d;margin-top:9px;line-height:1.4;}
+    .confirm-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;}
+    .confirm-row small{font-size:9px;color:#948d82;line-height:1.35;}
+    .confirm-actions{display:flex;gap:6px;flex-shrink:0;}
+
+    /* ── BOTTOM PANELS ── */
+    .wiz-bottom{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px;}
+    .wiz-bp{background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+    .wiz-bp-head{padding:13px 16px;border-bottom:1px solid #f1f5f9;}
+    .wiz-bp-head h3{font-size:12.5px;font-weight:700;color:#0f172a;margin:0;}
+    .wiz-bp-head p{margin-top:3px;font-size:10px;color:#94a3b8;font-weight:500;}
+    .wiz-bp-body{padding:13px 16px;}
+
+    /* impact rows */
+    .impact-row{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid #f1f5f9;}
+    .impact-row:last-child{border-bottom:0;}
+    .impact-ico{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;flex:0 0 auto;}
+    .impact-ico svg{width:13px;height:13px;}
+    .impact-ico.blue{background:#eff6ff;color:#2563eb;}
+    .impact-ico.green{background:#f0fdf4;color:#059669;}
+    .impact-ico.amber{background:#fffbeb;color:#b45309;}
+    .impact-copy b{display:block;font-size:11px;font-weight:700;color:#0f172a;}
+    .impact-copy span{display:block;font-size:10px;color:#94a3b8;font-weight:500;margin-top:2px;line-height:1.38;}
+
+    /* automation bar */
+    .auto-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;}
+    .auto-header b{font-size:13px;font-weight:800;color:#0f172a;}
+    .auto-header span{font-size:11px;font-weight:600;color:#94a3b8;}
+    .auto-bar-wrap{margin-bottom:16px;}
+    .auto-bar-label{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;}
+    .auto-bar-label span{font-size:11px;font-weight:600;color:#334155;}
+    .auto-bar-label b{font-size:13px;font-weight:800;color:#059669;}
+    .auto-track{height:8px;background:#e2e8f0;border-radius:999px;overflow:hidden;}
+    .auto-fill{height:100%;background:#059669;border-radius:999px;transition:width .4s;}
+    .auto-list{display:grid;gap:5px;}
+    .auto-item{display:flex;align-items:center;gap:7px;font-size:11px;color:#334155;font-weight:500;}
+    .auto-chk{width:17px;height:17px;border-radius:50%;display:grid;place-items:center;font-size:8.5px;font-weight:800;flex-shrink:0;}
+    .auto-chk.ok{background:#f0fdf4;color:#059669;}
+    .auto-chk.usr{background:#fffbeb;color:#b45309;}
+
+    /* readiness */
+    .readiness-list{display:grid;gap:10px;}
+    .ready-item{display:flex;flex-direction:column;gap:5px;}
+    .ready-header{display:flex;align-items:center;justify-content:space-between;}
+    .ready-header b{font-size:11.5px;font-weight:700;color:#0f172a;}
+    .ready-header span{font-size:10.5px;font-weight:700;}
+    .ready-track{height:6px;background:#e2e8f0;border-radius:999px;overflow:hidden;}
+    .ready-track i{display:block;height:100%;border-radius:99px;transition:width .35s;}
+    .ready-track .green{background:#059669;}
+    .ready-track .amber{background:#b45309;}
+    .ready-track .blue{background:#2563eb;}
+
+    /* ── FOOTER NAV ── */
+    .wiz-footer{position:fixed;bottom:0;left:260px;right:0;background:#fff;border-top:1px solid #e2e8f0;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;z-index:20;}
+    .wiz-meta{font-size:12px;color:#94a3b8;font-weight:600;}
+    .wiz-meta b{color:#334155;}
+    .wiz-nav{display:flex;gap:10px;align-items:center;}
+    .wiz-btn-back{height:38px;padding:0 18px;border:1px solid #e2e8f0;background:#fff;border-radius:8px;font-size:13px;font-weight:600;color:#64748b;cursor:pointer;font:inherit;}
+    .wiz-btn-back:hover{background:#f8fafc;}
+    .wiz-btn-back:disabled{opacity:.4;cursor:default;}
+    .wiz-btn-next{height:38px;padding:0 22px;border:none;background:#2563eb;border-radius:8px;font-size:13px;font-weight:600;color:#fff;cursor:pointer;font:inherit;display:flex;align-items:center;gap:8px;}
+    .wiz-btn-next:hover{background:#1d4ed8;}
+    .wiz-btn-next svg{width:14px;height:14px;}
+
+    /* ── TAGS ── */
+    .a-tag{height:22px;border-radius:999px;padding:0 8px;display:inline-flex;align-items:center;font-size:9px;font-weight:800;}
+    .a-tag.blue{background:#eff6ff;color:#2563eb;}
+    .a-tag.green{background:#f0fdf4;color:#059669;}
+    .a-tag.amber{background:#fffbeb;color:#b45309;}
+
+    /* ── DRAWER ── */
+    .act-backdrop{position:fixed;inset:0;background:rgba(6,14,29,.4);z-index:100;opacity:0;pointer-events:none;transition:.2s;}
+    .act-backdrop.open{opacity:1;pointer-events:auto;}
+    .act-drawer{position:fixed;right:0;top:0;height:100%;width:min(600px,94vw);background:#f7f9fc;transform:translateX(100%);transition:.22s;display:flex;flex-direction:column;box-shadow:-14px 0 36px rgba(15,23,42,.14);z-index:101;}
+    .act-backdrop.open .act-drawer{transform:translateX(0);}
+    .drawer-head{padding:16px 18px;border-bottom:1px solid #e2e8f0;background:#fff;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+    .drawer-head h2{font-size:18px;font-weight:800;color:#0f172a;}
+    .drawer-head p{margin-top:3px;font-size:9.5px;color:#94a3b8;}
+    .close-btn{width:30px;height:30px;border:1px solid #e2e8f0;background:#fff;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:#56637a;font-size:14px;}
+    .drawer-tabs{padding:9px 15px 0;background:#fff;display:flex;gap:5px;flex-wrap:wrap;}
+    .drawer-tab{height:27px;border:1px solid #e2e8f0;background:#fff;border-radius:999px;padding:0 9px;font-size:9px;font-weight:800;color:#5e6b83;cursor:pointer;font:inherit;}
+    .drawer-tab.active{background:#2563eb;border-color:#2563eb;color:#fff;}
+    .drawer-body{padding:14px 15px 24px;overflow-y:auto;flex:1;}
+    .value-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:11px;}
+    .value-kpi{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:10px;}
+    .value-kpi b{display:block;font-size:18px;font-weight:800;color:#0f172a;}
+    .value-kpi span{display:block;font-size:8.5px;color:#94a3b8;line-height:1.3;margin-top:2px;}
+    .memory-item{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:11px;margin-bottom:7px;}
+    .memory-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
+    .memory-top h3{font-size:10.5px;font-weight:700;line-height:1.35;color:#0f172a;}
+    .memory-item p{margin-top:4px;color:#64748b;font-size:9px;line-height:1.45;}
+    .memory-meta{display:flex;gap:4px;flex-wrap:wrap;margin-top:7px;color:#94a3b8;font-size:8px;font-weight:700;}
+    .memory-actions{display:flex;gap:5px;margin-top:8px;}
+    .memory-actions button{height:24px;border:1px solid #e2e8f0;background:#fff;border-radius:6px;padding:0 7px;font-size:8.5px;font-weight:700;color:#475569;cursor:pointer;font:inherit;}
+    .know-agent{margin:11px 15px 2px;border:1px solid #bfdbfe;background:linear-gradient(135deg,#fff,#f5f9ff);border-radius:12px;padding:10px;}
+    .know-agent-head{display:flex;align-items:flex-start;gap:8px;}
+    .know-ico{width:28px;height:28px;border-radius:8px;background:#2563eb;color:#fff;display:grid;place-items:center;font-size:7.5px;font-weight:900;flex:0 0 auto;}
+    .know-agent-head b{display:block;font-size:10px;color:#0f172a;font-weight:700;}
+    .know-agent-head span{display:block;font-size:8.5px;color:#64748b;line-height:1.38;margin-top:2px;}
+    .know-search{display:grid;grid-template-columns:1fr auto;gap:5px;margin-top:8px;}
+    .know-search input{height:32px;border:1px solid #bfdbfe;border-radius:8px;padding:0 9px;font-size:9px;outline:0;color:#334155;background:#fff;font:inherit;}
+    .know-search input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.08);}
+    .know-search button{height:32px;border:0;border-radius:8px;background:#2563eb;color:#fff;padding:0 10px;font-size:8.5px;font-weight:800;cursor:pointer;font:inherit;}
+    .know-examples{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px;}
+    .know-examples button{border:0;background:transparent;color:#2563eb;font-size:7.8px;font-weight:800;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:2px;font:inherit;}
+
+    /* ── MODALS ── */
+    .act-modal-bg{position:fixed;inset:0;background:rgba(6,14,29,.4);z-index:120;display:none;align-items:center;justify-content:center;padding:18px;}
+    .act-modal-bg.open{display:flex;}
+    .act-modal{width:min(540px,96vw);background:#fff;border-radius:14px;box-shadow:0 20px 50px rgba(15,23,42,.2);overflow:hidden;}
+    .modal-head{padding:14px 16px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;gap:11px;}
+    .modal-head h3{font-size:14px;font-weight:800;color:#0f172a;}
+    .modal-head p{font-size:9px;color:#94a3b8;margin-top:3px;}
+    .modal-body{padding:14px 16px;}
+    .modal-note{border:1px solid #e2e8f0;background:#f8fafc;border-radius:9px;padding:9px 12px;font-size:10px;color:#475569;line-height:1.5;}
+    .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px;}
+    .modal-field{border:1px solid #e2e8f0;border-radius:8px;padding:8px 10px;}
+    .modal-field label{display:block;font-size:7.5px;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;font-weight:800;}
+    .modal-field b{display:block;font-size:10px;margin-top:3px;font-weight:700;}
+    .modal-actions{padding:11px 16px;border-top:1px solid #e2e8f0;display:flex;justify-content:flex-end;gap:6px;}
+
+    /* ── TOAST ── */
+    .act-toast{position:fixed;left:50%;bottom:72px;transform:translate(-50%,16px);background:#0f172a;color:#fff;border-radius:9px;padding:10px 14px;display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;opacity:0;pointer-events:none;transition:.2s;z-index:200;box-shadow:0 12px 30px rgba(15,23,42,.25);}
+    .act-toast.show{opacity:1;transform:translate(-50%,0);}
+    .act-toast i{width:17px;height:17px;border-radius:50%;display:grid;place-items:center;background:#d1fae5;color:#059669;font-style:normal;font-weight:900;font-size:9px;}
+
+    /* ── AI PANEL ── */
+    .ai-launcher{position:fixed;right:20px;bottom:72px;z-index:96;border:0;background:linear-gradient(135deg,#1e40af,#2563eb);color:#fff;border-radius:14px;padding:8px 12px 8px 8px;display:flex;align-items:center;gap:9px;box-shadow:0 12px 28px rgba(37,99,235,.28);cursor:pointer;transition:.2s;min-width:190px;font:inherit;}
+    .ai-launcher:hover{transform:translateY(-2px);}
+    .ai-launcher-ico{width:36px;height:36px;border-radius:11px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18);display:grid;place-items:center;font-size:9px;font-weight:900;position:relative;flex:0 0 auto;}
+    .ai-launcher-ico i{position:absolute;right:-2px;bottom:-2px;width:8px;height:8px;border-radius:50%;background:#42d08b;border:2px solid #2563eb;}
+    .ai-launcher b{display:block;font-size:11px;}
+    .ai-launcher span{display:block;font-size:8.5px;color:#bfdbfe;margin-top:2px;}
+    .ai-launcher.open{opacity:0;pointer-events:none;transform:translateY(6px);}
+    .ai-panel{position:fixed;right:18px;top:68px;bottom:68px;width:min(420px,calc(100vw - 32px));z-index:145;background:#fff;border:1px solid #dde5ef;border-radius:18px;box-shadow:0 20px 55px rgba(15,23,42,.2);display:flex;flex-direction:column;overflow:hidden;transform:translateX(calc(100% + 40px));opacity:0;pointer-events:none;transition:.22s ease;}
+    .ai-panel.open{transform:translateX(0);opacity:1;pointer-events:auto;}
+    .ai-panel-head{padding:13px 14px;border-bottom:1px solid #e2e8f0;background:linear-gradient(125deg,#0f172a,#1e3a5f);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:11px;}
+    .ai-panel-title{display:flex;align-items:center;gap:9px;}
+    .ai-panel-av{width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);display:grid;place-items:center;font-size:8.5px;font-weight:900;position:relative;}
+    .ai-panel-av:after{content:"";position:absolute;right:-2px;bottom:-2px;width:7px;height:7px;border-radius:50%;background:#42d08b;border:2px solid #1b2d4a;}
+    .ai-panel-title b{display:block;font-size:11.5px;font-weight:700;}
+    .ai-panel-title span{display:block;font-size:8.5px;color:#c8d3e5;margin-top:2px;}
+    .ai-panel-close{width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff;cursor:pointer;font-size:14px;display:grid;place-items:center;}
+    .ai-ctx{padding:8px 12px;border-bottom:1px solid #e2e8f0;background:#f8fafe;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+    .ai-ctx small{display:block;font-size:7.5px;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;font-weight:700;}
+    .ai-ctx b{display:block;font-size:9px;color:#2d4265;margin-top:1px;}
+    .ai-ctx span{font-size:7.5px;color:#059669;background:#f0fdf4;border-radius:999px;padding:3px 6px;font-weight:800;white-space:nowrap;}
+    .ai-chat{flex:1;overflow:auto;padding:12px;background:linear-gradient(180deg,#fbfcfe,#f5f7fb);display:flex;flex-direction:column;gap:9px;}
+    .ai-msg{display:flex;gap:7px;align-items:flex-start;}
+    .ai-msg.user{justify-content:flex-end;}
+    .ai-msg-av{width:23px;height:23px;border-radius:7px;background:#eff6ff;color:#2563eb;display:grid;place-items:center;font-size:7px;font-weight:900;flex:0 0 auto;margin-top:2px;}
+    .ai-msg.user .ai-msg-av{display:none;}
+    .ai-bubble{max-width:88%;border:1px solid #e2e8f0;background:#fff;border-radius:12px 12px 12px 3px;padding:9px 11px;color:#334155;font-size:9.8px;line-height:1.48;box-shadow:0 1px 4px rgba(15,23,42,.04);}
+    .ai-msg.user .ai-bubble{background:#2563eb;border-color:#2563eb;color:#fff;border-radius:12px 12px 3px 12px;}
+    .ai-bubble b{color:#0f172a;}
+    .ai-msg.user .ai-bubble b{color:#fff;}
+    .ai-answer-title{font-size:10.5px!important;color:#0f172a!important;display:block;margin-bottom:4px;font-weight:700;}
+    .ai-answer-list{display:grid;gap:5px;margin-top:6px;}
+    .ai-answer-row{border:1px solid #f1f5f9;background:#f8fafc;border-radius:8px;padding:6px 8px;}
+    .ai-answer-row b{display:block;font-size:9px;font-weight:700;}
+    .ai-answer-row span{display:block;font-size:8.5px;color:#94a3b8;line-height:1.38;margin-top:2px;}
+    .ai-sources{display:flex;gap:4px;flex-wrap:wrap;margin-top:7px;}
+    .ai-source{height:20px;border:1px solid #bfdbfe;background:#eff6ff;color:#1d4ed8;border-radius:999px;padding:0 6px;font-size:7.5px;font-weight:800;display:inline-flex;align-items:center;gap:3px;}
+    .ai-source:before{content:"✓";color:#059669;}
+    .ai-note{margin-top:6px;padding-top:6px;border-top:1px solid #f1f5f9;font-size:8px;color:#94a3b8;line-height:1.38;}
+    .ai-prompts{padding:9px 11px 0;background:#fff;border-top:1px solid #e2e8f0;}
+    .ai-prompts small{display:block;font-size:7.5px;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;font-weight:700;margin-bottom:5px;}
+    .ai-prompt-grid{display:flex;gap:4px;flex-wrap:wrap;}
+    .ai-prompt{min-height:24px;border:1px solid #e2e8f0;background:#fff;border-radius:999px;padding:4px 8px;color:#475569;font-size:8px;font-weight:700;cursor:pointer;font:inherit;}
+    .ai-prompt:hover{border-color:#bfdbfe;color:#2563eb;background:#eff6ff;}
+    .ai-composer{padding:9px 11px 11px;background:#fff;}
+    .ai-input-wrap{display:grid;grid-template-columns:1fr 35px;gap:6px;border:1px solid #dde5ef;border-radius:11px;padding:5px 5px 5px 10px;box-shadow:0 2px 8px rgba(15,23,42,.04);}
+    .ai-input-wrap textarea{border:0;outline:0;resize:none;min-height:36px;max-height:80px;padding:4px 0;color:#334155;font-size:9.5px;line-height:1.38;background:transparent;font:inherit;}
+    .ai-send{border:0;border-radius:8px;background:#2563eb;color:#fff;display:grid;place-items:center;cursor:pointer;}
+    .ai-send svg{width:15px;height:15px;}
+    .ai-disc{display:flex;align-items:center;gap:4px;margin-top:5px;color:#94a3b8;font-size:7.5px;}
+    .ai-disc i{width:5px;height:5px;border-radius:50%;background:#059669;flex:0 0 auto;}
   </style>
 </head>
 <body class="bg-surface-50 text-surface-900 antialiased" data-page="activacion">
 
-  <div class="flex min-h-screen">
+  <div id="sidebar-mount"></div>
 
-    <!-- Sidebar -->
-    <div id="sidebar-mount"></div>
+  <div class="wiz-wrap">
 
-    <!-- Main -->
-    <div class="act-wrap">
+    <!-- Topbar -->
+    <header class="wiz-topbar">
+      <div class="wiz-company">
+        <div class="wiz-chip">GA</div>
+        <span>Grupo Atlas &middot; Espa&#241;a</span>
+      </div>
+      <div class="wiz-top-right">
+        <button class="wiz-ai-btn" onclick="toggleAI(true,'Activaci&#243;n inicial')" aria-label="Abrir Agente IA">
+          <span class="wiz-ai-mini">IA</span>
+          <span><b>Agente IA</b><small>Disponible en toda la plataforma</small></span>
+          <i class="wiz-online"></i>
+        </button>
+        <div class="wiz-avatar">MB</div>
+      </div>
+    </header>
 
-      <!-- Topbar -->
-      <header class="act-topbar">
-        <div class="act-company">
-          <div class="act-chip">GA</div>
-          <span>Grupo Atlas &middot; Espa&#241;a</span>
-        </div>
-        <div class="act-top-actions">
-          <button class="act-ai-btn" onclick="toggleAI(true,'Activaci&#243;n inicial')" aria-label="Abrir Agente IA">
-            <span class="act-ai-mini">IA</span>
-            <span><b>Agente IA</b><small>Disponible en toda la plataforma</small></span>
-            <i class="act-online"></i>
-          </button>
-          <button class="act-icon" aria-label="Notificaciones">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>
-          </button>
-          <div class="act-avatar">MB</div>
-        </div>
-      </header>
+    <!-- Progress bar -->
+    <div class="wiz-bar">
+      <div class="wiz-steps" id="wizSteps"></div>
+    </div>
 
-      <!-- Content -->
-      <div class="act-content">
+    <!-- Content -->
+    <div class="wiz-content">
 
-        <!-- Page head -->
-        <section class="act-head">
+      <p class="sec-title" id="stepEyebrow">Configuraci&#243;n inicial &middot; Paso 5 de 8</p>
+
+      <!-- Agent bar -->
+      <div class="wiz-agent-bar">
+        <div class="wiz-agent-info" onclick="toggleAI(true,'Activaci&#243;n inicial')" title="Abrir Agente IA">
+          <div class="wiz-agent-av">IA</div>
           <div>
-            <div class="act-eyebrow"><i></i><span id="stepEyebrow">Configuraci&#243;n inicial &middot; Paso 5 de 8</span></div>
-            <h1 id="pageTitle">Contexto operativo</h1>
-            <p id="pageDesc">Valida las decisiones que determinan c&#243;mo interpretar el impacto del absentismo, priorizar el riesgo y recomendar acciones en tu organizaci&#243;n.</p>
+            <b>Agente IA ThirdWish</b>
+            <span id="agentSubtitle">Contrasta los datos con el contexto de negocio</span>
           </div>
-          <div class="act-head-actions">
-            <button class="a-btn" onclick="toast('Tu progreso se ha guardado')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 4h12l2 2v14H5zM8 4v6h8V4M8 20v-6h8v6"/></svg>
-              Guardar y salir
-            </button>
-            <button class="a-btn soft" onclick="toggleDrawer(true)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 5h16v14H4zM8 9h8M8 13h8M8 17h5"/></svg>
-              Conocimiento de empresa
-            </button>
+        </div>
+        <div class="wiz-task-btns">
+          <button class="w-btn" onclick="openAssign()">Asignar</button>
+          <button class="w-btn" onclick="handleUnknown()">No lo s&#233;</button>
+          <button class="w-btn" onclick="toast('Pregunta guardada para m&#225;s tarde')">M&#225;s tarde</button>
+          <button class="w-btn soft" onclick="toggleDrawer(true)">Conocimiento de empresa</button>
+        </div>
+      </div>
+
+      <!-- Main card -->
+      <article class="wiz-main-card" id="taskBody"></article>
+
+      <!-- Bottom panels -->
+      <div class="wiz-bottom">
+
+        <!-- Qué mejora -->
+        <section class="wiz-bp">
+          <div class="wiz-bp-head">
+            <h3>Qu&#233; mejora al completar este paso</h3>
+            <p>Impacto directo sobre la plataforma.</p>
+          </div>
+          <div class="wiz-bp-body" id="impactBody"></div>
+        </section>
+
+        <!-- Automatización -->
+        <section class="wiz-bp">
+          <div class="wiz-bp-head">
+            <h3>Automatizaci&#243;n del paso</h3>
+            <p>Trabajo resuelto por la plataforma frente a decisiones humanas.</p>
+          </div>
+          <div class="wiz-bp-body">
+            <div class="auto-header">
+              <b id="automationTitle">Configuraci&#243;n precompletada</b>
+              <span id="automationScore">82%</span>
+            </div>
+            <div class="auto-bar-wrap">
+              <div class="auto-bar-label">
+                <span id="automationText">La plataforma ha resuelto lo que puede inferir con seguridad</span>
+                <b id="autoBarPct">82%</b>
+              </div>
+              <div class="auto-track"><div class="auto-fill" id="autoFill" style="width:82%"></div></div>
+            </div>
+            <div class="auto-list" id="autoList"></div>
           </div>
         </section>
 
-        <!-- Status strip -->
-        <section class="act-status">
-          <div class="act-status-main">
-            <div class="act-status-ico">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M7 11V8a5 5 0 0 1 10 0v3M5 11h14v10H5zM12 15v3"/></svg>
-            </div>
-            <div>
-              <b id="statusTitle">Quedan 3 decisiones obligatorias para activar el an&#225;lisis</b>
-              <span id="statusText">La plataforma ya ha resuelto autom&#225;ticamente el 82&#37; de la configuraci&#243;n posible a partir de los datos conectados.</span>
-            </div>
+        <!-- Preparación por módulo -->
+        <section class="wiz-bp">
+          <div class="wiz-bp-head">
+            <h3>Preparaci&#243;n por m&#243;dulo</h3>
+            <p>No todos los m&#243;dulos requieren el mismo nivel de configuraci&#243;n.</p>
           </div>
-          <div class="act-pills">
-            <span class="a-pill green">&#10003; 3 fuentes reconocidas</span>
-            <span class="a-pill green">&#10003; M&#233;trica oficial validada</span>
-            <span class="a-pill amber" id="pendingRulePill">2 reglas operativas</span>
-            <span class="a-pill amber">1 decisi&#243;n de gobierno</span>
-          </div>
-        </section>
-
-        <!-- Workspace -->
-        <section class="act-workspace">
-
-          <!-- Route panel -->
-          <aside class="a-panel">
-            <div class="a-panel-head">
-              <div><h2>Ruta de activaci&#243;n</h2><p>Entra en cualquier paso para revisar o completar su configuraci&#243;n.</p></div>
-              <span class="a-tag blue" id="routePct">74%</span>
-            </div>
-            <div class="route-body" id="routeBody"></div>
-            <div class="route-foot"><b>Automatizaci&#243;n primero.</b> Solo se solicita aquello que no puede inferirse con seguridad o necesita criterio de negocio.</div>
-          </aside>
-
-          <!-- Task panel -->
-          <section class="a-panel">
-            <div class="task-topbar">
-              <div class="agent-head" onclick="toggleAI(true,'Activaci&#243;n inicial')" title="Abrir Agente IA">
-                <div class="agent-av">IA</div>
-                <div>
-                  <b>Agente IA ThirdWish</b>
-                  <span id="agentSubtitle">Contrasta los datos con el contexto de negocio</span>
-                </div>
+          <div class="wiz-bp-body">
+            <div class="readiness-list">
+              <div class="ready-item">
+                <div class="ready-header"><b>Datos y diagn&#243;stico</b><span style="color:#059669">Listo</span></div>
+                <div class="ready-track"><i class="green" style="width:100%"></i></div>
               </div>
-              <div class="task-actions">
-                <button class="a-btn sm" onclick="openAssign()">Asignar</button>
-                <button class="a-btn sm" onclick="handleUnknown()">No lo s&#233;</button>
-                <button class="a-btn sm" onclick="toast('Pregunta guardada para m&#225;s tarde')">M&#225;s tarde</button>
+              <div class="ready-item">
+                <div class="ready-header"><b>Patrones</b><span style="color:#059669">Listo</span></div>
+                <div class="ready-track"><i class="green" style="width:96%"></i></div>
+              </div>
+              <div class="ready-item">
+                <div class="ready-header"><b>Predicciones</b><span style="color:#b45309">Limitado</span></div>
+                <div class="ready-track"><i class="amber" id="predReady" style="width:74%"></i></div>
+              </div>
+              <div class="ready-item">
+                <div class="ready-header"><b>Planes de acci&#243;n</b><span style="color:#2563eb">En preparaci&#243;n</span></div>
+                <div class="ready-track"><i class="blue" id="plansReady" style="width:61%"></i></div>
               </div>
             </div>
-            <div class="task-body" id="taskBody"></div>
-            <div class="composer-foot">
-              <span id="footNote">Las respuestas se convierten en reglas estructuradas, versionadas y reversibles.</span>
-              <button class="a-btn sm soft" onclick="toggleDrawer(true)">Ver qu&#233; sabe la plataforma</button>
-            </div>
-          </section>
-
-          <!-- Side stack -->
-          <aside class="side-stack">
-            <section class="a-panel">
-              <div class="side-title"><h3>Qu&#233; mejora al completar este paso</h3><p>Impacto directo sobre la plataforma.</p></div>
-              <div class="side-body" id="impactBody"></div>
-            </section>
-            <section class="a-panel">
-              <div class="side-title"><h3>Automatizaci&#243;n del paso</h3><p>Trabajo resuelto por la plataforma frente a decisiones humanas.</p></div>
-              <div class="side-body">
-                <div class="auto-score">
-                  <div class="score-ring" id="scoreRing"><b id="automationScore">82%</b></div>
-                  <div class="auto-copy">
-                    <b id="automationTitle">Configuraci&#243;n precompletada</b>
-                    <span id="automationText">La plataforma ha cruzado estructura, turnos, ausencias y costes antes de preguntar.</span>
-                  </div>
-                </div>
-                <div class="auto-list" id="autoList"></div>
-              </div>
-            </section>
-            <section class="a-panel">
-              <div class="side-title"><h3>Preparaci&#243;n por m&#243;dulo</h3><p>No todos los m&#243;dulos requieren el mismo nivel de configuraci&#243;n.</p></div>
-              <div class="side-body">
-                <div class="readiness-mini">
-                  <div class="ready-row"><b>Datos y diagn&#243;stico</b><span style="color:var(--ag)">Listo</span><div class="ready-track"><i class="green" style="width:100%"></i></div></div>
-                  <div class="ready-row"><b>Patrones</b><span style="color:var(--ag)">Listo</span><div class="ready-track"><i class="green" style="width:96%"></i></div></div>
-                  <div class="ready-row"><b>Predicciones</b><span style="color:var(--aa)">Limitado</span><div class="ready-track"><i class="amber" id="predReady" style="width:74%"></i></div></div>
-                  <div class="ready-row"><b>Planes de acci&#243;n</b><span style="color:var(--ab)">En preparaci&#243;n</span><div class="ready-track"><i class="blue" id="plansReady" style="width:61%"></i></div></div>
-                </div>
-              </div>
-            </section>
-          </aside>
-
-        </section>
-
-        <!-- Continuous knowledge -->
-        <section class="act-continuous">
-          <div class="continuous-head">
-            <div>
-              <h2>Conocimiento continuo de la organizaci&#243;n</h2>
-              <p>Despu&#233;s de la activaci&#243;n, la plataforma seguir&#225; actualizando el contexto con decisiones, cambios organizativos, predicciones y resultados de planes.</p>
-            </div>
-            <span class="a-pill blue" style="flex-shrink:0">Activo durante toda la relaci&#243;n</span>
-          </div>
-          <div class="continuous-grid">
-            <div class="feed">
-              <div class="feed-item">
-                <div class="feed-ico green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 13l4 4L19 7"/></svg></div>
-                <div class="feed-copy"><b>La estabilizaci&#243;n preventiva de turnos obtiene mejores resultados cuando se activa con 21 d&#237;as de antelaci&#243;n</b><span>Aprendizaje derivado de 4 planes finalizados. Se reutilizar&#225; solo en centros comparables y con evidencia suficiente.</span></div>
-                <span class="feed-time">Hoy</span>
-              </div>
-              <div class="feed-item">
-                <div class="feed-ico purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 19V5M4 19h16M7 15l4-4 3 2 5-7"/></svg></div>
-                <div class="feed-copy"><b>El riesgo del turno noche se materializa antes cuando coincide con horas extra acumuladas</b><span>La se&#241;al ha mejorado la calibraci&#243;n colectiva en tres centros productivos. Revisi&#243;n programada en 90 d&#237;as.</span></div>
-                <span class="feed-time">Ayer</span>
-              </div>
-              <div class="feed-item">
-                <div class="feed-ico blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 20V6h9v14M14 10h5v10M3 20h18"/></svg></div>
-                <div class="feed-copy"><b>M&#225;laga Hub se incorpora a la estructura operativa</b><span>Se conserva su dependencia, calendario, responsables y reglas con vigencia desde la fecha de apertura.</span></div>
-                <span class="feed-time">2 d&#237;as</span>
-              </div>
-              <div class="feed-item">
-                <div class="feed-ico amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 9v4M12 17h.01M10.3 4.6 3.7 17a2 2 0 0 0 1.8 3h13a2 2 0 0 0 1.8-3L13.7 4.6a2 2 0 0 0-3.4 0Z"/></svg></div>
-                <div class="feed-copy"><b>La predicci&#243;n de julio qued&#243; por debajo del resultado observado</b><span>Se ha abierto una revisi&#243;n porque el modelo no conoc&#237;a la ampliaci&#243;n temporal del turno de producci&#243;n.</span></div>
-                <span class="feed-time">5 d&#237;as</span>
-              </div>
-            </div>
-            <aside class="capital">
-              <small>Capital de conocimiento</small>
-              <h3>M&#225;s precisi&#243;n con cada ciclo de uso</h3>
-              <p>El conocimiento validado se mantiene y puede alimentar nuevos desarrollos sin volver a configurar la empresa desde cero.</p>
-              <div class="capital-grid">
-                <div class="capital-kpi"><b>48</b><span>reglas de negocio validadas</span></div>
-                <div class="capital-kpi"><b>21</b><span>resultados de planes aprendidos</span></div>
-                <div class="capital-kpi"><b>13</b><span>ajustes de calibraci&#243;n</span></div>
-                <div class="capital-kpi"><b>36 m</b><span>de contexto relacionado</span></div>
-              </div>
-              <div class="capital-value"><b>Valor generado hasta hoy</b><span>18 preguntas evitadas &middot; 12 predicciones recalibradas &middot; 4 recomendaciones reutilizadas &middot; 3 cambios organizativos incorporados sin reconfiguraci&#243;n t&#233;cnica.</span></div>
-            </aside>
           </div>
         </section>
 
-      </div><!-- /act-content -->
-    </div><!-- /act-wrap -->
-  </div><!-- /flex -->
+      </div><!-- /wiz-bottom -->
+
+    </div><!-- /wiz-content -->
+
+    <!-- Footer nav -->
+    <div class="wiz-footer">
+      <span class="wiz-meta">Paso <b id="footStep">5</b> de 8 &middot; <b id="footTitle">Contexto operativo</b></span>
+      <div class="wiz-nav">
+        <button class="wiz-btn-back" id="btnBack" onclick="goBack()">&#8592; Anterior</button>
+        <button class="wiz-btn-next" id="btnNext" onclick="goNext()">
+          <span id="btnNextLabel">Siguiente</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+  </div><!-- /wiz-wrap -->
 
   <!-- Knowledge drawer -->
   <div class="act-backdrop" id="drawerBackdrop" onclick="backdropClick(event)">
@@ -517,7 +421,7 @@
           <div class="know-ico">IA</div>
           <div>
             <b>Consulta el conocimiento acumulado con el Agente IA</b>
-            <span>Pregunta en lenguaje natural. El agente localizar&#225; reglas, aprendizajes, decisiones y planes, indicando siempre de d&#243;nde procede cada respuesta.</span>
+            <span>Pregunta en lenguaje natural. El agente localizar&#225; reglas, aprendizajes, decisiones y planes, indicando de d&#243;nde procede cada respuesta.</span>
           </div>
         </div>
         <div class="know-search">
@@ -527,7 +431,7 @@
         <div class="know-examples">
           <button onclick="askFromKnowledge('&#191;Qu&#233; hemos aprendido de los planes que mejor funcionan?')">Planes que funcionan</button>
           <button onclick="askFromKnowledge('&#191;Qu&#233; informaci&#243;n falta para mejorar las predicciones?')">Informaci&#243;n pendiente</button>
-          <button onclick="askFromKnowledge('&#191;Qu&#233; ha cambiado en la empresa durante los &#250;ltimos 30 d&#237;as?')">Cambios recientes</button>
+          <button onclick="askFromKnowledge('&#191;Qu&#233; ha cambiado en los &#250;ltimos 30 d&#237;as?')">Cambios recientes</button>
         </div>
       </div>
       <div class="drawer-tabs">
@@ -549,8 +453,8 @@
   </div>
 
   <!-- AI launcher -->
-  <button class="act-launcher" id="aiLauncher" onclick="toggleAI()" aria-label="Abrir Agente IA">
-    <span class="act-launcher-ico">IA<i></i></span>
+  <button class="ai-launcher" id="aiLauncher" onclick="toggleAI()" aria-label="Abrir Agente IA">
+    <span class="ai-launcher-ico">IA<i></i></span>
     <span><b>Agente IA ThirdWish</b><span id="launcherText">Pregunta sobre cualquier dato</span></span>
   </button>
 
@@ -572,7 +476,7 @@
         <div class="ai-msg-av">IA</div>
         <div class="ai-bubble">
           <b class="ai-answer-title">&#191;Qu&#233; necesitas saber?</b>
-          Puedo consultar configuraci&#243;n, datos, patrones, predicciones, planes y conocimiento acumulado. En cada respuesta distinguir&#233; entre informaci&#243;n <b>validada</b>, <b>inferida</b> y <b>aprendida</b>, y te mostrar&#233; las fuentes utilizadas.
+          Puedo consultar configuraci&#243;n, datos, patrones, predicciones, planes y conocimiento acumulado. En cada respuesta distinguir&#233; entre informaci&#243;n <b>validada</b>, <b>inferida</b> y <b>aprendida</b>.
           <div class="ai-sources"><span class="ai-source">48 reglas validadas</span><span class="ai-source">21 resultados aprendidos</span><span class="ai-source">36 meses relacionados</span></div>
         </div>
       </div>
@@ -591,7 +495,7 @@
         <textarea id="aiInput" placeholder="Pregunta al Agente IA..." onkeydown="aiKeydown(event)" rows="2"></textarea>
         <button class="ai-send" onclick="submitAI()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 14-8-4 16-3-6-7-2Z"/></svg></button>
       </div>
-      <div class="ai-disc"><i></i><span>El agente responde con conocimiento disponible, cita su origen y muestra las incertidumbres.</span></div>
+      <div class="ai-disc"><i></i><span>El agente responde con conocimiento disponible y cita su origen.</span></div>
     </div>
   </aside>
 
@@ -612,8 +516,8 @@
         </div>
       </div>
       <div class="modal-actions">
-        <button class="a-btn" onclick="closeModal('assignModal')">Cancelar</button>
-        <button class="a-btn primary" onclick="assignQ()">Asignar pregunta</button>
+        <button class="w-btn" onclick="closeModal('assignModal')">Cancelar</button>
+        <button class="w-btn primary" onclick="assignQ()">Asignar pregunta</button>
       </div>
     </div>
   </div>
@@ -635,8 +539,8 @@
         </div>
       </div>
       <div class="modal-actions">
-        <button class="a-btn" onclick="useTempAssumption()">Usar hip&#243;tesis temporal</button>
-        <button class="a-btn primary" onclick="closeModal('unknownModal');openAssign()">Asignar</button>
+        <button class="w-btn" onclick="useTempAssumption()">Usar hip&#243;tesis temporal</button>
+        <button class="w-btn primary" onclick="closeModal('unknownModal');openAssign()">Asignar</button>
       </div>
     </div>
   </div>
@@ -649,14 +553,14 @@
 SidebarComponent.render();
 
 var steps = [
-  {id:1,title:'Fuentes y alcance',sub:'Cobertura, frecuencia y calidad',pct:100,status:'done',auto:94},
-  {id:2,title:'Definición de absentismo',sub:'Tasa, episodios y exclusiones',pct:100,status:'done',auto:76},
-  {id:3,title:'Estructura y colectivos',sub:'Sociedades, centros y turnos',pct:100,status:'done',auto:91},
-  {id:4,title:'Modelo de coste',sub:'Metodología y componentes',pct:88,status:'done',auto:78},
-  {id:5,title:'Contexto operativo',sub:'Criticidad, mínimos y periodos',pct:60,status:'active',auto:82},
-  {id:6,title:'Modelos y privacidad',sub:'Variables, agregación y equidad',pct:20,status:'pending',auto:65},
-  {id:7,title:'Planes y gobierno',sub:'Capacidad, límites y responsables',pct:0,status:'pending',auto:58},
-  {id:8,title:'Revisión y activación',sub:'Readiness, impacto y permisos',pct:0,status:'pending',auto:88}
+  {id:1,title:'Fuentes y alcance',short:'Fuentes',sub:'Cobertura, frecuencia y calidad',pct:100,status:'done',auto:94},
+  {id:2,title:'Definición de absentismo',short:'Definición',sub:'Tasa, episodios y exclusiones',pct:100,status:'done',auto:76},
+  {id:3,title:'Estructura y colectivos',short:'Estructura',sub:'Sociedades, centros y turnos',pct:100,status:'done',auto:91},
+  {id:4,title:'Modelo de coste',short:'Costes',sub:'Metodología y componentes',pct:88,status:'done',auto:78},
+  {id:5,title:'Contexto operativo',short:'Contexto',sub:'Criticidad, mínimos y periodos',pct:60,status:'active',auto:82},
+  {id:6,title:'Modelos y privacidad',short:'Modelos',sub:'Variables, agregación y equidad',pct:20,status:'pending',auto:65},
+  {id:7,title:'Planes y gobierno',short:'Planes',sub:'Capacidad, límites y responsables',pct:0,status:'pending',auto:58},
+  {id:8,title:'Revisión y activación',short:'Activar',sub:'Readiness, impacto y permisos',pct:0,status:'pending',auto:88}
 ];
 var activeStep = 5;
 var activated = false;
@@ -671,19 +575,36 @@ var memory = [
   {type:'inferred',title:'Centro Sur · mínimo de cobertura',badge:'Inferido · no aplicado',bc:'blue',text:'La plataforma ha inferido un mínimo de 7 personas en turno mañana, pero necesita validación de Operaciones.',meta:['Datos de turnos','Confianza media','Sin impacto hasta confirmar']}
 ];
 
-function impactIcon(color) {
-  if (color === 'blue') return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 19V5M4 19h16M7 15l4-4 3 2 5-7"/></svg>';
-  if (color === 'green') return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 13l4 4L19 7"/></svg>';
-  return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="7" r="2"/><circle cx="17" cy="17" r="3"/><path d="M10.5 9.5 14.8 8M10 10.5l5 4"/></svg>';
+// ── Progress bar ──────────────────────────────────────────────
+function renderWizBar() {
+  var html = '';
+  for (var i = 0; i < steps.length; i++) {
+    var s = steps[i];
+    var isCurrent = s.id === activeStep;
+    var isDone = s.pct >= 100 && !isCurrent;
+    var dotCls = isCurrent ? 'active' : (isDone ? 'done' : '');
+    var itemCls = isCurrent ? 'active' : (isDone ? 'done' : '');
+    var dotLabel = isDone ? '&#10003;' : s.id;
+    html += '<div class="wiz-step-item ' + itemCls + '" onclick="setStep(' + s.id + ')" style="cursor:pointer">'
+      + '<div class="wiz-dot ' + dotCls + '">' + dotLabel + '</div>'
+      + '<span class="wiz-step-label">' + s.short + '</span>'
+      + '</div>';
+    if (i < steps.length - 1) {
+      var lineCls = isDone ? 'done' : '';
+      html += '<div class="wiz-line ' + lineCls + '"></div>';
+    }
+  }
+  document.getElementById('wizSteps').innerHTML = html;
 }
 
+// ── Step content data ─────────────────────────────────────────
 function stepContent(id) {
   var c = {
-    1:{title:'Fuentes y alcance',desc:'Confirma el alcance que la plataforma ha reconstruido a partir de las fuentes conectadas y revisa las excepciones de calidad que afectan al análisis.',agent:'Reconoce fuentes, campos y cobertura antes de preguntar',owner:'Datos / IT',q:'¿La población identificada representa el alcance correcto del proyecto?',explain:'Se han relacionado nómina, ausencias y turnos. La plataforma ha resuelto automáticamente claves, periodos y cobertura, pero necesita confirmar qué sociedades y colectivos quedan dentro del análisis.',evidence:[['14.286','personas relacionadas'],['312','centros identificados'],['36 meses','de histórico disponible'],['96,4%','cobertura cruzada']],big:'¿Incluimos las 8 sociedades y excluimos personal externo y becarios?',options:['Íé correcto','Incluir también personal externo','Excluir una sociedad o colectivo','Necesito revisar el detalle'],answer:'Sí, incluye las 8 sociedades y excluye personal externo y becarios.',fields:[['Población','14.286 personas'],['Sociedades','8 incluidas'],['Exclusiones','Externos y becarios'],['Cobertura','96,4%']],impact:[['blue','Datos','Evita mezclar colectivos fuera de alcance.'],['green','Patrones','Define el universo comparable.'],['amber','Modelos','Establece la población de entrenamiento.']],auto:['Fuentes y columnas reconocidas','Cobertura y duplicados calculados','Cliente valida alcance final']},
+    1:{title:'Fuentes y alcance',desc:'Confirma el alcance que la plataforma ha reconstruido a partir de las fuentes conectadas y revisa las excepciones de calidad que afectan al análisis.',agent:'Reconoce fuentes, campos y cobertura antes de preguntar',owner:'Datos / IT',q:'¿La población identificada representa el alcance correcto del proyecto?',explain:'Se han relacionado nómina, ausencias y turnos. La plataforma ha resuelto automáticamente claves, periodos y cobertura, pero necesita confirmar qué sociedades y colectivos quedan dentro del análisis.',evidence:[['14.286','personas relacionadas'],['312','centros identificados'],['36 meses','de histórico disponible'],['96,4%','cobertura cruzada']],big:'¿Incluimos las 8 sociedades y excluimos personal externo y becarios?',options:['Sí, ese es el alcance correcto','Incluir también personal externo','Excluir una sociedad o colectivo','Necesito revisar el detalle'],answer:'Sí, incluye las 8 sociedades y excluye personal externo y becarios.',fields:[['Población','14.286 personas'],['Sociedades','8 incluidas'],['Exclusiones','Externos y becarios'],['Cobertura','96,4%']],impact:[['blue','Datos','Evita mezclar colectivos fuera de alcance.'],['green','Patrones','Define el universo comparable.'],['amber','Modelos','Establece la población de entrenamiento.']],auto:['Fuentes y columnas reconocidas','Cobertura y duplicados calculados','Cliente valida alcance final']},
     2:{title:'Definición de absentismo',desc:'Alinea los cálculos de la plataforma con la definición oficial de la compañía para que las cifras sean comparables y auditables.',agent:'Traduce códigos y valida la métrica oficial',owner:'RRHH',q:'¿Qué ausencias deben formar parte de la tasa oficial?',explain:'La plataforma ha agrupado 37 códigos de ausencia y ha comparado su resultado con el dato corporativo. Cuatro códigos requieren criterio de RRHH.',evidence:[['37','códigos clasificados'],['99,1%','coincidencia con dato oficial'],['4','códigos por validar'],['2','métricas paralelas']],big:'¿Incluimos permisos retribuidos y bajas de maternidad/paternidad en la tasa principal?',options:['Excluir ambos de la tasa principal','Incluir permisos, excluir maternidad/paternidad','Incluir ambos','Mantener dos métricas paralelas'],answer:'Excluir ambos de la tasa principal y mantenerlos visibles como categorías separadas.',fields:[['Tasa principal','IT + AT/EP'],['Exclusiones','Permisos y nacimiento'],['Visibilidad','Categorías separadas'],['Revisión','Anual']],impact:[['blue','Datos','Unifica la tasa corporativa.'],['green','Comparabilidad','Evita diferencias entre pantallas.'],['amber','Costes','Aplica la metodología correcta por causa.']],auto:['Taxonomía propuesta automáticamente','Comparación con KPI corporativo','RRHH valida 4 excepciones']},
     3:{title:'Estructura y colectivos',desc:'Valida cómo debe reconstruirse la organización en cada fecha para analizar centros, equipos, turnos y categorías sin distorsionar el histórico.',agent:'Reconstruye jerarquías y movimientos temporales',owner:'RRHH + Operaciones',q:'¿Cómo debemos tratar los cambios de centro y equipo en el histórico?',explain:'La plataforma ha detectado 486 movimientos internos y dos reorganizaciones. El análisis debe utilizar la estructura vigente en la fecha de cada ausencia, no la estructura actual.',evidence:[['486','movimientos internos'],['2','reorganizaciones'],['11','centros renombrados'],['98,7%','jerarquía reconstruida']],big:'¿Confirmas que cada ausencia debe atribuirse al centro, turno y equipo vigentes en su fecha?',options:['Sí, usar estructura histórica','Usar siempre estructura actual','Aplicar estructura histórica solo a centros','Necesito validar excepciones'],answer:'Sí, usar la estructura histórica en la fecha de cada ausencia.',fields:[['Vigencia','Estructura por fecha'],['Movimientos','Atribución histórica'],['Renombrados','Identidad conservada'],['Excepciones','2 pendientes']],impact:[['blue','Patrones','Evita falsos patrones por traslados.'],['green','Centros','Mantiene series comparables.'],['amber','Predicción','Usa el contexto operativo correcto.']],auto:['Organigrama temporal reconstruido','Movimientos y renombrados relacionados','Cliente confirma regla temporal']},
     4:{title:'Modelo de coste',desc:'Configura una metodología estándar y transparente, permitiendo incluir o excluir componentes sin perder comparabilidad ni trazabilidad.',agent:'Calcula, separa y evita doble contabilización',owner:'Finanzas',q:'¿Qué componentes deben formar parte del coste oficial?',explain:'La metodología estándar ya está calculada. Dos componentes son estimaciones y deben mantenerse separados del coste contable para no sobrestimar el impacto.',evidence:[['4,8 M€','coste directo calculado'],['1,2 M€','cobertura y horas extra'],['0,9 M€','impacto estimado separado'],['2','componentes parametrizados']],big:'¿Validamos como coste oficial el coste directo más cobertura, dejando productividad como estimación separada?',options:['Sí, validar esta metodología','Excluir horas extra','Incluir productividad en coste oficial','Personalizar componentes'],answer:'Sí, validar coste directo y cobertura. Mantener productividad como estimación separada.',fields:[['Coste oficial','Directo + cobertura'],['Estimación separada','Productividad'],['Horas extra','Incluidas'],['Vigencia','01/01/2026']],impact:[['blue','ROI','Ahorro comparable y auditable.'],['green','Patrones','Coste asociado sin solapamientos.'],['amber','Planes','Prioriza por retorno económico.']],auto:['Componentes calculados','Solapamientos detectados','Finanzas decide metodología oficial']},
-    5:{title:'Contexto operativo',desc:'Valida las decisiones que determinan cómo interpretar el impacto del absentismo, priorizar el riesgo y recomendar acciones en tu organización.',agent:'Contrasta los datos con el contexto de negocio',owner:'Operaciones',q:'¿Cuándo debe considerarse crítico un centro?',explain:'La tasa por sí sola puede engañar. Un centro con menos absentismo puede generar más daño si tiene puestos escasos, poca capacidad de sustitución o compromisos operativos sensibles.',evidence:[['6,8%','absentismo vs. 8,1% compañía'],['23%','del coste operativo estimado'],['4','puestos de cobertura difícil'],['38%','incidencias en turno noche']],big:'¿Debemos considerar Planta Norte crítica para la continuidad de la operación?',options:['Í, durante todo el año','Sí, en periodos concretos','No, la operación puede absorberlo','Necesito matizar la regla'],answer:'Sí, pero principalmente de junio a septiembre. Si coinciden dos ausencias de técnicos de mantenimiento en el turno de noche, se retrasa la producción.',fields:[['Ambito','Planta Norte'],['Criticidad','Alta · estacional'],['Periodo','1 junio – 30 septiembre'],['Colectivo','Mantenimiento · noche'],['Umbral','2 ausencias simultáneas'],['Impacto','Retraso de producción']],impact:[['blue','Patrones','Eleva señales con impacto real.'],['green','Predicciones','Prioriza riesgo colectivo accionable.'],['amber','Planes','Activa cobertura antes del umbral.']],auto:['Centro y señales detectados','Periodo y colectivo identificados','Operaciones valida criticidad y umbral']},
+    5:{title:'Contexto operativo',desc:'Valida las decisiones que determinan cómo interpretar el impacto del absentismo, priorizar el riesgo y recomendar acciones en tu organización.',agent:'Contrasta los datos con el contexto de negocio',owner:'Operaciones',q:'¿Cuándo debe considerarse crítico un centro?',explain:'La tasa por sí sola puede engañar. Un centro con menos absentismo puede generar más daño si tiene puestos escasos, poca capacidad de sustitución o compromisos operativos sensibles.',evidence:[['6,8%','absentismo vs. 8,1% compañía'],['23%','del coste operativo estimado'],['4','puestos de cobertura difícil'],['38%','incidencias en turno noche']],big:'¿Debemos considerar Planta Norte crítica para la continuidad de la operación?',options:['Sí, durante todo el año','Sí, en periodos concretos','No, la operación puede absorberlo','Necesito matizar la regla'],answer:'Sí, pero principalmente de junio a septiembre. Si coinciden dos ausencias de técnicos de mantenimiento en el turno de noche, se retrasa la producción.',fields:[['Ámbito','Planta Norte'],['Criticidad','Alta · estacional'],['Periodo','1 junio – 30 septiembre'],['Colectivo','Mantenimiento · noche'],['Umbral','2 ausencias simultáneas'],['Impacto','Retraso de producción']],impact:[['blue','Patrones','Eleva señales con impacto real.'],['green','Predicciones','Prioriza riesgo colectivo accionable.'],['amber','Planes','Activa cobertura antes del umbral.']],auto:['Centro y señales detectados','Periodo y colectivo identificados','Operaciones valida criticidad y umbral']},
     6:{title:'Modelos y privacidad',desc:'Define cómo se utilizan las variables en modelos colectivos, qué controles de equidad se aplican y qué resultados nunca se mostrarán.',agent:'Configura uso de variables, agregación y control de sesgos',owner:'RRHH + Legal',q:'¿Autorizamos edad y género en modelos colectivos bajo controles de equidad?',explain:'La plataforma no mostrará riesgos individuales. Estas variables pueden utilizarse para mejorar la calibración colectiva y comprobar diferencias de rendimiento entre grupos.',evidence:[['0','riesgos individuales visibles'],['10','tamaño mínimo de colectivo'],['2','modelos comparados'],['4','controles de equidad']],big:'¿Permitimos su uso únicamente en modelos colectivos y auditoría de equidad?',options:['Sí, con controles y revisión periódica','Solo para auditoría, no para predecir','No utilizar estas variables','Necesito revisión legal adicional'],answer:'Sí, únicamente en modelos colectivos y control de equidad. Nunca para decisiones individuales.',fields:[['Uso','Colectivo + equidad'],['Riesgo individual','Prohibido'],['Grupo mínimo','10 personas'],['Revisión','Trimestral']],impact:[['blue','Gobierno','Uso trazable y limitado.'],['green','Modelos','Compara mejora con y sin variables.'],['amber','Equidad','Detecta impactos desiguales.']],auto:['Política base propuesta','Modelos con/sin variables comparados','RRHH y Legal autorizan el uso']},
     7:{title:'Planes y gobierno',desc:'Configura qué acciones son viables, quién decide, qué recursos existen y cuándo una recomendación debe escalarse.',agent:'Convierte recomendaciones en acciones ejecutables',owner:'RRHH + Operaciones',q:'¿Qué capacidad real tiene la organización para actuar ante un riesgo?',explain:'La plataforma ha identificado recursos de cobertura y circuitos de aprobación, pero necesita validar límites operativos para no recomendar planes imposibles.',evidence:[['3','bolsas internas disponibles'],['2','proveedores ETT activos'],['48 h','aprobación media'],['6','tipos de acción permitidos']],big:'¿Puede un responsable de centro activar cobertura interna hasta 3.000€ sin aprobación adicional?',options:['Sí, hasta 3.000€','Sí, pero hasta 1.500€','No, siempre requiere aprobación','Depende del centro'],answer:'Sí, hasta 3.000€ en centros críticos. En el resto, requiere aprobación de RRHH.',fields:[['Autonomía','Centros críticos'],['Límite','3.000€'],['Resto de centros','Aprobación RRHH'],['Trazabilidad','Obligatoria']],impact:[['blue','Planes','Elimina recomendaciones inviables.'],['green','Velocidad','Reduce tiempo de activación.'],['amber','ROI','Incluye coste real de ejecución.']],auto:['Recursos y aprobadores identificados','Acciones disponibles mapeadas','Cliente valida límites y excepciones']},
     8:{title:'Revisión y activación',desc:'Revisa qué capacidades quedan disponibles, qué limitaciones se mantienen y activa la plataforma con una configuración versionada.',agent:'Comprueba consistencia, impacto y preparación',owner:'RRHH',q:'La configuración mínima está preparada para activarse',explain:'La plataforma ha validado reglas, detectado limitaciones y calculado qué módulos pueden funcionar desde el primer día. Puedes activar ahora y completar mejoras después.',evidence:[['100%','datos y diagnóstico'],['96%','patrones preparados'],['91%','predicciones preparadas'],['87%','planes preparados']],big:'¿Activamos la plataforma con esta versión de configuración?',options:['Activar ahora','Revisar decisiones pendientes','Descargar resumen de configuración','Programar activación'],answer:'Activar la plataforma con esta versión de configuración.',fields:[['Versión','Setup 1.0'],['Reglas validadas','48'],['Limitaciones visibles','2 no bloqueantes'],['Revisión','30 días']],impact:[['blue','Activación','Desbloquea todos los módulos disponibles.'],['green','Trazabilidad','Conserva versión y responsables.'],['amber','Continuidad','El setup seguirá aprendiendo.']],auto:['Consistencia comprobada','Módulos y limitaciones calculados','Cliente confirma activación final']}
@@ -691,84 +612,95 @@ function stepContent(id) {
   return c[id];
 }
 
-function renderRoute() {
-  document.getElementById('routeBody').innerHTML = steps.map(function(s) {
-    var cls = s.id === activeStep ? 'active' : (s.status === 'done' ? 'done' : '');
-    return '<div class="route-step ' + cls + '" onclick="setStep(' + s.id + ')">'
-      + '<div class="route-num">' + (s.status === 'done' && s.id !== activeStep ? '&#10003;' : s.id) + '</div>'
-      + '<div class="route-copy"><b>' + s.title + '</b><span>' + s.sub + '</span>'
-      + '<div class="route-progress"><div class="route-track"><i style="width:' + s.pct + '%"></i></div><em>' + s.pct + '%</em></div>'
-      + '</div></div>';
-  }).join('');
+function impactIcon(color) {
+  if (color === 'blue') return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 19V5M4 19h16M7 15l4-4 3 2 5-7"/></svg>';
+  if (color === 'green') return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 13l4 4L19 7"/></svg>';
+  return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="7" r="2"/><circle cx="17" cy="17" r="3"/><path d="M10.5 9.5 14.8 8M10 10.5l5 4"/></svg>';
 }
 
-function setStep(id) {
-  activeStep = id;
-  renderRoute();
-  renderStep();
-  window.scrollTo({top: 0, behavior: 'smooth'});
-}
-
+// ── Render step ───────────────────────────────────────────────
 function renderStep() {
   var s = stepContent(activeStep);
   if (!s) return;
   var st = steps[activeStep - 1];
   var isActivate = activeStep === 8;
-  document.getElementById('stepEyebrow').textContent = 'Configuración inicial · Paso ' + activeStep + ' de 8';
-  document.getElementById('pageTitle').textContent = s.title;
-  document.getElementById('pageDesc').textContent = s.desc;
+
+  // eyebrow + footer
+  document.getElementById('stepEyebrow').textContent = 'Configuración inicial · Paso ' + activeStep + ' de 8 — ' + s.title;
+  document.getElementById('footStep').textContent = activeStep;
+  document.getElementById('footTitle').textContent = s.title;
   document.getElementById('agentSubtitle').textContent = s.agent;
-  document.getElementById('automationScore').textContent = st.auto + '%';
-  document.getElementById('scoreRing').style.background = 'conic-gradient(var(--ag) 0 ' + st.auto + '%, #e8edf3 ' + st.auto + '%)';
+  document.getElementById('assignOwner').textContent = s.owner;
+
+  // footer buttons
+  var btnBack = document.getElementById('btnBack');
+  var btnNextLabel = document.getElementById('btnNextLabel');
+  btnBack.disabled = activeStep === 1;
+  btnNextLabel.textContent = isActivate ? 'Activar plataforma' : 'Siguiente';
+
+  // automation bar
+  var pct = st.auto;
+  document.getElementById('automationScore').textContent = pct + '%';
+  document.getElementById('autoBarPct').textContent = pct + '%';
+  document.getElementById('autoFill').style.width = pct + '%';
   document.getElementById('automationTitle').textContent = isActivate ? 'Verificación automatizada' : 'Configuración precompletada';
-  document.getElementById('automationText').textContent = isActivate ? 'La plataforma ha comprobado consistencia, permisos, impacto y readiness.' : 'La plataforma ha resuelto primero todo lo que puede obtener con seguridad.';
+  document.getElementById('automationText').textContent = isActivate
+    ? 'La plataforma ha comprobado consistencia y permisos'
+    : 'La plataforma resuelve primero lo que puede inferir';
   document.getElementById('autoList').innerHTML = s.auto.map(function(x, i) {
-    return '<div class="auto-item ' + (i === 2 ? 'user' : '') + '"><i>' + (i === 2 ? '!' : '&#10003;') + '</i><span>' + x + '</span></div>';
+    return '<div class="auto-item"><span class="auto-chk ' + (i === 2 ? 'usr' : 'ok') + '">' + (i === 2 ? '!' : '&#10003;') + '</span>' + x + '</div>';
   }).join('');
+
+  // impact
   document.getElementById('impactBody').innerHTML = s.impact.map(function(x) {
     return '<div class="impact-row"><div class="impact-ico ' + x[0] + '">' + impactIcon(x[0]) + '</div>'
       + '<div class="impact-copy"><b>' + x[1] + '</b><span>' + x[2] + '</span></div></div>';
   }).join('');
-  document.getElementById('assignOwner').textContent = s.owner;
 
+  // main task card
   var fieldsHtml = s.fields.map(function(f) {
     return '<div class="rule-field"><label>' + f[0] + '</label><strong>' + f[1] + '</strong></div>';
   }).join('');
 
-  var taskHtml = '<div class="intro-line">He analizado la información disponible y he encontrado '
+  document.getElementById('taskBody').innerHTML =
+    '<span class="wiz-kicker">Paso ' + activeStep + ' de 8</span>'
+    + '<h2>' + s.title + '</h2>'
+    + '<p class="wiz-desc">' + s.desc + '</p>'
+    + '<div class="intro-line">He analizado la información disponible y he encontrado '
     + (isActivate ? 'que la configuración mínima ya es consistente' : 'una decisión que el dato no puede tomar por sí solo')
     + '. <strong>' + (isActivate ? 'Revisa el resultado antes de activar.' : 'Necesito entender qué significa para vuestra organización.') + '</strong></div>'
-    + '<article class="question-card">'
-    + '<div class="question-head"><h2>' + s.q + '</h2>'
-    + '<span class="owner">● ' + (isActivate ? 'Confirmación final' : 'Obligatoria · ' + s.owner) + '</span></div>'
-    + '<p>' + s.explain + '</p>'
     + '<div class="evidence-card"><div class="evidence-head"><b>' + (isActivate ? 'Preparación calculada' : 'Lo que vemos en tus datos') + '</b><span>4 señales verificadas</span></div>'
     + '<div class="evidence-grid">' + s.evidence.map(function(e, i) {
         return '<div class="evidence' + (i === 3 ? ' warn' : '') + '"><strong>' + e[0] + '</strong><span>' + e[1] + '</span></div>';
       }).join('') + '</div></div>'
     + '<p class="big-q">' + s.big + '</p>'
     + '<div class="quick-opts">' + s.options.map(function(o, i) {
-        return '<button class="quick' + (i === 1 && activeStep === 5 ? ' selected' : '') + '" onclick="chooseOpt(this,\'' + o.replace(/'/g, "\\'") + '\')">' + o + '</button>';
+        return '<button class="quick-opt' + (i === 1 && activeStep === 5 ? ' selected' : '') + '" onclick="chooseOpt(this,\'' + o.replace(/'/g, "\\'") + '\')">' + o + '</button>';
       }).join('') + '</div>'
     + '<div class="answer-box"><textarea id="answerText">' + s.answer + '</textarea>'
     + '<button class="send-btn" onclick="interpretAnswer()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 14-8-4 16-3-6-7-2Z"/></svg></button></div>'
-    + '<article class="interpretation" id="interpretation">'
+    + '<div class="interp-box" id="interpretation">'
     + '<div class="interp-head"><b>' + (isActivate ? 'Versión que se activará' : 'Interpretación estructurada') + '</b>'
     + '<span class="a-tag amber" id="ruleBadge">' + (isActivate ? 'Lista para activar' : 'Pendiente de confirmar') + '</span></div>'
     + '<div class="interp-body"><div class="rule-grid">' + fieldsHtml + '</div>'
     + '<p class="interp-note">' + (isActivate ? 'Al activar se guardará esta versión, sus responsables, limitaciones y fecha de vigencia.' : 'La regla no se aplicará hasta que confirmes esta interpretación. Podrás modificarla o revertirla después.') + '</p>'
     + '<div class="confirm-row"><small>' + (isActivate ? 'El setup continuará actualizándose con cambios y resultados reales.' : 'Afectará únicamente a los módulos y ámbitos indicados.') + '</small>'
     + '<div class="confirm-actions">'
-    + '<button class="a-btn sm" onclick="document.getElementById(\'answerText\').focus()">Corregir</button>'
-    + '<button class="a-btn sm primary" id="confirmBtn" onclick="' + (isActivate ? 'activatePlatform()' : 'applyRule()') + '">'
+    + '<button class="w-btn" onclick="document.getElementById(\'answerText\').focus()">Corregir</button>'
+    + '<button class="w-btn primary" id="confirmBtn" onclick="' + (isActivate ? 'activatePlatform()' : 'applyRule()') + '">'
     + (isActivate ? 'Activar plataforma' : 'Confirmar y aplicar') + '</button>'
-    + '</div></div></div></article></article>';
+    + '</div></div></div></div>';
+}
 
-  document.getElementById('taskBody').innerHTML = taskHtml;
+function setStep(id) {
+  activeStep = id;
+  renderWizBar();
+  renderStep();
+  window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
 function chooseOpt(btn, text) {
-  document.querySelectorAll('.quick').forEach(function(x) { x.classList.remove('selected'); });
+  document.querySelectorAll('.quick-opt').forEach(function(x) { x.classList.remove('selected'); });
   btn.classList.add('selected');
   document.getElementById('answerText').value = text;
   document.getElementById('answerText').focus();
@@ -777,7 +709,7 @@ function chooseOpt(btn, text) {
 function interpretAnswer() {
   var t = document.getElementById('answerText').value.trim();
   if (!t) { toast('Escribe una respuesta antes de continuar'); return; }
-  document.getElementById('interpretation').scrollIntoView({behavior: 'smooth', block: 'center'});
+  document.getElementById('interpretation').scrollIntoView({behavior: 'smooth', block: 'nearest'});
   toast('Respuesta interpretada. Revisa la regla antes de aplicarla');
 }
 
@@ -786,28 +718,18 @@ function applyRule() {
   if (step.pct >= 100) { toast('Esta decisión ya estaba validada'); return; }
   step.pct = 100; step.status = 'done';
   var badge = document.getElementById('ruleBadge');
-  badge.textContent = 'Validada y aplicada';
-  badge.className = 'a-tag green';
+  if (badge) { badge.textContent = 'Validada y aplicada'; badge.className = 'a-tag green'; }
   var btn = document.getElementById('confirmBtn');
-  btn.textContent = 'Aplicada ✓'; btn.disabled = true;
+  if (btn) { btn.textContent = 'Aplicada ✓'; btn.disabled = true; }
   if (activeStep === 5) {
     var m = memory.find(function(x) { return x.id === 'plantRule'; });
     if (m) { m.badge = 'Validado por Operaciones'; m.bc = 'green'; }
-    document.getElementById('pendingRulePill').textContent = '1 regla operativa';
     var pr = document.getElementById('predReady'); if (pr) pr.style.width = '84%';
     var plr = document.getElementById('plansReady'); if (plr) plr.style.width = '72%';
   }
-  updateOverall(); renderRoute(); renderMemory('all');
+  renderWizBar();
+  renderMemory('all');
   toast('Regla aplicada. El conocimiento de empresa se ha actualizado');
-}
-
-function updateOverall() {
-  var avg = Math.round(steps.reduce(function(a, s) { return a + s.pct; }, 0) / 8);
-  document.getElementById('routePct').textContent = avg + '%';
-  if (avg >= 90) {
-    document.getElementById('statusTitle').textContent = 'La configuración mínima está lista para revisión final';
-    document.getElementById('statusText').textContent = 'Puedes activar la plataforma y completar las mejoras no bloqueantes más adelante.';
-  }
 }
 
 function activatePlatform() {
@@ -815,16 +737,23 @@ function activatePlatform() {
   activated = true;
   steps[7].pct = 100; steps[7].status = 'done';
   var badge = document.getElementById('ruleBadge');
-  badge.textContent = 'Plataforma activada'; badge.className = 'a-tag green';
+  if (badge) { badge.textContent = 'Plataforma activada'; badge.className = 'a-tag green'; }
   var btn = document.getElementById('confirmBtn');
-  btn.textContent = 'Activada ✓'; btn.disabled = true;
-  document.getElementById('statusTitle').textContent = 'Plataforma activada correctamente';
-  document.getElementById('statusText').textContent = 'Los módulos disponibles han quedado desbloqueados. El setup continuará operando de forma transversal.';
-  updateOverall(); renderRoute();
+  if (btn) { btn.textContent = 'Activada ✓'; btn.disabled = true; }
+  renderWizBar();
   toast('Plataforma activada. Ya puedes acceder a los módulos');
 }
 
-// Drawer
+function goBack() {
+  if (activeStep > 1) setStep(activeStep - 1);
+}
+
+function goNext() {
+  if (activeStep === 8) { activatePlatform(); return; }
+  setStep(activeStep + 1);
+}
+
+// ── Drawer ────────────────────────────────────────────────────
 function toggleDrawer(open) {
   document.getElementById('drawerBackdrop').classList.toggle('open', open);
   if (open) renderMemory('all');
@@ -850,14 +779,14 @@ function renderMemory(type) {
   }).join('');
 }
 
-// Modals
+// ── Modals ────────────────────────────────────────────────────
 function openAssign() { document.getElementById('assignModal').classList.add('open'); }
 function handleUnknown() { document.getElementById('unknownModal').classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 function assignQ() { closeModal('assignModal'); toast('Pregunta asignada con evidencia, prioridad y fecha límite'); }
 function useTempAssumption() { closeModal('unknownModal'); toast('Hipótesis temporal creada. Los resultados mostrarán la limitación'); }
 
-// AI panel
+// ── AI Panel ──────────────────────────────────────────────────
 var aiOpen = false;
 function updateAiCtx(label) { var el = document.getElementById('aiCtxLabel'); if (el) el.textContent = label; }
 function toggleAI(force, ctx) {
@@ -895,7 +824,7 @@ function appendMsg(role, html) {
 function chips(items) { return '<div class="ai-sources">' + items.map(function(x) { return '<span class="ai-source">' + x + '</span>'; }).join('') + '</div>'; }
 function askAgent(q) {
   appendMsg('user', esc(q));
-  appendMsg('agent', '<span style="color:#94a3b8">Analizando reglas, decisiones, patrones y resultados relacionados…</span>');
+  appendMsg('agent', '<span style="color:#94a3b8">Analizando reglas, decisiones, patrones y resultados…</span>');
   var chat = document.getElementById('aiChat');
   var thinking = chat.lastElementChild;
   setTimeout(function() {
@@ -905,19 +834,19 @@ function askAgent(q) {
     if (ql.indexOf('centro') !== -1 || ql.indexOf('crít') !== -1) {
       html = '<b class="ai-answer-title">Planta Norte es el centro con mayor criticidad operativa validada</b>No es el centro con más absentismo, pero concentra el mayor impacto potencial por la escasez de técnicos y la sensibilidad del turno noche.<div class="ai-answer-list"><div class="ai-answer-row"><b>Planta Norte · criticidad alta y estacional</b><span>Entre junio y septiembre. Umbral crítico con 2 ausencias simultáneas en mantenimiento noche.</span></div><div class="ai-answer-row"><b>Centro Sur · criticidad todavía no confirmada</b><span>Se ha inferido un mínimo de 7 personas en turno mañana, pero Operaciones debe validarlo.</span></div></div>' + chips(['Regla validada','Datos de turnos','Coste operativo']);
     } else if (ql.indexOf('plan') !== -1 || ql.indexOf('funcion') !== -1) {
-      html = '<b class="ai-answer-title">El aprendizaje más consistente es anticipar la estabilización de turnos</b>En 4 planes finalizados, los mejores resultados se produjeron cuando la intervención comenzó al menos 21 días antes del periodo de tensión.<div class="ai-answer-list"><div class="ai-answer-row"><b>Condición que mejora el resultado</b><span>Inicio ≥21 días antes, disponibilidad de bolsa interna y responsable operativo asignado.</span></div><div class="ai-answer-row"><b>Qué suele fallar</b><span>Activación tardía, cambios de turno no comunicados y ausencia de seguimiento semanal.</span></div></div>' + chips(['4 planes finalizados','Seguimiento de implantación','ROI observado']);
+      html = '<b class="ai-answer-title">El aprendizaje más consistente es anticipar la estabilización de turnos</b>En 4 planes finalizados, los mejores resultados se produjeron cuando la intervención comenzó al menos 21 días antes del periodo de tensión.<div class="ai-answer-list"><div class="ai-answer-row"><b>Condición que mejora el resultado</b><span>Inicio ≥21 días antes, disponibilidad de bolsa interna y responsable operativo asignado.</span></div></div>' + chips(['4 planes finalizados','ROI observado']);
     } else if (ql.indexOf('falta') !== -1 || ql.indexOf('pendient') !== -1 || ql.indexOf('limit') !== -1) {
-      html = '<b class="ai-answer-title">Hay tres decisiones que limitan la precisión actual</b><div class="ai-answer-list"><div class="ai-answer-row"><b>Centro Sur · mínimo operativo</b><span>Operaciones debe confirmar si el mínimo real del turno mañana es de 7 personas.</span></div><div class="ai-answer-row"><b>Edad y género · política de uso</b><span>RRHH y Legal deben autorizar su uso exclusivamente colectivo y definir la revisión de equidad.</span></div></div>' + chips(['1 inferencia pendiente','1 decisión de gobierno','2 componentes parametrizados']) + '<div class="ai-note">Completar estas decisiones elevaría la preparación de predicciones del 74% al 91%.</div>';
+      html = '<b class="ai-answer-title">Hay tres decisiones que limitan la precisión actual</b><div class="ai-answer-list"><div class="ai-answer-row"><b>Centro Sur · mínimo operativo</b><span>Operaciones debe confirmar si el mínimo real del turno mañana es de 7 personas.</span></div><div class="ai-answer-row"><b>Edad y género · política de uso</b><span>RRHH y Legal deben autorizar su uso exclusivamente colectivo.</span></div></div>' + chips(['1 inferencia pendiente','1 decisión de gobierno']) + '<div class="ai-note">Completar estas decisiones elevaría la preparación de predicciones del 74% al 91%.</div>';
     } else if (ql.indexOf('cambi') !== -1 || ql.indexOf('recient') !== -1) {
-      html = '<b class="ai-answer-title">En los últimos 30 días se han incorporado cuatro cambios relevantes</b><div class="ai-answer-list"><div class="ai-answer-row"><b>Málaga Hub se incorpora a la estructura</b><span>Dependencia, calendario, responsables y fecha de vigencia creados.</span></div><div class="ai-answer-row"><b>Ampliación temporal del turno de producción</b><span>Explica parte de la desviación de una predicción de julio.</span></div></div>' + chips(['Historial organizativo','Revisión predictiva','Modelo v2.4']);
+      html = '<b class="ai-answer-title">En los últimos 30 días se han incorporado cuatro cambios relevantes</b><div class="ai-answer-list"><div class="ai-answer-row"><b>Málaga Hub se incorpora a la estructura</b><span>Dependencia, calendario, responsables y fecha de vigencia creados.</span></div><div class="ai-answer-row"><b>Ampliación temporal del turno de producción</b><span>Explica parte de la desviación de una predicción de julio.</span></div></div>' + chips(['Historial organizativo','Modelo v2.4']);
     } else {
-      html = '<b class="ai-answer-title">Resumen del conocimiento disponible</b>La plataforma mantiene 48 reglas validadas, 21 resultados de planes aprendidos, 13 ajustes de calibración y 36 meses de contexto relacionado.<div class="ai-answer-list"><div class="ai-answer-row"><b>Validado</b><span>Reglas de coste, tamaño mínimo de colectivo y criticidad estacional de Planta Norte.</span></div><div class="ai-answer-row"><b>Pendiente</b><span>Mínimo operativo de Centro Sur y política final de uso de edad y género.</span></div></div>' + chips(['Conocimiento de empresa','Patrones','Predicciones']);
+      html = '<b class="ai-answer-title">Resumen del conocimiento disponible</b>La plataforma mantiene 48 reglas validadas, 21 resultados de planes aprendidos, 13 ajustes de calibración y 36 meses de contexto relacionado.<div class="ai-answer-list"><div class="ai-answer-row"><b>Validado</b><span>Reglas de coste, tamaño mínimo de colectivo y criticidad estacional de Planta Norte.</span></div><div class="ai-answer-row"><b>Pendiente</b><span>Mínimo operativo de Centro Sur y política final de uso de edad y género.</span></div></div>' + chips(['Conocimiento de empresa','Patrones']);
     }
     appendMsg('agent', html);
   }, 520);
 }
 
-// Toast
+// ── Toast ─────────────────────────────────────────────────────
 function toast(text) {
   var t = document.getElementById('toast');
   document.getElementById('toastText').textContent = text;
@@ -928,10 +857,10 @@ function toast(text) {
 
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && aiOpen) toggleAI(false); });
 
-renderRoute();
+// ── Init ──────────────────────────────────────────────────────
+renderWizBar();
 renderStep();
 renderMemory('all');
-updateOverall();
   </script>
 </body>
 </html>
