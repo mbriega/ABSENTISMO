@@ -186,8 +186,12 @@
     .know-type-pill.inferred{background:#f8fafc;border-color:#e2e8f0;}
     .know-type-pill b{display:block;font-size:18px;font-weight:800;color:#0f172a;}
     .know-type-pill span{display:block;font-size:8px;font-weight:700;color:#64748b;margin-top:1px;}
-    .know-status{font-size:10px;color:#64748b;font-weight:600;margin-bottom:14px;}
+    .know-status{font-size:10px;color:#64748b;font-weight:600;margin-bottom:8px;}
     .know-status b{color:#b45309;}
+    .know-pending-cta{width:100%;height:30px;border:1px solid #bfdbfe;background:#eff6ff;border-radius:7px;font-size:10.5px;font-weight:700;color:#1d4ed8;cursor:pointer;font:inherit;margin-bottom:14px;transition:.12s;display:flex;align-items:center;justify-content:center;gap:5px;}
+    .know-pending-cta:hover{background:#dbeafe;}
+    .mem-step-chip{display:inline-flex;align-items:center;gap:4px;height:20px;border:1px solid #bfdbfe;background:#eff6ff;border-radius:5px;padding:0 7px;font-size:9px;font-weight:700;color:#1d4ed8;cursor:pointer;font:inherit;margin-top:6px;transition:.12s;}
+    .mem-step-chip:hover{background:#dbeafe;border-color:#93c5fd;}
     /* memory groups */
     .mem-group{margin-bottom:6px;}
     .mem-group-head{display:flex;align-items:center;gap:6px;padding:8px 0 5px;border-bottom:1px solid #f1f5f9;margin-bottom:6px;}
@@ -570,10 +574,10 @@ var activated = false;
 var memory = [
   {type:'validated',title:'Metodología oficial de coste',badge:'Validado por Finanzas',bc:'green',text:'Incluye coste salarial empresa, complementos IT, horas extra y ETT. La productividad perdida se presenta como estimación separada.',meta:['Finanzas','Vigente desde 01/01/2026','Afecta a 5 módulos']},
   {type:'validated',title:'Tamaño mínimo de colectivo',badge:'Validado por RRHH + Legal',bc:'green',text:'No se muestran resultados para colectivos inferiores a 10 personas. Se agregan al nivel inmediatamente superior.',meta:['Revisión anual','Gobierno del modelo','Aplicado']},
-  {type:'validated',title:'Planta Norte · criticidad estacional',badge:'Pendiente',bc:'amber',text:'Prioridad alta entre junio y septiembre para mantenimiento noche cuando se acerque al umbral de dos ausencias simultáneas.',meta:['Operaciones','Creada hoy','3 módulos afectados'],id:'plantRule'},
+  {type:'validated',title:'Planta Norte · criticidad estacional',badge:'Pendiente',bc:'amber',text:'Prioridad alta entre junio y septiembre para mantenimiento noche cuando se acerque al umbral de dos ausencias simultáneas.',meta:['Operaciones','Creada hoy','3 módulos afectados'],id:'plantRule',step:5},
   {type:'learned',title:'Resultado aprendido · estabilización de turnos',badge:'Aprendido con evidencia media-alta',bc:'blue',text:'Los planes iniciados con al menos 21 días de antelación obtuvieron mejores resultados en centros comparables.',meta:['4 planes finalizados','Revisión en 90 días','Planes + predicciones']},
   {type:'learned',title:'Ajuste predictivo · turno noche',badge:'Aprendido y recalibrado',bc:'blue',text:'Noches consecutivas y horas extra acumuladas anticipan el riesgo antes que el patrón de turnos por sí solo.',meta:['Backtesting validado','3 centros','Modelo v2.4']},
-  {type:'review',title:'Uso de edad y género en modelos',badge:'Por decidir',bc:'amber',text:'Uso exclusivamente en predicciones colectivas y control de equidad. Nunca se mostrará riesgo individual.',meta:['RRHH + Legal','Obligatoria para predicciones','Pendiente']},
+  {type:'review',title:'Uso de edad y género en modelos',badge:'Por decidir',bc:'amber',text:'Uso exclusivamente en predicciones colectivas y control de equidad. Nunca se mostrará riesgo individual.',meta:['RRHH + Legal','Obligatoria para predicciones','Pendiente'],step:6},
   {type:'inferred',title:'Centro Sur · mínimo de cobertura',badge:'Inferido · no aplicado',bc:'blue',text:'La plataforma ha inferido un mínimo de 7 personas en turno mañana, pero necesita validación de Operaciones.',meta:['Datos de turnos','Confianza media','Sin impacto hasta confirmar']}
 ];
 
@@ -788,9 +792,15 @@ function renderKnowledgeSummary() {
     var n = memory.filter(function(m) { return m.type === g.type; }).length;
     return '<div class="know-type-pill ' + g.cls + '"><b>' + n + '</b><span>' + g.label + '</span></div>';
   }).join('');
+  var firstPending = null;
+  for (var i = 0; i < memory.length; i++) { if (memory[i].bc === 'amber' && memory[i].step) { firstPending = memory[i]; break; } }
+  var cta = firstPending
+    ? '<button class="know-pending-cta" onclick="goToStep(' + firstPending.step + ')">Ir al primer pendiente &rarr; Paso ' + firstPending.step + ' &middot; ' + stepLabel(firstPending.step) + '</button>'
+    : '';
   document.getElementById('knowSummary').innerHTML =
     '<div class="know-summary">' + pills + '</div>'
-    + '<p class="know-status">' + total + ' ítems · <b>' + pending + ' pendiente' + (pending !== 1 ? 's' : '') + ' de validar</b></p>';
+    + '<p class="know-status">' + total + ' ítems · <b>' + pending + ' pendiente' + (pending !== 1 ? 's' : '') + ' de validar</b></p>'
+    + cta;
 }
 function renderMemory() {
   var groups = [
@@ -810,16 +820,23 @@ function renderMemory() {
       + '<span class="mem-group-count ' + g.cls + '">' + items.length + '</span>'
       + '</div>';
     items.forEach(function(m) {
+      var chip = (m.bc === 'amber' && m.step)
+        ? '<button class="mem-step-chip" onclick="goToStep(' + m.step + ')">&#8594; Paso ' + m.step + ' &middot; ' + stepLabel(m.step) + '</button>'
+        : '';
       html += '<article class="memory-item ' + g.cls + '">'
         + '<h3>' + m.title + '</h3>'
         + '<p>' + m.text + '</p>'
         + '<div class="memory-meta">' + m.meta.map(function(x) { return '<span>' + x + '</span>'; }).join('') + '</div>'
+        + chip
         + '</article>';
     });
     html += '</div>';
   });
   document.getElementById('memoryList').innerHTML = html;
 }
+
+function goToStep(id) { toggleDrawer(false); setStep(id); }
+function stepLabel(id) { for (var i = 0; i < steps.length; i++) { if (steps[i].id === id) return steps[i].short; } return ''; }
 
 // ── Modals ────────────────────────────────────────────────────
 function openAssign() { document.getElementById('assignModal').classList.add('open'); }
