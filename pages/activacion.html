@@ -23,15 +23,12 @@
 
     /* ── LAYOUT ── */
     .wiz-wrap{margin-left:260px;min-height:100vh;background:#f8fafc;max-width:calc(100vw - 260px);overflow-x:hidden;}
-    .wiz-topbar{background:#fff;border-bottom:1px solid #e2e8f0;padding:0 32px;height:56px;display:flex;align-items:center;justify-content:flex-end;position:sticky;top:0;z-index:10;}
-    .wiz-avatar{width:32px;height:32px;border-radius:50%;background:#0f172a;color:#fff;display:grid;place-items:center;font-size:10px;font-weight:700;}
 
     /* ── INFO STRIP ── */
     .wiz-info-strip{border-bottom:1px solid #e2e8f0;background:#fff;padding:16px 32px;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;}
     .wiz-info-left{flex:1;min-width:0;}
-    .wiz-info-eyebrow{font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
+    .wiz-info-eyebrow{font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
     .wiz-info-eyebrow b{color:#475569;font-weight:800;}
-    .wiz-info-company{font-size:11px;font-weight:600;color:#94a3b8;margin-bottom:8px;}
     .wiz-info-title{font-size:17px;font-weight:800;color:#0f172a;letter-spacing:-.03em;margin:0 0 4px;line-height:1.2;}
     .wiz-info-desc{font-size:12px;color:#64748b;line-height:1.55;font-weight:500;margin:0;max-width:640px;}
     .wiz-info-actions{display:flex;flex-direction:column;gap:7px;flex-shrink:0;align-items:flex-end;padding-top:2px;}
@@ -76,10 +73,10 @@
     .quick-opt.selected{border-color:#93c5fd;background:#eff6ff;color:#1d4ed8;box-shadow:inset 0 0 0 1px #bfdbfe;}
 
     /* secondary actions row (Asignar / No lo sé / Más tarde) */
-    .step-ctx-row{display:flex;align-items:center;gap:6px;margin-bottom:14px;padding:8px 10px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:8px;}
-    .step-ctx-row span{font-size:10px;color:#94a3b8;font-weight:600;flex-shrink:0;margin-right:2px;}
-    .step-ctx-row button{height:26px;border:1px solid #e2e8f0;background:#fff;border-radius:6px;padding:0 9px;font-size:10px;font-weight:600;color:#475569;cursor:pointer;font:inherit;transition:.12s;white-space:nowrap;}
-    .step-ctx-row button:hover{border-color:#bfdbfe;color:#1d4ed8;background:#eff6ff;}
+    .step-ctx-row{display:flex;align-items:center;gap:6px;margin-bottom:14px;padding:9px 12px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:9px;}
+    .step-ctx-row span{font-size:10px;color:#3b82f6;font-weight:700;flex-shrink:0;margin-right:4px;}
+    .step-ctx-row button{height:27px;border:1px solid #bfdbfe;background:#fff;border-radius:6px;padding:0 10px;font-size:10.5px;font-weight:700;color:#1d4ed8;cursor:pointer;font:inherit;transition:.12s;white-space:nowrap;}
+    .step-ctx-row button:hover{background:#dbeafe;border-color:#93c5fd;}
 
     .answer-box{display:flex;gap:8px;margin-bottom:14px;}
     .answer-box textarea{flex:1;min-height:66px;resize:vertical;border:1px solid #e2e8f0;border-radius:10px;background:#fff;padding:10px 12px;color:#334155;font-size:12px;line-height:1.5;outline:none;font:inherit;}
@@ -88,27 +85,29 @@
     .send-btn svg{width:17px;height:17px;}
 
     /* interpretation */
-    .interp-box{background:#fffdf5;border:1px solid #fde68a;border-radius:13px;overflow:hidden;}
-    .interp-head{padding:10px 14px;border-bottom:1px solid #fde68a;display:flex;align-items:center;justify-content:space-between;}
-    .interp-head b{font-size:11px;font-weight:700;color:#0f172a;}
+    .interp-box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:13px;overflow:hidden;}
+    .interp-head{padding:10px 14px;border-bottom:1px solid #bfdbfe;display:flex;align-items:center;justify-content:space-between;}
+    .interp-head b{font-size:11px;font-weight:700;color:#1d4ed8;}
     .interp-body{padding:12px 14px;}
     .rule-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;}
-    .rule-field{border:1px solid #ede8d6;background:#fff;border-radius:8px;padding:8px 10px;}
-    .rule-field label{display:block;font-size:7.5px;text-transform:uppercase;letter-spacing:.05em;color:#8b765c;font-weight:800;}
-    .rule-field strong{display:block;font-size:10px;line-height:1.35;color:#3c342b;margin-top:3px;font-weight:700;}
+    .rule-field{border:1px solid #bfdbfe;background:#fff;border-radius:8px;padding:8px 10px;}
+    .rule-field label{display:block;font-size:7.5px;text-transform:uppercase;letter-spacing:.05em;color:#3b82f6;font-weight:800;}
+    .rule-field strong{display:block;font-size:10px;line-height:1.35;color:#0f172a;margin-top:3px;font-weight:700;}
     .rule-field.full{grid-column:1/-1;}
-    .interp-note{font-size:9.5px;color:#756b5d;margin-top:9px;line-height:1.4;}
+    .interp-note{font-size:9.5px;color:#475569;margin-top:9px;line-height:1.4;}
     .confirm-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;}
     .confirm-row small{font-size:9px;color:#948d82;line-height:1.35;}
     .confirm-actions{display:flex;gap:6px;flex-shrink:0;}
 
     /* ── BOTTOM PANELS ── */
-    .wiz-bottom{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px;align-items:start;}
-    .wiz-bp{background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04);display:flex;flex-direction:column;}
-    .wiz-bp-head{padding:13px 16px;border-bottom:1px solid #f1f5f9;}
-    .wiz-bp-head h3{font-size:12.5px;font-weight:700;color:#0f172a;margin:0;}
-    .wiz-bp-head p{margin-top:3px;font-size:10px;color:#94a3b8;font-weight:500;}
-    .wiz-bp-body{padding:13px 16px;flex:1;}
+    /* Vertical stack: each panel is full-width, its own natural height — no cross-card height comparison */
+    .wiz-bottom{display:flex;flex-direction:column;gap:12px;margin-top:20px;}
+    .wiz-bp{background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+    .wiz-bp-inner{display:grid;grid-template-columns:220px 1fr;align-items:stretch;}
+    .wiz-bp-head{padding:16px 20px;border-right:1px solid #f1f5f9;display:flex;flex-direction:column;justify-content:center;}
+    .wiz-bp-head h3{font-size:12.5px;font-weight:700;color:#0f172a;margin:0 0 4px;}
+    .wiz-bp-head p{margin:0;font-size:10px;color:#94a3b8;font-weight:500;line-height:1.4;}
+    .wiz-bp-body{padding:14px 20px;}
 
     /* impact rows */
     .impact-row{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid #f1f5f9;}
@@ -281,10 +280,19 @@
 
   <div class="wiz-wrap">
 
-    <!-- Topbar (simplified: avatar only) -->
-    <header class="wiz-topbar">
-      <div class="wiz-avatar">MB</div>
-    </header>
+    <!-- Topbar (matches plan-wizard.html style) -->
+    <div style="background:#fff;border-bottom:1px solid #e2e8f0;padding:13px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <a href="centro-inteligencia.html" style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid #e2e8f0;border-radius:8px;color:#64748b;text-decoration:none;background:#fff;">
+          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        </a>
+        <div>
+          <h1 style="font-size:15px;font-weight:700;color:#0f172a;margin:0;">Activaci&#243;n</h1>
+          <p style="font-size:11px;color:#94a3b8;margin:2px 0 0;">Configuraci&#243;n inicial &middot; Grupo Atlas &middot; Espa&#241;a</p>
+        </div>
+      </div>
+      <div style="width:34px;height:34px;border-radius:50%;background:#0f172a;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;">MB</div>
+    </div>
 
     <!-- Progress bar -->
     <div class="wiz-bar">
@@ -295,7 +303,6 @@
     <div class="wiz-info-strip">
       <div class="wiz-info-left">
         <div class="wiz-info-eyebrow">Activaci&#243;n &middot; <b>Conocimiento de la empresa</b></div>
-        <div class="wiz-info-company" id="infoCompany">Grupo Atlas &middot; Espa&#241;a</div>
         <h2 class="wiz-info-title" id="infoTitle">Contexto operativo</h2>
         <p class="wiz-info-desc" id="infoDesc">Valida las decisiones que determinan c&#243;mo interpretar el impacto del absentismo, priorizar el riesgo y recomendar acciones en tu organizaci&#243;n.</p>
       </div>
@@ -316,58 +323,64 @@
 
         <!-- Qué mejora -->
         <section class="wiz-bp">
-          <div class="wiz-bp-head">
-            <h3>Qu&#233; mejora al completar este paso</h3>
-            <p>Impacto directo sobre la plataforma.</p>
+          <div class="wiz-bp-inner">
+            <div class="wiz-bp-head">
+              <h3>Qu&#233; mejora al completar este paso</h3>
+              <p>Impacto directo sobre la plataforma.</p>
+            </div>
+            <div class="wiz-bp-body" id="impactBody"></div>
           </div>
-          <div class="wiz-bp-body" id="impactBody"></div>
         </section>
 
         <!-- Automatización -->
         <section class="wiz-bp">
-          <div class="wiz-bp-head">
-            <h3>Automatizaci&#243;n del paso</h3>
-            <p>Trabajo resuelto por la plataforma frente a decisiones humanas.</p>
-          </div>
-          <div class="wiz-bp-body">
-            <div class="auto-header">
-              <b id="automationTitle">Configuraci&#243;n precompletada</b>
-              <span id="automationScore">82%</span>
+          <div class="wiz-bp-inner">
+            <div class="wiz-bp-head">
+              <h3>Automatizaci&#243;n del paso</h3>
+              <p>Trabajo resuelto por la plataforma frente a decisiones humanas.</p>
             </div>
-            <div class="auto-bar-wrap">
-              <div class="auto-bar-label">
-                <span id="automationText">La plataforma ha resuelto lo que puede inferir con seguridad</span>
-                <b id="autoBarPct">82%</b>
+            <div class="wiz-bp-body">
+              <div class="auto-header">
+                <b id="automationTitle">Configuraci&#243;n precompletada</b>
+                <span id="automationScore">82%</span>
               </div>
-              <div class="auto-track"><div class="auto-fill" id="autoFill" style="width:82%"></div></div>
+              <div class="auto-bar-wrap">
+                <div class="auto-bar-label">
+                  <span id="automationText">La plataforma ha resuelto lo que puede inferir con seguridad</span>
+                  <b id="autoBarPct">82%</b>
+                </div>
+                <div class="auto-track"><div class="auto-fill" id="autoFill" style="width:82%"></div></div>
+              </div>
+              <div class="auto-list" id="autoList"></div>
             </div>
-            <div class="auto-list" id="autoList"></div>
           </div>
         </section>
 
         <!-- Preparación por módulo -->
         <section class="wiz-bp">
-          <div class="wiz-bp-head">
-            <h3>Preparaci&#243;n por m&#243;dulo</h3>
-            <p>No todos los m&#243;dulos requieren el mismo nivel de configuraci&#243;n.</p>
-          </div>
-          <div class="wiz-bp-body">
-            <div class="readiness-list">
-              <div class="ready-item">
-                <div class="ready-header"><b>Datos y diagn&#243;stico</b><span style="color:#059669">Listo</span></div>
-                <div class="ready-track"><i class="green" style="width:100%"></i></div>
-              </div>
-              <div class="ready-item">
-                <div class="ready-header"><b>Patrones</b><span style="color:#059669">Listo</span></div>
-                <div class="ready-track"><i class="green" style="width:96%"></i></div>
-              </div>
-              <div class="ready-item">
-                <div class="ready-header"><b>Predicciones</b><span style="color:#b45309">Limitado</span></div>
-                <div class="ready-track"><i class="amber" id="predReady" style="width:74%"></i></div>
-              </div>
-              <div class="ready-item">
-                <div class="ready-header"><b>Planes de acci&#243;n</b><span style="color:#2563eb">En preparaci&#243;n</span></div>
-                <div class="ready-track"><i class="blue" id="plansReady" style="width:61%"></i></div>
+          <div class="wiz-bp-inner">
+            <div class="wiz-bp-head">
+              <h3>Preparaci&#243;n por m&#243;dulo</h3>
+              <p>No todos los m&#243;dulos requieren el mismo nivel de configuraci&#243;n.</p>
+            </div>
+            <div class="wiz-bp-body">
+              <div class="readiness-list">
+                <div class="ready-item">
+                  <div class="ready-header"><b>Datos y diagn&#243;stico</b><span style="color:#059669">Listo</span></div>
+                  <div class="ready-track"><i class="green" style="width:100%"></i></div>
+                </div>
+                <div class="ready-item">
+                  <div class="ready-header"><b>Patrones</b><span style="color:#059669">Listo</span></div>
+                  <div class="ready-track"><i class="green" style="width:96%"></i></div>
+                </div>
+                <div class="ready-item">
+                  <div class="ready-header"><b>Predicciones</b><span style="color:#b45309">Limitado</span></div>
+                  <div class="ready-track"><i class="amber" id="predReady" style="width:74%"></i></div>
+                </div>
+                <div class="ready-item">
+                  <div class="ready-header"><b>Planes de acci&#243;n</b><span style="color:#2563eb">En preparaci&#243;n</span></div>
+                  <div class="ready-track"><i class="blue" id="plansReady" style="width:61%"></i></div>
+                </div>
               </div>
             </div>
           </div>
@@ -608,10 +621,8 @@ function renderStep() {
   var isActivate = activeStep === 8;
 
   // Update info strip
-  var infoTitle = document.getElementById('infoTitle');
-  var infoDesc = document.getElementById('infoDesc');
-  if (infoTitle) infoTitle.textContent = s.title;
-  if (infoDesc) infoDesc.textContent = s.desc;
+  var el = document.getElementById('infoTitle'); if (el) el.textContent = s.title;
+  var el2 = document.getElementById('infoDesc'); if (el2) el2.textContent = s.desc;
 
   // Footer
   document.getElementById('footStep').textContent = activeStep;
@@ -676,7 +687,7 @@ function renderStep() {
     + '<button class="send-btn" onclick="interpretAnswer()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 14-8-4 16-3-6-7-2Z"/></svg></button></div>'
     + '<div class="interp-box" id="interpretation">'
     + '<div class="interp-head"><b>' + (isActivate ? 'Versión que se activará' : 'Interpretación estructurada') + '</b>'
-    + '<span class="a-tag amber" id="ruleBadge">' + (isActivate ? 'Lista para activar' : 'Pendiente de confirmar') + '</span></div>'
+    + '<span class="a-tag blue" id="ruleBadge">' + (isActivate ? 'Lista para activar' : 'Pendiente de confirmar') + '</span></div>'
     + '<div class="interp-body"><div class="rule-grid">' + fieldsHtml + '</div>'
     + '<p class="interp-note">' + (isActivate ? 'Al activar se guardará esta versión, sus responsables, limitaciones y fecha de vigencia.' : 'La regla no se aplicará hasta que confirmes esta interpretación. Podrás modificarla o revertirla después.') + '</p>'
     + '<div class="confirm-row"><small>' + (isActivate ? 'El setup continuará actualizándose con cambios y resultados reales.' : 'Afectará únicamente a los módulos y ámbitos indicados.') + '</small>'
