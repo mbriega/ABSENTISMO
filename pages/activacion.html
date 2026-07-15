@@ -130,7 +130,7 @@
     .auto-item{display:flex;align-items:center;gap:7px;font-size:11px;color:#334155;font-weight:500;}
     .auto-chk{width:17px;height:17px;border-radius:50%;display:grid;place-items:center;font-size:8.5px;font-weight:800;flex-shrink:0;}
     .auto-chk.ok{background:#f0fdf4;color:#059669;}
-    .auto-chk.usr{background:#fffbeb;color:#b45309;}
+    .auto-chk.usr{background:#eff6ff;color:#2563eb;font-size:10px;}
 
     /* readiness */
     .readiness-list{display:grid;gap:10px;}
@@ -280,11 +280,14 @@
     .wiz-acc-body{display:none;border-top:1px solid #f1f5f9;}
     .wiz-acc-body.open{display:block;}
 
-    /* ── COMPACT AUTO STRIP ── */
-    .auto-strip{display:flex;align-items:center;gap:10px;}
-    .auto-strip > span{font-size:10.5px;font-weight:600;color:#334155;flex:1;min-width:0;}
-    .auto-strip .auto-track{flex:0 0 130px;height:8px;}
-    .auto-strip > b{font-size:12px;font-weight:800;color:#059669;white-space:nowrap;flex-shrink:0;}
+    /* ── AUTO BAR + ITEMS ── */
+    .auto-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:0;}
+    .auto-bar-row > span{font-size:10.5px;font-weight:600;color:#334155;flex:1;min-width:0;}
+    .auto-bar-row .auto-track{flex:0 0 130px;height:8px;}
+    .auto-bar-row > b{font-size:13px;font-weight:800;color:#059669;white-space:nowrap;flex-shrink:0;}
+    .auto-items{display:grid;gap:5px;margin-top:10px;padding-top:10px;border-top:1px solid #f1f5f9;}
+    .auto-item-text{color:#475569;}
+    .auto-item-text.usr{color:#1d4ed8;font-weight:700;}
   </style>
 </head>
 <body class="bg-surface-50 text-surface-900 antialiased" data-page="activacion">
@@ -324,6 +327,24 @@
       <!-- Bottom panels -->
       <div class="wiz-bottom">
 
+        <!-- Automatización del paso -->
+        <section class="wiz-bp">
+          <div class="wiz-bp-inner">
+            <div class="wiz-bp-head">
+              <h3>Automatizaci&#243;n del paso</h3>
+              <p>Trabajo resuelto por la plataforma frente a decisiones humanas.</p>
+            </div>
+            <div class="wiz-bp-body">
+              <div class="auto-bar-row">
+                <span id="automationText">La plataforma resuelve primero lo que puede inferir</span>
+                <div class="auto-track"><div class="auto-fill" id="autoFill" style="width:82%"></div></div>
+                <b id="autoBarPct">82%</b>
+              </div>
+              <div class="auto-items" id="autoList"></div>
+            </div>
+          </div>
+        </section>
+
         <!-- Qué mejora (acordeón, cerrado por defecto) -->
         <section class="wiz-bp">
           <button class="wiz-acc-toggle" onclick="toggleAcc(this)">
@@ -335,23 +356,6 @@
           </button>
           <div class="wiz-acc-body">
             <div class="wiz-bp-body" id="impactBody"></div>
-          </div>
-        </section>
-
-        <!-- Automatización (tira compacta) -->
-        <section class="wiz-bp">
-          <div class="wiz-bp-inner">
-            <div class="wiz-bp-head">
-              <h3>Automatizaci&#243;n del paso</h3>
-              <p>Trabajo resuelto por la plataforma frente a decisiones humanas.</p>
-            </div>
-            <div class="wiz-bp-body">
-              <div class="auto-strip">
-                <span id="automationText">La plataforma resuelve primero lo que puede inferir</span>
-                <div class="auto-track"><div class="auto-fill" id="autoFill" style="width:82%"></div></div>
-                <b id="autoBarPct">82%</b>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -642,6 +646,13 @@ function renderStep() {
   document.getElementById('automationText').textContent = isActivate
     ? 'La plataforma ha comprobado consistencia y permisos'
     : 'La plataforma resuelve primero lo que puede inferir';
+  document.getElementById('autoList').innerHTML = s.auto.map(function(x, i) {
+    var isUser = i === 2;
+    return '<div class="auto-item">'
+      + '<span class="auto-chk ' + (isUser ? 'usr' : 'ok') + '">' + (isUser ? '&#8594;' : '&#10003;') + '</span>'
+      + '<span class="auto-item-text' + (isUser ? ' usr' : '') + '">' + x + '</span>'
+      + '</div>';
+  }).join('');
 
   // Impact
   document.getElementById('impactBody').innerHTML = s.impact.map(function(x) {
