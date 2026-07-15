@@ -163,10 +163,8 @@
     .a-tag.amber{background:#fffbeb;color:#b45309;}
 
     /* ── DRAWER ── */
-    .act-backdrop{position:fixed;inset:0;background:rgba(6,14,29,.4);z-index:100;opacity:0;pointer-events:none;transition:.2s;}
-    .act-backdrop.open{opacity:1;pointer-events:auto;}
-    .act-drawer{position:fixed;right:0;top:0;height:100%;width:min(600px,94vw);background:#f7f9fc;transform:translateX(100%);transition:.22s;display:flex;flex-direction:column;box-shadow:-14px 0 36px rgba(15,23,42,.14);z-index:101;}
-    .act-backdrop.open .act-drawer{transform:translateX(0);}
+    .act-drawer{position:fixed;right:0;top:112px;bottom:0;width:min(560px,42vw);background:#f7f9fc;transform:translateX(100%);transition:.22s ease;display:flex;flex-direction:column;box-shadow:-12px 0 32px rgba(15,23,42,.12);z-index:50;border-left:1px solid #e2e8f0;}
+    .act-drawer.open{transform:translateX(0);}
     .drawer-head{padding:16px 18px;border-bottom:1px solid #e2e8f0;background:#fff;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
     .drawer-head h2{font-size:18px;font-weight:800;color:#0f172a;}
     .drawer-head p{margin-top:3px;font-size:9.5px;color:#94a3b8;}
@@ -174,18 +172,46 @@
     .drawer-tabs{padding:9px 15px 0;background:#fff;display:flex;gap:5px;flex-wrap:wrap;}
     .drawer-tab{height:27px;border:1px solid #e2e8f0;background:#fff;border-radius:999px;padding:0 9px;font-size:9px;font-weight:800;color:#5e6b83;cursor:pointer;font:inherit;}
     .drawer-tab.active{background:#2563eb;border-color:#2563eb;color:#fff;}
-    .drawer-body{padding:14px 15px 24px;overflow-y:auto;flex:1;}
+    .drawer-body{padding:14px 15px 80px;overflow-y:auto;flex:1;}
     .value-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:11px;}
     .value-kpi{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:10px;}
     .value-kpi b{display:block;font-size:18px;font-weight:800;color:#0f172a;}
     .value-kpi span{display:block;font-size:8.5px;color:#94a3b8;line-height:1.3;margin-top:2px;}
-    .memory-item{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:11px;margin-bottom:7px;}
-    .memory-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
-    .memory-top h3{font-size:10.5px;font-weight:700;line-height:1.35;color:#0f172a;}
-    .memory-item p{margin-top:4px;color:#64748b;font-size:9px;line-height:1.45;}
-    .memory-meta{display:flex;gap:4px;flex-wrap:wrap;margin-top:7px;color:#94a3b8;font-size:8px;font-weight:700;}
-    .memory-actions{display:flex;gap:5px;margin-top:8px;}
-    .memory-actions button{height:24px;border:1px solid #e2e8f0;background:#fff;border-radius:6px;padding:0 7px;font-size:8.5px;font-weight:700;color:#475569;cursor:pointer;font:inherit;}
+    /* knowledge summary */
+    .know-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px;}
+    .know-type-pill{border-radius:9px;padding:8px 10px;border:1px solid;text-align:center;}
+    .know-type-pill.validated{background:#f0fdf4;border-color:#bbf7d0;}
+    .know-type-pill.learned{background:#eff6ff;border-color:#bfdbfe;}
+    .know-type-pill.review{background:#fffbeb;border-color:#fde68a;}
+    .know-type-pill.inferred{background:#f8fafc;border-color:#e2e8f0;}
+    .know-type-pill b{display:block;font-size:18px;font-weight:800;color:#0f172a;}
+    .know-type-pill span{display:block;font-size:8px;font-weight:700;color:#64748b;margin-top:1px;}
+    .know-status{font-size:10px;color:#64748b;font-weight:600;margin-bottom:14px;}
+    .know-status b{color:#b45309;}
+    /* memory groups */
+    .mem-group{margin-bottom:6px;}
+    .mem-group-head{display:flex;align-items:center;gap:6px;padding:8px 0 5px;border-bottom:1px solid #f1f5f9;margin-bottom:6px;}
+    .mem-group-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+    .mem-group-dot.validated{background:#059669;}
+    .mem-group-dot.learned{background:#2563eb;}
+    .mem-group-dot.review{background:#b45309;}
+    .mem-group-dot.inferred{background:#94a3b8;}
+    .mem-group-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#64748b;flex:1;}
+    .mem-group-count{width:17px;height:17px;border-radius:50%;display:grid;place-items:center;font-size:8px;font-weight:900;color:#fff;}
+    .mem-group-count.validated{background:#059669;}
+    .mem-group-count.learned{background:#2563eb;}
+    .mem-group-count.review{background:#b45309;}
+    .mem-group-count.inferred{background:#94a3b8;}
+    /* memory cards */
+    .memory-item{background:#fff;border:1px solid #e2e8f0;border-left:3px solid #e2e8f0;border-radius:0 9px 9px 0;padding:10px 12px;margin-bottom:5px;}
+    .memory-item.validated{border-left-color:#059669;}
+    .memory-item.learned{border-left-color:#2563eb;}
+    .memory-item.review{border-left-color:#b45309;}
+    .memory-item.inferred{border-left-color:#94a3b8;}
+    .memory-item h3{font-size:10.5px;font-weight:700;line-height:1.35;color:#0f172a;margin:0 0 3px;}
+    .memory-item p{font-size:10px;color:#64748b;line-height:1.45;margin:0 0 6px;}
+    .memory-meta{display:flex;gap:4px;flex-wrap:wrap;}
+    .memory-meta span{font-size:9px;color:#94a3b8;font-weight:600;background:#f8fafc;border:1px solid #f1f5f9;border-radius:4px;padding:1px 5px;}
     .know-agent{margin:11px 15px 2px;border:1px solid #bfdbfe;background:linear-gradient(135deg,#fff,#f5f9ff);border-radius:12px;padding:10px;}
     .know-agent-head{display:flex;align-items:flex-start;gap:8px;}
     .know-ico{width:28px;height:28px;border-radius:8px;background:#2563eb;color:#fff;display:grid;place-items:center;font-size:7.5px;font-weight:900;flex:0 0 auto;}
@@ -413,48 +439,20 @@
 
   </div><!-- /wiz-wrap -->
 
-  <!-- Knowledge drawer -->
-  <div class="act-backdrop" id="drawerBackdrop" onclick="backdropClick(event)">
-    <aside class="act-drawer">
-      <div class="drawer-head">
-        <div><h2>Conocimiento de empresa</h2><p>La plataforma diferencia qu&#233; ha validado el cliente, qu&#233; ha inferido y qu&#233; ha aprendido de resultados reales.</p></div>
-        <button class="close-btn" onclick="toggleDrawer(false)">&#10005;</button>
+  <!-- Knowledge drawer (panel no modal) -->
+  <aside class="act-drawer" id="drawerBackdrop">
+    <div class="drawer-head">
+      <div>
+        <h2>Conocimiento de empresa</h2>
+        <p>Qu&#233; ha validado el equipo, qu&#233; ha inferido la plataforma y qu&#233; ha aprendido de resultados reales.</p>
       </div>
-      <div class="know-agent">
-        <div class="know-agent-head">
-          <div class="know-ico">IA</div>
-          <div>
-            <b>Consulta el conocimiento acumulado con el Agente IA</b>
-            <span>Pregunta en lenguaje natural. El agente localizar&#225; reglas, aprendizajes, decisiones y planes, indicando de d&#243;nde procede cada respuesta.</span>
-          </div>
-        </div>
-        <div class="know-search">
-          <input id="knowInput" placeholder="Ej.: &#191;Qu&#233; centros son cr&#237;ticos y por qu&#233;?" onkeydown="if(event.key==='Enter')askFromKnowledge()"/>
-          <button onclick="askFromKnowledge()">Preguntar</button>
-        </div>
-        <div class="know-examples">
-          <button onclick="askFromKnowledge('&#191;Qu&#233; hemos aprendido de los planes que mejor funcionan?')">Planes que funcionan</button>
-          <button onclick="askFromKnowledge('&#191;Qu&#233; informaci&#243;n falta para mejorar las predicciones?')">Informaci&#243;n pendiente</button>
-          <button onclick="askFromKnowledge('&#191;Qu&#233; ha cambiado en los &#250;ltimos 30 d&#237;as?')">Cambios recientes</button>
-        </div>
-      </div>
-      <div class="drawer-tabs">
-        <button class="drawer-tab active" onclick="filterMemory('all',this)">Todo</button>
-        <button class="drawer-tab" onclick="filterMemory('validated',this)">Validado</button>
-        <button class="drawer-tab" onclick="filterMemory('inferred',this)">Inferido</button>
-        <button class="drawer-tab" onclick="filterMemory('learned',this)">Aprendido</button>
-        <button class="drawer-tab" onclick="filterMemory('review',this)">En revisi&#243;n</button>
-      </div>
-      <div class="drawer-body">
-        <div class="value-strip">
-          <div class="value-kpi"><b>18</b><span>preguntas evitadas por conocimiento reutilizado</span></div>
-          <div class="value-kpi"><b>12</b><span>predicciones ajustadas con contexto acumulado</span></div>
-          <div class="value-kpi"><b>4</b><span>planes priorizados por evidencia previa</span></div>
-        </div>
-        <div id="memoryList"></div>
-      </div>
-    </aside>
-  </div>
+      <button class="close-btn" onclick="toggleDrawer(false)">&#10005;</button>
+    </div>
+    <div class="drawer-body">
+      <div id="knowSummary"></div>
+      <div id="memoryList"></div>
+    </div>
+  </aside>
 
   <!-- AI launcher pill -->
   <button class="ai-launcher" id="aiLauncher" onclick="toggleAI()" aria-label="Abrir Consultor IA">
@@ -750,7 +748,7 @@ function applyRule() {
     var plr = document.getElementById('plansReady'); if (plr) plr.style.width = '72%';
   }
   renderWizBar();
-  renderMemory('all');
+  renderMemory();
   toast('Regla aplicada. El conocimiento de empresa se ha actualizado');
 }
 
@@ -775,27 +773,52 @@ function goNext() {
 // ── Drawer ────────────────────────────────────────────────────
 function toggleDrawer(open) {
   document.getElementById('drawerBackdrop').classList.toggle('open', open);
-  if (open) renderMemory('all');
+  if (open) { renderKnowledgeSummary(); renderMemory(); }
 }
-function backdropClick(e) { if (e.target.id === 'drawerBackdrop') toggleDrawer(false); }
-function filterMemory(type, btn) {
-  document.querySelectorAll('.drawer-tab').forEach(function(x) { x.classList.remove('active'); });
-  btn.classList.add('active');
-  renderMemory(type);
-}
-function renderMemory(type) {
-  var list = type === 'all' ? memory : memory.filter(function(m) { return m.type === type; });
-  document.getElementById('memoryList').innerHTML = list.map(function(m) {
-    return '<article class="memory-item"><div class="memory-top"><h3>' + m.title + '</h3>'
-      + '<span class="a-tag ' + m.bc + '">' + m.badge + '</span></div>'
-      + '<p>' + m.text + '</p>'
-      + '<div class="memory-meta">' + m.meta.map(function(x) { return '<span>' + x + '</span>'; }).join('<span>·</span>') + '</div>'
-      + '<div class="memory-actions">'
-      + '<button onclick="toast(\'Se abrirá la evidencia y trazabilidad\')">Ver evidencia</button>'
-      + '<button onclick="toast(\'Se abrirá el historial de versiones\')">Historial</button>'
-      + (m.type === 'learned' ? '<button onclick="toast(\'Aprendizaje marcado para revisión\')">Revisar alcance</button>' : '')
-      + '</div></article>';
+function renderKnowledgeSummary() {
+  var types = [
+    {type:'validated', label:'Validado', cls:'validated'},
+    {type:'learned',   label:'Aprendido', cls:'learned'},
+    {type:'review',    label:'Revisión', cls:'review'},
+    {type:'inferred',  label:'Inferido',  cls:'inferred'}
+  ];
+  var total = memory.length;
+  var pending = memory.filter(function(m) { return m.bc === 'amber'; }).length;
+  var pills = types.map(function(g) {
+    var n = memory.filter(function(m) { return m.type === g.type; }).length;
+    return '<div class="know-type-pill ' + g.cls + '"><b>' + n + '</b><span>' + g.label + '</span></div>';
   }).join('');
+  document.getElementById('knowSummary').innerHTML =
+    '<div class="know-summary">' + pills + '</div>'
+    + '<p class="know-status">' + total + ' ítems · <b>' + pending + ' pendiente' + (pending !== 1 ? 's' : '') + ' de validar</b></p>';
+}
+function renderMemory() {
+  var groups = [
+    {type:'validated', label:'Validado',     cls:'validated'},
+    {type:'learned',   label:'Aprendido',    cls:'learned'},
+    {type:'review',    label:'En revisión', cls:'review'},
+    {type:'inferred',  label:'Inferido',     cls:'inferred'}
+  ];
+  var html = '';
+  groups.forEach(function(g) {
+    var items = memory.filter(function(m) { return m.type === g.type; });
+    if (!items.length) return;
+    html += '<div class="mem-group">'
+      + '<div class="mem-group-head">'
+      + '<span class="mem-group-dot ' + g.cls + '"></span>'
+      + '<span class="mem-group-label">' + g.label + '</span>'
+      + '<span class="mem-group-count ' + g.cls + '">' + items.length + '</span>'
+      + '</div>';
+    items.forEach(function(m) {
+      html += '<article class="memory-item ' + g.cls + '">'
+        + '<h3>' + m.title + '</h3>'
+        + '<p>' + m.text + '</p>'
+        + '<div class="memory-meta">' + m.meta.map(function(x) { return '<span>' + x + '</span>'; }).join('') + '</div>'
+        + '</article>';
+    });
+    html += '</div>';
+  });
+  document.getElementById('memoryList').innerHTML = html;
 }
 
 // ── Modals ────────────────────────────────────────────────────
@@ -879,7 +902,7 @@ document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && aiO
 // ── Init ──────────────────────────────────────────────────────
 renderWizBar();
 renderStep();
-renderMemory('all');
+renderMemory();
   </script>
 </body>
 </html>
