@@ -23,32 +23,24 @@
 
     /* ── LAYOUT ── */
     .wiz-wrap{margin-left:260px;min-height:100vh;background:#f8fafc;max-width:calc(100vw - 260px);overflow-x:hidden;}
-    .wiz-topbar{background:#fff;border-bottom:1px solid #e2e8f0;padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
-    .wiz-company{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700;color:#293650;}
-    .wiz-chip{width:30px;height:30px;border-radius:8px;background:#eff6ff;color:#2563eb;display:grid;place-items:center;font-size:10px;font-weight:800;}
-    .wiz-top-right{display:flex;align-items:center;gap:10px;}
+    .wiz-topbar{background:#fff;border-bottom:1px solid #e2e8f0;padding:0 32px;height:56px;display:flex;align-items:center;justify-content:flex-end;position:sticky;top:0;z-index:10;}
     .wiz-avatar{width:32px;height:32px;border-radius:50%;background:#0f172a;color:#fff;display:grid;place-items:center;font-size:10px;font-weight:700;}
-    .wiz-ai-btn{height:35px;border:1px solid #bfdbfe;background:linear-gradient(135deg,#fff,#f5f9ff);border-radius:9px;padding:0 10px 0 7px;display:flex;align-items:center;gap:7px;color:#2563eb;cursor:pointer;font:inherit;box-shadow:0 2px 8px rgba(37,99,235,.08);position:relative;}
-    .wiz-ai-btn:hover{border-color:#2563eb;}
-    .wiz-ai-mini{width:23px;height:23px;border-radius:7px;background:#2563eb;color:#fff;display:grid;place-items:center;font-size:8px;font-weight:900;}
-    .wiz-ai-btn b{display:block;font-size:10px;line-height:1;}
-    .wiz-ai-btn small{display:block;font-size:7.5px;color:#7c9ec9;margin-top:1px;}
-    .wiz-online{position:absolute;right:6px;top:5px;width:6px;height:6px;border-radius:50%;background:#20a66a;box-shadow:0 0 0 2px #fff;}
+
+    /* ── INFO STRIP ── */
+    .wiz-info-strip{border-bottom:1px solid #e2e8f0;background:#fff;padding:16px 32px;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;}
+    .wiz-info-left{flex:1;min-width:0;}
+    .wiz-info-eyebrow{font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
+    .wiz-info-eyebrow b{color:#475569;font-weight:800;}
+    .wiz-info-company{font-size:11px;font-weight:600;color:#94a3b8;margin-bottom:8px;}
+    .wiz-info-title{font-size:17px;font-weight:800;color:#0f172a;letter-spacing:-.03em;margin:0 0 4px;line-height:1.2;}
+    .wiz-info-desc{font-size:12px;color:#64748b;line-height:1.55;font-weight:500;margin:0;max-width:640px;}
+    .wiz-info-actions{display:flex;flex-direction:column;gap:7px;flex-shrink:0;align-items:flex-end;padding-top:2px;}
 
     /* ── CONTENT AREA ── */
-    .wiz-content{padding:24px 32px 100px;}
-    .sec-title{font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin:0 0 14px;}
+    .wiz-content{padding:20px 32px 100px;}
 
-    /* ── AGENT BAR ── */
-    .wiz-agent-bar{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:11px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
-    .wiz-agent-info{display:flex;align-items:center;gap:9px;cursor:pointer;border-radius:8px;padding:3px 6px;margin:-3px -6px;transition:.15s;}
-    .wiz-agent-info:hover{background:#eff6ff;}
-    .wiz-agent-av{width:30px;height:30px;border-radius:8px;background:#eff6ff;border:1px solid #bfdbfe;color:#2563eb;display:grid;place-items:center;font-size:8.5px;font-weight:900;position:relative;}
-    .wiz-agent-av:after{content:"";position:absolute;right:-2px;bottom:-2px;width:7px;height:7px;border-radius:50%;background:#20a66a;border:2px solid #fff;}
-    .wiz-agent-info b{font-size:12px;font-weight:700;color:#0f172a;}
-    .wiz-agent-info span{display:block;font-size:9.2px;color:#94a3b8;margin-top:1px;}
-    .wiz-task-btns{display:flex;gap:6px;}
-    .w-btn{height:30px;border:1px solid #e2e8f0;background:#fff;border-radius:7px;padding:0 10px;font-size:11px;font-weight:600;color:#475569;cursor:pointer;font:inherit;transition:.12s;}
+    /* ── BUTTONS ── */
+    .w-btn{height:30px;border:1px solid #e2e8f0;background:#fff;border-radius:7px;padding:0 10px;font-size:11px;font-weight:600;color:#475569;cursor:pointer;font:inherit;transition:.12s;white-space:nowrap;}
     .w-btn:hover{background:#f8fafc;border-color:#cbd5e1;}
     .w-btn.soft{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8;}
     .w-btn.primary{background:#2563eb;border-color:#2563eb;color:#fff;}
@@ -78,10 +70,17 @@
 
     /* question */
     .big-q{font-size:14px;font-weight:700;color:#0f172a;margin:0 0 10px;letter-spacing:-.01em;}
-    .quick-opts{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px;}
+    .quick-opts{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px;}
     .quick-opt{min-height:38px;border:1px solid #e2e8f0;background:#fff;border-radius:9px;color:#334155;text-align:left;padding:8px 12px;font-size:11px;font-weight:600;line-height:1.3;cursor:pointer;font:inherit;transition:.12s;}
     .quick-opt:hover{border-color:#bfdbfe;}
     .quick-opt.selected{border-color:#93c5fd;background:#eff6ff;color:#1d4ed8;box-shadow:inset 0 0 0 1px #bfdbfe;}
+
+    /* secondary actions row (Asignar / No lo sé / Más tarde) */
+    .step-ctx-row{display:flex;align-items:center;gap:6px;margin-bottom:14px;padding:8px 10px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:8px;}
+    .step-ctx-row span{font-size:10px;color:#94a3b8;font-weight:600;flex-shrink:0;margin-right:2px;}
+    .step-ctx-row button{height:26px;border:1px solid #e2e8f0;background:#fff;border-radius:6px;padding:0 9px;font-size:10px;font-weight:600;color:#475569;cursor:pointer;font:inherit;transition:.12s;white-space:nowrap;}
+    .step-ctx-row button:hover{border-color:#bfdbfe;color:#1d4ed8;background:#eff6ff;}
+
     .answer-box{display:flex;gap:8px;margin-bottom:14px;}
     .answer-box textarea{flex:1;min-height:66px;resize:vertical;border:1px solid #e2e8f0;border-radius:10px;background:#fff;padding:10px 12px;color:#334155;font-size:12px;line-height:1.5;outline:none;font:inherit;}
     .answer-box textarea:focus{border-color:#93c5fd;box-shadow:0 0 0 3px rgba(37,99,235,.08);}
@@ -104,12 +103,12 @@
     .confirm-actions{display:flex;gap:6px;flex-shrink:0;}
 
     /* ── BOTTOM PANELS ── */
-    .wiz-bottom{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px;}
-    .wiz-bp{background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+    .wiz-bottom{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px;align-items:start;}
+    .wiz-bp{background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04);display:flex;flex-direction:column;}
     .wiz-bp-head{padding:13px 16px;border-bottom:1px solid #f1f5f9;}
     .wiz-bp-head h3{font-size:12.5px;font-weight:700;color:#0f172a;margin:0;}
     .wiz-bp-head p{margin-top:3px;font-size:10px;color:#94a3b8;font-weight:500;}
-    .wiz-bp-body{padding:13px 16px;}
+    .wiz-bp-body{padding:13px 16px;flex:1;}
 
     /* impact rows */
     .impact-row{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid #f1f5f9;}
@@ -224,14 +223,13 @@
     .act-toast.show{opacity:1;transform:translate(-50%,0);}
     .act-toast i{width:17px;height:17px;border-radius:50%;display:grid;place-items:center;background:#d1fae5;color:#059669;font-style:normal;font-weight:900;font-size:9px;}
 
+    /* ── AI LAUNCHER (pill) ── */
+    .ai-launcher{position:fixed;right:24px;bottom:72px;z-index:96;border:0;background:#2563eb;color:#fff;border-radius:999px;padding:12px 18px;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 8px 24px rgba(37,99,235,.32);transition:.15s;font:inherit;}
+    .ai-launcher:hover{background:#1d4ed8;transform:translateY(-1px);}
+    .ai-launcher svg{width:16px;height:16px;flex-shrink:0;}
+    .ai-launcher.open{opacity:0;pointer-events:none;transform:translateY(4px);}
+
     /* ── AI PANEL ── */
-    .ai-launcher{position:fixed;right:20px;bottom:72px;z-index:96;border:0;background:linear-gradient(135deg,#1e40af,#2563eb);color:#fff;border-radius:14px;padding:8px 12px 8px 8px;display:flex;align-items:center;gap:9px;box-shadow:0 12px 28px rgba(37,99,235,.28);cursor:pointer;transition:.2s;min-width:190px;font:inherit;}
-    .ai-launcher:hover{transform:translateY(-2px);}
-    .ai-launcher-ico{width:36px;height:36px;border-radius:11px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18);display:grid;place-items:center;font-size:9px;font-weight:900;position:relative;flex:0 0 auto;}
-    .ai-launcher-ico i{position:absolute;right:-2px;bottom:-2px;width:8px;height:8px;border-radius:50%;background:#42d08b;border:2px solid #2563eb;}
-    .ai-launcher b{display:block;font-size:11px;}
-    .ai-launcher span{display:block;font-size:8.5px;color:#bfdbfe;margin-top:2px;}
-    .ai-launcher.open{opacity:0;pointer-events:none;transform:translateY(6px);}
     .ai-panel{position:fixed;right:18px;top:68px;bottom:68px;width:min(420px,calc(100vw - 32px));z-index:145;background:#fff;border:1px solid #dde5ef;border-radius:18px;box-shadow:0 20px 55px rgba(15,23,42,.2);display:flex;flex-direction:column;overflow:hidden;transform:translateX(calc(100% + 40px));opacity:0;pointer-events:none;transition:.22s ease;}
     .ai-panel.open{transform:translateX(0);opacity:1;pointer-events:auto;}
     .ai-panel-head{padding:13px 14px;border-bottom:1px solid #e2e8f0;background:linear-gradient(125deg,#0f172a,#1e3a5f);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:11px;}
@@ -283,20 +281,9 @@
 
   <div class="wiz-wrap">
 
-    <!-- Topbar -->
+    <!-- Topbar (simplified: avatar only) -->
     <header class="wiz-topbar">
-      <div class="wiz-company">
-        <div class="wiz-chip">GA</div>
-        <span>Grupo Atlas &middot; Espa&#241;a</span>
-      </div>
-      <div class="wiz-top-right">
-        <button class="wiz-ai-btn" onclick="toggleAI(true,'Activaci&#243;n inicial')" aria-label="Abrir Agente IA">
-          <span class="wiz-ai-mini">IA</span>
-          <span><b>Agente IA</b><small>Disponible en toda la plataforma</small></span>
-          <i class="wiz-online"></i>
-        </button>
-        <div class="wiz-avatar">MB</div>
-      </div>
+      <div class="wiz-avatar">MB</div>
     </header>
 
     <!-- Progress bar -->
@@ -304,27 +291,22 @@
       <div class="wiz-steps" id="wizSteps"></div>
     </div>
 
+    <!-- Permanent step context strip -->
+    <div class="wiz-info-strip">
+      <div class="wiz-info-left">
+        <div class="wiz-info-eyebrow">Activaci&#243;n &middot; <b>Conocimiento de la empresa</b></div>
+        <div class="wiz-info-company" id="infoCompany">Grupo Atlas &middot; Espa&#241;a</div>
+        <h2 class="wiz-info-title" id="infoTitle">Contexto operativo</h2>
+        <p class="wiz-info-desc" id="infoDesc">Valida las decisiones que determinan c&#243;mo interpretar el impacto del absentismo, priorizar el riesgo y recomendar acciones en tu organizaci&#243;n.</p>
+      </div>
+      <div class="wiz-info-actions">
+        <button class="w-btn" onclick="toast('Progreso guardado. Puedes continuar m&#225;s tarde.')">Guardar y salir</button>
+        <button class="w-btn soft" onclick="toggleDrawer(true)">Conocimiento de empresa</button>
+      </div>
+    </div>
+
     <!-- Content -->
     <div class="wiz-content">
-
-      <p class="sec-title" id="stepEyebrow">Configuraci&#243;n inicial &middot; Paso 5 de 8</p>
-
-      <!-- Agent bar -->
-      <div class="wiz-agent-bar">
-        <div class="wiz-agent-info" onclick="toggleAI(true,'Activaci&#243;n inicial')" title="Abrir Agente IA">
-          <div class="wiz-agent-av">IA</div>
-          <div>
-            <b>Agente IA ThirdWish</b>
-            <span id="agentSubtitle">Contrasta los datos con el contexto de negocio</span>
-          </div>
-        </div>
-        <div class="wiz-task-btns">
-          <button class="w-btn" onclick="openAssign()">Asignar</button>
-          <button class="w-btn" onclick="handleUnknown()">No lo s&#233;</button>
-          <button class="w-btn" onclick="toast('Pregunta guardada para m&#225;s tarde')">M&#225;s tarde</button>
-          <button class="w-btn soft" onclick="toggleDrawer(true)">Conocimiento de empresa</button>
-        </div>
-      </div>
 
       <!-- Main card -->
       <article class="wiz-main-card" id="taskBody"></article>
@@ -452,10 +434,10 @@
     </aside>
   </div>
 
-  <!-- AI launcher -->
-  <button class="ai-launcher" id="aiLauncher" onclick="toggleAI()" aria-label="Abrir Agente IA">
-    <span class="ai-launcher-ico">IA<i></i></span>
-    <span><b>Agente IA ThirdWish</b><span id="launcherText">Pregunta sobre cualquier dato</span></span>
+  <!-- AI launcher pill -->
+  <button class="ai-launcher" id="aiLauncher" onclick="toggleAI()" aria-label="Abrir Consultor IA">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+    Consultor IA
   </button>
 
   <!-- AI panel -->
@@ -468,7 +450,7 @@
       <button class="ai-panel-close" onclick="toggleAI(false)" aria-label="Cerrar">&#10005;</button>
     </header>
     <div class="ai-ctx">
-      <div><small>Contexto activo</small><b id="aiCtxLabel">Activaci&#243;n inicial &middot; Contexto operativo</b></div>
+      <div><small>Contexto activo</small><b id="aiCtxLabel">Activaci&#243;n &middot; Contexto operativo</b></div>
       <span>Fuentes trazables</span>
     </div>
     <div class="ai-chat" id="aiChat">
@@ -600,14 +582,14 @@ function renderWizBar() {
 // ── Step content data ─────────────────────────────────────────
 function stepContent(id) {
   var c = {
-    1:{title:'Fuentes y alcance',desc:'Confirma el alcance que la plataforma ha reconstruido a partir de las fuentes conectadas y revisa las excepciones de calidad que afectan al análisis.',agent:'Reconoce fuentes, campos y cobertura antes de preguntar',owner:'Datos / IT',q:'¿La población identificada representa el alcance correcto del proyecto?',explain:'Se han relacionado nómina, ausencias y turnos. La plataforma ha resuelto automáticamente claves, periodos y cobertura, pero necesita confirmar qué sociedades y colectivos quedan dentro del análisis.',evidence:[['14.286','personas relacionadas'],['312','centros identificados'],['36 meses','de histórico disponible'],['96,4%','cobertura cruzada']],big:'¿Incluimos las 8 sociedades y excluimos personal externo y becarios?',options:['Sí, ese es el alcance correcto','Incluir también personal externo','Excluir una sociedad o colectivo','Necesito revisar el detalle'],answer:'Sí, incluye las 8 sociedades y excluye personal externo y becarios.',fields:[['Población','14.286 personas'],['Sociedades','8 incluidas'],['Exclusiones','Externos y becarios'],['Cobertura','96,4%']],impact:[['blue','Datos','Evita mezclar colectivos fuera de alcance.'],['green','Patrones','Define el universo comparable.'],['amber','Modelos','Establece la población de entrenamiento.']],auto:['Fuentes y columnas reconocidas','Cobertura y duplicados calculados','Cliente valida alcance final']},
-    2:{title:'Definición de absentismo',desc:'Alinea los cálculos de la plataforma con la definición oficial de la compañía para que las cifras sean comparables y auditables.',agent:'Traduce códigos y valida la métrica oficial',owner:'RRHH',q:'¿Qué ausencias deben formar parte de la tasa oficial?',explain:'La plataforma ha agrupado 37 códigos de ausencia y ha comparado su resultado con el dato corporativo. Cuatro códigos requieren criterio de RRHH.',evidence:[['37','códigos clasificados'],['99,1%','coincidencia con dato oficial'],['4','códigos por validar'],['2','métricas paralelas']],big:'¿Incluimos permisos retribuidos y bajas de maternidad/paternidad en la tasa principal?',options:['Excluir ambos de la tasa principal','Incluir permisos, excluir maternidad/paternidad','Incluir ambos','Mantener dos métricas paralelas'],answer:'Excluir ambos de la tasa principal y mantenerlos visibles como categorías separadas.',fields:[['Tasa principal','IT + AT/EP'],['Exclusiones','Permisos y nacimiento'],['Visibilidad','Categorías separadas'],['Revisión','Anual']],impact:[['blue','Datos','Unifica la tasa corporativa.'],['green','Comparabilidad','Evita diferencias entre pantallas.'],['amber','Costes','Aplica la metodología correcta por causa.']],auto:['Taxonomía propuesta automáticamente','Comparación con KPI corporativo','RRHH valida 4 excepciones']},
-    3:{title:'Estructura y colectivos',desc:'Valida cómo debe reconstruirse la organización en cada fecha para analizar centros, equipos, turnos y categorías sin distorsionar el histórico.',agent:'Reconstruye jerarquías y movimientos temporales',owner:'RRHH + Operaciones',q:'¿Cómo debemos tratar los cambios de centro y equipo en el histórico?',explain:'La plataforma ha detectado 486 movimientos internos y dos reorganizaciones. El análisis debe utilizar la estructura vigente en la fecha de cada ausencia, no la estructura actual.',evidence:[['486','movimientos internos'],['2','reorganizaciones'],['11','centros renombrados'],['98,7%','jerarquía reconstruida']],big:'¿Confirmas que cada ausencia debe atribuirse al centro, turno y equipo vigentes en su fecha?',options:['Sí, usar estructura histórica','Usar siempre estructura actual','Aplicar estructura histórica solo a centros','Necesito validar excepciones'],answer:'Sí, usar la estructura histórica en la fecha de cada ausencia.',fields:[['Vigencia','Estructura por fecha'],['Movimientos','Atribución histórica'],['Renombrados','Identidad conservada'],['Excepciones','2 pendientes']],impact:[['blue','Patrones','Evita falsos patrones por traslados.'],['green','Centros','Mantiene series comparables.'],['amber','Predicción','Usa el contexto operativo correcto.']],auto:['Organigrama temporal reconstruido','Movimientos y renombrados relacionados','Cliente confirma regla temporal']},
-    4:{title:'Modelo de coste',desc:'Configura una metodología estándar y transparente, permitiendo incluir o excluir componentes sin perder comparabilidad ni trazabilidad.',agent:'Calcula, separa y evita doble contabilización',owner:'Finanzas',q:'¿Qué componentes deben formar parte del coste oficial?',explain:'La metodología estándar ya está calculada. Dos componentes son estimaciones y deben mantenerse separados del coste contable para no sobrestimar el impacto.',evidence:[['4,8 M€','coste directo calculado'],['1,2 M€','cobertura y horas extra'],['0,9 M€','impacto estimado separado'],['2','componentes parametrizados']],big:'¿Validamos como coste oficial el coste directo más cobertura, dejando productividad como estimación separada?',options:['Sí, validar esta metodología','Excluir horas extra','Incluir productividad en coste oficial','Personalizar componentes'],answer:'Sí, validar coste directo y cobertura. Mantener productividad como estimación separada.',fields:[['Coste oficial','Directo + cobertura'],['Estimación separada','Productividad'],['Horas extra','Incluidas'],['Vigencia','01/01/2026']],impact:[['blue','ROI','Ahorro comparable y auditable.'],['green','Patrones','Coste asociado sin solapamientos.'],['amber','Planes','Prioriza por retorno económico.']],auto:['Componentes calculados','Solapamientos detectados','Finanzas decide metodología oficial']},
-    5:{title:'Contexto operativo',desc:'Valida las decisiones que determinan cómo interpretar el impacto del absentismo, priorizar el riesgo y recomendar acciones en tu organización.',agent:'Contrasta los datos con el contexto de negocio',owner:'Operaciones',q:'¿Cuándo debe considerarse crítico un centro?',explain:'La tasa por sí sola puede engañar. Un centro con menos absentismo puede generar más daño si tiene puestos escasos, poca capacidad de sustitución o compromisos operativos sensibles.',evidence:[['6,8%','absentismo vs. 8,1% compañía'],['23%','del coste operativo estimado'],['4','puestos de cobertura difícil'],['38%','incidencias en turno noche']],big:'¿Debemos considerar Planta Norte crítica para la continuidad de la operación?',options:['Sí, durante todo el año','Sí, en periodos concretos','No, la operación puede absorberlo','Necesito matizar la regla'],answer:'Sí, pero principalmente de junio a septiembre. Si coinciden dos ausencias de técnicos de mantenimiento en el turno de noche, se retrasa la producción.',fields:[['Ámbito','Planta Norte'],['Criticidad','Alta · estacional'],['Periodo','1 junio – 30 septiembre'],['Colectivo','Mantenimiento · noche'],['Umbral','2 ausencias simultáneas'],['Impacto','Retraso de producción']],impact:[['blue','Patrones','Eleva señales con impacto real.'],['green','Predicciones','Prioriza riesgo colectivo accionable.'],['amber','Planes','Activa cobertura antes del umbral.']],auto:['Centro y señales detectados','Periodo y colectivo identificados','Operaciones valida criticidad y umbral']},
-    6:{title:'Modelos y privacidad',desc:'Define cómo se utilizan las variables en modelos colectivos, qué controles de equidad se aplican y qué resultados nunca se mostrarán.',agent:'Configura uso de variables, agregación y control de sesgos',owner:'RRHH + Legal',q:'¿Autorizamos edad y género en modelos colectivos bajo controles de equidad?',explain:'La plataforma no mostrará riesgos individuales. Estas variables pueden utilizarse para mejorar la calibración colectiva y comprobar diferencias de rendimiento entre grupos.',evidence:[['0','riesgos individuales visibles'],['10','tamaño mínimo de colectivo'],['2','modelos comparados'],['4','controles de equidad']],big:'¿Permitimos su uso únicamente en modelos colectivos y auditoría de equidad?',options:['Sí, con controles y revisión periódica','Solo para auditoría, no para predecir','No utilizar estas variables','Necesito revisión legal adicional'],answer:'Sí, únicamente en modelos colectivos y control de equidad. Nunca para decisiones individuales.',fields:[['Uso','Colectivo + equidad'],['Riesgo individual','Prohibido'],['Grupo mínimo','10 personas'],['Revisión','Trimestral']],impact:[['blue','Gobierno','Uso trazable y limitado.'],['green','Modelos','Compara mejora con y sin variables.'],['amber','Equidad','Detecta impactos desiguales.']],auto:['Política base propuesta','Modelos con/sin variables comparados','RRHH y Legal autorizan el uso']},
-    7:{title:'Planes y gobierno',desc:'Configura qué acciones son viables, quién decide, qué recursos existen y cuándo una recomendación debe escalarse.',agent:'Convierte recomendaciones en acciones ejecutables',owner:'RRHH + Operaciones',q:'¿Qué capacidad real tiene la organización para actuar ante un riesgo?',explain:'La plataforma ha identificado recursos de cobertura y circuitos de aprobación, pero necesita validar límites operativos para no recomendar planes imposibles.',evidence:[['3','bolsas internas disponibles'],['2','proveedores ETT activos'],['48 h','aprobación media'],['6','tipos de acción permitidos']],big:'¿Puede un responsable de centro activar cobertura interna hasta 3.000€ sin aprobación adicional?',options:['Sí, hasta 3.000€','Sí, pero hasta 1.500€','No, siempre requiere aprobación','Depende del centro'],answer:'Sí, hasta 3.000€ en centros críticos. En el resto, requiere aprobación de RRHH.',fields:[['Autonomía','Centros críticos'],['Límite','3.000€'],['Resto de centros','Aprobación RRHH'],['Trazabilidad','Obligatoria']],impact:[['blue','Planes','Elimina recomendaciones inviables.'],['green','Velocidad','Reduce tiempo de activación.'],['amber','ROI','Incluye coste real de ejecución.']],auto:['Recursos y aprobadores identificados','Acciones disponibles mapeadas','Cliente valida límites y excepciones']},
-    8:{title:'Revisión y activación',desc:'Revisa qué capacidades quedan disponibles, qué limitaciones se mantienen y activa la plataforma con una configuración versionada.',agent:'Comprueba consistencia, impacto y preparación',owner:'RRHH',q:'La configuración mínima está preparada para activarse',explain:'La plataforma ha validado reglas, detectado limitaciones y calculado qué módulos pueden funcionar desde el primer día. Puedes activar ahora y completar mejoras después.',evidence:[['100%','datos y diagnóstico'],['96%','patrones preparados'],['91%','predicciones preparadas'],['87%','planes preparados']],big:'¿Activamos la plataforma con esta versión de configuración?',options:['Activar ahora','Revisar decisiones pendientes','Descargar resumen de configuración','Programar activación'],answer:'Activar la plataforma con esta versión de configuración.',fields:[['Versión','Setup 1.0'],['Reglas validadas','48'],['Limitaciones visibles','2 no bloqueantes'],['Revisión','30 días']],impact:[['blue','Activación','Desbloquea todos los módulos disponibles.'],['green','Trazabilidad','Conserva versión y responsables.'],['amber','Continuidad','El setup seguirá aprendiendo.']],auto:['Consistencia comprobada','Módulos y limitaciones calculados','Cliente confirma activación final']}
+    1:{title:'Fuentes y alcance',desc:'Confirma el alcance que la plataforma ha reconstruido a partir de las fuentes conectadas y revisa las excepciones de calidad que afectan al análisis.',owner:'Datos / IT',q:'¿La población identificada representa el alcance correcto del proyecto?',explain:'Se han relacionado nómina, ausencias y turnos. La plataforma ha resuelto automáticamente claves, periodos y cobertura, pero necesita confirmar qué sociedades y colectivos quedan dentro del análisis.',evidence:[['14.286','personas relacionadas'],['312','centros identificados'],['36 meses','de histórico disponible'],['96,4%','cobertura cruzada']],big:'¿Incluimos las 8 sociedades y excluimos personal externo y becarios?',options:['Í, ese es el alcance correcto','Incluir también personal externo','Excluir una sociedad o colectivo','Necesito revisar el detalle'],answer:'Í, incluye las 8 sociedades y excluye personal externo y becarios.',fields:[['Población','14.286 personas'],['Sociedades','8 incluidas'],['Exclusiones','Externos y becarios'],['Cobertura','96,4%']],impact:[['blue','Datos','Evita mezclar colectivos fuera de alcance.'],['green','Patrones','Define el universo comparable.'],['amber','Modelos','Establece la población de entrenamiento.']],auto:['Fuentes y columnas reconocidas','Cobertura y duplicados calculados','Cliente valida alcance final']},
+    2:{title:'Definición de absentismo',desc:'Alinea los cálculos de la plataforma con la definición oficial de la compañía para que las cifras sean comparables y auditables.',owner:'RRHH',q:'¿Qué ausencias deben formar parte de la tasa oficial?',explain:'La plataforma ha agrupado 37 códigos de ausencia y ha comparado su resultado con el dato corporativo. Cuatro códigos requieren criterio de RRHH.',evidence:[['37','códigos clasificados'],['99,1%','coincidencia con dato oficial'],['4','códigos por validar'],['2','métricas paralelas']],big:'¿Incluimos permisos retribuidos y bajas de maternidad/paternidad en la tasa principal?',options:['Excluir ambos de la tasa principal','Incluir permisos, excluir maternidad/paternidad','Incluir ambos','Mantener dos métricas paralelas'],answer:'Excluir ambos de la tasa principal y mantenerlos visibles como categorías separadas.',fields:[['Tasa principal','IT + AT/EP'],['Exclusiones','Permisos y nacimiento'],['Visibilidad','Categorías separadas'],['Revisión','Anual']],impact:[['blue','Datos','Unifica la tasa corporativa.'],['green','Comparabilidad','Evita diferencias entre pantallas.'],['amber','Costes','Aplica la metodología correcta por causa.']],auto:['Taxonomía propuesta automáticamente','Comparación con KPI corporativo','RRHH valida 4 excepciones']},
+    3:{title:'Estructura y colectivos',desc:'Valida cómo debe reconstruirse la organización en cada fecha para analizar centros, equipos, turnos y categorías sin distorsionar el histórico.',owner:'RRHH + Operaciones',q:'¿Cómo debemos tratar los cambios de centro y equipo en el histórico?',explain:'La plataforma ha detectado 486 movimientos internos y dos reorganizaciones. El análisis debe utilizar la estructura vigente en la fecha de cada ausencia, no la estructura actual.',evidence:[['486','movimientos internos'],['2','reorganizaciones'],['11','centros renombrados'],['98,7%','jerarquía reconstruida']],big:'¿Confirmas que cada ausencia debe atribuirse al centro, turno y equipo vigentes en su fecha?',options:['Í, usar estructura histórica','Usar siempre estructura actual','Aplicar estructura histórica solo a centros','Necesito validar excepciones'],answer:'Í, usar la estructura histórica en la fecha de cada ausencia.',fields:[['Vigencia','Estructura por fecha'],['Movimientos','Atribución histórica'],['Renombrados','Identidad conservada'],['Excepciones','2 pendientes']],impact:[['blue','Patrones','Evita falsos patrones por traslados.'],['green','Centros','Mantiene series comparables.'],['amber','Predicción','Usa el contexto operativo correcto.']],auto:['Organigrama temporal reconstruido','Movimientos y renombrados relacionados','Cliente confirma regla temporal']},
+    4:{title:'Modelo de coste',desc:'Configura una metodología estándar y transparente, permitiendo incluir o excluir componentes sin perder comparabilidad ni trazabilidad.',owner:'Finanzas',q:'¿Qué componentes deben formar parte del coste oficial?',explain:'La metodología estándar ya está calculada. Dos componentes son estimaciones y deben mantenerse separados del coste contable para no sobrestimar el impacto.',evidence:[['4,8 M€','coste directo calculado'],['1,2 M€','cobertura y horas extra'],['0,9 M€','impacto estimado separado'],['2','componentes parametrizados']],big:'¿Validamos como coste oficial el coste directo más cobertura, dejando productividad como estimación separada?',options:['Í, validar esta metodología','Excluir horas extra','Incluir productividad en coste oficial','Personalizar componentes'],answer:'Í, validar coste directo y cobertura. Mantener productividad como estimación separada.',fields:[['Coste oficial','Directo + cobertura'],['Estimación separada','Productividad'],['Horas extra','Incluidas'],['Vigencia','01/01/2026']],impact:[['blue','ROI','Ahorro comparable y auditable.'],['green','Patrones','Coste asociado sin solapamientos.'],['amber','Planes','Prioriza por retorno económico.']],auto:['Componentes calculados','Solapamientos detectados','Finanzas decide metodología oficial']},
+    5:{title:'Contexto operativo',desc:'Valida las decisiones que determinan cómo interpretar el impacto del absentismo, priorizar el riesgo y recomendar acciones en tu organización.',owner:'Operaciones',q:'¿Cuándo debe considerarse crítico un centro?',explain:'La tasa por sí sola puede engañar. Un centro con menos absentismo puede generar más daño si tiene puestos escasos, poca capacidad de sustitución o compromisos operativos sensibles.',evidence:[['6,8%','absentismo vs. 8,1% compañía'],['23%','del coste operativo estimado'],['4','puestos de cobertura difícil'],['38%','incidencias en turno noche']],big:'¿Debemos considerar Planta Norte crítica para la continuidad de la operación?',options:['Í, durante todo el año','Í, en periodos concretos','No, la operación puede absorberlo','Necesito matizar la regla'],answer:'Í, pero principalmente de junio a septiembre. Si coinciden dos ausencias de técnicos de mantenimiento en el turno de noche, se retrasa la producción.',fields:[['Ámbito','Planta Norte'],['Criticidad','Alta · estacional'],['Periodo','1 junio – 30 septiembre'],['Colectivo','Mantenimiento · noche'],['Umbral','2 ausencias simultáneas'],['Impacto','Retraso de producción']],impact:[['blue','Patrones','Eleva señales con impacto real.'],['green','Predicciones','Prioriza riesgo colectivo accionable.'],['amber','Planes','Activa cobertura antes del umbral.']],auto:['Centro y señales detectados','Periodo y colectivo identificados','Operaciones valida criticidad y umbral']},
+    6:{title:'Modelos y privacidad',desc:'Define cómo se utilizan las variables en modelos colectivos, qué controles de equidad se aplican y qué resultados nunca se mostrarán.',owner:'RRHH + Legal',q:'¿Autorizamos edad y género en modelos colectivos bajo controles de equidad?',explain:'La plataforma no mostrará riesgos individuales. Estas variables pueden utilizarse para mejorar la calibración colectiva y comprobar diferencias de rendimiento entre grupos.',evidence:[['0','riesgos individuales visibles'],['10','tamaño mínimo de colectivo'],['2','modelos comparados'],['4','controles de equidad']],big:'¿Permitimos su uso únicamente en modelos colectivos y auditoría de equidad?',options:['Í, con controles y revisión periódica','Solo para auditoría, no para predecir','No utilizar estas variables','Necesito revisión legal adicional'],answer:'Í, únicamente en modelos colectivos y control de equidad. Nunca para decisiones individuales.',fields:[['Uso','Colectivo + equidad'],['Riesgo individual','Prohibido'],['Grupo mínimo','10 personas'],['Revisión','Trimestral']],impact:[['blue','Gobierno','Uso trazable y limitado.'],['green','Modelos','Compara mejora con y sin variables.'],['amber','Equidad','Detecta impactos desiguales.']],auto:['Política base propuesta','Modelos con/sin variables comparados','RRHH y Legal autorizan el uso']},
+    7:{title:'Planes y gobierno',desc:'Configura qué acciones son viables, quién decide, qué recursos existen y cuándo una recomendación debe escalarse.',owner:'RRHH + Operaciones',q:'¿Qué capacidad real tiene la organización para actuar ante un riesgo?',explain:'La plataforma ha identificado recursos de cobertura y circuitos de aprobación, pero necesita validar límites operativos para no recomendar planes imposibles.',evidence:[['3','bolsas internas disponibles'],['2','proveedores ETT activos'],['48 h','aprobación media'],['6','tipos de acción permitidos']],big:'¿Puede un responsable de centro activar cobertura interna hasta 3.000€ sin aprobación adicional?',options:['Í, hasta 3.000€','Í, pero hasta 1.500€','No, siempre requiere aprobación','Depende del centro'],answer:'Í, hasta 3.000€ en centros críticos. En el resto, requiere aprobación de RRHH.',fields:[['Autonomía','Centros críticos'],['Límite','3.000€'],['Resto de centros','Aprobación RRHH'],['Trazabilidad','Obligatoria']],impact:[['blue','Planes','Elimina recomendaciones inviables.'],['green','Velocidad','Reduce tiempo de activación.'],['amber','ROI','Incluye coste real de ejecución.']],auto:['Recursos y aprobadores identificados','Acciones disponibles mapeadas','Cliente valida límites y excepciones']},
+    8:{title:'Revisión y activación',desc:'Revisa qué capacidades quedan disponibles, qué limitaciones se mantienen y activa la plataforma con una configuración versionada.',owner:'RRHH',q:'La configuración mínima está preparada para activarse',explain:'La plataforma ha validado reglas, detectado limitaciones y calculado qué módulos pueden funcionar desde el primer día. Puedes activar ahora y completar mejoras después.',evidence:[['100%','datos y diagnóstico'],['96%','patrones preparados'],['91%','predicciones preparadas'],['87%','planes preparados']],big:'¿Activamos la plataforma con esta versión de configuración?',options:['Activar ahora','Revisar decisiones pendientes','Descargar resumen de configuración','Programar activación'],answer:'Activar la plataforma con esta versión de configuración.',fields:[['Versión','Setup 1.0'],['Reglas validadas','48'],['Limitaciones visibles','2 no bloqueantes'],['Revisión','30 días']],impact:[['blue','Activación','Desbloquea todos los módulos disponibles.'],['green','Trazabilidad','Conserva versión y responsables.'],['amber','Continuidad','El setup seguirá aprendiendo.']],auto:['Consistencia comprobada','Módulos y limitaciones calculados','Cliente confirma activación final']}
   };
   return c[id];
 }
@@ -625,20 +607,24 @@ function renderStep() {
   var st = steps[activeStep - 1];
   var isActivate = activeStep === 8;
 
-  // eyebrow + footer
-  document.getElementById('stepEyebrow').textContent = 'Configuración inicial · Paso ' + activeStep + ' de 8 — ' + s.title;
+  // Update info strip
+  var infoTitle = document.getElementById('infoTitle');
+  var infoDesc = document.getElementById('infoDesc');
+  if (infoTitle) infoTitle.textContent = s.title;
+  if (infoDesc) infoDesc.textContent = s.desc;
+
+  // Footer
   document.getElementById('footStep').textContent = activeStep;
   document.getElementById('footTitle').textContent = s.title;
-  document.getElementById('agentSubtitle').textContent = s.agent;
   document.getElementById('assignOwner').textContent = s.owner;
 
-  // footer buttons
+  // Footer buttons
   var btnBack = document.getElementById('btnBack');
   var btnNextLabel = document.getElementById('btnNextLabel');
   btnBack.disabled = activeStep === 1;
   btnNextLabel.textContent = isActivate ? 'Activar plataforma' : 'Siguiente';
 
-  // automation bar
+  // Automation bar
   var pct = st.auto;
   document.getElementById('automationScore').textContent = pct + '%';
   document.getElementById('autoBarPct').textContent = pct + '%';
@@ -648,19 +634,27 @@ function renderStep() {
     ? 'La plataforma ha comprobado consistencia y permisos'
     : 'La plataforma resuelve primero lo que puede inferir';
   document.getElementById('autoList').innerHTML = s.auto.map(function(x, i) {
-    return '<div class="auto-item"><span class="auto-chk ' + (i === 2 ? 'usr' : 'ok') + '">' + (i === 2 ? '!' : '&#10003;') + '</span>' + x + '</div>';
+    return '<div class="auto-item"><span class="auto-chk ' + (i === 2 ? 'usr' : 'ok') + '">' + (i === 2 ? '!' : '✓') + '</span>' + x + '</div>';
   }).join('');
 
-  // impact
+  // Impact
   document.getElementById('impactBody').innerHTML = s.impact.map(function(x) {
     return '<div class="impact-row"><div class="impact-ico ' + x[0] + '">' + impactIcon(x[0]) + '</div>'
       + '<div class="impact-copy"><b>' + x[1] + '</b><span>' + x[2] + '</span></div></div>';
   }).join('');
 
-  // main task card
+  // Fields
   var fieldsHtml = s.fields.map(function(f) {
     return '<div class="rule-field"><label>' + f[0] + '</label><strong>' + f[1] + '</strong></div>';
   }).join('');
+
+  // Secondary action row (integrated into card)
+  var ctxRow = '<div class="step-ctx-row">'
+    + '<span>Sin información:</span>'
+    + '<button onclick="handleUnknown()">No lo sé</button>'
+    + '<button onclick="openAssign()">Asignar a un responsable</button>'
+    + '<button onclick="toast(\'Pregunta guardada para más tarde\')">Revisar más tarde</button>'
+    + '</div>';
 
   document.getElementById('taskBody').innerHTML =
     '<span class="wiz-kicker">Paso ' + activeStep + ' de 8</span>'
@@ -677,6 +671,7 @@ function renderStep() {
     + '<div class="quick-opts">' + s.options.map(function(o, i) {
         return '<button class="quick-opt' + (i === 1 && activeStep === 5 ? ' selected' : '') + '" onclick="chooseOpt(this,\'' + o.replace(/'/g, "\\'") + '\')">' + o + '</button>';
       }).join('') + '</div>'
+    + ctxRow
     + '<div class="answer-box"><textarea id="answerText">' + s.answer + '</textarea>'
     + '<button class="send-btn" onclick="interpretAnswer()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 14-8-4 16-3-6-7-2Z"/></svg></button></div>'
     + '<div class="interp-box" id="interpretation">'
@@ -744,10 +739,7 @@ function activatePlatform() {
   toast('Plataforma activada. Ya puedes acceder a los módulos');
 }
 
-function goBack() {
-  if (activeStep > 1) setStep(activeStep - 1);
-}
-
+function goBack() { if (activeStep > 1) setStep(activeStep - 1); }
 function goNext() {
   if (activeStep === 8) { activatePlatform(); return; }
   setStep(activeStep + 1);
