@@ -13,7 +13,7 @@ const SidebarComponent = (() => {
 
   const NAV_ITEMS = [
     { href: "/activacion",      link: "activacion.html",      label: "Activación",      icon: "lightning", indent: false },
-    { href: "/parametrizacion", link: "parametrizacion.html", label: "Parametrización", icon: "lightning", indent: true },
+    { href: "/parametrizacion", link: "parametrizacion.html", label: "Parametrización min.", icon: "lightning", indent: true },
     { href: "/centro-inteligencia", link: "centro-inteligencia.html", label: "Centro de Inteligencia", icon: "chart-bar", indent: false, group: true },
     { href: "/patrones", link: "patrones.html", label: "Patrones", icon: "search", indent: false, badge: true },
     { href: "/prediccion", link: "prediccion.html", label: "Predicción", icon: "trending-up", indent: false },
