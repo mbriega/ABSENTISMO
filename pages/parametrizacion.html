@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Parametrizaci&#243;n &middot; ThirdWish Intelligence</title>
+  <link rel="stylesheet" href="../css/styles.css"/>
+  <style>
+    *{box-sizing:border-box}
+
+    /* ── PROGRESS BAR ── */
+    .wiz-bar{padding:14px 32px 0;height:56px;display:flex;align-items:flex-start;position:sticky;top:56px;z-index:9;background:#f8fafc;border-bottom:1px solid #e2e8f0;}
+    .wiz-steps{display:flex;align-items:center;margin:0 auto;}
+    .wiz-step-item{display:flex;align-items:center;gap:6px;}
+    .wiz-dot{width:24px;height:24px;border-radius:50%;border:2px solid #e2e8f0;background:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#94a3b8;transition:.2s;flex-shrink:0;}
+    .wiz-dot.done{background:#eff6ff;border-color:#2563eb;color:#2563eb;}
+    .wiz-dot.active{background:#2563eb;border-color:#2563eb;color:#fff;box-shadow:0 0 0 3px #dbeafe;}
+    .wiz-step-label{font-size:11.5px;font-weight:600;color:#94a3b8;white-space:nowrap;}
+    .wiz-step-item.active .wiz-step-label{color:#2563eb;font-weight:700;}
+    .wiz-step-item.done .wiz-step-label{color:#2563eb;}
+    .wiz-line{width:36px;flex:none;height:2px;background:#e2e8f0;margin:0 6px;transition:.3s;}
+    .wiz-line.done{background:#2563eb;}
+
+    /* ── LAYOUT ── */
+    .wiz-wrap{margin-left:260px;min-height:100vh;background:#f8fafc;max-width:calc(100vw - 260px);overflow-x:hidden;}
+    .wiz-content{padding:20px 32px 100px;}
+
+    /* ── BUTTONS ── */
+    .w-btn{height:30px;border:1px solid #e2e8f0;background:#fff;border-radius:7px;padding:0 10px;font-size:11px;font-weight:600;color:#475569;cursor:pointer;font:inherit;transition:.12s;white-space:nowrap;}
+    .w-btn:hover{background:#f8fafc;border-color:#cbd5e1;}
+    .w-btn.soft{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8;}
+    .w-btn.primary{background:#2563eb;border-color:#2563eb;color:#fff;}
+    .w-btn.primary:hover{background:#1d4ed8;}
+    .w-btn:disabled{opacity:.5;cursor:default;}
+
+    /* ── MAIN CARD ── */
+    .wiz-main-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+    .wiz-kicker{display:inline-flex;height:22px;align-items:center;padding:0 10px;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:999px;font-size:10.5px;font-weight:700;letter-spacing:.04em;margin-bottom:12px;}
+    .wiz-kicker.opt{background:#fffbeb;border-color:#fde68a;color:#b45309;}
+    .wiz-main-card h2{font-size:20px;font-weight:800;color:#0f172a;letter-spacing:-.03em;margin:0 0 6px;line-height:1.22;}
+    .wiz-main-card p.wiz-desc{font-size:13px;color:#64748b;line-height:1.6;font-weight:500;margin:0 0 20px;}
+
+    /* ── FOOTER ── */
+    .wiz-footer{position:fixed;bottom:0;left:260px;right:0;background:#fff;border-top:1px solid #e2e8f0;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;z-index:20;}
+    .wiz-meta{font-size:12px;color:#94a3b8;font-weight:600;}
+    .wiz-meta b{color:#334155;}
+    .wiz-nav{display:flex;gap:10px;align-items:center;}
+    .wiz-btn-back{height:38px;padding:0 18px;border:1px solid #e2e8f0;background:#fff;border-radius:8px;font-size:13px;font-weight:600;color:#64748b;cursor:pointer;font:inherit;}
+    .wiz-btn-back:hover{background:#f8fafc;}
+    .wiz-btn-back:disabled{opacity:.4;cursor:default;}
+    .wiz-btn-next{height:38px;padding:0 22px;border:none;background:#2563eb;border-radius:8px;font-size:13px;font-weight:600;color:#fff;cursor:pointer;font:inherit;display:flex;align-items:center;gap:8px;}
+    .wiz-btn-next:hover{background:#1d4ed8;}
+    .wiz-btn-next:disabled{background:#93c5fd;cursor:not-allowed;}
+    .wiz-btn-next svg{width:14px;height:14px;}
+
+    /* ── TOAST ── */
+    .act-toast{position:fixed;left:50%;bottom:72px;transform:translate(-50%,16px);background:#0f172a;color:#fff;border-radius:9px;padding:10px 14px;display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;opacity:0;pointer-events:none;transition:.2s;z-index:200;box-shadow:0 12px 30px rgba(15,23,42,.25);}
+    .act-toast.show{opacity:1;transform:translate(-50%,0);}
+    .act-toast i{width:17px;height:17px;border-radius:50%;display:grid;place-items:center;background:#d1fae5;color:#059669;font-style:normal;font-weight:900;font-size:9px;}
+
+    /* ── TAGS ── */
+    .a-tag{height:22px;border-radius:999px;padding:0 8px;display:inline-flex;align-items:center;font-size:9px;font-weight:800;}
+    .a-tag.blue{background:#eff6ff;color:#2563eb;}
+    .a-tag.green{background:#f0fdf4;color:#059669;}
+    .a-tag.amber{background:#fffbeb;color:#b45309;}
+
+    /* ── STEP 1: UPLOAD ── */
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .upload-spinner{width:22px;height:22px;border:2px solid #bfdbfe;border-top-color:#2563eb;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 10px;}
+    .upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
+    .upload-section-label b{display:block;font-size:12px;font-weight:700;color:#0f172a;margin-bottom:3px;}
+    .upload-section-label span{font-size:10px;color:#64748b;line-height:1.4;display:block;margin-bottom:8px;}
+    .upload-zone{border:2px dashed #cbd5e1;border-radius:12px;padding:28px 20px;text-align:center;cursor:pointer;transition:.2s;background:#f8fafc;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+    .upload-zone:hover{border-color:#93c5fd;background:#eff6ff;}
+    .upload-zone.loading{border-color:#93c5fd;background:#eff6ff;cursor:default;}
+    .upload-zone.done{border-style:solid;border-color:#bbf7d0;background:#f0fdf4;cursor:default;}
+    .upload-ico{width:34px;height:34px;border-radius:10px;background:#eff6ff;color:#2563eb;display:grid;place-items:center;margin-bottom:9px;}
+    .upload-ico svg{width:16px;height:16px;}
+    .upload-zone.done .upload-ico{background:#dcfce7;color:#059669;}
+    .upload-zone b{display:block;font-size:11.5px;font-weight:700;color:#334155;margin-bottom:3px;}
+    .upload-zone span.upload-sub{font-size:9.5px;color:#94a3b8;}
+    .upload-zone.done b{color:#059669;}
+    .reupload-btn{margin-top:8px;border:0;background:transparent;color:#94a3b8;font-size:9px;font-weight:700;text-decoration:underline;cursor:pointer;font:inherit;padding:0;}
+
+    .cols-result{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px;}
+    .cols-result-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+    .cols-result-head b{font-size:12px;font-weight:700;color:#0f172a;}
+    .cols-result-head span{font-size:10px;color:#059669;font-weight:700;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:999px;padding:2px 10px;}
+    .cols-two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+    .cols-section{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px;}
+    .cols-section-title{font-size:9px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;}
+    .col-item{display:flex;align-items:center;gap:6px;font-size:10.5px;color:#334155;padding:2px 0;}
+    .col-chk{width:15px;height:15px;border-radius:50%;background:#f0fdf4;color:#059669;display:grid;place-items:center;font-size:7px;font-weight:900;flex-shrink:0;}
+    .upload-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+    .upload-stat b{display:block;font-size:17px;font-weight:800;color:#0f172a;letter-spacing:-.03em;}
+    .upload-stat span{display:block;font-size:9px;color:#94a3b8;font-weight:600;margin-top:2px;}
+    .upload-stat{background:#fff;border:1px solid #e2e8f0;border-radius:9px;padding:10px 12px;}
+
+    /* ── STEP 2: GUIDED TEXTAREA ── */
+    .guided-layout{display:grid;grid-template-columns:210px 1fr;gap:18px;align-items:start;}
+    .guide-panel{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:14px;position:sticky;top:130px;}
+    .guide-panel-title{font-size:9px;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin:0 0 9px;}
+    .guide-items{list-style:none;padding:0;margin:0 0 12px;display:grid;gap:7px;}
+    .guide-items li{display:flex;align-items:flex-start;gap:6px;font-size:11px;color:#475569;line-height:1.4;}
+    .guide-dot{width:5px;height:5px;border-radius:50%;background:#2563eb;flex-shrink:0;margin-top:5px;}
+    .guide-example-btn{width:100%;border:1px solid #bfdbfe;background:#eff6ff;border-radius:8px;padding:7px 10px;font-size:10px;font-weight:700;color:#1d4ed8;cursor:pointer;font:inherit;text-align:left;display:flex;align-items:center;justify-content:space-between;}
+    .guide-example-btn:hover{background:#dbeafe;}
+    .guide-example-btn svg{width:11px;height:11px;transition:transform .2s;flex-shrink:0;}
+    .guide-example-btn.open svg{transform:rotate(180deg);}
+    .example-box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:12px;margin-top:8px;display:none;}
+    .example-box.open{display:block;}
+    .example-label{font-size:8.5px;font-weight:800;color:#3b82f6;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;}
+    .example-text{font-size:10.5px;color:#334155;line-height:1.6;margin:0 0 10px;font-style:italic;}
+    .use-example-btn{width:100%;border:0;background:#2563eb;color:#fff;border-radius:7px;padding:6px 10px;font-size:9.5px;font-weight:700;cursor:pointer;font:inherit;}
+    .use-example-btn:hover{background:#1d4ed8;}
+    .guided-textarea{width:100%;min-height:200px;resize:vertical;border:1px solid #e2e8f0;border-radius:12px;padding:14px;color:#334155;font-size:12.5px;line-height:1.65;outline:none;font:inherit;background:#fff;}
+    .guided-textarea:focus{border-color:#93c5fd;box-shadow:0 0 0 3px rgba(37,99,235,.08);}
+    .char-bar{display:flex;align-items:center;justify-content:space-between;margin-top:8px;}
+    .char-count{font-size:9.5px;font-weight:600;transition:.2s;}
+    .char-count.low{color:#dc2626;}
+    .char-count.mid{color:#b45309;}
+    .char-count.ok{color:#059669;}
+    .char-count.neutral{color:#94a3b8;}
+    .char-quality{font-size:9.5px;color:#94a3b8;}
+    .step2-validation{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:8px 12px;margin-top:10px;font-size:10.5px;color:#92400e;display:none;}
+    .step2-validation.show{display:block;}
+
+    /* ── STEP 3: CENTERS ── */
+    .cinfo-bar{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 16px;margin-bottom:16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+    .cinfo-item{display:flex;align-items:center;gap:6px;font-size:11px;color:#475569;}
+    .cinfo-item b{color:#0f172a;font-weight:700;}
+    .cinfo-sep{width:1px;height:14px;background:#e2e8f0;flex-shrink:0;}
+    .cinfo-note{font-size:10px;color:#94a3b8;flex:1;text-align:right;}
+
+    .center-row{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin-bottom:8px;}
+    .center-row-main{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;}
+    .center-info{min-width:150px;flex:0 0 auto;}
+    .center-name{font-size:13px;font-weight:700;color:#0f172a;display:block;margin-bottom:2px;}
+    .center-emp{font-size:9.5px;color:#94a3b8;font-weight:600;}
+    .center-fields{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;flex:1;}
+    .field-block{display:flex;flex-direction:column;gap:5px;}
+    .field-block-label{font-size:9px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;}
+    .prio-btns{display:flex;gap:3px;}
+    .prio-btn{height:26px;border:1px solid #e2e8f0;background:#fff;border-radius:6px;padding:0 9px;font-size:9.5px;font-weight:700;color:#64748b;cursor:pointer;font:inherit;transition:.12s;}
+    .prio-btn:hover{border-color:#bfdbfe;color:#2563eb;background:#eff6ff;}
+    .prio-btn.active[data-prio="alta"]{background:#fef2f2;border-color:#fca5a5;color:#dc2626;}
+    .prio-btn.active[data-prio="media"]{background:#fffbeb;border-color:#fde68a;color:#b45309;}
+    .prio-btn.active[data-prio="baja"]{background:#f0fdf4;border-color:#bbf7d0;color:#059669;}
+    .prio-btn.active[data-prio="none"]{background:#f8fafc;border-color:#cbd5e1;color:#64748b;}
+    .alert-row{display:flex;align-items:center;gap:7px;}
+    .alert-toggle-btn{width:34px;height:18px;border-radius:999px;background:#e2e8f0;position:relative;cursor:pointer;transition:.2s;border:none;padding:0;flex-shrink:0;}
+    .alert-toggle-btn.on{background:#2563eb;}
+    .alert-toggle-btn:after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+    .alert-toggle-btn.on:after{left:18px;}
+    .alert-pct-group{display:flex;align-items:center;gap:4px;}
+    .alert-pct-group.off{opacity:.35;pointer-events:none;}
+    .alert-pct-input{width:44px;height:26px;border:1px solid #e2e8f0;border-radius:6px;text-align:center;font-size:11px;font-weight:700;color:#334155;font:inherit;background:#fff;outline:none;}
+    .alert-pct-input:focus{border-color:#93c5fd;}
+    .alert-pct-unit{font-size:10px;color:#94a3b8;font-weight:600;}
+    .obs-section{margin-top:10px;border-top:1px solid #f1f5f9;padding-top:10px;}
+    .obs-toggle-btn{border:0;background:transparent;color:#2563eb;font-size:9.5px;font-weight:700;cursor:pointer;font:inherit;padding:0;display:flex;align-items:center;gap:4px;}
+    .obs-area{display:none;margin-top:8px;}
+    .obs-area.open{display:block;}
+    .obs-textarea{width:100%;min-height:52px;resize:vertical;border:1px solid #e2e8f0;border-radius:8px;padding:8px 10px;font-size:11px;color:#334155;line-height:1.5;outline:none;font:inherit;background:#f8fafc;}
+    .obs-textarea:focus{border-color:#93c5fd;box-shadow:0 0 0 3px rgba(37,99,235,.08);background:#fff;}
+    .obs-hint-text{font-size:9px;color:#94a3b8;margin-top:4px;line-height:1.4;}
+
+    /* ── STEP 4: THRESHOLDS ── */
+    .threshold-context{background:#f8fafc;border:1px solid #e2e8f0;border-radius:11px;padding:12px 14px;margin-bottom:16px;}
+    .threshold-context p{font-size:11.5px;color:#475569;line-height:1.55;margin:0;}
+    .threshold-context p strong{color:#0f172a;}
+    .threshold-rows{display:grid;gap:8px;margin-bottom:20px;}
+    .threshold-row{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#fff;border:1px solid #e2e8f0;border-radius:11px;}
+    .th-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+    .th-dot.bajo{background:#059669;}
+    .th-dot.medio{background:#f59e0b;}
+    .th-dot.alto{background:#f97316;}
+    .th-dot.critico{background:#dc2626;}
+    .th-name{font-size:12px;font-weight:700;color:#0f172a;width:62px;}
+    .th-rule{font-size:11px;color:#64748b;flex:1;line-height:1.4;}
+    .th-input-wrap{display:flex;align-items:center;gap:5px;}
+    .th-input{width:52px;height:30px;border:1px solid #e2e8f0;border-radius:8px;text-align:center;font-size:13px;font-weight:700;color:#0f172a;font:inherit;background:#fff;outline:none;}
+    .th-input:focus{border-color:#93c5fd;box-shadow:0 0 0 3px rgba(37,99,235,.08);}
+    .th-input-wrap span{font-size:11px;color:#64748b;font-weight:600;}
+    .th-default{font-size:9px;color:#cbd5e1;font-weight:600;white-space:nowrap;}
+    .semaforo-preview{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin-bottom:16px;}
+    .semaforo-preview-title{font-size:9px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin:0 0 10px;}
+    .semaforo-bar{height:22px;border-radius:7px;overflow:hidden;display:flex;margin-bottom:8px;}
+    .sem-seg{display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;color:rgba(255,255,255,.95);transition:flex .35s;}
+    .sem-seg.bajo{background:#059669;}
+    .sem-seg.medio{background:#f59e0b;}
+    .sem-seg.alto{background:#f97316;}
+    .sem-seg.critico{background:#dc2626;}
+    .semaforo-legend{display:flex;gap:14px;flex-wrap:wrap;}
+    .sem-leg{display:flex;align-items:center;gap:5px;font-size:9.5px;color:#64748b;}
+    .sem-leg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+    .seasonal-card{background:#f8fafc;border:1px dashed #e2e8f0;border-radius:11px;padding:14px;}
+    .seasonal-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+    .seasonal-card-head b{font-size:12px;font-weight:700;color:#334155;}
+    .seasonal-card-head span{font-size:9.5px;color:#94a3b8;}
+    .seasonal-card p{font-size:10.5px;color:#64748b;margin:0 0 10px;line-height:1.5;}
+    .add-seasonal-btn{height:30px;border:1px dashed #bfdbfe;background:transparent;color:#2563eb;border-radius:7px;padding:0 12px;font-size:10px;font-weight:700;cursor:pointer;font:inherit;}
+    .add-seasonal-btn:hover{background:#eff6ff;}
+    .seasonal-rules-list{display:grid;gap:6px;margin-bottom:8px;}
+    .srule-row{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:8px 10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+    .srule-row select,.srule-row input[type=number]{height:26px;border:1px solid #e2e8f0;border-radius:6px;font-size:10.5px;color:#334155;padding:0 6px;background:#fff;font:inherit;outline:none;}
+    .srule-row input[type=number]{width:44px;text-align:center;font-weight:700;}
+    .srule-row select:focus,.srule-row input:focus{border-color:#93c5fd;}
+    .srule-label{font-size:10px;color:#64748b;}
+    .srule-remove{width:22px;height:22px;border:1px solid #fca5a5;background:#fef2f2;color:#dc2626;border-radius:50%;cursor:pointer;font-size:13px;font-weight:700;display:grid;place-items:center;flex-shrink:0;margin-left:auto;}
+
+    /* ── STEP 5: CONVENIOS ── */
+    .opt-banner{background:#fffbeb;border:1px solid #fde68a;border-radius:11px;padding:11px 14px;margin-bottom:14px;display:flex;align-items:flex-start;gap:10px;}
+    .opt-banner-ico{width:20px;height:20px;border-radius:50%;background:#fef3c7;color:#b45309;display:grid;place-items:center;font-size:12px;font-weight:900;flex-shrink:0;margin-top:1px;}
+    .opt-banner p{font-size:11px;color:#92400e;line-height:1.5;margin:0;flex:1;}
+    .conv-guide{background:#f8fafc;border:1px solid #e2e8f0;border-radius:11px;padding:12px 14px;margin-bottom:14px;}
+    .conv-guide-title{font-size:10px;font-weight:800;color:#334155;margin:0 0 8px;}
+    .conv-guide-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:5px;}
+    .conv-guide-list li{display:flex;align-items:flex-start;gap:5px;font-size:10.5px;color:#475569;line-height:1.4;}
+    .conv-guide-list li:before{content:"·";color:#2563eb;font-weight:900;flex-shrink:0;}
+    .convenio-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;margin-bottom:8px;overflow:hidden;}
+    .convenio-card:last-child{margin-bottom:0;}
+    .convenio-head{display:flex;align-items:center;gap:10px;padding:13px 16px;cursor:pointer;transition:.1s;}
+    .convenio-head:hover{background:#fafbfd;}
+    .convenio-head-info{flex:1;}
+    .convenio-name{font-size:13px;font-weight:700;color:#0f172a;display:block;margin-bottom:2px;}
+    .convenio-count-label{font-size:9.5px;color:#94a3b8;}
+    .convenio-status{font-size:9.5px;font-weight:700;color:#94a3b8;white-space:nowrap;}
+    .convenio-status.filled{color:#059669;}
+    .convenio-chev{width:13px;height:13px;color:#94a3b8;transition:transform .2s;flex-shrink:0;}
+    .convenio-card.open .convenio-chev{transform:rotate(180deg);}
+    .convenio-body{display:none;border-top:1px solid #f1f5f9;padding:12px 16px;}
+    .convenio-card.open .convenio-body{display:block;}
+    .conv-body-hint{font-size:10.5px;color:#64748b;line-height:1.5;margin-bottom:8px;}
+    .conv-textarea{width:100%;min-height:88px;resize:vertical;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px;font-size:11px;color:#334155;line-height:1.55;outline:none;font:inherit;background:#fff;}
+    .conv-textarea:focus{border-color:#93c5fd;box-shadow:0 0 0 3px rgba(37,99,235,.08);}
+    .conv-foot{display:flex;align-items:center;justify-content:space-between;margin-top:6px;}
+    .conv-char{font-size:9px;color:#94a3b8;}
+    .conv-example-toggle{border:0;background:transparent;color:#2563eb;font-size:9px;font-weight:700;cursor:pointer;text-decoration:underline;text-underline-offset:2px;font:inherit;padding:0;}
+    .conv-example-box{display:none;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 12px;margin-top:8px;}
+    .conv-example-box.open{display:block;}
+    .conv-example-text{font-size:10px;color:#334155;line-height:1.6;margin:0 0 8px;font-style:italic;}
+    .conv-use-btn{border:0;background:#2563eb;color:#fff;border-radius:6px;padding:4px 10px;font-size:9px;font-weight:700;cursor:pointer;font:inherit;}
+    .conv-use-btn:hover{background:#1d4ed8;}
+
+    /* ── COMPLETION ── */
+    .completion-wrap{text-align:center;padding:16px 0;}
+    .completion-ico{width:56px;height:56px;border-radius:50%;background:#f0fdf4;border:2px solid #bbf7d0;display:grid;place-items:center;margin:0 auto 16px;color:#059669;}
+    .completion-ico svg{width:26px;height:26px;}
+    .completion-wrap h2{font-size:22px;font-weight:800;color:#0f172a;margin:0 0 8px;}
+    .completion-wrap p.comp-desc{font-size:13px;color:#64748b;line-height:1.6;max-width:420px;margin:0 auto 24px;}
+    .completion-modules{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:480px;margin:0 auto 24px;text-align:left;}
+    .comp-module{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;}
+    .comp-module-name{display:block;font-size:11px;font-weight:700;color:#0f172a;margin-bottom:4px;}
+    .comp-module-state{display:flex;align-items:center;gap:4px;font-size:9.5px;color:#059669;font-weight:700;}
+    .comp-cta{height:42px;padding:0 28px;border:none;background:#2563eb;border-radius:10px;font-size:14px;font-weight:700;color:#fff;cursor:pointer;font:inherit;}
+    .comp-cta:hover{background:#1d4ed8;}
+  </style>
+</head>
+<body class="bg-surface-50 text-surface-900 antialiased" data-page="activacion">
+
+  <div id="sidebar-mount"></div>
+
+  <div class="wiz-wrap">
+
+    <!-- Topbar -->
+    <div style="background:#fff;border-bottom:1px solid #e2e8f0;padding:13px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <a href="activacion.html" style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid #e2e8f0;border-radius:8px;color:#64748b;text-decoration:none;background:#fff;">
+          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        </a>
+        <div>
+          <h1 style="font-size:15px;font-weight:700;color:#0f172a;margin:0;">Parametrizaci&#243;n</h1>
+          <p style="font-size:11px;color:#94a3b8;margin:2px 0 0;">Configuraci&#243;n de datos &middot; Grupo Atlas &middot; Espa&#241;a</p>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:34px;height:34px;border-radius:50%;background:#0f172a;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;">MB</div>
+      </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="wiz-bar">
+      <div class="wiz-steps" id="wizSteps"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="wiz-content">
+      <article class="wiz-main-card" id="stepBody"></article>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="wiz-footer" id="wizFooter">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <button class="w-btn soft" onclick="saveAndExit()">Guardar y salir</button>
+      <span class="wiz-meta"><b id="footTitle">Carga de datos</b></span>
+    </div>
+    <div class="wiz-nav">
+      <button class="wiz-btn-back" id="btnBack" onclick="goBack()" disabled>&#8592; Anterior</button>
+      <button class="wiz-btn-next" id="btnNext" onclick="goNext()">
+        <span id="btnNextLabel">Siguiente</span>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="act-toast" id="toastEl"><i>&#10003;</i><span id="toastMsg"></span></div>
+
+  <script src="../js/components/sidebar.js"></script>
+  <script>
+  // ─── DATA ─────────────────────────────────────────────────
+  var STEPS = [
+    { id:1, short:'Datos',     title:'Carga de datos' },
+    { id:2, short:'Empresa',   title:'Descripción de empresa' },
+    { id:3, short:'Centros',   title:'Configuración por centros' },
+    { id:4, short:'Umbrales',  title:'Umbrales de riesgo' },
+    { id:5, short:'Convenios', title:'Restricciones de convenio', optional:true }
+  ];
+
+  var centersData = [
+    { id:'c1', name:'Planta Norte',            emp:312, prio:'alta',  alertOn:true,  alertPct:60, obs:'' },
+    { id:'c2', name:'Planta Sur',              emp:278, prio:'media', alertOn:true,  alertPct:60, obs:'' },
+    { id:'c3', name:'Centro Logístico Madrid',   emp:198, prio:'media', alertOn:false, alertPct:60, obs:'' },
+    { id:'c4', name:'Centro Logístico Valencia', emp:187, prio:'baja',  alertOn:false, alertPct:60, obs:'' },
+    { id:'c5', name:'Oficinas Centrales',      emp:156, prio:null,    alertOn:false, alertPct:60, obs:'' },
+    { id:'c6', name:'Centro de Distribución',   emp:116, prio:null,    alertOn:false, alertPct:60, obs:'' }
+  ];
+
+  var groupsData = [
+    { id:'g1', name:'Operario General',         count:624, conv:'', exampleOpen:false },
+    { id:'g2', name:'Técnico Especialista',count:287, conv:'', exampleOpen:false },
+    { id:'g3', name:'Mando Intermedio',         count:89,  conv:'', exampleOpen:false },
+    { id:'g4', name:'Personal Administrativo',  count:247, conv:'', exampleOpen:false }
+  ];
+
+  var convExamples = {
+    g1: 'Jornada de 40h semanales en turnos rotativos (mañana / tarde / noche). Preaviso mínimo de 15 días para cambios de turno. Descanso mínimo entre jornadas: 12h. No se pueden asignar más de 6 días consecutivos sin descanso. En periodos de campaña (octubre–diciembre) no se autorizan permisos no urgentes.',
+    g2: 'Jornada flexible con horario base de 7h a 15h. Los técnicos de guardia pueden ser requeridos en emergencias fuera del horario habitual, con compensación posterior en días libres. Preaviso de cambio de turno: 7 días. Cambios de especialidad requieren formación previa y comunicación al comité.',
+    g3: 'Libre disponibilidad horaria dentro de la jornada pactada (9h a 18h). Los mandos intermedios no pueden estar de baja más de 10 días sin designar cobertura. Preaviso de vacaciones: 30 días. Rotación entre centros posible con acuerdo individual.',
+    g4: 'Horario partido o continuo según el centro (9h–14h / 16h–19h). Teletrabajo parcial permitido hasta 2 días semanales. No se aplican turnos rotativos. Los cambios de puesto dentro del mismo nivel no requieren preaviso.'
+  };
+
+  // ─── STATE ────────────────────────────────────────────────
+  var curStep = 1;
+  var uploadDone = { plantilla: false, ausencias: false };
+  var empresaText = '';
+  var thresholds = { medio: 4, alto: 6, critico: 8 };
+  var seasonalRules = [];
+  var seasonalId = 0;
+  var completed = false;
+
+  // ─── INIT ─────────────────────────────────────────────────
+  window.onload = function() {
+    SidebarComponent.render();
+    buildWizSteps();
+    renderStep();
+  };
+
+  // ─── PROGRESS BAR ─────────────────────────────────────────
+  function buildWizSteps() {
+    var html = '';
+    STEPS.forEach(function(s, i) {
+      var state = i + 1 < curStep ? 'done' : (i + 1 === curStep ? 'active' : '');
+      html += '<div class="wiz-step-item ' + state + '">';
+      html += '<div class="wiz-dot ' + state + '">' + (state === 'done' ? '&#10003;' : s.id) + '</div>';
+      html += '<span class="wiz-step-label">' + s.short + '</span>';
+      html += '</div>';
+      if (i < STEPS.length - 1) {
+        html += '<div class="wiz-line' + (i + 1 < curStep ? ' done' : '') + '"></div>';
+      }
+    });
+    document.getElementById('wizSteps').innerHTML = html;
+  }
+
+  // ─── NAVIGATION ───────────────────────────────────────────
+  function goNext() {
+    if (!canAdvance()) return;
+    saveCurrentStep();
+    if (curStep === STEPS.length) { showCompletion(); return; }
+    curStep++;
+    buildWizSteps();
+    renderStep();
+    window.scrollTo(0, 0);
+  }
+
+  function goBack() {
+    if (curStep <= 1) return;
+    saveCurrentStep();
+    curStep--;
+    buildWizSteps();
+    renderStep();
+    window.scrollTo(0, 0);
+  }
+
+  function canAdvance() {
+    if (curStep === 1) {
+      if (!uploadDone.plantilla || !uploadDone.ausencias) {
+        var note = document.getElementById('upload-note');
+        if (note) { note.classList.add('show'); }
+        return false;
+      }
+    }
+    if (curStep === 2) {
+      var ta = document.getElementById('empresaTa');
+      var txt = ta ? ta.value.trim() : empresaText.trim();
+      if (txt.length < 100) {
+        var vn = document.getElementById('step2-validation');
+        if (vn) { vn.classList.add('show'); }
+        return false;
+      }
+    }
+    if (curStep === 4) {
+      var m = parseInt(document.getElementById('th-medio') ? document.getElementById('th-medio').value : thresholds.medio);
+      var a = parseInt(document.getElementById('th-alto') ? document.getElementById('th-alto').value : thresholds.alto);
+      var c = parseInt(document.getElementById('th-critico') ? document.getElementById('th-critico').value : thresholds.critico);
+      if (!(m > 0 && a > m && c > a)) {
+        toast('Los umbrales deben ser ascendentes: Medio < Alto < Crítico');
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function saveCurrentStep() {
+    if (curStep === 2) {
+      var ta = document.getElementById('empresaTa');
+      if (ta) empresaText = ta.value;
+    }
+    if (curStep === 4) {
+      var tm = document.getElementById('th-medio');
+      var ta2 = document.getElementById('th-alto');
+      var tc = document.getElementById('th-critico');
+      if (tm) thresholds.medio = parseInt(tm.value) || 4;
+      if (ta2) thresholds.alto = parseInt(ta2.value) || 6;
+      if (tc) thresholds.critico = parseInt(tc.value) || 8;
+    }
+  }
+
+  // ─── RENDER STEP ──────────────────────────────────────────
+  function renderStep() {
+    var s = STEPS[curStep - 1];
+    document.getElementById('footTitle').textContent = s.title;
+    document.getElementById('btnBack').disabled = (curStep === 1);
+    var btnNext = document.getElementById('btnNext');
+    var btnLabel = document.getElementById('btnNextLabel');
+    btnNext.disabled = (curStep === 1 && (!uploadDone.plantilla || !uploadDone.ausencias));
+    btnLabel.textContent = (curStep === STEPS.length) ? 'Finalizar configuración' : 'Siguiente';
+
+    var html = '';
+    if (curStep === 1) html = renderStep1();
+    else if (curStep === 2) html = renderStep2();
+    else if (curStep === 3) html = renderStep3();
+    else if (curStep === 4) html = renderStep4();
+    else if (curStep === 5) html = renderStep5();
+    document.getElementById('stepBody').innerHTML = html;
+    attachStepListeners();
+  }
+
+  function attachStepListeners() {
+    if (curStep === 2) {
+      var ta = document.getElementById('empresaTa');
+      if (ta) {
+        ta.value = empresaText;
+        ta.addEventListener('input', function() {
+          empresaText = ta.value;
+          updateCharCount();
+        });
+        updateCharCount();
+      }
+    }
+    if (curStep === 4) {
+      updateSemaforoPreview();
+      var inputs = document.querySelectorAll('.th-input');
+      inputs.forEach(function(inp) {
+        inp.addEventListener('input', function() { updateSemaforoPreview(); });
+      });
+      renderSeasonalRules();
+    }
+    if (curStep === 3) {
+      renderCenterRows();
+    }
+    if (curStep === 5) {
+      renderConvenioCards();
+    }
+  }
+
+  // ─── STEP 1: UPLOAD ───────────────────────────────────────
+  function renderStep1() {
+    var plantillaHTML = uploadDone.plantilla ? doneZone('plantilla') : emptyZone('plantilla');
+    var ausenciasHTML = uploadDone.ausencias ? doneZone('ausencias') : emptyZone('ausencias');
+    var colsHTML = (uploadDone.plantilla && uploadDone.ausencias) ? renderCols() : '';
+    return '<div class="wiz-kicker">Paso 1 de 5</div>'
+      + '<h2>Carga de datos</h2>'
+      + '<p class="wiz-desc">Sube los ficheros con la plantilla de empleados y el histórico de ausencias. La plataforma detectará automáticamente las columnas disponibles y validará que todos los campos necesarios están presentes.</p>'
+      + '<div class="upload-grid">'
+      + '<div>'
+        + '<div class="upload-section-label"><b>Fichero de plantilla</b><span>Empleados, centros, puestos, turnos, mandos, contratos</span></div>'
+        + plantillaHTML
+      + '</div>'
+      + '<div>'
+        + '<div class="upload-section-label"><b>Fichero de ausencias</b><span>Episodios por empleado con fechas, duración y contingencia</span></div>'
+        + ausenciasHTML
+      + '</div>'
+      + '</div>'
+      + '<div id="upload-note" class="step2-validation" style="margin-bottom:12px;">Sube los dos ficheros para continuar al siguiente paso.</div>'
+      + '<div id="colsResult">' + colsHTML + '</div>';
+  }
+
+  function emptyZone(type) {
+    return '<div class="upload-zone" id="zone-' + type + '" onclick="simulateUpload(\'' + type + '\')">'
+      + '<div class="upload-ico"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg></div>'
+      + '<b>Arrastra o haz clic para subir</b>'
+      + '<span class="upload-sub">CSV, XLSX · hasta 20 MB</span>'
+      + '</div>';
+  }
+
+  function doneZone(type) {
+    var filename = type === 'plantilla' ? 'plantilla_atlas_2024.xlsx' : 'ausencias_atlas_2024.xlsx';
+    return '<div class="upload-zone done" id="zone-' + type + '">'
+      + '<div class="upload-ico"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div>'
+      + '<b>Fichero cargado</b>'
+      + '<span class="upload-sub">' + filename + '</span>'
+      + '<button class="reupload-btn" onclick="resetUpload(\'' + type + '\');event.stopPropagation()">Re-subir fichero</button>'
+      + '</div>';
+  }
+
+  function renderCols() {
+    return '<div class="cols-result">'
+      + '<div class="cols-result-head"><b>Columnas detectadas y validadas</b><span>&#10003; Todo correcto</span></div>'
+      + '<div class="cols-two">'
+      + '<div class="cols-section"><div class="cols-section-title">Plantilla de empleados</div><div class="col-list">'
+      + colItem('empleado_id') + colItem('nombre') + colItem('centro') + colItem('planta')
+      + colItem('puesto') + colItem('turno') + colItem('mando') + colItem('tipo_contrato') + colItem('antigüedad')
+      + '</div></div>'
+      + '<div class="cols-section"><div class="cols-section-title">Histórico de ausencias</div><div class="col-list">'
+      + colItem('empleado_id') + colItem('fecha_inicio') + colItem('fecha_fin') + colItem('dias_duracion')
+      + colItem('contingencia') + colItem('cod_causa') + colItem('recaida')
+      + '</div></div>'
+      + '</div>'
+      + '<div class="upload-stats">'
+      + statItem('1.247', 'Empleados detectados') + statItem('6', 'Centros detectados')
+      + statItem('18.432', 'Episodios de ausencia') + statItem('4', 'Grupos de trabajadores')
+      + '</div></div>';
+  }
+
+  function colItem(label) {
+    return '<div class="col-item"><span class="col-chk">&#10003;</span>' + label + '</div>';
+  }
+  function statItem(val, label) {
+    return '<div class="upload-stat"><b>' + val + '</b><span>' + label + '</span></div>';
+  }
+
+  function simulateUpload(type) {
+    var zone = document.getElementById('zone-' + type);
+    if (!zone || zone.classList.contains('loading') || zone.classList.contains('done')) return;
+    zone.classList.add('loading');
+    zone.innerHTML = '<div class="upload-spinner"></div><b>Procesando fichero...</b><span class="upload-sub">Validando columnas</span>';
+    setTimeout(function() {
+      uploadDone[type] = true;
+      zone.outerHTML = doneZone(type);
+      var note = document.getElementById('upload-note');
+      if (note) note.classList.remove('show');
+      if (uploadDone.plantilla && uploadDone.ausencias) {
+        document.getElementById('colsResult').innerHTML = renderCols();
+        document.getElementById('btnNext').disabled = false;
+      }
+    }, 1600);
+  }
+
+  function resetUpload(type) {
+    uploadDone[type] = false;
+    var zone = document.getElementById('zone-' + type);
+    if (zone) zone.outerHTML = emptyZone(type);
+    document.getElementById('colsResult').innerHTML = '';
+    document.getElementById('btnNext').disabled = true;
+    // re-attach click since zone was replaced
+    var newZone = document.getElementById('zone-' + type);
+    if (newZone) newZone.onclick = function() { simulateUpload(type); };
+  }
+
+  // ─── STEP 2: EMPRESA ──────────────────────────────────────
+  function renderStep2() {
+    return '<div class="wiz-kicker">Paso 2 de 5</div>'
+      + '<h2>Descripción de empresa</h2>'
+      + '<p class="wiz-desc">La IA usa este contexto en todas las pantallas: narrativas de patrones, propuestas de planes de acción, radar de riesgo y chat de consultores. Cuanto más preciso sea el texto, mejor adaptará los análisis a tu empresa.</p>'
+      + '<div class="guided-layout">'
+      + '<div class="guide-panel">'
+        + '<p class="guide-panel-title">¿Qué incluir?</p>'
+        + '<ul class="guide-items">'
+          + '<li><span class="guide-dot"></span>Sector y actividad principal de la empresa</li>'
+          + '<li><span class="guide-dot"></span>Tamaño: nº de empleados y centros</li>'
+          + '<li><span class="guide-dot"></span>Convenio colectivo marco aplicable</li>'
+          + '<li><span class="guide-dot"></span>Tipo de operación (turnos, 24h, estacionalidad)</li>'
+          + '<li><span class="guide-dot"></span>Restricciones generales conocidas</li>'
+        + '</ul>'
+        + '<button class="guide-example-btn" id="exampleBtn" onclick="toggleExample()">'
+          + 'Ver ejemplo'
+          + '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>'
+        + '</button>'
+        + '<div class="example-box" id="exampleBox">'
+          + '<p class="example-label">Ejemplo relleno</p>'
+          + '<p class="example-text">Grupo Atlas es una empresa manufacturera del sector metalmecánico con 1.247 trabajadores distribuidos en 6 centros en España. Operamos bajo el Convenio Colectivo de la Industria Siderometalúrgica, con turnos 24h en las plantas de producción. La cultura prioriza la continuidad productiva; cualquier parada de línea tiene impacto económico inmediato. Restricciones clave: no se pueden concentrar permisos en campaña de verano ni en cierre de ejercicio, los cambios de turno requieren 15 días de preaviso y los ajustes de plantilla deben comunicarse al comité con 30 días de antelación.</p>'
+          + '<button class="use-example-btn" onclick="useExample()">Usar este texto como base</button>'
+        + '</div>'
+      + '</div>'
+      + '<div>'
+        + '<textarea class="guided-textarea" id="empresaTa" placeholder="Describe el contexto de tu empresa: sector, tamaño, convenio marco, tipo de operación y restricciones principales..."></textarea>'
+        + '<div class="char-bar">'
+          + '<span class="char-count neutral" id="charCount">0 caracteres</span>'
+          + '<span class="char-quality" id="charQuality">Mínimo recomendado: 100 caracteres</span>'
+        + '</div>'
+        + '<div class="step2-validation" id="step2-validation">Describe la empresa con al menos 100 caracteres para que la IA tenga contexto suficiente.</div>'
+      + '</div>'
+      + '</div>';
+  }
+
+  function toggleExample() {
+    var btn = document.getElementById('exampleBtn');
+    var box = document.getElementById('exampleBox');
+    if (!btn || !box) return;
+    var isOpen = box.classList.toggle('open');
+    btn.classList.toggle('open', isOpen);
+    btn.childNodes[0].textContent = isOpen ? 'Ocultar ejemplo' : 'Ver ejemplo';
+  }
+
+  function useExample() {
+    var exText = 'Grupo Atlas es una empresa manufacturera del sector metalmecánico con 1.247 trabajadores distribuidos en 6 centros en España. Operamos bajo el Convenio Colectivo de la Industria Siderometalúrgica, con turnos 24h en las plantas de producción. La cultura prioriza la continuidad productiva; cualquier parada de línea tiene impacto económico inmediato. Restricciones clave: no se pueden concentrar permisos en campaña de verano ni en cierre de ejercicio, los cambios de turno requieren 15 días de preaviso y los ajustes de plantilla deben comunicarse al comité con 30 días de antelación.';
+    var ta = document.getElementById('empresaTa');
+    if (ta) { ta.value = exText; empresaText = exText; updateCharCount(); ta.focus(); }
+    var vn = document.getElementById('step2-validation');
+    if (vn) vn.classList.remove('show');
+  }
+
+  function updateCharCount() {
+    var ta = document.getElementById('empresaTa');
+    var cc = document.getElementById('charCount');
+    var cq = document.getElementById('charQuality');
+    if (!ta || !cc) return;
+    var n = ta.value.trim().length;
+    var cls = n < 50 ? 'low' : (n < 100 ? 'mid' : 'ok');
+    var label = n < 50 ? 'Muy corto' : (n < 100 ? 'Casi suficiente' : 'Buen nivel ✓');
+    cc.className = 'char-count ' + cls;
+    cc.textContent = n + ' caracteres';
+    if (cq) cq.textContent = n >= 100 ? label : 'Mínimo recomendado: 100 caracteres';
+    if (n >= 100) {
+      var vn = document.getElementById('step2-validation');
+      if (vn) vn.classList.remove('show');
+    }
+  }
+
+  // ─── STEP 3: CENTERS ──────────────────────────────────────
+  function renderStep3() {
+    return '<div class="wiz-kicker">Paso 3 de 5</div>'
+      + '<h2>Configuración por centros</h2>'
+      + '<p class="wiz-desc">La plataforma ha detectado 6 centros en la plantilla cargada. Asigna prioridad a cada uno y activa las alertas de riesgo. Los centros prioritarios aparecen primero en los rankings de Patrones y Predicción.</p>'
+      + '<div class="cinfo-bar">'
+        + '<div class="cinfo-item"><b>6</b> centros detectados</div>'
+        + '<div class="cinfo-sep"></div>'
+        + '<div class="cinfo-item"><b>1.247</b> empleados en total</div>'
+        + '<div class="cinfo-sep"></div>'
+        + '<div class="cinfo-item">Prioridad: <b>define el orden en rankings</b></div>'
+        + '<div class="cinfo-sep"></div>'
+        + '<div class="cinfo-item">Alerta: <b>notificación cuando la tasa supere el umbral</b></div>'
+      + '</div>'
+      + '<div id="centerList"></div>';
+  }
+
+  function renderCenterRows() {
+    var html = '';
+    centersData.forEach(function(c) {
+      html += '<div class="center-row" id="cr-' + c.id + '">'
+        + '<div class="center-row-main">'
+          + '<div class="center-info">'
+            + '<span class="center-name">' + c.name + '</span>'
+            + '<span class="center-emp">' + c.emp + ' empleados</span>'
+          + '</div>'
+          + '<div class="center-fields">'
+            + '<div class="field-block">'
+              + '<span class="field-block-label">Prioridad</span>'
+              + '<div class="prio-btns">'
+                + prioBtnHTML(c, 'alta',  'Alta')
+                + prioBtnHTML(c, 'media', 'Media')
+                + prioBtnHTML(c, 'baja',  'Baja')
+                + prioBtnHTML(c, 'none',  'Sin prioridad')
+              + '</div>'
+            + '</div>'
+            + '<div class="field-block">'
+              + '<span class="field-block-label">Alerta de riesgo</span>'
+              + '<div class="alert-row">'
+                + '<button class="alert-toggle-btn' + (c.alertOn ? ' on' : '') + '" id="atg-' + c.id + '" onclick="toggleAlert(\'' + c.id + '\')"></button>'
+                + '<div class="alert-pct-group' + (c.alertOn ? '' : ' off') + '" id="apg-' + c.id + '">'
+                  + '<span class="alert-pct-unit">si tasa &gt;</span>'
+                  + '<input class="alert-pct-input" id="apct-' + c.id + '" type="number" min="1" max="50" value="' + c.alertPct + '" onchange="updateAlertPct(\'' + c.id + '\',this.value)">'
+                  + '<span class="alert-pct-unit">%</span>'
+                + '</div>'
+              + '</div>'
+            + '</div>'
+          + '</div>'
+        + '</div>'
+        + '<div class="obs-section">'
+          + '<button class="obs-toggle-btn" id="obs-btn-' + c.id + '" onclick="toggleObs(\'' + c.id + '\')">'
+            + '<svg width="10" height="10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>'
+            + (c.obs ? 'Observación añadida' : '+ Añadir observación')
+          + '</button>'
+          + '<div class="obs-area' + (c.obs ? ' open' : '') + '" id="obs-area-' + c.id + '">'
+            + '<textarea class="obs-textarea" id="obs-ta-' + c.id + '" placeholder="Ej.: Planta en fase de ampliación, conflictividad laboral en Q3, convenio propio de empresa, obras en el centro..." onchange="updateObs(\'' + c.id + '\',this.value)">' + (c.obs || '') + '</textarea>'
+            + '<p class="obs-hint-text">Esta observación aparecerá como nota en las tarjetas de Predicción y la IA la usará para contextualizar sus análisis del centro.</p>'
+          + '</div>'
+        + '</div>'
+      + '</div>';
+    });
+    document.getElementById('centerList').innerHTML = html;
+  }
+
+  function prioBtnHTML(c, prio, label) {
+    var isActive = (c.prio === prio) || (prio === 'none' && !c.prio);
+    return '<button class="prio-btn' + (isActive ? ' active' : '') + '" data-prio="' + prio + '" onclick="setPrio(\'' + c.id + '\',\'' + prio + '\')">' + label + '</button>';
+  }
+
+  function setPrio(cid, prio) {
+    var c = centersData.find(function(x) { return x.id === cid; });
+    if (!c) return;
+    c.prio = (prio === 'none') ? null : prio;
+    var btns = document.querySelectorAll('#cr-' + cid + ' .prio-btn');
+    btns.forEach(function(btn) {
+      var bp = btn.dataset.prio;
+      var shouldActive = (bp === prio) || (bp === 'none' && prio === 'none');
+      btn.classList.toggle('active', shouldActive);
+    });
+  }
+
+  function toggleAlert(cid) {
+    var c = centersData.find(function(x) { return x.id === cid; });
+    if (!c) return;
+    c.alertOn = !c.alertOn;
+    var btn = document.getElementById('atg-' + cid);
+    var grp = document.getElementById('apg-' + cid);
+    if (btn) btn.classList.toggle('on', c.alertOn);
+    if (grp) grp.classList.toggle('off', !c.alertOn);
+  }
+
+  function updateAlertPct(cid, val) {
+    var c = centersData.find(function(x) { return x.id === cid; });
+    if (c) c.alertPct = parseInt(val) || 60;
+  }
+
+  function toggleObs(cid) {
+    var area = document.getElementById('obs-area-' + cid);
+    var btn = document.getElementById('obs-btn-' + cid);
+    if (!area) return;
+    var open = area.classList.toggle('open');
+    if (btn) {
+      var c = centersData.find(function(x) { return x.id === cid; });
+      btn.childNodes[1].textContent = open ? ' Ocultar observación' : (c && c.obs ? ' Observación añadida' : ' + Añadir observación');
+    }
+    if (open) {
+      var ta = document.getElementById('obs-ta-' + cid);
+      if (ta) ta.focus();
+    }
+  }
+
+  function updateObs(cid, val) {
+    var c = centersData.find(function(x) { return x.id === cid; });
+    if (c) c.obs = val;
+    var btn = document.getElementById('obs-btn-' + cid);
+    if (btn) btn.childNodes[1].textContent = val ? ' Observación añadida' : ' + Añadir observación';
+  }
+
+  // ─── STEP 4: THRESHOLDS ───────────────────────────────────
+  function renderStep4() {
+    return '<div class="wiz-kicker">Paso 4 de 5</div>'
+      + '<h2>Umbrales de riesgo</h2>'
+      + '<p class="wiz-desc">Define en qué porcentaje de tasa de absentismo el semáforo cambia de color. Estos umbrales se aplican en todas las pantallas: dashboard, patrones, predicción y planes de acción.</p>'
+      + '<div class="threshold-context"><p>Los <strong>valores por defecto (4 / 6 / 8 %)</strong> son los estándares del sector. Ajústalos si tu empresa tiene referentes distintos o acuerdos internos que definan qué tasa se considera crítica.</p></div>'
+      + '<div class="threshold-rows">'
+        + '<div class="threshold-row"><span class="th-dot bajo"></span><span class="th-name">Bajo</span><span class="th-rule">Tasa por debajo del umbral Medio. Sin acción requerida.</span><div class="th-input-wrap"><span class="th-default">automático</span></div></div>'
+        + '<div class="threshold-row"><span class="th-dot medio"></span><span class="th-name">Medio</span><span class="th-rule">Tasa a partir de</span><div class="th-input-wrap"><input class="th-input" id="th-medio" type="number" min="1" max="30" value="' + thresholds.medio + '"><span>%</span><span class="th-default">(def. 4 %)</span></div></div>'
+        + '<div class="threshold-row"><span class="th-dot alto"></span><span class="th-name">Alto</span><span class="th-rule">Tasa a partir de</span><div class="th-input-wrap"><input class="th-input" id="th-alto" type="number" min="1" max="30" value="' + thresholds.alto + '"><span>%</span><span class="th-default">(def. 6 %)</span></div></div>'
+        + '<div class="threshold-row"><span class="th-dot critico"></span><span class="th-name">Crítico</span><span class="th-rule">Tasa a partir de</span><div class="th-input-wrap"><input class="th-input" id="th-critico" type="number" min="1" max="30" value="' + thresholds.critico + '"><span>%</span><span class="th-default">(def. 8 %)</span></div></div>'
+      + '</div>'
+      + '<div class="semaforo-preview">'
+        + '<p class="semaforo-preview-title">Vista previa del semáforo</p>'
+        + '<div class="semaforo-bar" id="semaforoBar"></div>'
+        + '<div class="semaforo-legend">'
+          + '<div class="sem-leg"><span class="sem-leg-dot" style="background:#059669"></span>Bajo: 0 –</div>'
+          + '<div class="sem-leg" id="sl-medio"><span class="sem-leg-dot" style="background:#f59e0b"></span>Medio</div>'
+          + '<div class="sem-leg" id="sl-alto"><span class="sem-leg-dot" style="background:#f97316"></span>Alto</div>'
+          + '<div class="sem-leg" id="sl-critico"><span class="sem-leg-dot" style="background:#dc2626"></span>Crítico</div>'
+        + '</div>'
+      + '</div>'
+      + '<div class="seasonal-card">'
+        + '<div class="seasonal-card-head"><b>Reglas estacionales</b><span>Opcional</span></div>'
+        + '<p>Permite aplicar umbrales distintos en ciertos meses del año. Útil si tu empresa tiene periodos de alta o baja actividad donde el absentismo se comporta de forma diferente.</p>'
+        + '<div class="seasonal-rules-list" id="seasonalList"></div>'
+        + '<button class="add-seasonal-btn" onclick="addSeasonalRule()">+ Añadir regla estacional</button>'
+      + '</div>';
+  }
+
+  function updateSemaforoPreview() {
+    var m = parseInt(document.getElementById('th-medio') ? document.getElementById('th-medio').value : thresholds.medio) || 4;
+    var a = parseInt(document.getElementById('th-alto') ? document.getElementById('th-alto').value : thresholds.alto) || 6;
+    var c = parseInt(document.getElementById('th-critico') ? document.getElementById('th-critico').value : thresholds.critico) || 8;
+    var bar = document.getElementById('semaforoBar');
+    if (!bar) return;
+    var total = Math.max(c + 4, 16);
+    bar.innerHTML = ''
+      + '<div class="sem-seg bajo" style="flex:' + m + '">' + m + '%</div>'
+      + '<div class="sem-seg medio" style="flex:' + (a - m) + '">' + a + '%</div>'
+      + '<div class="sem-seg alto" style="flex:' + (c - a) + '">' + c + '%</div>'
+      + '<div class="sem-seg critico" style="flex:' + (total - c) + '">&ge;' + c + '%</div>';
+    var slM = document.getElementById('sl-medio');
+    var slA = document.getElementById('sl-alto');
+    var slC = document.getElementById('sl-critico');
+    if (slM) slM.childNodes[1].textContent = 'Medio: ' + m + ' – ' + a + ' %';
+    if (slA) slA.childNodes[1].textContent = 'Alto: ' + a + ' – ' + c + ' %';
+    if (slC) slC.childNodes[1].textContent = 'Crítico: ≥ ' + c + ' %';
+  }
+
+  var MONTHS = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+  function monthOptions(selected) {
+    return MONTHS.map(function(m, i) {
+      return '<option value="' + (i+1) + '"' + (selected === i+1 ? ' selected' : '') + '>' + m + '</option>';
+    }).join('');
+  }
+
+  function addSeasonalRule() {
+    seasonalId++;
+    var id = 'sr' + seasonalId;
+    seasonalRules.push({ id: id, from: 6, to: 8, medio: 6, alto: 9, critico: 12 });
+    renderSeasonalRules();
+  }
+
+  function removeSeasonalRule(id) {
+    seasonalRules = seasonalRules.filter(function(r) { return r.id !== id; });
+    renderSeasonalRules();
+  }
+
+  function renderSeasonalRules() {
+    var list = document.getElementById('seasonalList');
+    if (!list) return;
+    if (!seasonalRules.length) { list.innerHTML = ''; return; }
+    list.innerHTML = seasonalRules.map(function(r) {
+      return '<div class="srule-row">'
+        + '<span class="srule-label">De</span>'
+        + '<select onchange="updateSRule(\'' + r.id + '\',\'from\',this.value)">' + monthOptions(r.from) + '</select>'
+        + '<span class="srule-label">a</span>'
+        + '<select onchange="updateSRule(\'' + r.id + '\',\'to\',this.value)">' + monthOptions(r.to) + '</select>'
+        + '<span class="srule-label">&nbsp;&nbsp;Medio</span>'
+        + '<input type="number" value="' + r.medio + '" min="1" max="30" onchange="updateSRule(\'' + r.id + '\',\'medio\',this.value)"><span class="srule-label">%</span>'
+        + '<span class="srule-label">Alto</span>'
+        + '<input type="number" value="' + r.alto + '" min="1" max="30" onchange="updateSRule(\'' + r.id + '\',\'alto\',this.value)"><span class="srule-label">%</span>'
+        + '<span class="srule-label">Crítico</span>'
+        + '<input type="number" value="' + r.critico + '" min="1" max="30" onchange="updateSRule(\'' + r.id + '\',\'critico\',this.value)"><span class="srule-label">%</span>'
+        + '<button class="srule-remove" onclick="removeSeasonalRule(\'' + r.id + '\')">×</button>'
+      + '</div>';
+    }).join('');
+  }
+
+  function updateSRule(id, key, val) {
+    var r = seasonalRules.find(function(x) { return x.id === id; });
+    if (r) r[key] = parseInt(val);
+  }
+
+  // ─── STEP 5: CONVENIOS ────────────────────────────────────
+  function renderStep5() {
+    return '<div class="wiz-kicker opt">Paso 5 de 5 &middot; Opcional</div>'
+      + '<h2>Restricciones de convenio</h2>'
+      + '<p class="wiz-desc">La plataforma ha detectado 4 grupos de trabajadores en la plantilla. Describe las restricciones del convenio de cada grupo en texto libre. La IA las usará para adaptar los planes de acción y no proponer medidas que no se puedan aplicar.</p>'
+      + '<div class="opt-banner"><div class="opt-banner-ico">!</div><p>Este paso es <strong>opcional</strong>. Puedes completarlo ahora o dejarlo para más adelante desde la sección Setup &rarr; Convenios. Sin convenio, la IA generará propuestas genéricas que después podrás refinar.</p></div>'
+      + '<div class="conv-guide">'
+        + '<p class="conv-guide-title">&#128221;&nbsp; ¿Qué incluir por grupo de trabajadores?</p>'
+        + '<ul class="conv-guide-list">'
+          + '<li><b>Preaviso</b> para cambios de turno o categoría</li>'
+          + '<li><b>Límites de jornada</b> y descanso mínimo entre jornadas</li>'
+          + '<li><b>Restricciones estacionales</b> de permisos o vacaciones</li>'
+          + '<li><b>Condiciones de teletrabajo</b> si aplica</li>'
+          + '<li><b>Compensación</b> por guardias, festivos o jornadas extras</li>'
+          + '<li><b>Reglas de cobertura</b> en caso de baja o permiso prolongado</li>'
+        + '</ul>'
+      + '</div>'
+      + '<div id="convenioList"></div>';
+  }
+
+  function renderConvenioCards() {
+    var html = '';
+    groupsData.forEach(function(g) {
+      var isFilled = g.conv && g.conv.trim().length > 0;
+      var isOpen = g.open || false;
+      html += '<div class="convenio-card' + (isOpen ? ' open' : '') + '" id="cc-' + g.id + '">'
+        + '<div class="convenio-head" onclick="toggleConvenio(\'' + g.id + '\')">'
+          + '<div class="convenio-head-info">'
+            + '<span class="convenio-name">' + g.name + '</span>'
+            + '<span class="convenio-count-label">' + g.count + ' empleados en este grupo</span>'
+          + '</div>'
+          + '<span class="convenio-status' + (isFilled ? ' filled' : '') + '" id="cs-' + g.id + '">' + (isFilled ? '&#10003; Relleno' : 'Sin rellenar') + '</span>'
+          + '<svg class="convenio-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>'
+        + '</div>'
+        + '<div class="convenio-body">'
+          + '<p class="conv-body-hint">Describe las condiciones del convenio que la IA debe respetar al proponer planes de acción para este grupo.</p>'
+          + '<textarea class="conv-textarea" id="cta-' + g.id + '" placeholder="Ej.: Jornada de 40h semanales en turnos rotativos. Preaviso mínimo de 15 días para cambios de turno..." onInput="updateConv(\'' + g.id + '\',this.value)">' + (g.conv || '') + '</textarea>'
+          + '<div class="conv-foot">'
+            + '<span class="conv-char" id="cchar-' + g.id + '">' + (g.conv ? g.conv.length : 0) + ' caracteres</span>'
+            + '<button class="conv-example-toggle" onclick="toggleConvExample(\'' + g.id + '\')">Ver ejemplo</button>'
+          + '</div>'
+          + '<div class="conv-example-box" id="cex-' + g.id + '">'
+            + '<p class="conv-example-text">' + (convExamples[g.id] || '') + '</p>'
+            + '<button class="conv-use-btn" onclick="useConvExample(\'' + g.id + '\')">Usar como base</button>'
+          + '</div>'
+        + '</div>'
+      + '</div>';
+    });
+    document.getElementById('convenioList').innerHTML = html;
+  }
+
+  function toggleConvenio(id) {
+    var card = document.getElementById('cc-' + id);
+    if (!card) return;
+    var g = groupsData.find(function(x) { return x.id === id; });
+    var isOpen = card.classList.toggle('open');
+    if (g) g.open = isOpen;
+    if (isOpen) {
+      var ta = document.getElementById('cta-' + id);
+      if (ta) ta.focus();
+    }
+  }
+
+  function updateConv(id, val) {
+    var g = groupsData.find(function(x) { return x.id === id; });
+    if (g) g.conv = val;
+    var cc = document.getElementById('cchar-' + id);
+    if (cc) cc.textContent = val.length + ' caracteres';
+    var status = document.getElementById('cs-' + id);
+    if (status) {
+      status.className = 'convenio-status' + (val.trim() ? ' filled' : '');
+      status.innerHTML = val.trim() ? '&#10003; Relleno' : 'Sin rellenar';
+    }
+  }
+
+  function toggleConvExample(id) {
+    var box = document.getElementById('cex-' + id);
+    if (box) box.classList.toggle('open');
+  }
+
+  function useConvExample(id) {
+    var ex = convExamples[id] || '';
+    var ta = document.getElementById('cta-' + id);
+    if (ta) { ta.value = ex; updateConv(id, ex); ta.focus(); }
+    var box = document.getElementById('cex-' + id);
+    if (box) box.classList.remove('open');
+  }
+
+  // ─── COMPLETION ───────────────────────────────────────────
+  function showCompletion() {
+    completed = true;
+    document.getElementById('wizFooter').style.display = 'none';
+    document.getElementById('stepBody').innerHTML = ''
+      + '<div class="completion-wrap">'
+        + '<div class="completion-ico"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div>'
+        + '<h2>Parametrización completada</h2>'
+        + '<p class="comp-desc">Grupo Atlas ya tiene los datos mínimos necesarios para que todos los módulos funcionen. La plataforma calculará los KPIs automáticamente a partir de la información cargada.</p>'
+        + '<div class="completion-modules">'
+          + compModule('Centro de Inteligencia', 'Listo para usar')
+          + compModule('Patrones', 'Listo para usar')
+          + compModule('Predicción', 'Listo para usar')
+          + compModule('Planes de Acción', 'Listo para usar')
+          + compModule('Seguimiento', 'Listo para usar')
+          + compModule('Chat IA', 'Listo para usar')
+        + '</div>'
+        + '<button class="comp-cta" onclick="window.location.href=\'centro-inteligencia.html\'">Ir al Centro de Inteligencia &rarr;</button>'
+      + '</div>';
+  }
+
+  function compModule(name, status) {
+    return '<div class="comp-module">'
+      + '<span class="comp-module-name">' + name + '</span>'
+      + '<span class="comp-module-state"><svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' + status + '</span>'
+    + '</div>';
+  }
+
+  // ─── UTILS ────────────────────────────────────────────────
+  function saveAndExit() {
+    toast('Progreso guardado correctamente');
+    setTimeout(function() { window.location.href = 'activacion.html'; }, 1200);
+  }
+
+  function toast(msg) {
+    var el = document.getElementById('toastEl');
+    var m = document.getElementById('toastMsg');
+    if (!el || !m) return;
+    m.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(el._t);
+    el._t = setTimeout(function() { el.classList.remove('show'); }, 2400);
+  }
+  </script>
+</body>
+</html>
